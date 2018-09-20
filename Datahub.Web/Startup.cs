@@ -45,10 +45,14 @@ namespace Datahub.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                app.UseHsts();
+
+                // disable HTTPS enforcement for now
+                // app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // disable HTTPS enforcement for now
+            // app.UseHttpsRedirection();
+
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
