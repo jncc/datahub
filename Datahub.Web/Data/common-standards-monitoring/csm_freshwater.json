@@ -1,0 +1,69 @@
+{
+	"id": "6c6efb44-d9a3-45f4-9547-99e44a30e066",
+	"name": "guidance-for-freshwater-habitats-and-species",
+	"collectionName": "jncc/evidence/surveillance-and-monitoring/protected-sites-monitoring/common-standards-monitoring",
+	"metadata": {
+		"title": "Common Standards Monitoring Guidance for Freshwater Habitats and Species",
+		"lineage": "",
+		"abstract": "Guidance on monitoring freshwater habitats is available under four broad headings: Canals, Ditches, Freshwater Lakes and Rivers.Eutrophic Ditch in Cumbria © Ian Strachan, JNCC\nFor each of the four main habitat types there is an introduction and description of the habitat in the United Kingdom, sections on attributes and targets for each feature, approach to monitoring, recommended visiting period and skill requirements. A suggested methodology for assessing the habitats is included in the Annex. The generic tables for favourable condition listing attributes and their targets for each habitat are included at the end of each document.\nThis guidance:\nidentifies a set of generic attributes to assess status of the feature, highlighting those attributes that should be used on all sites, and those that are site-specific (discretionary) to be used to reflect local distinctiveness;\nprovides advice on setting targets\nFreshwater lakes guidance updated March 2015\nThe Standing Waters guidance was updated to incorporate changes to monitoring and classification practices and methods resulting from Water Framework Directive (WFD) implementation in the UK.  It includes the use of several WFD metrics, environmental standards and classification tools, thus giving much closer alignment between monitoring for Conservation and WFD purposes.  Explicit targets have been added for nitrogen, chlorophyll and acidity, thereby allowing better diagnosis of ecological problems.  The revised approach therefore makes much more effective and efficient use of pre-existing data, whilst providing a more consistent and coherent framework for collection of new data if required.\nThe text has also been substantially edited and formatted to focus on key messages, remove unnecessary appendices and bring targets into the main body of the document alongside the explanatory text for each attribute.\nThis edition of the guidance was peer reviewed in October 2014 according to JNCC procedures, and approved for publication in February 2015.\n*Rivers guidance updated January 2014 with further minor amendments in September 2016 to reflect changes in WFD methods*\nThis guidance forms a comprehensive revision of the previous version, aimed to improve its consistency and ease of use and to take account of the monitoring work for the EC Water Framework Directive (WFD) undertaken by the environment agencies in the UK. Some of the main changes are to the water quality and flow targets resulting from an extensive literature review carried out by Natural England, as well as the inclusion of biological metrics for plant and invertebrate communities based on the WFD, and simpler and clearer ways of assessing a range of other attributes.",
+		"keywords": ["monitoring", "protected-sites", "freshwater", "habitats", "species"],
+		"metadataDate": "2018-09-20",
+		"resourceType": "series",
+		"topicCategory": "monitoring",
+		"temporalExtent": {
+			"begin": "2008-08-01T00:00:00Z",
+			"end": "2008-08-01T00:00:00Z"
+		},
+		"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+		"metadataLanguage": "English",
+		"accessLimitations": "",
+		"datasetReferenceDate": "2004-08-01",
+		"metadataPointOfContact": "Joint Nature Conservervation Committee, Data Services [data@jncc.gov.uk]",
+		"responsibleOrganisation": "JNCC"
+	},
+	"properties": {},
+	"data": {
+		"canals": {
+			"title": "Common Standards Monitoring Guidance for Canals",
+			"http": {
+				"url": "http://jncc.defra.gov.uk/PDF/CSM_canals_Mar05.pdf",
+				"type": "application/pdf"
+			}
+		},
+		"ditches": {
+			"title": "Common Standards Monitoring Guidance for Ditches",
+			"http": {
+				"url": "http://jncc.defra.gov.uk/pdf/CSM_ditches_Mar05.pdf",
+				"type": "application/pdf"
+			}
+		},
+		"freshwater-lakes": {
+			"title": "Common Standards Monitoring Guidance for Freshwater Lakes",
+			"http": {
+				"url": "http://jncc.defra.gov.uk/pdf/0315_CSM_Freshwater_lakes.pdf",
+				"type": "application/pdf"
+			}
+		},
+		"rivers": {
+			"title": "Common Standards Monitoring Guidance for Rivers",
+			"http": {
+				"url": "http://jncc.defra.gov.uk/pdf/CSM_rivers_Sept2016.pdf",
+				"type": "application/pdf"
+			}
+		},
+		"rivers-bank-vegetation-naturalness": {
+			"title": "Common Standards Monitoring Guidance for Rivers - Bank Vegetation Naturalness Appendix",
+			"http": {
+				"url": "http://jncc.defra.gov.uk/docs/CSM_rivers-BankVegetationNaturalnessExcelfile.xls",
+				"type": "application/vnd.ms-excel"
+			}
+		},
+		"rivers-riparian-zone-vegetation-naturalness": {
+			"title": "Common Standards Monitoring Guidance for Rivers - Riparian zone vegetation naturalness Appendix",
+			"http": {
+				"url": "http://jncc.defra.gov.uk/docs/CSM_rivers-RiparianZoneNaturalnessExcelfile.xls",
+				"type": "application/vnd.ms-excel"
+			}
+		}
+	}
+}

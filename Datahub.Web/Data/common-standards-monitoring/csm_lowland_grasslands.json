@@ -1,0 +1,34 @@
+{
+	"id": "36959434-2b2a-4ce1-a42d-3294cd1a9731",
+	"name": "guidance-for-lowland-grassland",
+	"collectionName": "jncc/evidence/surveillance-and-monitoring/protected-sites-monitoring/common-standards-monitoring",
+	"metadata": {
+		"title": "Common Standards Monitoring Guidance for Lowland Grassland",
+		"lineage": "",
+		"abstract": "This guidance section covers lowland grassland habitats on designated sites across the UK. For the purposes of this guidance, 'lowland' grasslands (including upland hay meadows) are essentially those which lie below the limit of agricultural enclosure. Grasslands in unenclosed, upland landscapes are covered by the Upland habitat guidance section. For grasslands in coastal habitats the relevant coastal section should also be consulted. For fen meadows and related grasslands on lowland peatlands the Lowland wetland guidance should be consulted.\nGuidance is given on the selection of attributes and the setting of targets under five headings: Lowland meadows and upland hay meadows; lowland calcareous grasslands; lowland dry acid grasslands; Lowland purple moor grass and rush pastures; lowland calaminarian grasslands.",
+		"keywords": ["monitoring", "protected-sites", "lowland-grassland"],
+		"metadataDate": "2018-09-20",
+		"resourceType": "series",
+		"topicCategory": "monitoring",
+		"temporalExtent": {
+			"begin": "2008-02-01T00:00:00Z",
+			"end": "2008-02-01T00:00:00Z"
+		},
+		"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+		"metadataLanguage": "English",
+		"accessLimitations": "",
+		"datasetReferenceDate": "2004-02-01",
+		"metadataPointOfContact": "Joint Nature Conservervation Committee, Data Services [data@jncc.gov.uk]",
+		"responsibleOrganisation": "JNCC"
+	},
+	"properties": {},
+	"data": {
+		"lowland-grassland": {
+			"title": "Common Standard Monitoring Guidance for Lowland Grassland",
+			"http": {
+				"url": "http://jncc.defra.gov.uk/PDF/CSM_lowland_grassland.pdf",
+				"type": "application/pdf"
+			}
+		}
+	}
+}
