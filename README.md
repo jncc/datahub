@@ -7,17 +7,23 @@ Development
 -----------
 Created in .NET Core v2.1.4. Should work on any platform with .NET Core installed. 
 
-There is a solution file but it's not linked up to any projects yet. There is a single project called Datahub.Web which is an ASP.NET Core Razor web app. 
+There is a solution file with a single project called Datahub.Web, which is an ASP.NET Core Razor web app. It's important to make sure you're in the correct project directory when you're using the command line:
 
-To restore local packages:
+    cd ./Datahub.Web
+
+To restore local packages (equivalent to `npm install`):
 
     dotnet restore
 
-To run locally:
+To run locally (with a `watch` for recompilation on save):
 
-    dotnet run
+    dotnet watch run
 
 Open a browser at http://localhost:5000/
+
+To add packages, e.g.
+
+    dotnet add package Newtonsoft.Json
 
 Deployment
 ----------
