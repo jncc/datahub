@@ -5,7 +5,28 @@
         "title": "Summary descriptions of National Vegetation Classification grassland and montane communities",
         "lineage": "",
         "abstract": "An aide-memoir for field workers and others that combines a series of keys and summary descriptions covering all mesotrophic, calcicolous and calcifugous grassland types within Volume 3 of the National Vegetation Classification.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
-        "keywords": ["uk", "habitats", "classification", "nvc", "woodland"],
+        "keywords": [
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Habitats",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "NVC",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Classification",
+                "vocab": ""
+            },
+            {
+                "value": "Grassland",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            }
+        ],
         "metadataDate": "1998-01-01",
         "resourceType": "series",
         "topicCategory": "environment",

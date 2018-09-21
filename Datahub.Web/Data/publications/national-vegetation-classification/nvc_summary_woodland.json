@@ -5,7 +5,28 @@
         "title": "National vegetation classification field guide to woodland",
         "lineage": "",
         "abstract": "Straightforward descriptions of the 18 woodland types identified by the NVC, and keys to their sub-communities. A valuable complement to the NVC, especially for use in the field.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
-        "keywords": ["uk", "habitats", "classification", "nvc", "woodland"],
+        "keywords": [
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Habitats",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "NVC",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Classification",
+                "vocab": ""
+            },
+            {
+                "value": "Woodland",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            }
+        ],
         "metadataDate": "2004-01-01",
         "resourceType": "series",
         "topicCategory": "environment",

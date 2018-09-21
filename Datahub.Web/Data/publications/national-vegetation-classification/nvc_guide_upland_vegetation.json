@@ -5,7 +5,32 @@
         "title": "An Illustrated Guide to British Upland Vegetation",
         "lineage": "",
         "abstract": "This is the first comprehensive, single book on plant communities in the British Uplands.\n# Introduction\nIf one divides Great Britain into broad-scale zones based on vegetation and environment, including climate, a particularly important division is seen between the cooler, wetter north and west (upland Great Britain), and the warmer, drier south and east (lowland Great Britain). The difference between these areas is shown, for example, by the greater extent of peat and the greater quantity and diversity of humidity-demanding bryophytes and ferns in upland Great Britain, and the greater quantity of thermophilous or heat-demanding plant species in lowland Great Britain. An upland type of climate, and hence an upland environment generally, is restricted to the highest ground in southwest England, but descends to sea-level in the cooler north-west. For the purpose of this book, upland Great Britain is defined as those areas of the country which have an upland type of environment, regardless of their altitude (Figure 1). As well as being wetter and cooler than lowland environments, these upland areas are generally more windy, and their soils are generally less productive than in the lowlands (Pearsall 1968; Ratcliffe and Thompson 1988).\nVarious other definitions of upland have been made, such as land above a certain altitude (e.g. 300 m), land above the upper limit of enclosed farmland, or land classed as Less Favoured Areas because of its low agricultural productivity. In south-west England and Wales some types of vegetation are recognised as upland types because they occur there mainly on higher ground, but in the colder north of Scotland the same types of vegetation are common near sea-level. Enclosure and agricultural improvement may alter the soils and vegetation, but do not affect the climate. Rather, agricultural improvement simply produces modified vegetation within a generally upland environment.\nAbout a third of Great Britain is upland, and here we find many of the wildest and most beautiful parts of our countryside and the largest areas of natural-looking vegetation (Ratcliffe and Thompson 1988). Upland Great Britain encompasses a tremendous variety of habitats and vegetation types, including heaths, bogs, grasslands, woods, scrub, cliffs, screes, snow-beds and high rocky summits. The plant species composition of much of the vegetation here, and also in the Irish uplands, is unique in Europe. The different regions of upland Great Britain are distinctive in their geology, terrain, climate, land use and vegetation. For example, there are the rounded grassy and boggy hills of central Wales; the steep, craggy mountains of north-west Wales, the Lake District and the western Scottish Highlands; the limestone pavements of the Craven Pennines and south Cumbria; the heathy and boggy stepped basalt landscapes on Mull and Skye; the rolling heather moors of the eastern Highlands; the knob-and-lochan terrain of north-west Sutherland and the Outer Hebrides; and the expansive, pool-studded bog landscapes of the Flow Country in Caithness and Sutherland.\n[National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
-        "keywords": ["uk", "habitats", "classification", "nvc", "upland", "vegetation"],
+        "keywords": [
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Habitats",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "NVC",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Classification",
+                "vocab": ""
+            },
+            {
+                "value": "Guide",
+                "vocab": ""
+            },
+            {
+                "value": "Uplands",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            }
+        ],
         "metadataDate": "2004-01-01",
         "resourceType": "series",
         "topicCategory": "environment",

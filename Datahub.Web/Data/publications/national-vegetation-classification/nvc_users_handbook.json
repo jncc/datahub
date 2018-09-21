@@ -5,7 +5,24 @@
         "title": "NVC Users' Handbook",
         "lineage": "",
         "abstract": "This handbook gives a detailed description of the NVC methods for collection of vegetation relevés (quadrat) data, the methodology for sampling vegetation in the field, and the analysis and description of NVC data.\n# Introduction\nIt provides an authoritative introduction to the National Vegetation Classification (NVC), as published in the five volumes of British Plant Communities.  It also explains how such information can be used to identify plant communities and discusses important issues involved in carrying out an NVC survey of a site.  There is a brief account of some of the applications and limitations of the NVC.  A series of colour photographs is included to illustrate relevant points.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
-        "keywords": ["uk", "habitats", "classification", "nvc", "handbook"],
+        "keywords": [
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Habitats",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "NVC",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Classification",
+                "vocab": ""
+            }
+        ],
         "metadataDate": "2006-01-01",
         "resourceType": "series",
         "topicCategory": "environment",

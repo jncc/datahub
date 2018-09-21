@@ -5,7 +5,28 @@
         "title": "Names of NVC communities and sub-communities",
         "lineage": "",
         "abstract": "A spreadsheet containing the codes and names of all the NVC communities and sub-communities. \nThis includes information on species used to define particular communities and sub-communities that have changed their scientific name/status since the publication of the original NVC volumes.\nCommon/vernacular names for NVC types have appeared in various publications. Work is currently underway to produce a recommended list of such names for all NVC communities, making it easier to communicate the interests of particular sites to individuals who are ‘alienated’ by the scientific names used in the published NVC volumes. This list will be made available as soon as it is finalised. ",
-        "keywords": ["uk", "habitats", "classification", "nvc"],
+        "keywords": [
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Habitats",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "NVC",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Classification",
+                "vocab": ""
+            },
+            {
+                "value": "Codes",
+                "vocab": ""
+            }
+        ],
         "metadataDate": "2008-03-26",
         "resourceType": "series",
         "topicCategory": "environment",
