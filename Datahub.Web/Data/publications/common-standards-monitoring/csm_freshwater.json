@@ -1,7 +1,6 @@
 {
 	"id": "6c6efb44-d9a3-45f4-9547-99e44a30e066",
 	"name": "guidance-for-freshwater-habitats-and-species",
-	"collectionName": "jncc/evidence/surveillance-and-monitoring/protected-sites-monitoring/common-standards-monitoring",
 	"metadata": {
 		"title": "Common Standards Monitoring Guidance for Freshwater Habitats and Species",
 		"lineage": "",
@@ -18,8 +17,16 @@
 		"metadataLanguage": "English",
 		"accessLimitations": "",
 		"datasetReferenceDate": "2004-08-01",
-		"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
-		"responsibleOrganisation": "JNCC"
+		"metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+		"spatialReferenceSystem": "",
+		"responsibleOrganisation": {
+			"name": "Communications Team, Joint Nature Conservation Committee",
+			"contact": "communications@jncc.gov.uk",
+			"role": "distributor"
+		}
 	},
 	"properties": {},
 	"data": {

@@ -1,0 +1,40 @@
+{
+    "id": "e3a169a5-de64-4696-9951-14c5c97a1843",
+    "name": "national-vegetation-classification-field-guide-to-mires-and-heaths",
+    "metadata": {
+        "title": "National Vegetation Classification field guide to mires and heaths",
+        "lineage": "",
+        "abstract": "This volume gives a detailed account of 38 mire communities and 22 heath communities in the UK, providing information on their composition, structure and distribution. From these descriptions, it also relates their similarity and environmental status to other types of vegetation categories, both in Britain and on the continent.\nIan Strachan, JNCC Habitats Advice Officer commented, \"This field guide to mires and heaths is a vital addition for surveyors and ecologists working in the field, which can go in the rucksack. The condensed descriptions and diagrammatic keys will be a great help with the identification of NVC mire and heath plant communities and sub-communities. The book acts as a companion guide to Volume 2 of British Plant Communities and also serves as an introduction for anyone with an interest in Britain's habitats and flora, and the NVC.\"\nSince its development in the 1980's, the NVC has become the standard method for describing vegetation in Britain, and has been widely welcomed as providing a much-needed common language in which the character and value of the vegetation of Britain can be understood. Not only has the NVC been accepted as a standard by the nature conservation and countryside organisations, but also by forestry, agriculture and water agencies, local authorities, non-government organisations, commercial and academic sectors.\n For further informations on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+        "keywords": ["uk", "habitats", "classification", "nvc", "upland", "vegetation"],
+        "metadataDate": "2002-01-01",
+        "resourceType": "series",
+        "topicCategory": "environment",
+        "temporalExtent": {
+            "begin": "2002-01-01T00:00:00Z",
+            "end": "2002-01-01T00:00:00Z"
+        },
+        "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+        "metadataLanguage": "English",
+        "accessLimitations": "",
+        "datasetReferenceDate": "2002-01-01",
+        "metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+        "responsibleParty": {
+            "name": "Elkington, T., Dayton, N., Jackson, D.L., & Strachan, I.M.",
+            "email": "communications@jncc.gov.uk",
+            "role": "author"
+        }
+    },
+    "properties": {},
+    "data": {
+        "national-vegetation-classification-field-guide-to-mires-and-heaths": {
+            "title": "National Vegetation Classification field guide to mires and heaths",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/Mires_Heaths.pdf",
+                "type": "application/pdf"
+            }
+        }
+    }
+}

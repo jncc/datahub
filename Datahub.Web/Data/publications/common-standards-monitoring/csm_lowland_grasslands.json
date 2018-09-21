@@ -1,7 +1,6 @@
 {
 	"id": "36959434-2b2a-4ce1-a42d-3294cd1a9731",
 	"name": "guidance-for-lowland-grassland",
-	"collectionName": "jncc/evidence/surveillance-and-monitoring/protected-sites-monitoring/common-standards-monitoring",
 	"metadata": {
 		"title": "Common Standards Monitoring Guidance for Lowland Grassland",
 		"lineage": "",
@@ -18,8 +17,16 @@
 		"metadataLanguage": "English",
 		"accessLimitations": "",
 		"datasetReferenceDate": "2004-02-01",
-		"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
-		"responsibleOrganisation": "JNCC"
+		"metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+		"spatialReferenceSystem": "",
+		"responsibleOrganisation": {
+			"name": "Communications Team, Joint Nature Conservation Committee",
+			"contact": "communications@jncc.gov.uk",
+			"role": "distributor"
+		}
 	},
 	"properties": {},
 	"data": {

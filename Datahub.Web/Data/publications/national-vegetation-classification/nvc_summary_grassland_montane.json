@@ -1,0 +1,32 @@
+{
+    "id": "158f8d44-6ee1-44f3-b974-c790e2fa15e2",
+    "name": "summary-descriptions-of-national-vegetation-classification-grassland-and-montane-communities",
+    "metadata": {
+        "title": "Summary descriptions of National Vegetation Classification grassland and montane communities",
+        "lineage": "",
+        "abstract": "An aide-memoir for field workers and others that combines a series of keys and summary descriptions covering all mesotrophic, calcicolous and calcifugous grassland types within Volume 3 of the National Vegetation Classification.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+        "keywords": ["uk", "habitats", "classification", "nvc", "woodland"],
+        "metadataDate": "1998-01-01",
+        "resourceType": "series",
+        "topicCategory": "environment",
+        "temporalExtent": {
+            "begin": "1998-01-01T00:00:00Z",
+            "end": "1998-01-01T00:00:00Z"
+        },
+        "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+        "metadataLanguage": "English",
+        "accessLimitations": "",
+        "datasetReferenceDate": "1998-01-01",
+        "metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+        "responsibleParty": {
+            "name": "Cooper, E.A.,",
+            "email": "communications@jncc.gov.uk",
+            "role": "author"
+        }
+    },
+    "properties": {},
+    "data": {}
+}

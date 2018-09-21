@@ -1,0 +1,306 @@
+{
+    "id": "52270400-5988-462b-92bf-6487655afffd",
+    "name": "jncc/publications/uk-habitats-and-species/habitats/classification/nvc",
+    "metadata": {
+        "title": "The National Vegetation Classification (NVC)",
+        "lineage": "",
+        "abstract": "The National Vegetation Classification (NVC) is one of the key common standards developed for the country nature conservation agencies. The original project aimed to produce a comprehensive classification and description of the plant communities of Britain, each systematically named and arranged and with standardised descriptions for each.\nIt was originally commissioned in 1975 by the Nature Conservancy Council (NCC) and was intended as a new classification, not an attempt to fit British plant communities into some existing scheme derived from elsewhere in Europe. The general approach adopted was phytosociological and, therefore, concentrated on the rigorous recording of floristic data. It did, nevertheless, try to avoid over-scrupulous selection of samples, rejection of awkward data and preoccupation with the hierarchical taxonomy of vegetation types.\n# Main NVC Volumes\nThe NVC is published by [Cambridge University Press](http://www.cambridge.org/series/sSeries.asp?code=BPC) in a five-volume series entitled British Plant Communities, which area edited by John Rodwell. The final volume includes a phytosociological conspectus of British Plant Communities, placing the NVC in a European framework. Parts of each book are availabe to preview:\n * Rodwell, J.S. (ed.) 1991. British Plant Communities. Volume 1. [Woodlands and scrub](http://books.google.co.uk/books?id=RjaqxjHazGQC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false). Cambridge University Press.\n * Rodwell, J.S. (ed.) 1991. British Plant Communities. Volume 2. [Mires and heath](http://books.google.co.uk/books?id=LRehejCXEYEC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false). Cambridge University Press.\n * Rodwell, J. S. (ed.) 1992. British Plant Communities. Volume 3. [Grassland and montane communities](http://books.google.co.uk/books?id=64HmFkXNkAsC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false). Cambridge University Press.\n * Rodwell, J.S. (ed.) 1995. British Plant Communities. Volume 4. [Aquatic communities, swamps and tall-herb fens](http://books.google.co.uk/books?id=1yRSf0Ccud0C&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false). Cambridge University Press.\n * Rodwell, J.S. (ed.) 2000. British plant communities. Volume 5. [Maritime communities and vegetation of open habitats](http://books.google.co.uk/books?id=tK0K_9BYkBMC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false). Cambridge University Press.",
+        "keywords": ["uk", "habitats", "classification", "nvc"],
+        "metadataDate": "2018-09-21",
+        "resourceType": "series",
+        "topicCategory": "environment",
+        "temporalExtent": {
+            "begin": "2004-01-01T00:00:00Z",
+            "end": "2009-02-01T00:00:00Z"
+        },
+        "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+        "metadataLanguage": "English",
+        "accessLimitations": "",
+        "datasetReferenceDate": "2008-08-01",
+        "metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
+        "spatialReferenceSystem": "",
+        "responsibleOrganisation": "JNCC"
+    },
+    "productsSchema": {
+        "type": "object",
+        "title": "properties",
+        "$async": true,
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "required": [],
+        "properties": {},
+        "additionalProperties": false
+    },
+    "products": [{
+            "id": "aeeaa777-ab96-4d5a-bba1-1154b5ad92a0",
+            "name": "users-handbook",
+            "metadata": {
+                "title": "NVC Users' Handbook",
+                "lineage": "",
+                "abstract": "This handbook gives a detailed description of the NVC methods for collection of vegetation relevés (quadrat) data, the methodology for sampling vegetation in the field, and the analysis and description of NVC data.\n# Introduction\nIt provides an authoritative introduction to the National Vegetation Classification (NVC), as published in the five volumes of British Plant Communities.  It also explains how such information can be used to identify plant communities and discusses important issues involved in carrying out an NVC survey of a site.  There is a brief account of some of the applications and limitations of the NVC.  A series of colour photographs is included to illustrate relevant points.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+                "keywords": ["uk", "habitats", "classification", "nvc", "handbook"],
+                "metadataDate": "2006-01-01",
+                "resourceType": "series",
+                "topicCategory": "environment",
+                "temporalExtent": {
+                    "begin": "2006-01-01T00:00:00Z",
+                    "end": "2006-01-01T00:00:00Z"
+                },
+                "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+                "metadataLanguage": "English",
+                "accessLimitations": "",
+                "datasetReferenceDate": "2006-01-01",
+                "metadataPointOfContact": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "data@jncc.gov.uk"
+                },
+                "responsibleParty": {
+                    "name": "Rodwell, J.S",
+                    "email": "communications@jncc.gov.uk",
+                    "role": "author"
+                }
+            },
+            "properties": {},
+            "data": {
+                "nvc-users-handbook": {
+                    "title": "National Vegetation Classification Users' handbook",
+                    "http": {
+                        "url": "http://jncc.defra.gov.uk/pdf/pub06_NVCusershandbook2006.pdf",
+                        "type": "application/pdf"
+                    }
+                }
+            }
+        }, {
+            "id": "1f1d5723-afdc-4c8a-8369-00ec6adc8259",
+            "name": "field-guide-to-woodland",
+            "metadata": {
+                "title": "National vegetation classification field guide to woodland",
+                "lineage": "",
+                "abstract": "The first in a new series of interpretative publications tailored to support users of the national vegetation classification (NVC). Useful guidance is provided on the practical aspects of the NVC.\n# Introduction\nSince its development in the 1980s, the NVC has become the standard classification used for describing vegetation in Britain. Whereas many other classifications are restricted to particular types of vegetation (e.g. the Stand Type classification which describes only woodland (Peterken 1981), the NVC aims to describe all the vegetation of Great Britain. This means that it is possible to analyse, and map, a complex site, composed of several habitat types (e.g. woodland, scrub, heathland and bog) using the same classification system. Successional or treatment related changes in the vegetation, for example between open glades, shaded rides and the vegetation of clear-fells can e more easily described than is possible using other classifications.\nThe NVC is a 'phytosociological' classification, classifying vegetation solely on the basis of the plant species of which it is composed. The resulting communities can usually be correlated to other factors, especially geology and soils, age and management; but the plant species alone are used to assign the vegetation to a community.\nThe NVC breaks down each broad vegetation type (e.g. woodland, calcareous grassland, mires) into communities, designated by a number and name (e.g. W8 Fraxinus excelsior – Acer campestre – Mercutialis perennis woodland, CG1 Festuca ovina – Carlina vulgaris grassland, M10 Carex dioica – Pingnuicula vulgaris mire). Many (but not all) of these communities contain several sub-communities, designated by a letter (e.g. W8a Fraxinus excelsior – Acer campestre – Mercurialis perennis woodland Primula vulgaris – Glechhoma hederacea sub-community). Sub-communities may be further divided into variants (e.g. M10bi and ii) but this has not been adopted within the woodland section of the classification.\n# Woodland section of the NVC\nThe NVC woodland classification is based on 2,648 samples from ancient and recent woods throughout Britain (Rodwell 1991). This is the biggest data set yet analysed for the production of a woodland classification in Britain (the Stand Type system, for example, was based on about 800 samples (Peterken 1981)). Apart from the sheet numbers of samples, the geographic and ecological spread of sampling makes it the classification most representative of the range of British woodland. The relationships between the NVC and other woodland classifications are shown in Appendix 1.\nThere are 18 main woodland types and seven scrubs or underscrubs, most of which are divided further to give a total of 73 sub-communities.\nFactors other than plant composition are also important in nature conservation terms. Two woods may be of same vegetation type, but if one is regularly coppiced and the other is high forest the bird and invertebrate life will be very different. Ancient examples of a type are likely to contain more of the species typical of ancient woodlands (e.g. oxlip Primula elatior, herb-Paris Paris quadrifolia) than recent examples of the same type. The NVC should not therefore seen as the only way of describing woodland, but rather as one element in such descriptions.\nSubsequent to the publication of British Plant Communities, various gaps in coverage of the NVC have been identified at community and sub-community level, including several woodland and scrub types (Rodwell et al. 2003; Goldberg 2003). No attempt has been made to incorporate these into the present guide, pending further analysis and formal description (Strachan & Jackson 2003).\nA seminar was held in 2001 by JNCC and the British Ecological Society to review ten years experience of using the NVC classification for woodlands (Goldberg 2003). Topics covered included the wide range of uses, as well as limitations, of the current classification, consideration of possible future developments, and a European perspective on British woodlands. A phytosociological conspectus in Volume 5 of British Plant Communities (Rodwell 2000) also places all NVC communities within a hierarchical framework of European vegetation and gives helpful insight into the floristic relationships of NVC woodland and scrub types.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+                "keywords": ["uk", "habitats", "classification", "nvc", "woodland"],
+                "metadataDate": "2004-01-01",
+                "resourceType": "series",
+                "topicCategory": "environment",
+                "temporalExtent": {
+                    "begin": "2004-01-01T00:00:00Z",
+                    "end": "2004-01-01T00:00:00Z"
+                },
+                "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+                "metadataLanguage": "English",
+                "accessLimitations": "",
+                "datasetReferenceDate": "2004-01-01",
+                "metadataPointOfContact": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "data@jncc.gov.uk"
+                },
+                "responsibleParty": {
+                    "name": "Hall, J.E., Kirby, K.J., Whitbread, A.M.",
+                    "email": "communications@jncc.gov.uk",
+                    "role": "author"
+                }
+            },
+            "properties": {},
+            "data": {
+                "nvc-field-guide-to-woodland": {
+                    "title": "NVC Field Guide to Woodland",
+                    "http": {
+                        "url": "http://jncc.defra.gov.uk/PDF/fieldguidetowoodland.pdf",
+                        "type": "application/pdf"
+                    }
+                }
+            }
+        },
+        {
+            "id": "5da05283-b6ca-44de-a21d-0a5982023b55",
+            "name": "field-guide-to-woodland",
+            "metadata": {
+                "title": "National vegetation classification field guide to woodland",
+                "lineage": "",
+                "abstract": "Straightforward descriptions of the 18 woodland types identified by the NVC, and keys to their sub-communities. A valuable complement to the NVC, especially for use in the field.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+                "keywords": ["uk", "habitats", "classification", "nvc", "woodland"],
+                "metadataDate": "2004-01-01",
+                "resourceType": "series",
+                "topicCategory": "environment",
+                "temporalExtent": {
+                    "begin": "2004-01-01T00:00:00Z",
+                    "end": "2004-01-01T00:00:00Z"
+                },
+                "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+                "metadataLanguage": "English",
+                "accessLimitations": "",
+                "datasetReferenceDate": "2004-01-01",
+                "metadataPointOfContact": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "data@jncc.gov.uk"
+                },
+                "responsibleParty": {
+                    "name": "Whitbread, A.M., & Kirby, K.J.",
+                    "email": "communications@jncc.gov.uk",
+                    "role": "author"
+                }
+            },
+            "properties": {},
+            "data": {
+                "summary-of-national-vegetation-classification-woodland-descriptions": {
+                    "title": "Summary of National Vegetation Classification woodland descriptions",
+                    "http": {
+                        "url": "http://jncc.defra.gov.uk/pdf/Pub92_Summary_of_NVC_woodland_descriptions_PRINT.pdf",
+                        "type": "application/pdf"
+                    }
+                }
+            }
+        },
+
+        {
+            "id": "68040147-98df-4034-9678-5bea6324e174",
+            "name": "guide-to-british-upland-vegetation",
+            "metadata": {
+                "title": "An Illustrated Guide to British Upland Vegetation",
+                "lineage": "",
+                "abstract": "This is the first comprehensive, single book on plant communities in the British Uplands.\n# Introduction\nIf one divides Great Britain into broad-scale zones based on vegetation and environment, including climate, a particularly important division is seen between the cooler, wetter north and west (upland Great Britain), and the warmer, drier south and east (lowland Great Britain). The difference between these areas is shown, for example, by the greater extent of peat and the greater quantity and diversity of humidity-demanding bryophytes and ferns in upland Great Britain, and the greater quantity of thermophilous or heat-demanding plant species in lowland Great Britain. An upland type of climate, and hence an upland environment generally, is restricted to the highest ground in southwest England, but descends to sea-level in the cooler north-west. For the purpose of this book, upland Great Britain is defined as those areas of the country which have an upland type of environment, regardless of their altitude (Figure 1). As well as being wetter and cooler than lowland environments, these upland areas are generally more windy, and their soils are generally less productive than in the lowlands (Pearsall 1968; Ratcliffe and Thompson 1988).\nVarious other definitions of upland have been made, such as land above a certain altitude (e.g. 300 m), land above the upper limit of enclosed farmland, or land classed as Less Favoured Areas because of its low agricultural productivity. In south-west England and Wales some types of vegetation are recognised as upland types because they occur there mainly on higher ground, but in the colder north of Scotland the same types of vegetation are common near sea-level. Enclosure and agricultural improvement may alter the soils and vegetation, but do not affect the climate. Rather, agricultural improvement simply produces modified vegetation within a generally upland environment.\nAbout a third of Great Britain is upland, and here we find many of the wildest and most beautiful parts of our countryside and the largest areas of natural-looking vegetation (Ratcliffe and Thompson 1988). Upland Great Britain encompasses a tremendous variety of habitats and vegetation types, including heaths, bogs, grasslands, woods, scrub, cliffs, screes, snow-beds and high rocky summits. The plant species composition of much of the vegetation here, and also in the Irish uplands, is unique in Europe. The different regions of upland Great Britain are distinctive in their geology, terrain, climate, land use and vegetation. For example, there are the rounded grassy and boggy hills of central Wales; the steep, craggy mountains of north-west Wales, the Lake District and the western Scottish Highlands; the limestone pavements of the Craven Pennines and south Cumbria; the heathy and boggy stepped basalt landscapes on Mull and Skye; the rolling heather moors of the eastern Highlands; the knob-and-lochan terrain of north-west Sutherland and the Outer Hebrides; and the expansive, pool-studded bog landscapes of the Flow Country in Caithness and Sutherland.\n[National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+                "keywords": ["uk", "habitats", "classification", "nvc", "upland", "vegetation"],
+                "metadataDate": "2004-01-01",
+                "resourceType": "series",
+                "topicCategory": "environment",
+                "temporalExtent": {
+                    "begin": "2004-01-01T00:00:00Z",
+                    "end": "2004-01-01T00:00:00Z"
+                },
+                "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+                "metadataLanguage": "English",
+                "accessLimitations": "",
+                "datasetReferenceDate": "2004-01-01",
+                "metadataPointOfContact": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "data@jncc.gov.uk"
+                },
+                "responsibleParty": {
+                    "name": "Averis, A., Averis, B., Birks, J., Horsfield, D., Thompson, D., & Yeo, M.",
+                    "email": "communications@jncc.gov.uk",
+                    "role": "author"
+                }
+            },
+            "properties": {},
+            "data": {
+                "an-illustrated-guide-to-british-upland-vegetation": {
+                    "title": "An Illustrated Guide to British Upland Vegetation",
+                    "http": {
+                        "url": "http://jncc.defra.gov.uk/PDF/British_Upland_Vegetation_(2014_reprint)Low_Res.pdf",
+                        "type": "application/pdf"
+                    }
+                }
+            }
+        },
+        {
+            "id": "e3a169a5-de64-4696-9951-14c5c97a1843",
+            "name": "national-vegetation-classification-field-guide-to-mires-and-heaths",
+            "metadata": {
+                "title": "National Vegetation Classification field guide to mires and heaths",
+                "lineage": "",
+                "abstract": "This volume gives a detailed account of 38 mire communities and 22 heath communities in the UK, providing information on their composition, structure and distribution. From these descriptions, it also relates their similarity and environmental status to other types of vegetation categories, both in Britain and on the continent.\nIan Strachan, JNCC Habitats Advice Officer commented, \"This field guide to mires and heaths is a vital addition for surveyors and ecologists working in the field, which can go in the rucksack. The condensed descriptions and diagrammatic keys will be a great help with the identification of NVC mire and heath plant communities and sub-communities. The book acts as a companion guide to Volume 2 of British Plant Communities and also serves as an introduction for anyone with an interest in Britain's habitats and flora, and the NVC.\"\nSince its development in the 1980's, the NVC has become the standard method for describing vegetation in Britain, and has been widely welcomed as providing a much-needed common language in which the character and value of the vegetation of Britain can be understood. Not only has the NVC been accepted as a standard by the nature conservation and countryside organisations, but also by forestry, agriculture and water agencies, local authorities, non-government organisations, commercial and academic sectors.\n For further informations on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+                "keywords": ["uk", "habitats", "classification", "nvc", "upland", "vegetation"],
+                "metadataDate": "2002-01-01",
+                "resourceType": "series",
+                "topicCategory": "environment",
+                "temporalExtent": {
+                    "begin": "2002-01-01T00:00:00Z",
+                    "end": "2002-01-01T00:00:00Z"
+                },
+                "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+                "metadataLanguage": "English",
+                "accessLimitations": "",
+                "datasetReferenceDate": "2002-01-01",
+                "metadataPointOfContact": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "data@jncc.gov.uk"
+                },
+                "responsibleParty": {
+                    "name": "Elkington, T., Dayton, N., Jackson, D.L., & Strachan, I.M.",
+                    "email": "communications@jncc.gov.uk",
+                    "role": "author"
+                }
+            },
+            "properties": {},
+            "data": {
+                "national-vegetation-classification-field-guide-to-mires-and-heaths": {
+                    "title": "National Vegetation Classification field guide to mires and heaths",
+                    "http": {
+                        "url": "http://jncc.defra.gov.uk/PDF/Mires_Heaths.pdf",
+                        "type": "application/pdf"
+                    }
+                }
+            }
+        },
+        {
+            "id": "158f8d44-6ee1-44f3-b974-c790e2fa15e2",
+            "name": "summary-descriptions-of-national-vegetation-classification-grassland-and-montane-communities",
+            "metadata": {
+                "title": "Summary descriptions of National Vegetation Classification grassland and montane communities",
+                "lineage": "",
+                "abstract": "An aide-memoir for field workers and others that combines a series of keys and summary descriptions covering all mesotrophic, calcicolous and calcifugous grassland types within Volume 3 of the National Vegetation Classification.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+                "keywords": ["uk", "habitats", "classification", "nvc", "woodland"],
+                "metadataDate": "1998-01-01",
+                "resourceType": "series",
+                "topicCategory": "environment",
+                "temporalExtent": {
+                    "begin": "1998-01-01T00:00:00Z",
+                    "end": "1998-01-01T00:00:00Z"
+                },
+                "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+                "metadataLanguage": "English",
+                "accessLimitations": "",
+                "datasetReferenceDate": "1998-01-01",
+                "metadataPointOfContact": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "data@jncc.gov.uk"
+                },
+                "responsibleParty": {
+                    "name": "Cooper, E.A.,",
+                    "email": "communications@jncc.gov.uk",
+                    "role": "author"
+                }
+            },
+            "properties": {},
+            "data": {}
+        },
+        {
+            "id": "e3a169a5-de64-4696-9951-14c5c97a1843",
+            "name": "names-of-nvc-communities-and-sub-communities",
+            "metadata": {
+                "title": "Names of NVC communities and sub-communities",
+                "lineage": "",
+                "abstract": "A spreadsheet containing the codes and names of all the NVC communities and sub-communities. \nThis includes information on species used to define particular communities and sub-communities that have changed their scientific name/status since the publication of the original NVC volumes.\nCommon/vernacular names for NVC types have appeared in various publications. Work is currently underway to produce a recommended list of such names for all NVC communities, making it easier to communicate the interests of particular sites to individuals who are ‘alienated’ by the scientific names used in the published NVC volumes. This list will be made available as soon as it is finalised. ",
+                "keywords": ["uk", "habitats", "classification", "nvc"],
+                "metadataDate": "2008-03-26",
+                "resourceType": "series",
+                "topicCategory": "environment",
+                "temporalExtent": {
+                    "begin": "2008-03-26T00:00:00Z",
+                    "end": "2008-03-26T00:00:00Z"
+                },
+                "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+                "metadataLanguage": "English",
+                "accessLimitations": "",
+                "datasetReferenceDate": "2008-03-26",
+                "metadataPointOfContact": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "data@jncc.gov.uk"
+                },
+                "responsibleParty": {
+                    "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+                    "email": "communications@jncc.gov.uk",
+                    "role": "author"
+                }
+            },
+            "properties": {},
+            "data": {
+                "nvc-names-codes": {
+                    "title": "NVC Names Codes",
+                    "http": {
+                        "url": "http://jncc.defra.gov.uk/files/NVC_names_codes_26_3_2008.zip",
+                        "type": "application/zip"
+                    }
+                }
+            }
+        }
+    ]
+}

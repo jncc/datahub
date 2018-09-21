@@ -1,7 +1,6 @@
 {
 	"id": "c9f48a5d-e003-46cf-b3ff-9dc15e0d8acb",
 	"name": "guidance-for-marine",
-	"collectionName": "jncc/evidence/surveillance-and-monitoring/protected-sites-monitoring/common-standards-monitoring",
 	"metadata": {
 		"title": "Common Standards Monitoring Guidance for Marine",
 		"lineage": "",
@@ -18,8 +17,16 @@
 		"metadataLanguage": "English",
 		"accessLimitations": "",
 		"datasetReferenceDate": "2009-02-01",
-		"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
-		"responsibleOrganisation": "JNCC"
+		"metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+		"spatialReferenceSystem": "",
+		"responsibleOrganisation": {
+			"name": "Communications Team, Joint Nature Conservation Committee",
+			"contact": "communications@jncc.gov.uk",
+			"role": "distributor"
+		}
 	},
 	"properties": {},
 	"data": {

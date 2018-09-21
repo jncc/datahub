@@ -1,0 +1,40 @@
+{
+    "id": "1f1d5723-afdc-4c8a-8369-00ec6adc8259",
+    "name": "field-guide-to-woodland",
+    "metadata": {
+        "title": "National vegetation classification field guide to woodland",
+        "lineage": "",
+        "abstract": "The first in a new series of interpretative publications tailored to support users of the national vegetation classification (NVC). Useful guidance is provided on the practical aspects of the NVC.\n# Introduction\nSince its development in the 1980s, the NVC has become the standard classification used for describing vegetation in Britain. Whereas many other classifications are restricted to particular types of vegetation (e.g. the Stand Type classification which describes only woodland (Peterken 1981), the NVC aims to describe all the vegetation of Great Britain. This means that it is possible to analyse, and map, a complex site, composed of several habitat types (e.g. woodland, scrub, heathland and bog) using the same classification system. Successional or treatment related changes in the vegetation, for example between open glades, shaded rides and the vegetation of clear-fells can e more easily described than is possible using other classifications.\nThe NVC is a 'phytosociological' classification, classifying vegetation solely on the basis of the plant species of which it is composed. The resulting communities can usually be correlated to other factors, especially geology and soils, age and management; but the plant species alone are used to assign the vegetation to a community.\nThe NVC breaks down each broad vegetation type (e.g. woodland, calcareous grassland, mires) into communities, designated by a number and name (e.g. W8 Fraxinus excelsior – Acer campestre – Mercutialis perennis woodland, CG1 Festuca ovina – Carlina vulgaris grassland, M10 Carex dioica – Pingnuicula vulgaris mire). Many (but not all) of these communities contain several sub-communities, designated by a letter (e.g. W8a Fraxinus excelsior – Acer campestre – Mercurialis perennis woodland Primula vulgaris – Glechhoma hederacea sub-community). Sub-communities may be further divided into variants (e.g. M10bi and ii) but this has not been adopted within the woodland section of the classification.\n# Woodland section of the NVC\nThe NVC woodland classification is based on 2,648 samples from ancient and recent woods throughout Britain (Rodwell 1991). This is the biggest data set yet analysed for the production of a woodland classification in Britain (the Stand Type system, for example, was based on about 800 samples (Peterken 1981)). Apart from the sheet numbers of samples, the geographic and ecological spread of sampling makes it the classification most representative of the range of British woodland. The relationships between the NVC and other woodland classifications are shown in Appendix 1.\nThere are 18 main woodland types and seven scrubs or underscrubs, most of which are divided further to give a total of 73 sub-communities.\nFactors other than plant composition are also important in nature conservation terms. Two woods may be of same vegetation type, but if one is regularly coppiced and the other is high forest the bird and invertebrate life will be very different. Ancient examples of a type are likely to contain more of the species typical of ancient woodlands (e.g. oxlip Primula elatior, herb-Paris Paris quadrifolia) than recent examples of the same type. The NVC should not therefore seen as the only way of describing woodland, but rather as one element in such descriptions.\nSubsequent to the publication of British Plant Communities, various gaps in coverage of the NVC have been identified at community and sub-community level, including several woodland and scrub types (Rodwell et al. 2003; Goldberg 2003). No attempt has been made to incorporate these into the present guide, pending further analysis and formal description (Strachan & Jackson 2003).\nA seminar was held in 2001 by JNCC and the British Ecological Society to review ten years experience of using the NVC classification for woodlands (Goldberg 2003). Topics covered included the wide range of uses, as well as limitations, of the current classification, consideration of possible future developments, and a European perspective on British woodlands. A phytosociological conspectus in Volume 5 of British Plant Communities (Rodwell 2000) also places all NVC communities within a hierarchical framework of European vegetation and gives helpful insight into the floristic relationships of NVC woodland and scrub types.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+        "keywords": ["uk", "habitats", "classification", "nvc", "woodland"],
+        "metadataDate": "2004-01-01",
+        "resourceType": "series",
+        "topicCategory": "environment",
+        "temporalExtent": {
+            "begin": "2004-01-01T00:00:00Z",
+            "end": "2004-01-01T00:00:00Z"
+        },
+        "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+        "metadataLanguage": "English",
+        "accessLimitations": "",
+        "datasetReferenceDate": "2004-01-01",
+        "metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+        "responsibleParty": {
+            "name": "Hall, J.E., Kirby, K.J., Whitbread, A.M.",
+            "email": "communications@jncc.gov.uk",
+            "role": "author"
+        }
+    },
+    "properties": {},
+    "data": {
+        "nvc-field-guide-to-woodland": {
+            "title": "NVC Field Guide to Woodland",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/fieldguidetowoodland.pdf",
+                "type": "application/pdf"
+            }
+        }
+    }
+}

@@ -1,0 +1,255 @@
+{
+	"id": "25ff089f-df82-4ae7-a372-a45e3a77520e",
+	"name": "jncc/publications/protected-sites-monitoring/common-standards-monitoring",
+	"metadata": {
+		"title": "Common Standards Monitoring (CSM)",
+		"lineage": "",
+		"abstract": "Subsequent to the decision to implement the monitoring programme for designated nature conservation sites in 1999 and report on the condition of the whole site series in 2005, the country agencies decided that guidance on setting and assessing conservation objectives was needed to assist staff in undertaking site monitoring and assessment. JNCC and the country agencies commenced a programme to develop such guidance across the range of species, habitat and earth science features which occur on UK protected sites. This process is now complete but some updating of individual guidance documents may take place.",
+		"keywords": ["monitoring", "protected-sites"],
+		"metadataDate": "2018-09-20",
+		"resourceType": "series",
+		"topicCategory": "monitoring",
+		"temporalExtent": {
+			"begin": "2004-01-01T00:00:00Z",
+			"end": "2009-02-01T00:00:00Z"
+		},
+		"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+		"metadataLanguage": "English",
+		"accessLimitations": "",
+		"datasetReferenceDate": "2008-08-01",
+		"metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+		"spatialReferenceSystem": "",
+		"responsibleOrganisation": {
+			"name": "Communications Team, Joint Nature Conservation Committee",
+			"contact": "communications@jncc.gov.uk",
+			"role": "distributor"
+		}
+	},
+	"productsSchema": {
+		"type": "object",
+		"title": "properties",
+		"$async": true,
+		"$schema": "http://json-schema.org/draft-04/schema#",
+		"required": [],
+		"properties": {},
+		"additionalProperties": false
+	},
+	"products": [{
+			"id": "6c6efb44-d9a3-45f4-9547-99e44a30e066",
+			"name": "guidance-for-freshwater-habitats-and-species",
+			"metadata": {
+				"title": "Common Standards Monitoring Guidance for Freshwater Habitats and Species",
+				"lineage": "",
+				"abstract": "Guidance on monitoring freshwater habitats is available under four broad headings: Canals, Ditches, Freshwater Lakes and Rivers.Eutrophic Ditch in Cumbria © Ian Strachan, JNCC\nFor each of the four main habitat types there is an introduction and description of the habitat in the United Kingdom, sections on attributes and targets for each feature, approach to monitoring, recommended visiting period and skill requirements. A suggested methodology for assessing the habitats is included in the Annex. The generic tables for favourable condition listing attributes and their targets for each habitat are included at the end of each document.\nThis guidance:\nidentifies a set of generic attributes to assess status of the feature, highlighting those attributes that should be used on all sites, and those that are site-specific (discretionary) to be used to reflect local distinctiveness;\nprovides advice on setting targets\nFreshwater lakes guidance updated March 2015\nThe Standing Waters guidance was updated to incorporate changes to monitoring and classification practices and methods resulting from Water Framework Directive (WFD) implementation in the UK.  It includes the use of several WFD metrics, environmental standards and classification tools, thus giving much closer alignment between monitoring for Conservation and WFD purposes.  Explicit targets have been added for nitrogen, chlorophyll and acidity, thereby allowing better diagnosis of ecological problems.  The revised approach therefore makes much more effective and efficient use of pre-existing data, whilst providing a more consistent and coherent framework for collection of new data if required.\nThe text has also been substantially edited and formatted to focus on key messages, remove unnecessary appendices and bring targets into the main body of the document alongside the explanatory text for each attribute.\nThis edition of the guidance was peer reviewed in October 2014 according to JNCC procedures, and approved for publication in February 2015.\n*Rivers guidance updated January 2014 with further minor amendments in September 2016 to reflect changes in WFD methods*\nThis guidance forms a comprehensive revision of the previous version, aimed to improve its consistency and ease of use and to take account of the monitoring work for the EC Water Framework Directive (WFD) undertaken by the environment agencies in the UK. Some of the main changes are to the water quality and flow targets resulting from an extensive literature review carried out by Natural England, as well as the inclusion of biological metrics for plant and invertebrate communities based on the WFD, and simpler and clearer ways of assessing a range of other attributes.",
+				"keywords": ["monitoring", "protected-sites", "freshwater", "habitats", "species", "canals", "ditches", "freshwater-lakes", "freshwater-rivers"],
+				"metadataDate": "2018-09-20",
+				"resourceType": "series",
+				"topicCategory": "monitoring",
+				"temporalExtent": {
+					"begin": "2008-08-01T00:00:00Z",
+					"end": "2008-08-01T00:00:00Z"
+				},
+				"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+				"metadataLanguage": "English",
+				"accessLimitations": "",
+				"datasetReferenceDate": "2004-08-01",
+				"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
+				"responsibleOrganisation": "JNCC"
+			},
+			"properties": {},
+			"data": {
+				"canals": {
+					"title": "Common Standards Monitoring Guidance for Canals",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/PDF/CSM_canals_Mar05.pdf",
+						"type": "application/pdf"
+					}
+				},
+				"ditches": {
+					"title": "Common Standards Monitoring Guidance for Ditches",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/CSM_ditches_Mar05.pdf",
+						"type": "application/pdf"
+					}
+				},
+				"freshwater-lakes": {
+					"title": "Common Standards Monitoring Guidance for Freshwater Lakes",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/0315_CSM_Freshwater_lakes.pdf",
+						"type": "application/pdf"
+					}
+				},
+				"rivers": {
+					"title": "Common Standards Monitoring Guidance for Rivers",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/CSM_rivers_Sept2016.pdf",
+						"type": "application/pdf"
+					}
+				},
+				"rivers-bank-vegetation-naturalness": {
+					"title": "Common Standards Monitoring Guidance for Rivers - Bank Vegetation Naturalness Appendix",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/docs/CSM_rivers-BankVegetationNaturalnessExcelfile.xls",
+						"type": "application/vnd.ms-excel"
+					}
+				},
+				"rivers-riparian-zone-vegetation-naturalness": {
+					"title": "Common Standards Monitoring Guidance for Rivers - Riparian zone vegetation naturalness Appendix",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/docs/CSM_rivers-RiparianZoneNaturalnessExcelfile.xls",
+						"type": "application/vnd.ms-excel"
+					}
+				}
+			}
+		},
+		{
+			"id": "36959434-2b2a-4ce1-a42d-3294cd1a9731",
+			"name": "guidance-for-lowland-grassland",
+			"metadata": {
+				"title": "Common Standards Monitoring Guidance for Lowland Grassland",
+				"lineage": "",
+				"abstract": "This guidance section covers lowland grassland habitats on designated sites across the UK. For the purposes of this guidance, 'lowland' grasslands (including upland hay meadows) are essentially those which lie below the limit of agricultural enclosure. Grasslands in unenclosed, upland landscapes are covered by the Upland habitat guidance section. For grasslands in coastal habitats the relevant coastal section should also be consulted. For fen meadows and related grasslands on lowland peatlands the Lowland wetland guidance should be consulted.\nGuidance is given on the selection of attributes and the setting of targets under five headings: Lowland meadows and upland hay meadows; lowland calcareous grasslands; lowland dry acid grasslands; Lowland purple moor grass and rush pastures; lowland calaminarian grasslands.",
+				"keywords": ["monitoring", "protected-sites", "lowland-grassland"],
+				"metadataDate": "2018-09-20",
+				"resourceType": "series",
+				"topicCategory": "monitoring",
+				"temporalExtent": {
+					"begin": "2008-02-01T00:00:00Z",
+					"end": "2008-02-01T00:00:00Z"
+				},
+				"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+				"metadataLanguage": "English",
+				"accessLimitations": "",
+				"datasetReferenceDate": "2004-02-01",
+				"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
+				"responsibleOrganisation": "JNCC"
+			},
+			"properties": {},
+			"data": {
+				"lowland-grassland": {
+					"title": "Common Standard Monitoring Guidance for Lowland Grassland",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/PDF/CSM_lowland_grassland.pdf",
+						"type": "application/pdf"
+					}
+				}
+			}
+		},
+		{
+			"id": "36959434-2b2a-4ce1-a42d-3294cd1a9731",
+			"name": "guidance-for-lowland-heathland",
+			"metadata": {
+				"title": "Common Standards Monitoring Guidance for Lowland Heathland",
+				"lineage": "",
+				"abstract": "Lowland heathland in England, Wales and Northern Ireland comprises a range of habitats characterised by the abundance of ericoids or gorse species. It occurs on generally nutrient-poor soils, usually below 300 m. Heathland in Scotland is rarely defined as lowland heathland; most Scottish heathland occurs above the upper limits of agricultural enclosure. However, some forms of heathland at low altitudes, similar in character to those in England, Wales and Northern Ireland and usually within the enclosed part of the landscape, do occur in Scotland, although mostly as small fragments. The most distinctive and extensive are the coastal heaths.\nGuidance on monitoring is summarised in separate tables for lowland dry heath and lowland wet heath. Upland heathland is covered by separate guidance, but the distinction between upland and lowland examples may sometimes be difficult. Heath vegetation on maritime cliff/slopes and dune heath are both included within the lowland heathland guidance but assessment of these types should be done in conjunction with the relevant coastal guidance section.\nThis guidance:\n - identifies a set of generic attributes to assess status of the feature, highlighting those attributes that should be used on all sites, and those that are site-specific (discretionary) to be used to reflect local distinctiveness;\n - provides advice on setting targets,",
+				"keywords": ["monitoring", "protected-sites", "freshwater", "habitats", "species"],
+				"metadataDate": "2018-09-20",
+				"resourceType": "series",
+				"topicCategory": "monitoring",
+				"temporalExtent": {
+					"begin": "2009-02-01T00:00:00Z",
+					"end": "2009-02-01T00:00:00Z"
+				},
+				"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+				"metadataLanguage": "English",
+				"accessLimitations": "",
+				"datasetReferenceDate": "2009-02-01",
+				"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
+				"responsibleOrganisation": "JNCC"
+			},
+			"properties": {},
+			"data": {
+				"lowland-heathland": {
+					"title": "Common Standards Monitoring Guidance for Lowland heathland",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/0902_CSM_lowland_heathlandv2.pdf",
+						"type": "application/pdf"
+					}
+				},
+				"lowland-heathland-forms-only": {
+					"title": " Common Standards Monitoring Guidance for Lowland heathland [Forms Only]",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/CSM_lowland_heathland-formsonly.pdf",
+						"type": "application/pdf"
+					}
+				}
+			}
+		},
+		{
+			"id": "5a83589c-6570-4490-a243-c926580d3036",
+			"name": "guidance-for-lowland-wetland",
+			"metadata": {
+				"title": "Common Standards Monitoring Guidance for Lowland Wetland",
+				"lineage": "",
+				"abstract": "This guidance section covers lowland wetland habitats (bogs and fens) on designated sites across the UK. For the purposes of this guidance, 'lowland' wetlands are essentially those which lie below the limit of agricultural enclosure. Mire habitats in unenclosed, upland landscapes are covered by the Upland habitat guidance section. For fen meadows and fen woodlands the guidance sections for Lowland grassland and Woodland respectively should also be consulted.\nGuidance is given on the selection of attributes and the setting of targets for lowland wetlands with more detailed guidance for raised bogs and lowland blanket bog; basin fens; valley fens; flood-plain fens; open-water transition fens; springs and flushes; fen meadow; and fen woodland.",
+				"keywords": ["monitoring", "protected-sites", "freshwater", "habitats", "species"],
+				"metadataDate": "2018-09-20",
+				"resourceType": "series",
+				"topicCategory": "monitoring",
+				"temporalExtent": {
+					"begin": "2004-08-01T00:00:00Z",
+					"end": "2004-08-01T00:00:00Z"
+				},
+				"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+				"metadataLanguage": "English",
+				"accessLimitations": "",
+				"datasetReferenceDate": "2004-08-01",
+				"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
+				"responsibleOrganisation": "JNCC"
+			},
+			"properties": {},
+			"data": {
+				"lowland-heathland": {
+					"title": "Common Standards Monitoring Guidance for Lowland Wetland",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/CSM_lowland_wetland.pdf",
+						"type": "application/pdf"
+					}
+				}
+			}
+		},
+		{
+			"id": "c9f48a5d-e003-46cf-b3ff-9dc15e0d8acb",
+			"name": "guidance-for-marine",
+			"metadata": {
+				"title": "Common Standards Monitoring Guidance for Marine",
+				"lineage": "",
+				"abstract": "Interest features in the marine environment are divided into two levels of biological organisation: the 'simple' habitat level features (rock, sediment) and the 'complex' physiographic features (lagoons, estuaries) made up by a range of 'simple' habitats. Given the nature of even the 'simple' features in the marine environment, it was considered necessary to produce separate guidance to assess each interest feature. The marine guidance has therefore been divided up into seven documents, three 'simple' features and four 'complex' features, each covering a mixture of BAP broad habitat and Habitats Directive Annex I features. In addition, there is a generic introduction that introduces the key issues to be initially considered when setting objectives and selecting attributes to define favourable condition, and generic advice on the process for judging the condition of the feature following the monitoring activities. It is essential that the marine generic introduction is read prior to using the guidance for specific features.\nThis guidance:\n 1. identifies a set of generic attributes to assess status of the feature, highlighting those attributes that should be used on all sites, and those that are site-specific (discretionary) to be used to reflect local distinctiveness;\n 2. provides advice on setting targets.\nThere is a separate guidance for saltmarsh habitats in the [coastal section](/jncc/evidence/surveillance-and-monitoring/protected-sites-monitoring/common-standards-monitoring/guidance-for-coastal).",
+				"keywords": ["monitoring", "protected-sites", "freshwater", "habitats", "species"],
+				"metadataDate": "2018-09-20",
+				"resourceType": "series",
+				"topicCategory": "monitoring",
+				"temporalExtent": {
+					"begin": "2009-02-01T00:00:00Z",
+					"end": "2009-02-01T00:00:00Z"
+				},
+				"useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+				"metadataLanguage": "English",
+				"accessLimitations": "",
+				"datasetReferenceDate": "2009-02-01",
+				"metadataPointOfContact": "Joint Nature Conservation Committee, Data Services [data@jncc.gov.uk]",
+				"responsibleOrganisation": "JNCC"
+			},
+			"properties": {},
+			"data": {
+				"lowland-heathland": {
+					"title": "Common Standards Monitoring Guidance for Lowland heathland",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/0902_CSM_lowland_heathlandv2.pdf",
+						"type": "application/pdf"
+					}
+				},
+				"lowland-heathland-forms-only": {
+					"title": " Common Standards Monitoring Guidance for Lowland heathland [Forms Only]",
+					"http": {
+						"url": "http://jncc.defra.gov.uk/pdf/CSM_lowland_heathland-formsonly.pdf",
+						"type": "application/pdf"
+					}
+				}
+			}
+		}
+	]
+}
