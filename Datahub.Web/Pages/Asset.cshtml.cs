@@ -21,7 +21,7 @@ namespace Datahub.Web.Pages
         public Asset Asset { get; set; }
 
 
-        public async void OnGetAsync()
+        public async Task OnGetAsync()
         {
             this.Message = "something or other...... " + this.env.ContentRootPath;
             var assets = await JsonLoader.LoadAssets(this.env.ContentRootPath);
