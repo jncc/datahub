@@ -28,3 +28,7 @@ To add packages, e.g.
 Deployment
 ----------
 The plan is to deploy to Elastic Beanstalk.
+
+Notes
+-----
+The green I used for the favicon is rgba(77, 219, 58, 1)
