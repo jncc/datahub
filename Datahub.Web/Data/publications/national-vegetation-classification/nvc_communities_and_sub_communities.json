@@ -40,10 +40,11 @@
         "datasetReferenceDate": "2008-03-26",
         "metadataPointOfContact": {
             "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
-            "email": "data@jncc.gov.uk"
+            "email": "data@jncc.gov.uk",
+            "role": ""
         },
-        "responsibleParty": {
-            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+        "responsibleOrganisation": {
+            "name": "Communications Team, Joint Nature Conservation Committee",
             "email": "communications@jncc.gov.uk",
             "role": "author"
         }

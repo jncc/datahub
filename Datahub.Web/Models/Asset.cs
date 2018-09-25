@@ -14,13 +14,13 @@ namespace Datahub.Web.Models {
         public string ResourceLocator { get; set; }
         public string AdditionalInformationSource { get; set; }
         public string DataFormat { get; set; }
-        public ResponsibleParty ResponsibleOrganisation { get; set; }
+        public responsibleOrganisation ResponsibleOrganisation { get; set; }
         public string LimitationsOnPublicAccess { get; set; }
         public string UseConstraints { get; set; }
         public string Copyright { get; set; }
         public string SpatialReferenceSystem { get; set; }
         public DateTime MetadataDate { get; set; }
-        public ResponsibleParty MetadataPointOfContact { get; set; }
+        public responsibleOrganisation MetadataPointOfContact { get; set; }
         public string ResourceType { get; set; }  // dataset | series | service | nonGeographicDataset | (custom:| publication)
         public BoundingBox BoundingBox { get; set; }
     }
@@ -42,7 +42,7 @@ namespace Datahub.Web.Models {
         public decimal West { get; set; }
     }
 
-    public class ResponsibleParty
+    public class responsibleOrganisation
     {
         public string Name { get; set; }
         public string Email { get; set; }

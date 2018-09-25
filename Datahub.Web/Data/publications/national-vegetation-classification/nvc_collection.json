@@ -89,7 +89,7 @@
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "data@jncc.gov.uk"
                 },
-                "responsibleParty": {
+                "responsibleOrganisation": {
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "communications@jncc.gov.uk",
                     "role": "author"
@@ -153,7 +153,7 @@
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "data@jncc.gov.uk"
                 },
-                "responsibleParty": {
+                "responsibleOrganisation": {
                     "name": "Elkington, T., Dayton, N., Jackson, D.L., & Strachan, I.M.",
                     "email": "communications@jncc.gov.uk",
                     "role": "author"
@@ -217,7 +217,7 @@
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "data@jncc.gov.uk"
                 },
-                "responsibleParty": {
+                "responsibleOrganisation": {
                     "name": "Averis, A., Averis, B., Birks, J., Horsfield, D., Thompson, D., & Yeo, M.",
                     "email": "communications@jncc.gov.uk",
                     "role": "author"
@@ -281,7 +281,7 @@
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "data@jncc.gov.uk"
                 },
-                "responsibleParty": {
+                "responsibleOrganisation": {
                     "name": "Hall, J.E., Kirby, K.J., Whitbread, A.M.",
                     "email": "communications@jncc.gov.uk",
                     "role": "author"
@@ -341,7 +341,7 @@
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "data@jncc.gov.uk"
                 },
-                "responsibleParty": {
+                "responsibleOrganisation": {
                     "name": "Cooper, E.A.,",
                     "email": "communications@jncc.gov.uk",
                     "role": "author"
@@ -393,7 +393,7 @@
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "data@jncc.gov.uk"
                 },
-                "responsibleParty": {
+                "responsibleOrganisation": {
                     "name": "Whitbread, A.M., & Kirby, K.J.",
                     "email": "communications@jncc.gov.uk",
                     "role": "author"
@@ -449,7 +449,7 @@
                     "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
                     "email": "data@jncc.gov.uk"
                 },
-                "responsibleParty": {
+                "responsibleOrganisation": {
                     "name": "Rodwell, J.S",
                     "email": "communications@jncc.gov.uk",
                     "role": "author"
