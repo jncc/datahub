@@ -7,7 +7,7 @@ namespace Datahub.Web.Models {
         public string Title { get; set; }
         public string Abstract { get; set; }
         public string TopicCategory { get; set; }
-        public List<string> Keywords { get; set; }
+        public List<Keyword> Keywords { get; set; }
         public TemporalExtent TemporalExtent { get; set; }
         public string DatasetReferenceDate { get; set; }
         public string Lineage { get; set; }
@@ -48,3 +48,9 @@ namespace Datahub.Web.Models {
         public string Email { get; set; }
         public string Role { get; set; }
     }}
+
+    public class Keyword
+    {
+        public string Vocab { get; set; }
+        public string Value { get; set; }
+    }

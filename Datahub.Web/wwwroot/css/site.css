@@ -12,26 +12,22 @@ body {
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.keyword {
+    white-space:nowrap;
+    display: inline-block;
+    background-color: red;
+    padding-right: 0.5em;
+    margin: 0 0.8em 0.45em 0;
 }
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
+.keyword > .vocabful-colour-edge {
+    display: inline-block;
+    width: 7px;
+    margin-right: 2px;
+  }
+.keyword > .vocabless-colour-edge {
+    display: inline-block;
+    width: 0;
+    margin-right: 0.15em;
+  }

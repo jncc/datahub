@@ -14,8 +14,11 @@
 <p><span class="text-muted">Keywords</span> 
 <span class="background-color: red;">Keyword 1</span>
 <span class="">Keyword 2</span>
+@foreach (var k in Model.Asset.Keywords)
+    {<span class="keyword"><span class="vocabful-colour-edge"></span> @(k.Value)</span>}
 
 </p>
+
 <p><span class="text-muted">Abstract</span> @Model.Asset.Abstract</p>
 
 <br />
@@ -50,6 +53,8 @@
         <i class="fas fa-long-arrow-alt-right"></i>
         @Model.Asset.TemporalExtent.End
     </p>
+
+    <p><span class="text-muted">Lineage</span> @Model.Asset.Lineage</p>
 
 
   </div>
