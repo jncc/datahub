@@ -1,0 +1,57 @@
+{
+    "id": "aeeaa777-ab96-4d5a-bba1-1154b5ad92a0",
+    "name": "users-handbook",
+    "metadata": {
+        "title": "NVC Users' Handbook",
+        "lineage": "",
+        "abstract": "This handbook gives a detailed description of the NVC methods for collection of vegetation relevés (quadrat) data, the methodology for sampling vegetation in the field, and the analysis and description of NVC data.\n# Introduction\nIt provides an authoritative introduction to the National Vegetation Classification (NVC), as published in the five volumes of British Plant Communities.  It also explains how such information can be used to identify plant communities and discusses important issues involved in carrying out an NVC survey of a site.  There is a brief account of some of the applications and limitations of the NVC.  A series of colour photographs is included to illustrate relevant points.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+        "keywords": [
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Habitats",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "NVC",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Classification",
+                "vocab": ""
+            }
+        ],
+        "metadataDate": "2006-01-01",
+        "resourceType": "series",
+        "topicCategory": "environment",
+        "temporalExtent": {
+            "begin": "2006-01-01T00:00:00Z",
+            "end": "2006-01-01T00:00:00Z"
+        },
+        "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+        "metadataLanguage": "English",
+        "accessLimitations": "",
+        "datasetReferenceDate": "2006-01-01",
+        "metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+        "responsibleOrganisation": {
+            "name": "Rodwell, J.S",
+            "email": "communications@jncc.gov.uk",
+            "role": "author"
+        }
+    },
+    "properties": {},
+    "data": {
+        "nvc-users-handbook": {
+            "title": "National Vegetation Classification Users' handbook",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/pdf/pub06_NVCusershandbook2006.pdf",
+                "type": "application/pdf"
+            }
+        }
+    }
+}

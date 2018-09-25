@@ -1,0 +1,58 @@
+{
+    "id": "5a83589c-6570-4490-a243-c926580d3036",
+    "name": "guidance-for-lowland-wetland",
+    "metadata": {
+        "title": "Common Standards Monitoring Guidance for Lowland Wetland",
+        "lineage": "",
+        "abstract": "This guidance section covers lowland wetland habitats (bogs and fens) on designated sites across the UK. For the purposes of this guidance, 'lowland' wetlands are essentially those which lie below the limit of agricultural enclosure. Mire habitats in unenclosed, upland landscapes are covered by the Upland habitat guidance section. For fen meadows and fen woodlands the guidance sections for Lowland grassland and Woodland respectively should also be consulted.\nGuidance is given on the selection of attributes and the setting of targets for lowland wetlands with more detailed guidance for raised bogs and lowland blanket bog; basin fens; valley fens; flood-plain fens; open-water transition fens; springs and flushes; fen meadow; and fen woodland.",
+        "keywords": [
+            {
+                "value": "Protected sites monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Lowland Wetland",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "CSM",
+                "vocab": ""
+            }
+        ],
+        "metadataDate": "2018-09-20",
+        "resourceType": "series",
+        "topicCategory": "monitoring",
+        "temporalExtent": {
+            "begin": "2004-08-01T00:00:00Z",
+            "end": "2004-08-01T00:00:00Z"
+        },
+        "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+        "metadataLanguage": "English",
+        "accessLimitations": "",
+        "datasetReferenceDate": "2004-08-01",
+        "metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+        "spatialReferenceSystem": "",
+        "responsibleOrganisation": {
+            "name": "Communications Team, Joint Nature Conservation Committee",
+            "contact": "communications@jncc.gov.uk",
+            "role": "distributor"
+        }
+    },
+    "properties": {},
+    "data": {
+        "lowland-heathland": {
+            "title": "Common Standards Monitoring Guidance for Lowland Wetland",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/pdf/CSM_lowland_wetland.pdf",
+                "type": "application/pdf"
+            }
+        }
+    }
+}
