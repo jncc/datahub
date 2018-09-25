@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/assets/{assetId}"
 @model AssetModel
 @{
     ViewData["Title"] = "Asset";
@@ -11,5 +11,52 @@
     <span class="small text-muted">@Model.Asset.DatasetReferenceDate.Substring(0, 4)</span>
 </h1>
 
-<h4></h4>
+<p><span class="text-muted">Keywords</span> 
+<span class="background-color: red;">Keyword 1</span>
+<span class="">Keyword 2</span>
+
+</p>
 <p><span class="text-muted">Abstract</span> @Model.Asset.Abstract</p>
+
+<br />
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="main-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
+        <i class="fas fa-question-circle"></i>
+        Main
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="usage-tab" data-toggle="tab" href="#usage" role="tab" aria-controls="usage" aria-selected="false">
+        <i class="fas fa-utensils"></i>
+        Usage
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+        <i class="fas fa-question-circle"></i>
+        Contact
+    </a>
+  </li>
+</ul>
+<div class="tab-content py-4" id="myTabContent">
+  <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+
+    <!-- TopicCategory -->
+    <p><span class="text-muted">Topic Category</span> Environment
+    </p>
+
+    <p><span class="text-muted">Temporal Extent</span> @Model.Asset.TemporalExtent.Begin
+        <i class="fas fa-long-arrow-alt-right"></i>
+        @Model.Asset.TemporalExtent.End
+    </p>
+
+
+  </div>
+  <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
+      
+  </div>
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+  </div>
+</div>

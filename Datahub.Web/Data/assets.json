@@ -3,6 +3,7 @@
         "id": "si37djfg63rvos",
         "title": "An example dataset",
         "abstract": "This is an example dataset. It wasn't created on Monday 24 September 2018 by Joint Nature Conservation Committee in order to explore the possibility of a Datahub asset page. It doesn't really exist so shouldn't be relied on for anything. This abstract is entirely fabricated and you should certainly stop reading it.",
-        "datasetReferenceDate": "2016-04-14"
+        "datasetReferenceDate": "2016-04-14",
+        "temporalExtent": { "begin": "2014", "end": "2016" }
     }
 ]
