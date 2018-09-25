@@ -14,6 +14,8 @@
 <p><span class="text-muted">Keywords</span> 
 <span class="background-color: red;">Keyword 1</span>
 <span class="">Keyword 2</span>
+@foreach (var k in Model.Asset.Keywords)
+    {<span class="keyword"><span class="vocabful-colour-edge"></span> @(k.Value)</span>}
 
 </p>
 
