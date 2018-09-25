@@ -11,12 +11,13 @@
     <span class="small text-muted">@Model.Asset.DatasetReferenceDate.Substring(0, 4)</span>
 </h1>
 
-<p><span class="text-muted">Keywords</span> 
-<span class="background-color: red;">Keyword 1</span>
-<span class="">Keyword 2</span>
-@foreach (var k in Model.Asset.Keywords)
-    {<span class="keyword"><span class="vocabful-colour-edge"></span> @(k.Value)</span>}
-
+<p>
+    @foreach (var k in Model.Asset.Keywords)
+    {<span class="keyword">
+        <span class="vocabful-colour-edge" style="background-color: rgba(77, 219, 58, 1);">&nbsp;</span>
+            @(k.Value)
+    </span>
+    }
 </p>
 
 <p><span class="text-muted">Abstract</span> @Model.Asset.Abstract</p>

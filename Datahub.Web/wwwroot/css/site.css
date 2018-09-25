@@ -13,11 +13,12 @@ body {
 }
 
 
-
 .keyword {
     white-space:nowrap;
     display: inline-block;
-    background-color: red;
+    background-color: #ddd;
+    /* background-color: #f0f0f4; */
+    /* background-color: #f7f7f9; */
     padding-right: 0.5em;
     margin: 0 0.8em 0.45em 0;
 }

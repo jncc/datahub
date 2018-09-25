@@ -9,4 +9,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
+<ItemGroup>
+    <!-- extends watching group to include everything in wwwroot so we watch css and js -->
+    <!-- (no bundling set up yet!) -->
+    <Watch Include="wwwroot\**\*.*" Exclude="node_modules\**\*;**\*.js.map;obj\**\*;bin\**\*" />
+</ItemGroup>
+
 </Project>
