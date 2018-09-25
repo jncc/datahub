@@ -3,8 +3,13 @@
 @{
     ViewData["Title"] = "Asset";
 }
-<h1>@ViewData["Title"]</h1>
-<h3>@Model.Message</h3>
+<h1 class="display-5 mb-4">
+    <span style="color: rgba(77, 219, 58, 1);">
+    <i class="fas fa-table"></i>
+    </span>
+    @Model.Asset.Title
+    <span class="small text-muted">@Model.Asset.DatasetReferenceDate.Substring(0, 4)</span>
+</h1>
 
-<p>This is the asset page!!!</p>
-<b>@Model.Asset.Title</b>
+<h4></h4>
+<p><span class="text-muted">Abstract</span> @Model.Asset.Abstract</p>
