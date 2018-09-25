@@ -17,15 +17,13 @@ namespace Datahub.Web.Pages
             this.env = env;
         }
 
-        public string Message { get; set; }
         public Asset Asset { get; set; }
 
 
-        public async void OnGetAsync()
+        public async Task OnGetAsync(string assetId)
         {
-            this.Message = "something or other...... " + this.env.ContentRootPath;
             var assets = await JsonLoader.LoadAssets(this.env.ContentRootPath);
-            this.Asset = assets.First();
+            this.Asset = assets.Single(a => a.Id == assetId);
         }
     }
 }

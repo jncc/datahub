@@ -5,13 +5,13 @@ This is a proof-of-concept Datahub app.
 
 Development
 -----------
-Created in .NET Core v2.1.4. Should work on any platform with .NET Core installed. 
+Created in .NET Core v2.1.4. Should work on any platform with .NET Core installed. Should be able to use Visual Studio 2017 or VS Code. 
 
 There is a solution file with a single project called Datahub.Web, which is an ASP.NET Core Razor web app. It's important to make sure you're in the correct project directory when you're using the command line:
 
-    cd ./Datahub.Web
+    cd Datahub.Web/
 
-To restore local packages (equivalent to `npm install`):
+To restore local packages (equivalent to `npm install`, VS Code might do this automatically):
 
     dotnet restore
 
@@ -28,3 +28,7 @@ To add packages, e.g.
 Deployment
 ----------
 The plan is to deploy to Elastic Beanstalk.
+
+Notes
+-----
+The green I used for the favicon is rgba(77, 219, 58, 1)
