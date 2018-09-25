@@ -1,7 +1,7 @@
 ﻿@page "/assets/{assetId}"
 @model AssetModel
 @{
-    ViewData["Title"] = "Asset";
+    ViewData["Title"] = Model.Asset.Title;
 }
 <h1 class="display-5 mb-4">
     <span style="color: rgba(77, 219, 58, 1);">
