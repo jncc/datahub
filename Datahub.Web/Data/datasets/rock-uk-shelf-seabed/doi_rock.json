@@ -1,5 +1,5 @@
 {
-    "id": "6c6efb44-d9a3-45f4-9547-99e44a30e066",
+    "id": "1122d9be-6f1b-42f2-bdf7-1e26b33779a2",
     "name": "prediction-of-outcrops-or-subcrops-of-rock-in-uk-shelf-seabed-public",
     "digitalObjectIdentifier": "10.25603/840424.1.0.0",
     "metadata": {
@@ -62,13 +62,13 @@
         }
     },
     "properties": {},
-    "data": {
-        "prediction-of-outcrops-or-subcrops-of-rock-in-uk-shelf-seabed-public": {
+    "data": [
+        {
             "title": "Prediction of outcrops or subcrops of rock in UK shelf seabed (public)",
             "http": {
                 "url": "http://data.jncc.gov.uk/data/7f632f1c-f2d3-464b-9886-5e73a4e5dfe9-c20180716-UKcombinedRock-WGS84.zip",
                 "type": "application/zip"
             }
         }
-    }
+    ]
 }

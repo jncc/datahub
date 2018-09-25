@@ -46,48 +46,48 @@
         }
     },
     "properties": {},
-    "data": {
-        "canals": {
+    "data": [
+        {
             "title": "Common Standards Monitoring Guidance for Canals",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_canals_Mar05.pdf",
                 "type": "application/pdf"
             }
         },
-        "ditches": {
+        {
             "title": "Common Standards Monitoring Guidance for Ditches",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_ditches_Mar05.pdf",
                 "type": "application/pdf"
             }
         },
-        "freshwater-lakes": {
+        {
             "title": "Common Standards Monitoring Guidance for Freshwater Lakes",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/0315_CSM_Freshwater_lakes.pdf",
                 "type": "application/pdf"
             }
         },
-        "rivers": {
+        {
             "title": "Common Standards Monitoring Guidance for Rivers",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_rivers_Sept2016.pdf",
                 "type": "application/pdf"
             }
         },
-        "rivers-bank-vegetation-naturalness": {
+        {
             "title": "Common Standards Monitoring Guidance for Rivers - Bank Vegetation Naturalness Appendix",
             "http": {
                 "url": "http://jncc.defra.gov.uk/docs/CSM_rivers-BankVegetationNaturalnessExcelfile.xls",
                 "type": "application/vnd.ms-excel"
             }
         },
-        "rivers-riparian-zone-vegetation-naturalness": {
+        {
             "title": "Common Standards Monitoring Guidance for Rivers - Riparian zone vegetation naturalness Appendix",
             "http": {
                 "url": "http://jncc.defra.gov.uk/docs/CSM_rivers-RiparianZoneNaturalnessExcelfile.xls",
                 "type": "application/vnd.ms-excel"
             }
         }
-    }
+    ]
 }
