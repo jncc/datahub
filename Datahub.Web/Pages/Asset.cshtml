@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
 }
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+}
 <h1 class="display-5 mb-4">
     <span style="color: rgba(77, 219, 58, 1);">
     <i class="fas fa-table"></i>
@@ -13,7 +20,7 @@
 
 <p>
     @foreach (var k in Model.Asset.Metadata.Keywords)
-    {<span class="keyword">
+    {<span class="keyword" data-toggle="tooltip" data-placement="top" title="@(k.Vocab)">
         <span class="vocabful-colour-edge" style="background-color: rgba(77, 219, 58, 1);">&nbsp;</span>
             @(k.Value)
     </span>
