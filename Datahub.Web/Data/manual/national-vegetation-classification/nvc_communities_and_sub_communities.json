@@ -36,7 +36,7 @@
         },
         "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
         "metadataLanguage": "English",
-        "accessLimitations": "",
+        "limitationsOnOublicAccess": "",
         "datasetReferenceDate": "2008-03-26",
         "metadataPointOfContact": {
             "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
@@ -50,13 +50,13 @@
         }
     },
     "properties": {},
-    "data": {
-        "nvc-names-codes": {
+    "data": [
+        {
             "title": "NVC Names Codes",
             "http": {
                 "url": "http://jncc.defra.gov.uk/files/NVC_names_codes_26_3_2008.zip",
                 "type": "application/zip"
             }
         }
-    }
+    ]
 }

@@ -32,7 +32,7 @@
         },
         "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
         "metadataLanguage": "English",
-        "accessLimitations": "",
+        "limitationsOnOublicAccess": "",
         "datasetReferenceDate": "2006-01-01",
         "metadataPointOfContact": {
             "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
@@ -45,13 +45,13 @@
         }
     },
     "properties": {},
-    "data": {
-        "nvc-users-handbook": {
+    "data": [
+        {
             "title": "National Vegetation Classification Users' handbook",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/pub06_NVCusershandbook2006.pdf",
                 "type": "application/pdf"
             }
         }
-    }
+    ]
 }

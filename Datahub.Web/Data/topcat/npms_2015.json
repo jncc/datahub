@@ -1,0 +1,69 @@
+{
+    "id": "7dc6e2da-5d15-4b3f-842b-d7cc8bd94ff1",
+    "name": "national-plant-monitoring-scheme-2015-dataset",
+    "metadata": {
+        "title": "National Plant Monitoring Scheme, 2015 dataset",
+        "lineage": "The data were initially entered through a custom-built Drupal-website, using the open-source Indicia (www.indicia.org.uk) database standard. Data were extracted from this database into the flat tables presented here.",
+        "abstract": "This dataset contains data from the National Plant Monitoring Scheme in 2015. These consist of plant species occurrences, with abundance values, in plots. Plots are nested with 1 km squares, and are georeferenced according to the British/Irish/Channel Islands grid systems, or in latitude/longitude format; the 1 km squares surveyed were selected according to a weighted-random design, designed to enrich the sample for semi-natural habitats. Plots also have associated habitat and spatial information, as well as a small number of other environmental data. The species recorded in any particular plot are dependent on the habitat chosen for the plot by the surveyor, and the level of the scheme at which they were participating. NPMS data are collected with the aim that they can inform about the national status of vascular plants and habitats. Data are collected by volunteers, and organised and funded by the Centre for Ecology and Hydrology, Botanical Society of Britain and Ireland, Plantlife and the Joint Nature Conservation Committee.",
+        "keywords": [
+            {
+                "value": "Terrestrial",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
+            },
+            {
+                "value": "UK Biodiversity",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-category"
+            },
+            {
+                "value": "Flowering plants",
+                "vocab": ""
+            },
+            {
+                "value": "habitat",
+                "vocab": ""
+            },
+            {
+                "value": "plants",
+                "vocab": ""
+            }
+        ],
+        "metadataDate": "2018-07-27T08:36:55.4082886Z",
+        "resourceType": "dataset",
+        "topicCategory": "environment",
+        "temporalExtent": {
+            "begin": "2015-01-01T00:00:00Z",
+            "end": "2015-12-31T00:00:00Z"
+        },
+        "useConstraints": "no conditions apply",
+        "metadataLanguage": "English",
+        "limitationsOnOublicAccess": "None",
+        "datasetReferenceDate": "2016-02-29",
+        "metadataPointOfContact": {
+            "name": "Ecosystem Analysis, JNCC",
+            "Email": "EcosystemAnalysis@jncc.gov.uk",
+            "role": "pointOfContact"
+        },
+        "responsibleOrganisation": {
+            "name": "Centre for Ecology and Hydrology (CEH)",
+            "email": "enquiries@ceh.ac.uk",
+            "role": "distributor"
+        },
+        "spatialReferenceSystem": "British National Grid",
+        "boundingBox": {
+            "north": 60.86099,
+            "south": 49.86382,
+            "east": 1.767549,
+            "west": -8.648393
+        }
+    },
+    "properties": {},
+    "data": [
+        {
+            "title": "National Plant Monitoring Scheme, 2015 dataset",
+            "http": {
+                "url": "http://catalogue.ceh.ac.uk/documents/33fe87f9-d45a-41ba-acca-ee8585ea6b7d",
+                "type": "text/html"
+            }
+        }
+    ]
+}

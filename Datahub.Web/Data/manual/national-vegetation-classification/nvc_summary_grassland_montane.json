@@ -1,10 +1,10 @@
 {
-    "id": "5da05283-b6ca-44de-a21d-0a5982023b55",
-    "name": "field-guide-to-woodland",
+    "id": "158f8d44-6ee1-44f3-b974-c790e2fa15e2",
+    "name": "summary-descriptions-of-national-vegetation-classification-grassland-and-montane-communities",
     "metadata": {
-        "title": "National vegetation classification field guide to woodland",
+        "title": "Summary descriptions of National Vegetation Classification grassland and montane communities",
         "lineage": "",
-        "abstract": "Straightforward descriptions of the 18 woodland types identified by the NVC, and keys to their sub-communities. A valuable complement to the NVC, especially for use in the field.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
+        "abstract": "An aide-memoir for field workers and others that combines a series of keys and summary descriptions covering all mesotrophic, calcicolous and calcifugous grassland types within Volume 3 of the National Vegetation Classification.\nFor further information on the [National Vegetation Classification (NVC) and other NVC-related publications](/jncc/publications/uk-habitats-and-species/habitats/classification/nvc)",
         "keywords": [
             {
                 "value": "UK Habitats and Species",
@@ -23,39 +23,31 @@
                 "vocab": ""
             },
             {
-                "value": "Woodland",
+                "value": "Grassland",
                 "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
             }
         ],
-        "metadataDate": "2004-01-01",
+        "metadataDate": "1998-01-01",
         "resourceType": "series",
         "topicCategory": "environment",
         "temporalExtent": {
-            "begin": "2004-01-01T00:00:00Z",
-            "end": "2004-01-01T00:00:00Z"
+            "begin": "1998-01-01T00:00:00Z",
+            "end": "1998-01-01T00:00:00Z"
         },
         "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
         "metadataLanguage": "English",
-        "accessLimitations": "",
-        "datasetReferenceDate": "2004-01-01",
+        "limitationsOnOublicAccess": "",
+        "datasetReferenceDate": "1998-01-01",
         "metadataPointOfContact": {
             "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
             "email": "data@jncc.gov.uk"
         },
         "responsibleOrganisation": {
-            "name": "Whitbread, A.M., & Kirby, K.J.",
+            "name": "Cooper, E.A.,",
             "email": "communications@jncc.gov.uk",
             "role": "author"
         }
     },
     "properties": {},
-    "data": {
-        "summary-of-national-vegetation-classification-woodland-descriptions": {
-            "title": "Summary of National Vegetation Classification woodland descriptions",
-            "http": {
-                "url": "http://jncc.defra.gov.uk/pdf/Pub92_Summary_of_NVC_woodland_descriptions_PRINT.pdf",
-                "type": "application/pdf"
-            }
-        }
-    }
+    "data": []
 }

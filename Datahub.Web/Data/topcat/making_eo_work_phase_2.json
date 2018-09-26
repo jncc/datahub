@@ -1,0 +1,87 @@
+{
+    "id": "5955fd9c-8c9a-4a8c-b72e-2ed3fb756f5c",
+    "name": "making-earth-observation-work-for-uk-biodiversity",
+    "metadata": {
+        "title": "Making Earth Observation Work for UK Biodiversity",
+        "abstract": "This project constitutes Phase 2 of a three-part research project 'Making Earth Observation Work' (MEOW) to establish the practical role Earth Observation (EO) can play in addressing habitat monitoring and surveillance needs in the UK, for priority habitats designated under UK Biodiversity Action Plan (BAP) and Annex I habitats.\n \n## Summary\nThere are a number of national and international policies and legislation which require the UK to undertake habitat surveillance activities at differing spatial scales. Universally they all call for a better evidence base, providing consistent and robust information about land cover and habitats. Surveillance is crucial to provide us with a broad picture of the extent, location and condition of semi-natural habitats across the UK. This knowledge is necessary to enable us to know enough about specific species and habitats of conservation concern to enable us to provide protection, meet our legislative obligations and ensure that sites are managed appropriately.\n\nThe objectives of Phase 2 focussed on:\n\n• developing and testing EO techniques for mapping Annex I and priority habitats;\n\n• developing EO measures that inform on habitat condition.\n\n\n### Citation\nMedcalf, K.A., Parker, J.A., Turton, N. & Bell, G., (2014), Making Earth Observation Work for UK Biodiversity , JNCC Report 495 Phase 2, ISSN 0963-8091",
+        "keywords": [
+            {
+                "value": "Terrestrial",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
+            },
+            {
+                "value": "To Do!",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
+            },
+            {
+                "value": "JNCC Publications",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-category"
+            },
+            {
+                "value": "0963-8091",
+                "vocab": "http://vocab.jncc.gov.uk/ISSN"
+            },
+            {
+                "value": "Earth Observation",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Evidence",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Habitats",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "JNCC report series",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Land use",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Plants",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Surveillance and Monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "495 Phase 2",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-report-series-number"
+            }
+        ],
+        "metadataDate": "2018-09-26T07:50:14.8701387Z",
+        "resourceType": "publication",
+        "topicCategory": "environment",
+        "metadataLanguage": "English",
+        "datasetReferenceDate": "2014-08-01",
+        "metadataPointOfContact": {
+            "name": "Communications, JNCC",
+            "Email": "data@jncc.gov.uk",
+            "role": "pointOfContact"
+        },
+        "responsibleOrganisation": {
+            "name": "Medcalf, K.A., Parker, J.A., Turton, N. & Bell, G.",
+            "email": "communications@jncc.gov.uk",
+            "role": "author"
+        }
+    },
+    "properties": {},
+    "data": [
+        {
+            "title": "Making Earth Observation Work for UK Biodiversity Conservation - Phase 2",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/MEOW_Phase2Norfolk_Report_Draft_highres_web-2_p1_63.pdf",
+                "type": "application/pdf"
+            }
+        }
+    ]
+}

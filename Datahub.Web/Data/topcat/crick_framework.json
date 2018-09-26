@@ -1,0 +1,84 @@
+{
+    "id": "4b9204f4-e3c8-4c48-b689-73773a42407c",
+    "name": "crick-framework-a-systematic-description-of-the-potential-for-the-use-of-earth-observation-in-habitat-mapping",
+    "metadata": {
+        "title": "Crick Framework: a systematic description of the potential for the use of Earth Observation in habitat mapping",
+        "lineage": "The Framework was developed within the Making Earth Observation Work for UK Biodiversity (MEOW) project. For more information see http://jncc.defra.gov.uk/page-6281 and http://jncc.defra.gov.uk/page-6279.",
+        "abstract": "The Crick Framework provides a way to categorise how well Earth Observation (EO) techniques can be used to identify particular habitats and features on the ground and detailed information on what is possible or what has been done, for each habitat.\n\nThere are a wide range of interacting factors that have to be considered in order to differentiate vegetation types and habitats from EO. These factors have been considered, along with ecological knowledge, to develop a generic classification system that proposes categories (tiers) of habitat groups. This set of tiers is the first and most accessible component of the Crick Framework, providing a categorisation for habitats, based on existing ability to map and monitor them using EO, with or without ancillary data sets. The framework has been designed to consider Biodiversity Action Plan (BAP) Priority habitats and Habitats Directive Annex I habitats. \n\nAs well as the classification tiers, the Framework contains detailed descriptions of the potential for the use of EO in mapping and relevant features of that habitat that need to be considered when using EO. A detailed description is provided for each BAP Priority and Annex I habitat.\n\nThe Framework was developed within the Making Earth Observation Work for UK Biodiversity (MEOW) project. For more information see http://jncc.defra.gov.uk/page-6281 and http://jncc.defra.gov.uk/page-6279.",
+        "keywords": [
+            {
+                "value": "Terrestrial",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
+            },
+            {
+                "value": "Earth Observation",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-category"
+            },
+            {
+                "value": "Habitats Directive - Annex I",
+                "vocab": "http://vocab.jncc.gov.uk/original-seabed-classification-system"
+            },
+            {
+                "value": "BAP Priority Habitat",
+                "vocab": ""
+            },
+            {
+                "value": "Earth Observation",
+                "vocab": ""
+            },
+            {
+                "value": "Habitat",
+                "vocab": ""
+            },
+            {
+                "value": "habitat mapping",
+                "vocab": ""
+            }
+        ],
+        "metadataDate": "2018-06-30T01:00:02.7828527Z",
+        "resourceType": "nonGeographicDataset",
+        "topicCategory": "environment",
+        "temporalExtent": {
+            "begin": "2013-01-25T00:00:00Z",
+            "end": "2013-01-25T00:00:00Z"
+        },
+        "useConstraints": "Available under the Open Government Licence v3.0. Attribution statement: \"Contains JNCC data © copyright and database right 2013\".",
+        "metadataLanguage": "English",
+        "limitationsOnOublicAccess": "None",
+        "datasetReferenceDate": "2013-01-25",
+        "metadataPointOfContact": {
+            "name": "Ecosystem Analysis, JNCC",
+            "Email": "EcosystemAnalysis@jncc.gov.uk",
+            "role": "pointOfContact"
+        },
+        "responsibleOrganisation": {
+            "name": "Joint Nature Conservation Committee (JNCC)",
+            "email": "EcosystemAnalysis@jncc.gov.uk",
+            "role": "distributor"
+        }
+    },
+    "properties": {},
+    "data": [
+        {
+            "title": "Using the Crick Framework",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/page-6281",
+                "type": "application/zip"
+            }
+        },
+        {
+            "title": "Crick Framework - Further Information Spreadsheet",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/docs/CF_spreadsheet_130125.xlsx",
+                "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            }
+        },
+        {
+            "title": "Crick Framework - User Manual",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/docs/cf_User_manual_20130205.doc",
+                "type": "application/msword"
+            }
+        }
+    ]
+}
