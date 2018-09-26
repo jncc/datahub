@@ -83,11 +83,11 @@
 <div class="tab-content py-4" id="myTabContent" style="min-height: 20em;">
   <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
 
-    <p><span class="text-muted">Resource Type.</span> Dataset</p>
+    <p><span class="text-muted">Resource Type.</span> @(Model.Asset.Metadata.ResourceType)</p>
 
-    <p><span class="text-muted">Topic Category.</span> Environment</p>
+    <p><span class="text-muted">Topic Category.</span> @(Model.Asset.Metadata.TopicCategory)</p>
 
-    <p><span class="text-muted">Data Format.</span> Comma-separated files</p>
+    <p><span class="text-muted">Data Format.</span> Data format goes here</p>
 
     <p><span class="text-muted">Dataset Reference Date.</span> @(Model.Asset.Metadata.DatasetReferenceDate)</p>
 
