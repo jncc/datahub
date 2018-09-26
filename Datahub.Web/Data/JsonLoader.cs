@@ -30,6 +30,7 @@ namespace Datahub.Web.Data {
                 assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(csmPath, "csm_lowland_heathlands.json"))));
                 assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(csmPath, "csm_lowland_wetland.json"))));
                 assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(csmPath, "csm_marine.json"))));
+                assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(csmPath, "csm_coastal.json"))));
 
                 var nvcPath = Path.Combine(manualPath, "national-vegetation-classification");
                 assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(nvcPath, "nvc_users_handbook.json"))));
