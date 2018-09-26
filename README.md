@@ -27,7 +27,18 @@ To add packages, e.g.
 
 Deployment
 ----------
-The plan is to deploy to Elastic Beanstalk.
+Manual deployments to jncc-datahub-test env:
+
+Ensure the machine you are deploying from has awscli installed and confiured.
+
+Install the eb deploy tool:
+
+    dotnet tool install -g Amazon.ElasticBeanstalk.Tools
+
+Deploy:
+
+    cd /Datahub.web
+    dotnet eb deploy-environment -app datahub -env jncc-datahub-test --region eu-west-1
 
 Notes
 -----
