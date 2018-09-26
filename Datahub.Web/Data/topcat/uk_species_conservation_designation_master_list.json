@@ -1,0 +1,89 @@
+{
+    "id": "478f7160-967b-4366-acdf-8941fd33850b",
+    "name": "uk-species-conservation-designation-master-list",
+    "metadata": {
+        "title": "UK Species Conservation Designation master list",
+        "lineage": "This dataset is a collation of various conservation designation listings. JNCC compiles the information from a variety of published sources such as Red lists, Taxon Status Reviews, UK Priority species lists and schedules of international and national legislation. The species names on these lists are all cross referenced to the recommended taxon names on the UK Species Dictionary managed by the Natural History Museum on behalf of the National Biodiversity Network. This matching process ensures that all of the designations relating to an individual species are all correctly tagged for that species. On some published lists the designated names are for groups of organisms such as \"all bats\" or \"all cetaceae\" (whales and dolphins).  In such cases the individual species naturally occurring within the UK are listed. \nThe first version of this list was published in 2004. An audit trail of subsequent updates is shown here http://jncc.defra.gov.uk/page-3428 \nThe JNCC collation of species designations is used on the NBN Gateway and also within the Recorder biological recording software package.",
+        "abstract": "This 'master list' of Species Designations contains details for \"taxa\" that have been assigned some form of rarity, threat or legal status in Great Britain or the UK. It is a collation of many different \"designation\" lists including Country specific, National and International conventions/directives. \n\nThe following designation types are included in the spreadsheet: -\n\nBern Convention (Appendices 1, 2 and 3);\nBonn Convention - Convention on the Conservation of Migratory Species (Appendices 1 and 2, AEWA, ASCOBANS,  EUROBATS);\nBiodiversity Action Plan (BAP) UK priority species list;\nBirds Directive (Annexes 1, 2.1 and 2.2);\nBirds of Conservation Concern (Red/Amber list and not based on IUCN criteria);\nConvention on Migratory Species\nEC CITES (Annexes A, B, C and D);\nGlobal Red list status (This includes red listings based on pre-1994, 1994 and 2001 IUCN guidelines);\nHabitats Directive (Annexes 2, 4 and 5);\nNationally Rare/Scarce (Not based on IUCN criteria);\nNationally Scarce and Nationally Rare Species (Also with an IUCN status);\nNational Red Lists (This includes red listings based on pre-1994, 1994 and 2001 IUCN guidelines);\nOSPAR;\nProtection of Badgers Act 1992;\nSpecies of principal importance in England, Scotland, Wales and North Ireland (NERC section 41 and 42 lists, Scottish Biodiversity List and Northern Ireland Priority Species List);\nThe Conservation (Nature Habitats) Regulations (NI) 1995 (Schedule 2, 3 and 4);\nThe Conservation of Habitats and Species Regulations 2010 (Schedule 2, 4 and 5);\nThe Wildlife and Countryside Act 1981 (Schedule 1, 5 and 8);\nWildlife (NI) Order 1985 (Schedule 1 part 1, Schedule 1 part 2, Schedule 5, Schedule 8 part 1, Schedule 8 part 2)\n\nEach row is distinguished by a unique combination of \"taxa\" and designation. Thus a taxon with 10 designations will be represented by ten rows on the master list. Please note, this is not a fully comprehensive collation of designations for UK species, for example, local red list assessments are not included, and for some reporting categories only selected annexes/appendices/schedules are included. Note that the generic term \"taxa\" is in this context a more strictly accurate term than \"species\" because some of the listed entities are ranked as being either above or below the \"species\" level.",
+        "keywords": [
+            {
+                "value": "Freshwater",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
+            },
+            {
+                "value": "Marine",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
+            },
+            {
+                "value": "Terrestrial",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
+            },
+            {
+                "value": "CITES",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-category"
+            },
+            {
+                "value": "UK Biodiversity",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-category"
+            },
+            {
+                "value": "Species Status",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "UK BAP",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "conservation status"
+            },
+            {
+                "value": "IUCN Red List"
+            },
+            {
+                "value": "Rare and Scarce species"
+            },
+            {
+                "value": "red Data Books"
+            },
+            {
+                "value": "Species status"
+            },
+            {
+                "value": "Wildlife & Countryside Act"
+            }
+
+        ],
+        "metadataDate": "2018-07-27T01:00:07.0959262Z",
+        "resourceType": "dataset",
+        "topicCategory": "biota",
+        "temporalExtent": {
+            "begin": "1979-01-01T00:00:00Z",
+            "end": "2018-07-25T00:00:00Z"
+        },
+        "useConstraints": "Re-use of information in the Conservation Designations Spreadsheet is subject to the terms of the Open Government Licence, which means it may be used and distributed freely with only a few conditions. If you re-use this information you must acknowledge the source of the information in your product or application by including or linking to the following attribution statement: “Contains JNCC/NE/NRW/SNH/NIEA data © copyright and database right 2017”.",
+        "metadataLanguage": "English",
+        "limitationsOnOublicAccess": "no limitations",
+        "datasetReferenceDate": "2018-07-27",
+        "metadataPointOfContact": {
+            "name": "Digital & Data Solutions, JNCC",
+            "Email": "data@jncc.gov.uk",
+            "role": "pointOfContact"
+        },
+        "responsibleOrganisation": {
+            "name": "Joint Nature Conservation Committee (JNCC)",
+            "email": "data@jncc.gov.uk",
+            "role": "custodian"
+        }
+    },
+    "properties": {},
+    "data": [
+        {
+            "title": "Conservation Designations Spreadsheet",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/files/Taxon_designations_201807_25.zip",
+                "type": "application/zip"
+            }
+        }
+    ]
+}

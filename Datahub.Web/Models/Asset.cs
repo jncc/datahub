@@ -71,12 +71,14 @@ namespace Datahub.Web.Models {
     public interface IDataType
     {
         string Type { get; set; }
+        //string DataFormat { get; set; }
     }
 
     public class HTTP : IDataType
     {
         public string URL { get; set; }
         public string Type { get; set; }
+        //public string DataFormat { get; set; }
     }
 }
 
