@@ -3,6 +3,14 @@
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
 }
+@section Scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+}
+
 <h1 class="display-5 mb-4">
     <span style="color: rgba(77, 219, 58, 1);">
     <i class="fas fa-table"></i>
@@ -13,7 +21,7 @@
 
 <p>
     @foreach (var k in Model.Asset.Metadata.Keywords)
-    {<span class="keyword">
+    {<span class="keyword" data-toggle="tooltip" data-placement="top" title="@(k.Vocab)">
         <span class="vocabful-colour-edge" style="background-color: rgba(77, 219, 58, 1);">&nbsp;</span>
             @(k.Value)
     </span>
@@ -25,7 +33,19 @@
   <p><span class="text-muted">@Model.Asset.DigitalObjectIdentifier</span></p>
 }
 
-<p><span class="text-muted">Abstract</span> @Model.Asset.Metadata.Abstract</p>
+<!-- <p><span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract</p> -->
+
+
+<div class="module">
+<p class="collapse" id="collapseExample" aria-expanded="false">
+    <span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract
+</p>
+<div class="float-right">
+<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
+    aria-expanded="false" aria-controls="collapseExample"></a>
+</div>
+</div>
+
 
 <br />
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -60,52 +80,60 @@
     </a>
   </li>
 </ul>
-<div class="tab-content py-4" id="myTabContent">
+<div class="tab-content py-4" id="myTabContent" style="min-height: 20em;">
   <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
 
-    <p><span class="text-muted">Resource Type</span> Dataset</p>
+    <p><span class="text-muted">Resource Type.</span> Dataset</p>
 
-    <p><span class="text-muted">Topic Category</span> Environment</p>
+    <p><span class="text-muted">Topic Category.</span> Environment</p>
 
-    <p><span class="text-muted">Data Format</span> Comma-separated files</p>
+    <p><span class="text-muted">Data Format.</span> Comma-separated files</p>
 
-    <p><span class="text-muted">Resource Locator</span> <a href="#">http://nowhere.example.com/example</a></p>
+    <p><span class="text-muted">Dataset Reference Date.</span> @(Model.Asset.Metadata.DatasetReferenceDate)</p>
 
-    <p><span class="text-muted">Lineage</span> @Model.Asset.Metadata.Lineage</p>
+    <p><span class="text-muted">Resource Locator.</span> <a href="#">http://nowhere.example.com/example</a></p>
 
-    <p><span class="text-muted">Additional Information Source</span> Somewhere else</p>
+    <p><span class="text-muted">Lineage.</span> @Model.Asset.Metadata.Lineage</p>
+
+    <p><span class="text-muted">Additional Information Source.</span> Somewhere else</p>
 
   </div>
 
   <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
 
-    <p><span class="text-muted">Responsible Party</span> Name, Email, Role</p>
+    <p><span class="text-muted">Responsible Party.</span> Name, Email, Role</p>
       
-    <p><span class="text-muted">LimitationsOnPublicAccess</span> Stuff</p>
+    <p><span class="text-muted">LimitationsOnPublicAccess.</span> Stuff</p>
 
-    <p><span class="text-muted">UseConstraints</span> Stuff</p>
+    <p><span class="text-muted">UseConstraints.</span> Stuff</p>
 
   </div>
 
   <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
 
-    <p><span class="text-muted">Metadata date</span> 2016-04-14</p>
-    <p><span class="text-muted">Metadata Point of Contact</span> Name, Email, Role</p>
+    <p><span class="text-muted">Metadata date.</span> 2016-04-14</p>
+    <p><span class="text-muted">Metadata Point of Contact.</span> Name, Email, Role</p>
 
   </div>
 
   <div class="tab-pane fade" id="extent" role="tabpanel" aria-labelledby="extent-tab">
 
-    <p><span class="text-muted">Temporal Extent</span> @Model.Asset.Metadata.TemporalExtent.Begin
+    <p><span class="text-muted">Temporal Extent.</span> @Model.Asset.Metadata.TemporalExtent.Begin
         <i class="fas fa-long-arrow-alt-right"></i>
         @Model.Asset.Metadata.TemporalExtent.End
     </p>
 
-    <p><span class="text-muted">Bounding Box</span> A, B, C, D</p>
+    <p><span class="text-muted">Bounding Box.</span> A, B, C, D</p>
 
   </div>
   <div class="tab-pane fade" id="downloads" role="tabpanel" aria-labelledby="downloads-tab">
-    @foreach (var d in Model.Asset.Data)
-      {<p><span class="text-muted"><a href="@d.HTTP.URL">@d.Title</a></span><span>[@d.HTTP.Type]</span></p>}
+      <ul class="fa-ul">
+        @foreach (var d in Model.Asset.Data)
+        {<li>
+            <i class="fa-li fa fa-download"></i> 
+            <a href="@d.HTTP.URL">@(d.Title)</a> <span>[@(d.HTTP.Type)]</span>
+        </li>
+        }
+      </ul>  
   </div>
 </div>
