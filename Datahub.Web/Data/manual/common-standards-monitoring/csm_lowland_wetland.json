@@ -24,7 +24,7 @@
             }
         ],
         "metadataDate": "2018-09-20",
-        "resourceType": "series",
+        "resourceType": "publication",
         "topicCategory": "monitoring",
         "temporalExtent": {
             "begin": "2004-08-01T00:00:00Z",

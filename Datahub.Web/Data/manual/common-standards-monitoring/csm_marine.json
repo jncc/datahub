@@ -24,7 +24,7 @@
             }
         ],
         "metadataDate": "2018-09-20",
-        "resourceType": "series",
+        "resourceType": "publication",
         "topicCategory": "monitoring",
         "temporalExtent": {
             "begin": "2009-02-01T00:00:00Z",
@@ -48,16 +48,58 @@
     "properties": {},
     "data": [
         {
-            "title": "Common Standards Monitoring Guidance for Lowland heathland",
+            "title": "Common Standards Monitoring Guidance for Generic Introduction for marine features",
             "http": {
-                "url": "http://jncc.defra.gov.uk/pdf/0902_CSM_lowland_heathlandv2.pdf",
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_introduction.pdf",
                 "type": "application/pdf"
             }
         },
         {
-            "title": " Common Standards Monitoring Guidance for Lowland heathland [Forms Only]",
+            "title": "Common Standards Monitoring Guidance for Littoral rock and inshore sublittoral rock (Reefs)",
             "http": {
-                "url": "http://jncc.defra.gov.uk/pdf/CSM_lowland_heathland-formsonly.pdf",
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_rock.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Littoral sediment flats (mud/sand flats)",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_littoral_sediment.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Inshore sublittoral sediments (sandbanks)",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_sublittoral_sediment.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Estuaries",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_estuaries.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Inlets and Bays",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_ins_bays.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Sea Caves",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_sea_caves.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Lagoons",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_lagoons.pdf",
                 "type": "application/pdf"
             }
         }
