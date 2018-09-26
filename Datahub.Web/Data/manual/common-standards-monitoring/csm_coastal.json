@@ -1,0 +1,79 @@
+{
+    "id": "896f9132-8b1f-44cd-91f3-2423311668f2",
+    "name": "guidance-for-coastal",
+    "metadata": {
+        "title": "Common Standards Monitoring Guidance for Coastal",
+        "lineage": "",
+        "abstract": "Guidance on monitoring coastal habitats is given under four broad headings: Coastal vegetated shingle, Sand dune (including machair), Saltmarsh and Maritime cliff and slope. The dune guidance includes specific guidance for strandline, embryo and mobile dune; fixed dune grassland; humid dune slacks; dunes with Salix repens; and machair grassland. The Maritime cliff and slope guidance addresses both hard and soft cliffs. Guidance on other maritime habitats, such as saline lagoons and mudflats, is included in the Marine section.\nFor each of the four main habitat types there is an introduction, description of the habitat in the United Kingdom (including regional variations), dynamics by which the feature may change, followed by detail of the attributes used for assessing the habitats. There are also sections on recommended visiting period, skills required and methods of assessment. The generic tables are included at the end of each document.\nThis guidance:\n * identifies a set of generic attributes to assess status of the feature, highlighting those attributes that should be used on all sites, and those that are site-specific (discretionary) to be used to reflect local distinctiveness;\n * provides advice on setting targets",
+        "keywords": [
+            {
+                "value": "Protected sites monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "UK Habitats and Species",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "Marine",
+                "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
+            },
+            {
+                "value": "CSM",
+                "vocab": ""
+            }
+        ],
+        "metadataDate": "2018-09-20",
+        "resourceType": "publication",
+        "topicCategory": "monitoring",
+        "temporalExtent": {
+            "begin": "2008-08-01T00:00:00Z",
+            "end": "2008-08-01T00:00:00Z"
+        },
+        "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
+        "metadataLanguage": "English",
+        "limitationsOnOublicAccess": "",
+        "datasetReferenceDate": "2004-08-01",
+        "metadataPointOfContact": {
+            "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
+            "email": "data@jncc.gov.uk"
+        },
+        "spatialReferenceSystem": "",
+        "responsibleOrganisation": {
+            "name": "Communications Team, Joint Nature Conservation Committee",
+            "contact": "communications@jncc.gov.uk",
+            "role": "distributor"
+        }
+    },
+    "properties": {},
+    "data": [
+        {
+            "title": "Common Standards Monitoring Guidance for Coastal vegetated shingle",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_shingle.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Sand dunes",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_sand_dune.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Saltmarsh",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_saltmarsh.pdf",
+                "type": "application/pdf"
+            }
+        },
+        {
+            "title": "Common Standards Monitoring Guidance for Maritime cliff & Slope",
+            "http": {
+                "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_cliff_slope.pdf",
+                "type": "application/pdf"
+            }
+        }
+    ]
+}

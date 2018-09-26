@@ -58,6 +58,10 @@
                 "vocab": "http://vocab.jncc.gov.uk/jncc-report-series-number"
             }
         ],
+        "temporalExtent": {
+            "begin": "",
+            "end": ""
+        },
         "metadataDate": "2018-09-26T07:48:49.5237785Z",
         "resourceType": "publication",
         "topicCategory": "environment",
