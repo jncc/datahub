@@ -35,24 +35,29 @@
                 "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
             },
             {
-                "value": "conservation status"
+                "value": "conservation status",
+                "vocab":  ""
             },
             {
-                "value": "IUCN Red List"
+                "value": "IUCN Red List",
+                "vocab":  ""
             },
             {
-                "value": "Rare and Scarce species"
+                "value": "Rare and Scarce species",
+                "vocab":  ""
             },
             {
-                "value": "red Data Books"
+                "value": "red Data Books",
+                "vocab": ""
             },
             {
-                "value": "Species status"
+                "value": "Species status",
+                "vocab": ""
             },
             {
-                "value": "Wildlife & Countryside Act"
+                "value": "Wildlife & Countryside Act",
+                "vocab": ""
             }
-
         ],
         "metadataDate": "2018-07-27T01:00:07.0959262Z",
         "resourceType": "dataset",
