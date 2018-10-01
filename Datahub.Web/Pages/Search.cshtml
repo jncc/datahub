@@ -1,0 +1,26 @@
+@page
+@model SearchModel
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1 class="display-5 mb-4">
+    <span style="color: rgba(77, 219, 58, 1);">
+    <i class="fas fa-search"></i>
+    </span>
+    Search
+</h1>
+<div>
+    <div class="input-group my-5">
+        <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub">
+        <div class="input-group-append">
+            <button class="btn btn-success px-4" type="button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+@foreach (var r in Model.Results) {
+    @await Html.PartialAsync("_SearchResult", r)
+}

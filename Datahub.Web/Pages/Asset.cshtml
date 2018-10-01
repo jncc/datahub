@@ -1,5 +1,6 @@
 ﻿@page "/assets/{assetId}"
 @model AssetModel
+@using Datahub.Web.Pages.Helpers
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
 }
@@ -10,20 +11,10 @@
         })
     </script>
 }
-@functions {
-    public static string GetMainIconName(string resourceType) {
-        switch (resourceType) {
-            case "publication": return "fa-file-alt";
-            case "series": return "fa-clock";
-            default: return "fa-table";
-        }
-    }
-}
-
   
 <h1 class="display-5 mb-4">
     <span style="color: rgba(77, 219, 58, 1);">
-    <i class="fas @(GetMainIconName(Model.Asset.Metadata.ResourceType))"
+    <i class="fas @(AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType))"
         data-toggle="tooltip" title="@(Model.Asset.Metadata.ResourceType)"></i>
     </span>
     @Model.Asset.Metadata.Title
