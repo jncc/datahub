@@ -7,6 +7,10 @@
         "abstract": "This guidance section covers lowland wetland habitats (bogs and fens) on designated sites across the UK. For the purposes of this guidance, 'lowland' wetlands are essentially those which lie below the limit of agricultural enclosure. Mire habitats in unenclosed, upland landscapes are covered by the Upland habitat guidance section. For fen meadows and fen woodlands the guidance sections for Lowland grassland and Woodland respectively should also be consulted.\nGuidance is given on the selection of attributes and the setting of targets for lowland wetlands with more detailed guidance for raised bogs and lowland blanket bog; basin fens; valley fens; flood-plain fens; open-water transition fens; springs and flushes; fen meadow; and fen woodland.",
         "keywords": [
             {
+                "value": "Common Standards Monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/web-category"
+            },
+            {
                 "value": "Protected sites monitoring",
                 "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
             },

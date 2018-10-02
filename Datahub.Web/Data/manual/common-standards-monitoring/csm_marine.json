@@ -7,6 +7,10 @@
         "abstract": "Interest features in the marine environment are divided into two levels of biological organisation: the 'simple' habitat level features (rock, sediment) and the 'complex' physiographic features (lagoons, estuaries) made up by a range of 'simple' habitats. Given the nature of even the 'simple' features in the marine environment, it was considered necessary to produce separate guidance to assess each interest feature. The marine guidance has therefore been divided up into seven documents, three 'simple' features and four 'complex' features, each covering a mixture of BAP broad habitat and Habitats Directive Annex I features. In addition, there is a generic introduction that introduces the key issues to be initially considered when setting objectives and selecting attributes to define favourable condition, and generic advice on the process for judging the condition of the feature following the monitoring activities. It is essential that the marine generic introduction is read prior to using the guidance for specific features.\nThis guidance:\n 1. identifies a set of generic attributes to assess status of the feature, highlighting those attributes that should be used on all sites, and those that are site-specific (discretionary) to be used to reflect local distinctiveness;\n 2. provides advice on setting targets.\nThere is a separate guidance for saltmarsh habitats in the [coastal section](/jncc/evidence/surveillance-and-monitoring/protected-sites-monitoring/common-standards-monitoring/guidance-for-coastal).",
         "keywords": [
             {
+                "value": "Common Standards Monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/web-category"
+            },
+            {
                 "value": "Protected sites monitoring",
                 "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
             },

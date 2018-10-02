@@ -15,6 +15,10 @@
                 "vocab": "http://vocab.jncc.gov.uk/jncc-category"
             },
             {
+                "value": "Earth Observation",
+                "vocab": "http://vocab.jncc.gov.uk/web-category"
+            },
+            {
                 "value": "Habitats Directive - Annex I",
                 "vocab": "http://vocab.jncc.gov.uk/original-seabed-classification-system"
             },

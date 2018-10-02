@@ -26,6 +26,10 @@
                 "vocab": "http://vocab.jncc.gov.uk/jncc-category"
             },
             {
+                "value": "Earth Observation",
+                "vocab": "http://vocab.jncc.gov.uk/web-category"
+            },
+            {
                 "value": "0963-8091",
                 "vocab": "http://vocab.jncc.gov.uk/ISSN"
             },

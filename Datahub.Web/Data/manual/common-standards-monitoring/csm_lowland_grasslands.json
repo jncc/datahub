@@ -7,6 +7,10 @@
         "abstract": "This guidance section covers lowland grassland habitats on designated sites across the UK. For the purposes of this guidance, 'lowland' grasslands (including upland hay meadows) are essentially those which lie below the limit of agricultural enclosure. Grasslands in unenclosed, upland landscapes are covered by the Upland habitat guidance section. For grasslands in coastal habitats the relevant coastal section should also be consulted. For fen meadows and related grasslands on lowland peatlands the Lowland wetland guidance should be consulted.\nGuidance is given on the selection of attributes and the setting of targets under five headings: Lowland meadows and upland hay meadows; lowland calcareous grasslands; lowland dry acid grasslands; Lowland purple moor grass and rush pastures; lowland calaminarian grasslands.",
         "keywords": [
             {
+                "value": "Common Standards Monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/web-category"
+            },
+            {
                 "value": "Protected sites monitoring",
                 "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
             },

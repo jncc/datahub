@@ -5,7 +5,12 @@
         "title": "Common Standards Monitoring (CSM)",
         "lineage": "",
         "abstract": "Subsequent to the decision to implement the monitoring programme for designated nature conservation sites in 1999 and report on the condition of the whole site series in 2005, the country agencies decided that guidance on setting and assessing conservation objectives was needed to assist staff in undertaking site monitoring and assessment. JNCC and the country agencies commenced a programme to develop such guidance across the range of species, habitat and earth science features which occur on UK protected sites. This process is now complete but some updating of individual guidance documents may take place.",
-        "keywords": [{
+        "keywords": [
+            {
+                "value": "Common Standards Monitoring",
+                "vocab": "http://vocab.jncc.gov.uk/web-category"
+            },
+            {
                 "value": "Protected sites monitoring",
                 "vocab": "http://vocab.jncc.gov.uk/jncc-publication-category"
             },

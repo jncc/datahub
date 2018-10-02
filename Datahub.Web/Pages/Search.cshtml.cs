@@ -29,14 +29,17 @@ namespace Datahub.Web.Pages
 
             // populate Results
             var assets = await JsonLoader.LoadAssets(this.env.ContentRootPath);
-            this.Results = assets.Select(a => new SearchResultModel {
+
+            var query = ApplyQuery(assets);
+
+            this.Results = query.Select(a => new SearchResultModel {
               Id = a.Id,
               Title = a.Metadata.Title,
               Abstract = a.Metadata.Abstract.Substring(0, 300) + " ...",
               DatasetReferenceDate = a.Metadata.DatasetReferenceDate,
               ResourceType = a.Metadata.ResourceType,
             })
-            .Take(4)
+            .Take(10)
             .ToList();
         }
 
@@ -57,6 +60,13 @@ namespace Datahub.Web.Pages
                     return new KeywordModel { Vocab = null, Value = k };
                 }
             }).ToList();
+        }
+
+        IEnumerable<Asset> ApplyQuery(IEnumerable<Asset> assets)
+        {
+            return assets.Where(a => a.Metadata.Keywords.Any(k =>
+                this.Keywords.Any(kx => kx.Vocab == k.Vocab && kx.Value == k.Value)
+                ));
         }
     }
 }
