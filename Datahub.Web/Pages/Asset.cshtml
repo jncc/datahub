@@ -1,5 +1,6 @@
 ﻿@page "/assets/{assetId}"
 @model AssetModel
+@using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
@@ -22,120 +23,131 @@
 </h1>
 
 <p>
-    @foreach (var k in Model.Asset.Metadata.Keywords)
-    {<span class="keyword" data-toggle="tooltip" data-placement="top" title="@(k.Vocab)">
-        <span class="vocabful-colour-edge" style="background-color: rgba(77, 219, 58, 1);">&nbsp;</span>
-            @(k.Value)
-    </span>
+    @foreach (var k in Model.Asset.Metadata.Keywords) {
+        @await Html.PartialAsync("_Keyword", new KeywordModel { Vocab = k.Vocab, Value = k.Value })
     }
 </p>
 
-@if (!String.IsNullOrWhiteSpace(Model.Asset.DigitalObjectIdentifier))
-{
+@if (!String.IsNullOrWhiteSpace(Model.Asset.DigitalObjectIdentifier)) {
   <p><span class="text-muted">@Model.Asset.DigitalObjectIdentifier</span></p>
 }
 
-<!-- <p><span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract</p> -->
-
-
 <div class="module">
-<p class="collapse" id="collapseExample" aria-expanded="false">
-    <span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract
-</p>
-<div class="float-right">
-<a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
-    aria-expanded="false" aria-controls="collapseExample"></a>
-</div>
+    <p class="collapse" id="collapseExample" aria-expanded="false">
+        <span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract
+    </p>
+    <div class="float-right">
+    <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
+        aria-expanded="false" aria-controls="collapseExample"></a>
+    </div>
 </div>
 
 
 <br />
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link" id="main-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="false">
-        <i class="fas fa-asterisk"></i>
-        Main
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="usage-tab" data-toggle="tab" href="#usage" role="tab" aria-controls="usage" aria-selected="false">
-        <i class="fas fa-utensils"></i>
-        Usage
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="meta-tab" data-toggle="tab" href="#meta" role="tab" aria-controls="meta" aria-selected="false">
-        <i class="fas fa-cog"></i>
-        Meta
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="extent-tab" data-toggle="tab" href="#extent" role="tab" aria-controls="extent" aria-selected="false">
-        <i class="fas fa-map-marker-alt"></i>
-        Extent
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" id="downloads-tab" data-toggle="tab" href="#downloads" role="tab" aria-controls="downloads" aria-selected="true">
-      <i class="fas fa-download"></i>
-      Downloads
-    </a>
-  </li>
-</ul>
-<div class="tab-content py-4" id="myTabContent" style="min-height: 20em;">
-  <div class="tab-pane fade" id="main" role="tabpanel" aria-labelledby="main-tab">
 
-    <p><span class="text-muted">Resource Type.</span> @(Model.Asset.Metadata.ResourceType)</p>
+<div class="row">
+    <div class="col-md-6">
 
-    <p><span class="text-muted">Topic Category.</span> @(Model.Asset.Metadata.TopicCategory)</p>
-
-    <p><span class="text-muted">Data Format.</span> Data format goes here</p>
-
-    <p><span class="text-muted">Dataset Reference Date.</span> @(Model.Asset.Metadata.DatasetReferenceDate)</p>
-
-    <p><span class="text-muted">Resource Locator.</span> <a href="#">http://nowhere.example.com/example</a></p>
-
-    <p><span class="text-muted">Lineage.</span> @Model.Asset.Metadata.Lineage</p>
-
-    <p><span class="text-muted">Additional Information Source.</span> Somewhere else</p>
-
-  </div>
-
-  <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
-
-    <p><span class="text-muted">Responsible Party.</span> Name, Email, Role</p>
-      
-    <p><span class="text-muted">LimitationsOnPublicAccess.</span> Stuff</p>
-
-    <p><span class="text-muted">UseConstraints.</span> Stuff</p>
-
-  </div>
-
-  <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
-
-    <p><span class="text-muted">Metadata date.</span> 2016-04-14</p>
-    <p><span class="text-muted">Metadata Point of Contact.</span> Name, Email, Role</p>
-
-  </div>
-
-  <div class="tab-pane fade" id="extent" role="tabpanel" aria-labelledby="extent-tab">
-
-    <p><span class="text-muted">Temporal Extent.</span> @Model.Asset.Metadata.TemporalExtent.Begin
-        <i class="fas fa-long-arrow-alt-right"></i>
-        @Model.Asset.Metadata.TemporalExtent.End
-    </p>
-
-    <p><span class="text-muted">Bounding Box.</span> A, B, C, D</p>
-
-  </div>
-  <div class="tab-pane fade show active" id="downloads" role="tabpanel" aria-labelledby="downloads-tab">
-      <ul class="fa-ul">
-        @foreach (var d in Model.Asset.Data)
-        {<li>
-            <i class="fa-li fa fa-download"></i> 
-            <a href="@d.HTTP.URL">@(d.Title)</a> <span>[@(d.HTTP.Type)]</span>
+        <ul class="nav nav-tabs" id="primary-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="main-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
+                <i class="fas fa-asterisk"></i>
+                Main
+            </a>
         </li>
-        }
-      </ul>  
-  </div>
+        <li class="nav-item">
+            <a class="nav-link" id="usage-tab" data-toggle="tab" href="#usage" role="tab" aria-controls="usage" aria-selected="false">
+                <i class="fas fa-utensils"></i>
+                Usage
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="meta-tab" data-toggle="tab" href="#meta" role="tab" aria-controls="meta" aria-selected="false">
+                <i class="fas fa-cog"></i>
+                Meta
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="extent-tab" data-toggle="tab" href="#extent" role="tab" aria-controls="extent" aria-selected="false">
+                <i class="fas fa-map-marker-alt"></i>
+                Extent
+            </a>
+        </li>
+        </ul>
+        <div class="tab-content py-4" id="primary-tabs-content" style="min-height: 20em;">
+            <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+
+                <p class="mb-2"><span class="text-muted">Resource type.</span> @(Model.Asset.Metadata.ResourceType.FirstCharToUpper())</p>
+
+                <p class="mb-2"><span class="text-muted">Topic category.</span> @(Model.Asset.Metadata.TopicCategory.FirstCharToUpper())</p>
+
+                <p class="mb-2"><span class="text-muted">Data format.</span> Data format goes here</p>
+
+                <p class="mb-2"><span class="text-muted">Dataset reference date.</span> @(Model.Asset.Metadata.DatasetReferenceDate)</p>
+
+                <p class="mb-2"><span class="text-muted">Resource locator.</span> <a href="#">http://nowhere.example.com/example</a></p>
+
+                <p class="mb-2"><span class="text-muted">Lineage.</span> @Model.Asset.Metadata.Lineage</p>
+
+                <p class="mb-2"><span class="text-muted">Additional information source.</span> Somewhere else</p>
+
+            </div>
+
+            <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
+
+                <p><span class="text-muted">Responsible party.</span> Name, Email, Role</p>
+                
+                <p><span class="text-muted">Limitations on public access.</span> Stuff</p>
+
+                <p><span class="text-muted">Use constraints.</span> Stuff</p>
+
+            </div>
+
+            <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
+
+                <p><span class="text-muted">Metadata date.</span> 2016-04-14</p>
+
+                <p><span class="text-muted">Metadata point of contact.</span> Name, Email, Role</p>
+
+            </div>
+
+            <div class="tab-pane fade" id="extent" role="tabpanel" aria-labelledby="extent-tab">
+
+                <p><span class="text-muted">Temporal extent.</span> @Model.Asset.Metadata.TemporalExtent.Begin
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                    @Model.Asset.Metadata.TemporalExtent.End
+                </p>
+
+                <p><span class="text-muted">Bounding box.</span> A, B, C, D</p>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        
+        <ul class="nav nav-tabs" id="secondary-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="downloads-tab" data-toggle="tab" href="#downloads" role="tab" aria-controls="main" aria-selected="true">
+                <i class="fas fa-download"></i>
+                Downloads
+            </a>
+        </li>
+        </ul>
+
+        <div class="tab-content py-4" id="secondary-tabs-content" style="min-height: 20em;">
+            <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+
+                <ul>
+                    @foreach (var d in Model.Asset.Data) {
+                    <li class="pb-2">
+                        <a href="@d.HTTP.URL">@(d.Title)</a> <span class="small ">@d.HTTP.Type</span>
+                    </li>
+                    }
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
 </div>

@@ -11,13 +11,22 @@
     Search
 </h1>
 <div>
-    <div class="input-group my-5">
+    <div class="input-group mb-5">
         <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub">
         <div class="input-group-append">
             <button class="btn btn-success px-4" type="button">
                 <i class="fas fa-search"></i>
             </button>
         </div>
+    </div>
+</div>
+
+ <div class="mb-4">  <!--card card-body bg-light -->
+    <div>
+        @foreach (var k in Model.Keywords) {
+            @await Html.PartialAsync("_Keyword", k)
+        }
+        
     </div>
 </div>
 

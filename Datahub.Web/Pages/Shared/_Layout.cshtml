@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-    @(ViewData["Title"] == null || ViewData["Title"] == String.Empty
+    @(ViewData["Title"] == null || ViewData["Title"].ToString() == String.Empty
         ? "JNCC Datahub"
         : ViewData["Title"] + " | JNCC Datahub")
     </title>

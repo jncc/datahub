@@ -1,8 +1,9 @@
 
 namespace Datahub.Web.Models
 {
-    public class SearchResult
+    public class SearchResultModel
     {
+      public string Id { get; set; }
       public string Title { get; set; }
       public string Abstract { get; set; }
       public string DatasetReferenceDate { get; set; }
