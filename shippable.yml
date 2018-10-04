@@ -1,0 +1,15 @@
+
+language: none
+
+build:
+  pre_ci_boot:
+    image_name: microsoft/dotnet
+    image_tag: 2.1-sdk
+    pull: true
+    options: "-e HOME=/root"
+
+  ci:
+    - pwd
+    - cd Datahub.Web/
+    - dotnet restore
+    - dotnet build
