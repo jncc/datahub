@@ -13,3 +13,4 @@ build:
     - cd Datahub.Web/
     - dotnet restore
     - dotnet build
+    - dotnet tool install -g Amazon.ElasticBeanstalk.Tools
