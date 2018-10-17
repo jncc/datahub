@@ -40,6 +40,16 @@ Deploy:
     cd /Datahub.web
     dotnet eb deploy-environment -app datahub -env jncc-datahub-test --region eu-west-1
 
+Docker
+------
+Work in progress. You should be able to build a production Docker image of the web app with
+
+    docker build .
+
+Then run on port 8000 with
+
+    docker run -it -p 8000:80 {image-name}
+
 Notes
 -----
 The green I used for the favicon is rgba(77, 219, 58, 1)
