@@ -57,6 +57,21 @@ aws-sdk@^2.251.1:
     uuid "3.1.0"
     xml2js "0.4.19"
 
+aws-sdk@^2.343.0:
+  version "2.343.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.343.0.tgz#4277b6f5a2fe359f38978c1d8170947138af45d9"
+  integrity sha512-WB7uwmlyQ2NHEmXufYgJa6Qr1uwAFqBJ5GBgO8YALYAck9C6TLGD9/oKJGK93PXBpmgPdJqVIfxZE80YQ5/xXQ==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.8"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.1.0"
+    xml2js "0.4.19"
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -139,6 +154,11 @@ chownr@^1.0.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.1.tgz#54726b8b8fff4df053c42187e801fb4412df1494"
   integrity sha512-j38EvO5+LHX84jlo6h4UzmOwi0UgW61WRyPtJz4qaadK5eY3BTS5TY/S1Stc3Uk2lIM6TPevAlULiEJwie860g==
+
+claudia-api-builder@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/claudia-api-builder/-/claudia-api-builder-4.1.1.tgz#9198280c6f5ef19a5fceadf716a819f1d6fc5ce0"
+  integrity sha512-87/0PODl07Z4celDVvDa47VpNi7w/FlaZzNDeX+aFi9Isg88ZmtWlM0uKmjFmsqrK9OjCm+WHvcp314iGmpT9Q==
 
 claudia@^5.1.2:
   version "5.1.2"

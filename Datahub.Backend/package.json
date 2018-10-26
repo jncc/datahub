@@ -1,10 +1,16 @@
 {
-  "name": "jncc-datahub-backend",
+  "name": "datahub-backend",
   "version": "1.0.0",
   "main": "index.js",
   "license": "OGL",
   "private": true,
-  "dependencies": {},
+  "scripts": {
+    "deploy": "claudia create --region eu-west-1 --api-module index --policies policy "
+  },
+  "dependencies": {
+    "aws-sdk": "^2.343.0",
+    "claudia-api-builder": "^4.1.1"
+  },
   "devDependencies": {
     "claudia": "^5.1.2"
   }
