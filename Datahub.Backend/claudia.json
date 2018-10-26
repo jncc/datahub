@@ -1,0 +1,13 @@
+{
+    "lambda": {
+      "role": "datahub-backend-executor",
+      "name": "datahub-backend",
+      "region": "eu-west-1"
+    },
+    "api": {
+      "id": "bz79yqmu63",
+      "module": "index",
+      "url": "https://bz79yqmu63.execute-api.eu-west-1.amazonaws.com/latest"
+    }
+  }
+  
