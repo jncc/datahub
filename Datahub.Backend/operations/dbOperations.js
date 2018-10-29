@@ -11,6 +11,7 @@ module.exports.putAsset = function(req) {
   // log something to cloudwatch
   console.log('Hello from putAsset')
   console.log(JSON.stringify(req.body))
+  console.log(req.body)
 
   var params = {  
     TableName: 'datahub-assets',  
