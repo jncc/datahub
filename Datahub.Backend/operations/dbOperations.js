@@ -5,8 +5,12 @@ const dynamo = new AWS.DynamoDB.DocumentClient()
 
 module.exports.putAsset = function(req) {
 
+  // you can get to the lambda context like this:
+  // req.lambdaContext.awsRequestId
+
   // log something to cloudwatch
-  console.log(req.lambdaContext.awsRequestId)
+  console.log('Hello from putAsset')
+  console.log(JSON.stringify(req.body))
 
   var params = {  
     TableName: 'datahub-assets',  
