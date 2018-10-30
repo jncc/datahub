@@ -5,7 +5,8 @@
   "license": "OGL",
   "private": true,
   "scripts": {
-    "deploy": "claudia create --region eu-west-1 --api-module index --policies policy "
+    "deploy:initial": "claudia create --region eu-west-1 --api-module index --policies policy ",
+    "deploy": "claudia update"
   },
   "dependencies": {
     "aws-sdk": "^2.343.0",
