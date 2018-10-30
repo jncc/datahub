@@ -2,6 +2,7 @@
 const ClaudiaApiBuilder = require('claudia-api-builder')
 
 const db = require('./operations/dbOperations')
+const es = require('./operations/esOperations')
 
 const api = new ClaudiaApiBuilder()
 
@@ -15,6 +16,12 @@ api.post('/assets', db.putAsset,
 )
 
 api.get('/assets', db.scanAssets,
+  {
+    authorizationType: 'AWS_IAM',
+  }
+)
+
+api.post('/estest', es.estest,
   {
     authorizationType: 'AWS_IAM',
   }
