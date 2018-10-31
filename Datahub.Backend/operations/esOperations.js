@@ -32,6 +32,8 @@ module.exports.esauthtest = async function(req) {
     "year": "2011"
   }
   
+  console.log('Domain is ' + domain)
+  
   var endpoint = new AWS.Endpoint(domain);
   var request = new AWS.HttpRequest(endpoint, region);
 
@@ -50,21 +52,23 @@ module.exports.esauthtest = async function(req) {
 
   await new Promise((resolve, reject) => {
 
-    client.handleRequest(request, null, function(response) {
-      console.log(response.statusCode + ' ' + response.statusMessage);
-      var r = '';
-      response.on('data', function (chunk) {
-        r += chunk;
-      });
-      response.on('end', function (chunk) {
-        console.log('Response body: ' + r);
-        resolve(r)
-      });
-    }, function(error) {
-      console.log('Error: ' + error);
-      reject(error)
-    });
-
+    client.handleRequest(request, null,
+      function(response) {
+        console.log('Success!!! ' + response.statusCode + ' ' + response.statusMessage);
+        var r = '';
+        response.on('data', function (chunk) {
+          r += chunk;
+        });
+        response.on('end', function (chunk) {
+          console.log('Response body: ' + r);
+          resolve(r)
+        });
+      },
+      function(error) {
+        console.log('Error!!! ' + error);
+        reject(error)
+      }
+    );
   })    
 
 
