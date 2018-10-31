@@ -50,18 +50,25 @@ module.exports.esauthtest = function(req) {
   
     var client = new AWS.HttpClient();
     console.log('Sending request ')
-    client.handleRequest(request, null, function(response) {
-      console.log(response.statusCode + ' ' + response.statusMessage);
-      var responseBody = '';
-      response.on('data', function (chunk) {
-        responseBody += chunk;
+
+    await new Promise((resolve, reject) => {
+
+      client.handleRequest(request, null, function(response) {
+        console.log(response.statusCode + ' ' + response.statusMessage);
+        var r = '';
+        response.on('data', function (chunk) {
+          r += chunk;
+        });
+        response.on('end', function (chunk) {
+          console.log('Response body: ' + r);
+          resolve(r)
+        });
+      }, function(error) {
+        console.log('Error: ' + error);
+        reject(error)
       });
-      response.on('end', function (chunk) {
-        console.log('Response body: ' + responseBody);
-      });
-    }, function(error) {
-      console.log('Error: ' + error);
-    });
+
+    })    
   }
 
   return 'Done.'
