@@ -17,7 +17,7 @@ module.exports.estest = async function(req) {
   return 'Done!'
 }
 
-module.exports.esauthtest = function(req) {
+module.exports.esauthtest = async function(req) {
 
   console.log('Hello from esauthtest')
 
@@ -26,50 +26,47 @@ module.exports.esauthtest = function(req) {
   var index = 'node-test';
   var type = '_doc';
   var id = '1';
-  var json = {
+  var document = {
     "title": "Moneyball",
     "director": "Bennett Miller",
     "year": "2011"
   }
   
-  indexDocument(json);
-  
-  function indexDocument(document) {
-    var endpoint = new AWS.Endpoint(domain);
-    var request = new AWS.HttpRequest(endpoint, region);
-  
-    request.method = 'PUT';
-    request.path += index + '/' + type + '/' + id;
-    request.body = JSON.stringify(document);
-    request.headers['host'] = domain;
-    request.headers['Content-Type'] = 'application/json';
-  
-    var credentials = new AWS.EnvironmentCredentials('AWS');
-    var signer = new AWS.Signers.V4(request, 'es');
-    signer.addAuthorization(credentials, new Date());
-  
-    var client = new AWS.HttpClient();
-    console.log('Sending request ')
+  var endpoint = new AWS.Endpoint(domain);
+  var request = new AWS.HttpRequest(endpoint, region);
 
-    await new Promise((resolve, reject) => {
+  request.method = 'PUT';
+  request.path += index + '/' + type + '/' + id;
+  request.body = JSON.stringify(document);
+  request.headers['host'] = domain;
+  request.headers['Content-Type'] = 'application/json';
 
-      client.handleRequest(request, null, function(response) {
-        console.log(response.statusCode + ' ' + response.statusMessage);
-        var r = '';
-        response.on('data', function (chunk) {
-          r += chunk;
-        });
-        response.on('end', function (chunk) {
-          console.log('Response body: ' + r);
-          resolve(r)
-        });
-      }, function(error) {
-        console.log('Error: ' + error);
-        reject(error)
+  var credentials = new AWS.EnvironmentCredentials('AWS');
+  var signer = new AWS.Signers.V4(request, 'es');
+  signer.addAuthorization(credentials, new Date());
+
+  var client = new AWS.HttpClient();
+  console.log('Sending request ')
+
+  await new Promise((resolve, reject) => {
+
+    client.handleRequest(request, null, function(response) {
+      console.log(response.statusCode + ' ' + response.statusMessage);
+      var r = '';
+      response.on('data', function (chunk) {
+        r += chunk;
       });
+      response.on('end', function (chunk) {
+        console.log('Response body: ' + r);
+        resolve(r)
+      });
+    }, function(error) {
+      console.log('Error: ' + error);
+      reject(error)
+    });
 
-    })    
-  }
+  })    
+
 
   return 'Done.'
 }
