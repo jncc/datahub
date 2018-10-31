@@ -21,7 +21,12 @@ api.get('/assets', db.scanAssets,
   }
 )
 
-api.post('/estest', es.estest,
+api.post('/envtest', () => {
+  console.log("ES_DOMAIN is " + process.env.ES_DOMAIN)
+  return 'Done!'
+})
+
+api.post('/estest2', es.estest2,
   {
     authorizationType: 'AWS_IAM',
   }
