@@ -17,7 +17,7 @@ module.exports.estest = async function(req) {
   return 'Done!'
 }
 
-module.exports.esauthtest = async function(req) {
+module.exports.esauthtest = function(req) {
 
   console.log('Hello from esauthtest')
 
@@ -64,4 +64,5 @@ module.exports.esauthtest = async function(req) {
     });
   }
 
+  return 'Done.'
 }
