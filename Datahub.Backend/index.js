@@ -26,7 +26,7 @@ api.post('/envtest', () => {
   return 'Done!'
 })
 
-api.post('/estest2', es.estest2,
+api.post('/esauthtest', es.esauthtest,
   {
     authorizationType: 'AWS_IAM',
   }

@@ -17,7 +17,9 @@ module.exports.estest = async function(req) {
   return 'Done!'
 }
 
-module.exports.estest2 = async function(req) {
+module.exports.esauthtest = async function(req) {
+
+  console.log('Hello from esauthtest')
 
   var region = 'eu-west-1'; // e.g. us-west-1
   var domain = process.env.ES_DOMAIN;
@@ -47,6 +49,7 @@ module.exports.estest2 = async function(req) {
     signer.addAuthorization(credentials, new Date());
   
     var client = new AWS.HttpClient();
+    console.log('Sending request ')
     client.handleRequest(request, null, function(response) {
       console.log(response.statusCode + ' ' + response.statusMessage);
       var responseBody = '';
