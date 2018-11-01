@@ -1,6 +1,7 @@
 
 const ClaudiaApiBuilder = require('claudia-api-builder')
 
+const config = require('./config')
 const db = require('./operations/dbOperations')
 const es = require('./operations/esOperations')
 
@@ -22,7 +23,7 @@ api.get('/assets', db.scanAssets,
 )
 
 api.post('/envtest', () => {
-  console.log("ES_DOMAIN is " + process.env.ES_DOMAIN)
+  console.log("ES_DOMAIN is " + config.ES_DOMAIN)
   return 'Done!'
 })
 

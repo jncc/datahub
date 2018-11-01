@@ -1,6 +1,8 @@
 
 const AWS = require('aws-sdk')
 
+const config = require('./config')
+
 // it's unclear from the docs on the best scope or lifecycle for AWS.HttpClient;
 // it probably doesn't matter here as this code is intended to run in an ephemeral
 // aws lambda container, and is only used once per lambda invocation in any case
@@ -41,14 +43,13 @@ let sendElasticSearchRequest = ({method, path, body}) => {
   //   "director": "Bennett Miller",
   //   "year": "2011"
   // }
-  // console.log('Domain is ' + domain)
 
   // configure the http request
-  let endpoint = new AWS.Endpoint(domain)
-  let r = new AWS.HttpRequest(endpoint, 'eu-west-1') // todo: process.env.AWS_REGION
+  let endpoint = new AWS.Endpoint(config.ES_DOMAIN)
+  let r = new AWS.HttpRequest(endpoint, config.AWS_REGION)
   r.method = method
   r.path += path // index + '/' + type + '/' + id; ... todo: why is this '+='?
-  r.headers['host'] = process.env.ES_DOMAIN
+  r.headers['host'] = config.ES_DOMAIN
   r.headers['Content-Type'] = 'application/json'
   r.body = JSON.stringify(body)
 
