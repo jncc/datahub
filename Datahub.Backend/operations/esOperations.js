@@ -26,7 +26,7 @@ module.exports.esauthtest = async function(req) {
 }
 
 /**
- * Performs an AWS ElasticSearch Service (ES) request.
+ * Performs an AWS ElasticSearch Service (ES) request, signed with the current IAM principal.
  */
 let sendElasticSearchRequest = ({method, path, body}) => {
 
@@ -44,9 +44,11 @@ let sendElasticSearchRequest = ({method, path, body}) => {
   //   "year": "2011"
   // }
 
-  // configure the http request
-  let endpoint = new AWS.Endpoint(config.ES_DOMAIN)
-  let r = new AWS.HttpRequest(endpoint, config.AWS_REGION)
+  // configure an http request
+  let r = new AWS.HttpRequest(
+    new AWS.Endpoint(config.ES_DOMAIN),
+    config.AWS_REGION
+  )
   r.method = method
   r.path += path // index + '/' + type + '/' + id; ... todo: why is this '+='?
   r.headers['host'] = config.ES_DOMAIN
