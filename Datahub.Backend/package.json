@@ -5,7 +5,7 @@
   "license": "OGL",
   "private": true,
   "scripts": {
-    "deploy:initial": "claudia create --region eu-west-1 --api-module index --policies policy ",
+    "deploy:initial": "claudia create --name jncc-datahub-live-backend --region eu-west-1 --api-module index --policies policy ",
     "deploy": "claudia update"
   },
   "dependencies": {
