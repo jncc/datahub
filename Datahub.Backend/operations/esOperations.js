@@ -1,7 +1,7 @@
 
 const AWS = require('aws-sdk')
 
-const config = require('./config')
+const config = require('./../config')
 
 // it's unclear from the docs on the best scope or lifecycle for AWS.HttpClient;
 // it probably doesn't matter here as this code is intended to run in an ephemeral
