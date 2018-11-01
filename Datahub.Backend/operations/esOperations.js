@@ -1,43 +1,32 @@
 
-const request = require('request-promise-native')
 const AWS = require('aws-sdk')
 
-module.exports.estest = async function(req) {
-
-  console.log('Hello from estest')
-
-  let response = await request({
-    uri: 'process.env.ES_DOMAIN/movies/movie',
-    method: 'POST',
-    json: {"title": "My Neighbour Totoro"}
-  })
-
-  console.log(response.body)
-
-  return 'Done!'
-}
+// it's unclear from the docs on the best scope or lifecycle for AWS.HttpClient;
+// it probably doesn't matter here as this code is intended to run in an ephemeral
+// aws lambda container, and is only used once per lambda invocation in any case
+const httpClient = new AWS.HttpClient()
 
 module.exports.esauthtest = async function(req) {
 
   console.log('Hello from esauthtest')
 
-  await makeElasticSearchRequest({
+  await sendElasticSearchRequest({
     method: 'POST',
     path: 'node-test/_doc/2',
     body: {
      "title": "Moneyball",
      "director": "Bennett Miller",
      "year": "2011"
-   }
- })
+    }
+  })
 
   return 'Done.'
 }
 
 /**
- * Makes an AWS ElasticSearch Service (ES) request.
+ * Performs an AWS ElasticSearch Service (ES) request.
  */
-let makeElasticSearchRequest = ({method, path, body}) => {
+let sendElasticSearchRequest = ({method, path, body}) => {
 
   // this function is essentially taken from the AWS example here:
   // https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-request-signing.html#es-request-signing-node
@@ -54,10 +43,9 @@ let makeElasticSearchRequest = ({method, path, body}) => {
   // }
   // console.log('Domain is ' + domain)
 
-
+  // configure the http request
   let endpoint = new AWS.Endpoint(domain)
   let r = new AWS.HttpRequest(endpoint, 'eu-west-1') // todo: process.env.AWS_REGION
-
   r.method = method
   r.path += path // index + '/' + type + '/' + id; ... todo: why is this '+='?
   r.headers['host'] = process.env.ES_DOMAIN
@@ -65,13 +53,12 @@ let makeElasticSearchRequest = ({method, path, body}) => {
   r.body = JSON.stringify(body)
 
   // sign the request with the current IAM principal
+  // (this will be the executing role of the aws lambda function)
   let credentials = new AWS.EnvironmentCredentials('AWS')
   let signer = new AWS.Signers.V4(r, 'es')
   signer.addAuthorization(credentials, new Date())
 
-  let httpClient = new AWS.HttpClient()
-
-  // return a promise so we can await it, rather than letting the aws lambda just finish!
+  // return a promise so we can await it, rather than letting the aws lambda finish before the request completes!
   return new Promise((resolve, reject) => {
     httpClient.handleRequest(r, null,
       (response) => {
