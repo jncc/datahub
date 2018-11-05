@@ -33,24 +33,13 @@ let sendElasticSearchRequest = ({method, path, body}) => {
   // this function is essentially taken from the AWS example here:
   // https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-request-signing.html#es-request-signing-node
 
-  // var region = 'eu-west-1'; // e.g. us-west-1
-  // var domain = process.env.ES_DOMAIN;
-  // var index = 'node-test';
-  // var type = '_doc';
-  // var id = '1';
-  // var document = {
-  //   "title": "Moneyball",
-  //   "director": "Bennett Miller",
-  //   "year": "2011"
-  // }
-
   // configure an http request
   let r = new AWS.HttpRequest(
     new AWS.Endpoint(config.ES_DOMAIN),
     config.AWS_REGION
   )
   r.method = method
-  r.path += path // index + '/' + type + '/' + id; ... todo: why is this '+='?
+  r.path += path
   r.headers['host'] = config.ES_DOMAIN
   r.headers['Content-Type'] = 'application/json'
   r.body = JSON.stringify(body)
