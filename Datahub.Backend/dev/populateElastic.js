@@ -53,7 +53,7 @@ let setupIndex = async () => {
     path: 'main/_mapping/_doc',
     body: {
       "properties": {
-        "source": {"type": "keyword"},
+        "site": {"type": "keyword"},
         "title": {"type": "text"},
         "content": {"type": "text"},
         "keywords": {
@@ -85,7 +85,7 @@ let setupIndex = async () => {
 
 let makeIndexObject = (doc) => {
   return {
-    'source': 'datahub',
+    'site': 'datahub',
     'title': doc.metadata.title,
     'content': doc.metadata.abstract,
     'keywords': [
