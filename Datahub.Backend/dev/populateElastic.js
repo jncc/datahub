@@ -11,16 +11,16 @@ let main = async function() {
   // on first run, we need to setup the index
   await setupIndex()
 
-  console.log('Inserting index objects...')
-
-  // insert each of the dev records into the index
   let files = await glob('../../Datahub.Web/Data/**/*.json')
   console.log(`Found ${files.length} files.`)
-
+  
+  // insert each of the dev records into the index
   for (let file of files) {
+    
     let doc = JSON.parse(await readFileAsync(file , 'utf8'))
     let path = 'main/_doc/' + doc.id
-    console.log('Inserting ' + path)
+
+    console.log(`Inserting ${path}...`)
 
     await sendLocalElasticSearchRequest({
       method: 'POST',
@@ -41,13 +41,13 @@ let sendLocalElasticSearchRequest = ({method, path, body}) => {
 let setupIndex = async () => {
   
   // first off, create the index (we will call it 'main')
-  console.log('Creating index \'main\'')
+  console.log('Creating index \'main\'...')
   await sendLocalElasticSearchRequest({
     method: 'PUT', path: 'main'
   })
 
   // then, create the "mapping" that tells elastic search all about our index structure
-  console.log('Creating mapping for  \'main\'')
+  console.log('Creating mapping for  \'main\'...')
   await sendLocalElasticSearchRequest({
     method: 'PUT',
     path: 'main/_mapping/_doc',
