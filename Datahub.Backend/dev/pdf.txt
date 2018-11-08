@@ -1,0 +1,38 @@
+POST localhost:9200/_ingest/pipeline/attachment
+{
+  "description" : "Extract attachment information",
+  "processors" : [
+    {
+      "attachment" : {
+        "field" : "data"
+      }
+    },
+    {
+                "remove": {
+                                "field": "data"
+                }
+    },
+    {
+                "rename": {
+                                "field": "attachment.content",
+                                "target_field": "content"
+                }
+    },
+    {
+                "rename": {
+                                "field": "attachment.title",
+                                "ignore_missing": true,
+                                "target_field": "title"
+                }
+    },
+    {
+                "remove": {
+                                "field": "attachment"
+                }
+    }
+  ]
+}
+
+PUT localhost:9200/test/_doc/item1?pipeline=attachment
+
+
