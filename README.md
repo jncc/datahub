@@ -53,3 +53,23 @@ Then run on port 8000 with
 Notes
 -----
 The green I used for the favicon is rgba(77, 219, 58, 1)
+
+Elasticsearch Config
+-----
+Elasticsearch is configured via the appsettings.json section
+
+```json
+"ElasticSearch": {
+	"Domain": "https://elasticsearch-domain/",
+	"AWS": {
+		"Region": "AWSREGION",
+		//*** Access Key Based Access ***//
+		// "AccessKey": "AWSACCESSKEY",
+		// "SecretAccessKey": "AWSSECRETACCESSKEY"
+		//*** Local Profile Based Access ***//
+		// "Profile": "AWSPROFILE"
+	}
+}
+```
+
+Fill in the appropriate sections and inject the IElasticsearchService service to get a configured singleton client in the code, the code should fallback from defined access keys, local profile and then instance profile config if they are not configured.
