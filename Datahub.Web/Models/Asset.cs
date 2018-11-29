@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Nest;
 
 namespace Datahub.Web.Models {
     public class Asset {
@@ -57,7 +58,10 @@ namespace Datahub.Web.Models {
 
     public class Keyword
     {
+        [Text(Name = "vocab")]
         public string Vocab { get; set; }
+
+        [Text(Name = "value")]
         public string Value { get; set; }
     }
 
