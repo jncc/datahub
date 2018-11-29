@@ -58,16 +58,33 @@ Elasticsearch Config
 -----
 Elasticsearch is configured via the appsettings.json section
 
+Instance Profile based access
+```json
+"ElasticSearch": {
+	"Domain": "https://elasticsearch-domain/",
+	"AWS": {
+		"Region": "AWSREGION"
+	}
+}
+```
+Access Key based access
 ```json
 "ElasticSearch": {
 	"Domain": "https://elasticsearch-domain/",
 	"AWS": {
 		"Region": "AWSREGION",
-		//*** Access Key Based Access ***//
-		// "AccessKey": "AWSACCESSKEY",
-		// "SecretAccessKey": "AWSSECRETACCESSKEY"
-		//*** Local Profile Based Access ***//
-		// "Profile": "AWSPROFILE"
+		"AccessKey": "AWSACCESSKEY",
+		"SecretAccessKey": "AWSSECRETACCESSKEY"
+	}
+}
+```
+Local Profile based access
+```json
+"ElasticSearch": {
+	"Domain": "https://elasticsearch-domain/",
+	"AWS": {
+		"Region": "AWSREGION",
+		"Profile": "AWSPROFILE"
 	}
 }
 ```
