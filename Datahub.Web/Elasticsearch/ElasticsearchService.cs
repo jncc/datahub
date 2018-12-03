@@ -10,30 +10,30 @@ namespace Datahub.Web.Elasticsearch
 {
     public class ElasticsearchService : IElasticsearchService
     {
-        private readonly IConfiguration _configuration;
         private readonly ElasticClient _client;
 
-        public ElasticsearchService(IConfiguration configuration)
+        public ElasticsearchService()
         {
-            _configuration = configuration;
+            var pool = new SingleNodeConnectionPool(new Uri(Environment.GetEnvironmentVariable("ELASTICSEARCH_DOMAIN")));
 
-            var pool = new SingleNodeConnectionPool(new Uri(_configuration["Domain"]));
-
-            if (!string.IsNullOrEmpty(_configuration["AWS:AccessKey"]) && !string.IsNullOrEmpty(_configuration["AWS:SecretAccessKey"])) {
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY")) && 
+                !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY"))) {
                 // Use Access keys to configure
-                var httpConnection = new AwsHttpConnection(_configuration["AWS:Region"], new StaticCredentialsProvider(new AwsCredentials
+                var httpConnection = new AwsHttpConnection(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION"), new StaticCredentialsProvider(new AwsCredentials
                 {
-                    AccessKey = _configuration["AWS:AccessKey"],
-                    SecretKey = _configuration["AWS:SecretAccessKey"]
+                    AccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY"),
+                    SecretKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY")
                 }));
                 _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
-            } else if (string.IsNullOrEmpty(_configuration["AWS:Profile"])) {
+            } else if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE"))) {
                 // Use Profile
-                var httpConnection = new AwsHttpConnection(_configuration["AWS:Region"], new NamedProfileCredentialProvider(_configuration["AWS:Profile"]));
+                var httpConnection = new AwsHttpConnection(
+                    Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION"), 
+                    new NamedProfileCredentialProvider(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE")));
                 _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             } else {
                 // Attempt to use instance profile
-                var httpConnection = new AwsHttpConnection(_configuration["AWS:Region"], new InstanceProfileCredentialProvider());
+                var httpConnection = new AwsHttpConnection(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION"), new InstanceProfileCredentialProvider());
                 _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             }
         }
