@@ -1,13 +1,15 @@
-
-@model Datahub.Web.Models.SearchResultModel
+﻿
+@model Nest.IHit<Datahub.Web.Models.SearchResult>
 @using Datahub.Web.Pages.Helpers
 
 <h5 class="display-5">
-    <span style="color: rgba(77, 219, 58, 1);">
-    <i class="fas @(AssetHelpers.GetIconName(Model.ResourceType))"
-        data-toggle="tooltip" title="@(Model.ResourceType)"></i>
-    </span>
-  <a href="/assets/@(Model.Id)">@(Model.Title)</a> 
-  <span class="text-muted">@(Model.DatasetReferenceDate.Substring(0, 4))</span>
+    <a href="/assets/@(Model.Id)">@(Model.Source.Title)</a>
 </h5>
-<p>@(Model.Abstract)</p>
+@foreach (var h in Model.Highlights.ToList())
+{
+    @foreach (var s in h.Value.Highlights)
+    {
+    <p>@(Html.Raw(s))</p>
+    }
+}
+

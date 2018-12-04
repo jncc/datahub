@@ -1,49 +1,76 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Datahub.Web.Data;
 using Datahub.Web.Models;
-using Datahub.Web.Pages.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Datahub.Web.Elasticsearch;
+using Nest;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        readonly IHostingEnvironment env;
-        public SearchModel(IHostingEnvironment env)
-        {
-            this.env = env;
-        }
+        public const string s_index = "main";
+        public const string s_site = "datahub";
+        public const int s_size = 10;
+        public const int s_start = 0;
 
-        public List<SearchResultModel> Results { get; set; }
+        private readonly IHostingEnvironment _env;
+        private readonly ElasticClient _client;
+
+        public ISearchResponse<SearchResult> Results { get; set; }
         public List<KeywordModel> Keywords { get; set; }
 
+        [BindProperty(Name = "q", SupportsGet = true)]
+        public string QueryString{ get; set; }
 
-        public async Task OnGetAsync(string q, string[] k)
+        public SearchModel(IHostingEnvironment env, IElasticsearchService elasticsearchService)
         {
-            // populate Keywords to show which are filtered on
-            this.Keywords = ParseKeywords(k);
+            _env = env;
+            _client = elasticsearchService.Client();
+        }
+        
 
-            // populate Results
-            var assets = await JsonLoader.LoadAssets(this.env.ContentRootPath);
-
-            var query = ApplyQuery(assets);
-
-            this.Results = query.Select(a => new SearchResultModel {
-              Id = a.Id,
-              Title = a.Metadata.Title,
-              Abstract = a.Metadata.Abstract.Substring(0, 300) + " ...",
-              DatasetReferenceDate = a.Metadata.DatasetReferenceDate,
-              ResourceType = a.Metadata.ResourceType,
-            })
-            .Take(10)
-            .ToList();
+        public async Task OnGetAsync(string q, string[] k, int startIndex = s_start, int size = s_size)
+        {
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                Results = _client.Search<SearchResult>(s => s
+                    .Index(s_index)
+                    .From(startIndex)
+                    .Size(size)
+                    .Source(src => src
+                        .IncludeAll()
+                        .Excludes(e => e
+                            .Field(f => f.Content)
+                        )
+                    )
+                    .Query(l =>
+                        l.Match(m => m
+                            .Field(f => f.Site)
+                            .Query(s_site)
+                        )
+                        &&
+                        l.CommonTerms(c => c
+                            .Field(f => f.Content)
+                            .Query(q)
+                            .CutoffFrequency(0.001)
+                            .LowFrequencyOperator(Operator.Or)
+                        )
+                    )
+                    .Highlight(h => h
+                        .Fields(f => f.Field(x => x.Content))
+                        .PreTags("<b>")
+                        .PostTags("</b>")
+                    )
+                );
+            }
         }
 
-        List<KeywordModel> ParseKeywords(string[] keywords)
+        private List<KeywordModel> ParseKeywords(string[] keywords)
         {
             return keywords.Select(k =>
             {
@@ -62,10 +89,10 @@ namespace Datahub.Web.Pages
             }).ToList();
         }
 
-        IEnumerable<Asset> ApplyQuery(IEnumerable<Asset> assets)
+        private IEnumerable<Asset> ApplyQuery(IEnumerable<Asset> assets)
         {
             return assets.Where(a => a.Metadata.Keywords.Any(k =>
-                this.Keywords.Any(kx => kx.Vocab == k.Vocab && kx.Value == k.Value)
+                Keywords.Any(kx => kx.Vocab == k.Vocab && kx.Value == k.Value)
                 ));
         }
     }
