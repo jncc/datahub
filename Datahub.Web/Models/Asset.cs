@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Nest;
 
-namespace Datahub.Web.Models {
-    public class Asset {
+namespace Datahub.Web.Models
+{
+    public class Asset
+    {
         public string Id { get; set; }
         public string Name { get; set; }
         public string DigitalObjectIdentifier { get; set; }
@@ -88,5 +90,4 @@ namespace Datahub.Web.Models {
 
 namespace Datahub.Web.Models.DataTypes
 {
-
 }
