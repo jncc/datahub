@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Datahub.Web.Data;
 using Datahub.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,10 +12,10 @@ namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        public const string s_index = "main";
-        public const string s_site = "datahub";
-        public const int s_size = 10;
-        public const int s_start = 0;
+        public const string Index = "main";
+        public const string Site = "datahub";
+        public const int Size = 10;
+        public const int Start = 0;
 
         private readonly IHostingEnvironment _env;
         private readonly ElasticClient _client;
@@ -33,14 +32,13 @@ namespace Datahub.Web.Pages
             _client = elasticsearchService.Client();
         }
         
-
-        public async Task OnGetAsync(string q, string[] k, int startIndex = s_start, int size = s_size)
+        public async Task OnGetAsync(string q, string[] k, int start = Start, int size = Size)
         {
             if (!string.IsNullOrWhiteSpace(q))
             {
                 Results = _client.Search<SearchResult>(s => s
-                    .Index(s_index)
-                    .From(startIndex)
+                    .Index(Index)
+                    .From(start)
                     .Size(size)
                     .Source(src => src
                         .IncludeAll()
@@ -48,18 +46,7 @@ namespace Datahub.Web.Pages
                             .Field(f => f.Content)
                         )
                     )
-                    .Query(l =>
-                        l.Match(m => m
-                            .Field(f => f.Site)
-                            .Query(s_site)
-                        )
-                        &&
-                        l.CommonTerms(c => c
-                            .Field(f => f.Content)
-                            .Query(q)
-                            .CutoffFrequency(0.001)
-                            .LowFrequencyOperator(Operator.Or)
-                        )
+                    .Query(l => ElasticsearchService.BuildDatahubQuery(q, ParseKeywords(k), Site)
                     )
                     .Highlight(h => h
                         .Fields(f => f.Field(x => x.Content))
@@ -70,7 +57,7 @@ namespace Datahub.Web.Pages
             }
         }
 
-        private List<KeywordModel> ParseKeywords(string[] keywords)
+        private List<Keyword> ParseKeywords(string[] keywords)
         {
             return keywords.Select(k =>
             {
@@ -80,11 +67,11 @@ namespace Datahub.Web.Pages
                     // has a slash, so assume this keyword this has a vocab
                     string vocab = k.Substring(0, lastIndexOfSlash);
                     string value = k.Substring(lastIndexOfSlash + 1);
-                    return new KeywordModel { Vocab = vocab, Value = value };
+                    return new Keyword { Vocab = vocab, Value = value };
                 }
                 else
                 {
-                    return new KeywordModel { Vocab = null, Value = k };
+                    return new Keyword { Vocab = null, Value = k };
                 }
             }).ToList();
         }

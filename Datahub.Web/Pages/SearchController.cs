@@ -22,13 +22,13 @@ namespace Datahub.Web.Pages
             _client = elasticsearchService.Client();
         }
 
-        public IReadOnlyCollection<IHit<SearchResult>> Get(string q, int startIndex = Start, int size = Size)
+        public IReadOnlyCollection<IHit<SearchResult>> OnGet(string q, int start = Start, int size = Size)
         {
             if (!string.IsNullOrWhiteSpace(q))
             {
                 return _client.Search<SearchResult>(s => s
                     .Index(Index)
-                    .From(startIndex)
+                    .From(start)
                     .Size(size)
                     .Source(src => src
                         .IncludeAll()
@@ -36,19 +36,7 @@ namespace Datahub.Web.Pages
                             .Field(f => f.Content)
                         )
                     )
-                    .Query(l =>
-                        l.Match(m => m
-                            .Field(f => f.Site)
-                            .Query(Site)
-                        )
-                        &&
-                        l.CommonTerms(c => c
-                            .Field(f => f.Content)
-                            .Query(q)
-                            .CutoffFrequency(0.001)
-                            .LowFrequencyOperator(Operator.Or)
-                        )
-                    )
+                    .Query(query => ElasticsearchService.BuildDatahubQuery(q, default(List<Keyword>), Site))
                     .Highlight(h => h
                         .Fields(f => f.Field(x => x.Content))
                         .PreTags("<b>")
@@ -58,6 +46,5 @@ namespace Datahub.Web.Pages
             }
             return null;
         }
-
     }
 }

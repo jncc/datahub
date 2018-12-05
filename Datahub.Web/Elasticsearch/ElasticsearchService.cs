@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Nest;
 using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
+using Datahub.Web.Models;
 
 namespace Datahub.Web.Elasticsearch
 {
@@ -43,6 +45,46 @@ namespace Datahub.Web.Elasticsearch
         public ElasticClient Client()
         {
             return _client;
+        }
+
+        public static QueryContainer BuildDatahubQuery(string query = null, List<Keyword> keywords = null, string site = null)
+        {
+            QueryContainer container = null;
+
+            if (!string.IsNullOrWhiteSpace(site))
+            {
+                // Match on site
+                container &= new MatchQuery()
+                {
+                    Field = "site",
+                    Query = site
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                container &= new CommonTermsQuery()
+                {
+                    Field = "content",
+                    Query = query,
+                    CutoffFrequency = 0.001,
+                    LowFrequencyOperator = Operator.Or
+                };
+            }
+
+            if (keywords != null)
+            {
+                // For each keyword add a new query container containing a must match pair
+                foreach (Keyword keyword in keywords)
+                {
+                    container &= new BoolQuery()
+                    {
+                        Must = new QueryContainer[] { new MatchQuery() { Field = "keywords.vocab", Query = keyword.Vocab }, new MatchQuery() { Field = "keywords.value", Query = keyword.Value } }
+                    };
+                }
+            }
+
+            return container;
         }
     }
 }
