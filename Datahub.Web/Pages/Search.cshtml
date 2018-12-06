@@ -13,14 +13,14 @@
 <div>
     @using (Html.BeginForm("Submit", "search", FormMethod.Get, new { q = Model.QueryString }))
     {
-    <div class="input-group mb-5">
-        <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub" value="@Model.QueryString" name="q">
-        <div class="input-group-append">
-            <button class="btn btn-success px-4" type="submit">
-                <i class="fas fa-search"></i>
-            </button>
+        <div class="input-group mb-5">
+            <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub" value="@Model.QueryString" name="q">
+            <div class="input-group-append">
+                <button class="btn btn-success px-4" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
-    </div>
     }
 </div>
 
@@ -36,3 +36,22 @@
         @await Html.PartialAsync("_SearchResult", r)
     }
 }
+
+    <div>
+        <ul class="pagination">
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled":"")">
+                <a data-page="1" class="page-link" href="/search?q=@(Model.QueryString)&p=1"><i class="fas fa-fast-backward"></i></a>
+            </li>
+            <li class="page-item @(Model.CurrentPage == 1 ? "disabled":"")">
+                <a class="page-link" href="/search?q=@(Model.QueryString)&p=@(Model.CurrentPage - 1)"><i class="fas fa-step-backward"></i></a>
+            </li>
+            <li class="page-item  @(Model.CurrentPage == (Math.Ceiling((decimal) Model.Results.Total / Model.CurrentPageSize)) ? "disabled":"")">
+                <a class="page-link" href="/search?q=@(Model.QueryString)&p=@(Model.CurrentPage + 1)"><i class="fas fa-step-forward"></i></a>
+            </li>
+
+            <li class="page-item @(Math.Ceiling((decimal) Model.Results.Total / Model.CurrentPageSize) == Model.CurrentPage ? "disabled": "")">
+                <a href="/search?q=@(Model.QueryString)&p=@(Math.Ceiling((decimal) Model.Results.Total / Model.CurrentPageSize))" class="page-link"><i class="fas fa-fast-forward"></i></a>
+            </li>
+        </ul>
+    </div>
+

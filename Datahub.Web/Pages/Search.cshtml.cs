@@ -12,19 +12,24 @@ namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        public const string Index = "main";
-        public const string Site = "datahub";
-        public const int Size = 10;
-        public const int Start = 0;
+        public const string DefaultIndex = "main";
+        public const string DefaultSite = "datahub";
+        public const int DefaultSize = 10;
+        public const int DefaultStart = 0;
 
         private readonly IHostingEnvironment _env;
         private readonly ElasticClient _client;
 
         public ISearchResponse<SearchResult> Results { get; set; }
-        public List<Keyword> Keywords { get; set; }
 
         [BindProperty(Name = "q", SupportsGet = true)]
         public string QueryString{ get; set; }
+        [BindProperty(Name = "p", SupportsGet = true)]
+        public int CurrentPage { get; set; }
+        [BindProperty(Name = "s", SupportsGet = true)]
+        public int CurrentPageSize { get; set; }
+
+        public List<Keyword> Keywords { get; set; }
 
         public SearchModel(IHostingEnvironment env, IElasticsearchService elasticsearchService)
         {
@@ -32,13 +37,17 @@ namespace Datahub.Web.Pages
             _client = elasticsearchService.Client();
         }
         
-        public async Task OnGetAsync(string q, string[] k, int page = 1, int size = Size)
+        public async Task OnGetAsync(string q, string[] k, int p = 1, int size = DefaultSize)
         {
+            CurrentPageSize = size;
+            CurrentPage = p;
+            Keywords = ParseKeywords(k);
+
             if (!string.IsNullOrWhiteSpace(q))
             {
                 Results = _client.Search<SearchResult>(s => s
-                    .Index(Index)
-                    .From(ElasticsearchService.GetStartFromPage(page, size))
+                    .Index(DefaultIndex)
+                    .From(ElasticsearchService.GetStartFromPage(p, size))
                     .Size(size)
                     .Source(src => src
                         .IncludeAll()
@@ -46,7 +55,7 @@ namespace Datahub.Web.Pages
                             .Field(f => f.Content)
                         )
                     )
-                    .Query(l => ElasticsearchService.BuildDatahubQuery(q, ParseKeywords(k), Site))
+                    .Query(l => ElasticsearchService.BuildDatahubQuery(q, ParseKeywords(k), DefaultSite))
                     .Highlight(h => h
                         .Fields(f => f.Field(x => x.Content))
                         .PreTags("<b>")
