@@ -65,6 +65,8 @@ namespace Datahub.Web.Models
 
         [Text(Name = "value")]
         public string Value { get; set; }
+
+        public string Link { get; set; }
     }
 
     public class Data

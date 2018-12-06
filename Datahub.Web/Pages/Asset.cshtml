@@ -24,7 +24,7 @@
 
 <p>
     @foreach (var k in Model.Asset.Metadata.Keywords) {
-        @await Html.PartialAsync("_Keyword", new KeywordModel { Vocab = k.Vocab, Value = k.Value })
+        @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
     }
 </p>
 

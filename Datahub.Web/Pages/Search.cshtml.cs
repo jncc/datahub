@@ -21,7 +21,7 @@ namespace Datahub.Web.Pages
         private readonly ElasticClient _client;
 
         public ISearchResponse<SearchResult> Results { get; set; }
-        public List<KeywordModel> Keywords { get; set; }
+        public List<Keyword> Keywords { get; set; }
 
         [BindProperty(Name = "q", SupportsGet = true)]
         public string QueryString{ get; set; }
