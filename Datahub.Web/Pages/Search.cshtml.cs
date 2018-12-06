@@ -32,13 +32,13 @@ namespace Datahub.Web.Pages
             _client = elasticsearchService.Client();
         }
         
-        public async Task OnGetAsync(string q, string[] k, int start = Start, int size = Size)
+        public async Task OnGetAsync(string q, string[] k, int page = 1, int size = Size)
         {
             if (!string.IsNullOrWhiteSpace(q))
             {
                 Results = _client.Search<SearchResult>(s => s
                     .Index(Index)
-                    .From(start)
+                    .From(ElasticsearchService.GetStartFromPage(page, size))
                     .Size(size)
                     .Source(src => src
                         .IncludeAll()
@@ -46,8 +46,7 @@ namespace Datahub.Web.Pages
                             .Field(f => f.Content)
                         )
                     )
-                    .Query(l => ElasticsearchService.BuildDatahubQuery(q, ParseKeywords(k), Site)
-                    )
+                    .Query(l => ElasticsearchService.BuildDatahubQuery(q, ParseKeywords(k), Site))
                     .Highlight(h => h
                         .Fields(f => f.Field(x => x.Content))
                         .PreTags("<b>")

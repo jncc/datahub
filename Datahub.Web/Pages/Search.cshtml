@@ -11,14 +11,17 @@
     Search
 </h1>
 <div>
+    @using (Html.BeginForm("Submit", "search", FormMethod.Get, new { q = Model.QueryString }))
+    {
     <div class="input-group mb-5">
-        <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub" value="@Model.QueryString">
-        <div class="input-group-append" onclick="@Url.Action("OnGetAsync", "SearchModel", new { q = "test" })">
-            <button class="btn btn-success px-4" type="button">
+        <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub" value="@Model.QueryString" name="q">
+        <div class="input-group-append">
+            <button class="btn btn-success px-4" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </div>
     </div>
+    }
 </div>
 
 @if (Model.Results != null && Model.Results.Total > 0)
