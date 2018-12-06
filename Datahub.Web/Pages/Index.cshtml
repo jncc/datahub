@@ -10,14 +10,16 @@
 </h1>
 
 <div>
-    <div class="input-group my-5">
-        <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub">
-        <div class="input-group-append">
-            <button class="btn btn-success px-4" type="button">
-                <i class="fas fa-search"></i>
-            </button>
+    <form action="search" method="get">
+        <div class="input-group mb-5">
+            <input type="text" class="form-control" placeholder="Search the Datahub" autofocus aria-label="Search the Datahub" name="q">
+            <div class="input-group-append">
+                <button class="btn btn-success px-4" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 
