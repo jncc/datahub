@@ -47,6 +47,11 @@ namespace Datahub.Web.Elasticsearch
             return _client;
         }
 
+        public static int GetStartFromPage(int page, int size)
+        {
+            return (page - 1) * size;
+        }
+
         public static QueryContainer BuildDatahubQuery(string query = null, List<Keyword> keywords = null, string site = null)
         {
             QueryContainer container = null;
