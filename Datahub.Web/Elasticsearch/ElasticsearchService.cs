@@ -26,7 +26,7 @@ namespace Datahub.Web.Elasticsearch
                 }));
                 _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             }
-            else if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE")))
+            else if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE")))
             {
                 // Use Profile
                 var httpConnection = new AwsHttpConnection(
