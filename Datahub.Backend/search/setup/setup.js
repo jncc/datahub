@@ -1,6 +1,8 @@
 
 const program = require('yargs')
-const createIndex = require('./createIndex')
+const createIndex = require('./commands/createIndex')
+const deleteIndex = require('./commands/deleteIndex')
+const insertDevData = require('./commands/insertDevData')
 
 const main = () => {
   program
@@ -27,16 +29,21 @@ const main = () => {
       startup(argv)
       console.log(`Hello ${argv.name}, welcome to yargs!`)
     })
-    .command('create-index', 'Create the index (normally a one-off thing).', (yargs) => {}, (argv) => {
+    .command('create-index', 'Create the index.', (yargs) => {}, (argv) => {
       startup(argv)
       createIndex()
+    })
+    .command('delete-index', 'Delete the index.', (yargs) => {}, (argv) => {
+      startup(argv)
+      deleteIndex()
+    })
+    .command('insert-dev-data', 'Insert dev data into the index.', (yargs) => {}, (argv) => {
+      startup(argv)
+      insertDevData()
     })
     .strict()
     .help()
     .argv
-  
-    // create-index createIndex()
-    // populate-dev-data
 }
 
 const startup = (argv) => {   

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "search:pull": "docker pull docker.elastic.co/elasticsearch/elasticsearch:6.4.2",
-    "search:run": "docker run -p 9200:9200 -p 9300:9300 -e \"discovery.type=single-node\" docker.elastic.co/elasticsearch/elasticsearch:6.4.2",
+    "search:run": "cd ./search/dev && docker run -p 9200:9200 -p 9300:9300 -e \"discovery.type=single-node\" $(docker build -q .)",
     "search:setup": "cd ./search/setup && node setup.js",
     "deploy:initial": "claudia create --name jncc-datahub-live-backend --region eu-west-1 --api-module index --policies policy ",
     "deploy": "claudia update"

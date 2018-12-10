@@ -46,6 +46,6 @@ Pass the asset in the request body. (Note: if you forget to specify the content 
 To setup the data and index, use the setup script:
 
     yarn search:setup create-index --endpoint http://localhost:9200/
-    yarn search:setup populate-dev-data --endpoint http://localhost:9200/
+    yarn search:setup insert-dev-data --endpoint http://localhost:9200/
 
 This setup script can also be used (with caution) to setup a live instance.
