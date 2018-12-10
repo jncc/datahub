@@ -23,7 +23,7 @@ api.get('/assets', db.scanAssets,
 )
 
 api.post('/envtest', () => {
-  console.log("ES_DOMAIN is " + config.ES_DOMAIN)
+  console.log("ES_ENDPOINT is " + config.ES_ENDPOINT)
   return 'Done!'
 })
 
