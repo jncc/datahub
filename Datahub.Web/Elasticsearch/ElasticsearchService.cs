@@ -11,33 +11,46 @@ namespace Datahub.Web.Elasticsearch
     {
         private readonly ElasticClient _client;
 
+        /// <summary>
+        /// Initialises a new ElasticClient instance with support for localhost and AWS endpoints.
+        /// </summary>
         public ElasticsearchService()
         {
-            var pool = new SingleNodeConnectionPool(new Uri(Environment.GetEnvironmentVariable("ELASTICSEARCH_DOMAIN")));
+            string endpoint = Environment.GetEnvironmentVariable("ELASTICSEARCH_DOMAIN");
+            string awsAccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY");
+            string awsSecretAccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY");
+            string awsRegion = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION");
+            string awsProfile = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE");            
+ 
+            var endpointUri = new Uri(endpoint);
+            var pool = new SingleNodeConnectionPool(endpointUri);
 
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY")) &&
-                !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY")))
+            if (endpointUri.IsLoopback)
             {
-                // Use Access keys to configure
-                var httpConnection = new AwsHttpConnection(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION"), new StaticCredentialsProvider(new AwsCredentials
+                // support localhost for local development
+                _client = new ElasticClient(new ConnectionSettings(pool));
+            }
+            if (!String.IsNullOrWhiteSpace(awsAccessKey) && !String.IsNullOrWhiteSpace(awsSecretAccessKey))
+            {
+                // use AWS access keys to configure
+                var httpConnection = new AwsHttpConnection(awsRegion, new StaticCredentialsProvider(new AwsCredentials
                 {
-                    AccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY"),
-                    SecretKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY")
+                    AccessKey = awsAccessKey,
+                    SecretKey = awsSecretAccessKey
                 }));
                 _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             }
-            else if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE")))
+            else if (!String.IsNullOrWhiteSpace(awsProfile))
             {
-                // Use Profile
-                var httpConnection = new AwsHttpConnection(
-                    Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION"),
-                    new NamedProfileCredentialProvider(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE")));
-                _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
+                // use AWS profile
+                throw new NotImplementedException("AWS profile support is not working yet. Specify access keys instead.");
+                // var httpConnection = new AwsHttpConnection(awsRegion, new NamedProfileCredentialProvider(awsProfile));
+                // _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             }
             else
             {
-                // Attempt to use instance profile
-                var httpConnection = new AwsHttpConnection(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION"), new InstanceProfileCredentialProvider());
+                // attempt to use AWS instance profile (for production)
+                var httpConnection = new AwsHttpConnection(awsRegion, new InstanceProfileCredentialProvider());
                 _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             }
         }
