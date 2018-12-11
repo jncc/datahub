@@ -12,7 +12,10 @@ namespace Datahub.Web
     {
         public Startup(IConfiguration configuration)
         {
-            DotEnv.Config();
+            if (System.IO.File.Exists(".env"))
+            { 
+                DotEnv.Config();
+            }
             Configuration = configuration;
         }
 
