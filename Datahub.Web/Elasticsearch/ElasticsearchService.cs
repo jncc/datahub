@@ -27,7 +27,7 @@ namespace Datahub.Web.Elasticsearch
             }
             builder.Host = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST");
 
-            var endpointUri = new Uri(endpoint);
+            var endpointUri = new Uri(builder.ToString());
             var pool = new SingleNodeConnectionPool(endpointUri);
 
             string awsAccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY");
@@ -40,7 +40,7 @@ namespace Datahub.Web.Elasticsearch
                 // support localhost for local development
                 _client = new ElasticClient(new ConnectionSettings(pool));
             }
-            else if (!String.IsNullOrWhiteSpace(awsAccessKey) && !String.IsNullOrWhiteSpace(awsSecretAccessKey))
+            else if (!string.IsNullOrWhiteSpace(awsAccessKey) && !string.IsNullOrWhiteSpace(awsSecretAccessKey))
             {
                 // use AWS access keys to configure
                 var httpConnection = new AwsHttpConnection(awsRegion, new StaticCredentialsProvider(new AwsCredentials
@@ -50,7 +50,7 @@ namespace Datahub.Web.Elasticsearch
                 }));
                 _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             }
-            else if (!String.IsNullOrWhiteSpace(awsProfile))
+            else if (!string.IsNullOrWhiteSpace(awsProfile))
             {
                 // use AWS profile
                 throw new NotImplementedException("AWS profile support is not working yet. Specify access keys instead.");
