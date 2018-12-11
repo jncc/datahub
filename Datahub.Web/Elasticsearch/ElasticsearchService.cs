@@ -13,7 +13,18 @@ namespace Datahub.Web.Elasticsearch
 
         public ElasticsearchService()
         {
-            var pool = new SingleNodeConnectionPool(new Uri(Environment.GetEnvironmentVariable("ELASTICSEARCH_DOMAIN")));
+            var builder = new UriBuilder();
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_SCHEME"))) 
+            {
+                builder.Scheme = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_SCHEME");
+            }
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_PORT")))
+            {
+                builder.Port = int.Parse(Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_PORT"));
+            }
+            builder.Host = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST");
+
+            var pool = new SingleNodeConnectionPool(new Uri(builder.ToString()));
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY")) &&
                 !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY")))
