@@ -15,4 +15,7 @@ build:
     - dotnet build
     - dotnet tool install -g Amazon.ElasticBeanstalk.Tools
 
+env:
+    - secure: BAO6gOvc8JkKC4zcsVn+a30Ik1Zc1yJEkaqtayzj0WOMypIEK+XHD3DtDkV8yRRwxlj7eS1wSfniuh9MUGLoZ2GS5D+I6LcTlE7i4xFjTASvX6Lyu1CFLR2qdIH/a3VZZ0pw1DMawBk6kGElhkrTnBff01lfpLSU/xppZaQm4xMUId/BxddHL0J1ojp2Ye5LhlWjsFWBjk472+lfnFnzuqiVkigkaqdK6PitJXFfOJBabhMyHINrvXFxuO1pie/x3LV6uzJ3rlQCRpTkzhjSTrw0j8phk5057E+p6AvfUpyvc2wQcgexakzCY+kJnQRS3NkROrpWnlbedBK1mUPauQ==
+
     

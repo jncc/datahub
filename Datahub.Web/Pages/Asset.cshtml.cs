@@ -11,10 +11,10 @@ namespace Datahub.Web.Pages
 {
     public class AssetModel : PageModel
     {
-        readonly IHostingEnvironment env;
+        private readonly IHostingEnvironment _env;
         public AssetModel(IHostingEnvironment env)
         {
-            this.env = env;
+            _env = env;
         }
 
         public Asset Asset { get; set; }
@@ -22,7 +22,7 @@ namespace Datahub.Web.Pages
 
         public async Task OnGetAsync(string assetId)
         {
-            var assets = await JsonLoader.LoadAssets(this.env.ContentRootPath);
+            var assets = await JsonLoader.LoadAssets(_env.ContentRootPath);
             this.Asset = assets.Single(a => a.Id == assetId);
         }
     }

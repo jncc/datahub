@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Nest;
 
-namespace Datahub.Web.Models {
-    public class Asset {
+namespace Datahub.Web.Models
+{
+    public class Asset
+    {
         public string Id { get; set; }
         public string Name { get; set; }
         public string DigitalObjectIdentifier { get; set; }
@@ -57,8 +60,13 @@ namespace Datahub.Web.Models {
 
     public class Keyword
     {
+        [Text(Name = "vocab")]
         public string Vocab { get; set; }
+
+        [Text(Name = "value")]
         public string Value { get; set; }
+
+        public string Link { get; set; }
     }
 
     public class Data
@@ -84,5 +92,4 @@ namespace Datahub.Web.Models {
 
 namespace Datahub.Web.Models.DataTypes
 {
-
 }

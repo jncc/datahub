@@ -1,7 +1,7 @@
 JNCC Datahub
 ============
 
-This is a proof-of-concept Datahub app.
+This is the JNCC Datahub app.
 
 Development
 -----------
@@ -25,9 +25,35 @@ To add packages, e.g.
 
     dotnet add package Newtonsoft.Json
 
+Environment variables
+---------------------
+Elasticsearch is configured via the .env pattern. You can make a `.env` file in the solution, or set environment variables. `.env.example` gives an example of .env file options.
+
+    ELASTICSEARCH_DOMAIN=domain.url
+    ELASTICSEARCH_AWS_REGION=aws.region
+
+TODO: See the `README.md` in Datahub.Backend to set up a local dev Elasticsearch.
+
+You can also connect to the production AWS Elasticsearch Service.
+
+Configure a local .aws profile (not recommended for deployment inside AWS, use instance profiles instead):
+
+    ELASTICSEARCH_AWS_PROFILE=
+
+Use a profile with sufficient permissions to connect to the production AWS Elasticsearch Service. 
+
+    aws configure --profile jncc-datahub-elasticsearch-dev-reader
+
+Alternatively, configure static access keys (not recommended for deployment inside AWS, use instance profiles instead):
+
+    ELASTICSEARCH_AWS_ACCESSKEY=
+    ELASTICSEARCH_AWS_SECRETACCESSKEY=
+
+Fill in the appropriate sections and inject the `IElasticsearchService` service to get a configured singleton client in the code. The code should fallback from defined access keys, local profile and then instance profile config if they are not configured.
+
 Deployment
 ----------
-Manual deployments to jncc-datahub-test env:
+Manual deployments to `jncc-datahub-test` env:
 
 Ensure the machine you are deploying from has awscli installed and confiured.
 

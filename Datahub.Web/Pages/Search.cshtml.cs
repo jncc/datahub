@@ -1,49 +1,71 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Datahub.Web.Data;
 using Datahub.Web.Models;
-using Datahub.Web.Pages.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Datahub.Web.Elasticsearch;
+using Nest;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        readonly IHostingEnvironment env;
-        public SearchModel(IHostingEnvironment env)
+        public const string DefaultIndex = "main";
+        public const string DefaultSite = "datahub";
+        public const int DefaultSize = 10;
+        public const int DefaultStart = 0;
+
+        private readonly IHostingEnvironment _env;
+        private readonly ElasticClient _client;
+
+        public ISearchResponse<SearchResult> Results { get; set; }
+
+        [BindProperty(Name = "q", SupportsGet = true)]
+        public string QueryString{ get; set; }
+        [BindProperty(Name = "p", SupportsGet = true)]
+        public int CurrentPage { get; set; }
+        [BindProperty(Name = "s", SupportsGet = true)]
+        public int CurrentPageSize { get; set; }
+
+        public List<Keyword> Keywords { get; set; }
+
+        public SearchModel(IHostingEnvironment env, IElasticsearchService elasticsearchService)
         {
-            this.env = env;
+            _env = env;
+            _client = elasticsearchService.Client();
+        }
+        
+        public async Task OnGetAsync(string q, string[] k, int p = 1, int size = DefaultSize)
+        {
+            CurrentPageSize = size;
+            CurrentPage = p;
+            Keywords = ParseKeywords(k);
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                Results = _client.Search<SearchResult>(s => s
+                    .Index(DefaultIndex)
+                    .From(ElasticsearchService.GetStartFromPage(p, size))
+                    .Size(size)
+                    .Source(src => src
+                        .IncludeAll()
+                        .Excludes(e => e
+                            .Field(f => f.Content)
+                        )
+                    )
+                    .Query(l => ElasticsearchService.BuildDatahubQuery(q, ParseKeywords(k), DefaultSite))
+                    .Highlight(h => h
+                        .Fields(f => f.Field(x => x.Content))
+                        .PreTags("<b>")
+                        .PostTags("</b>")
+                    )
+                );
+            }
         }
 
-        public List<SearchResultModel> Results { get; set; }
-        public List<KeywordModel> Keywords { get; set; }
-
-
-        public async Task OnGetAsync(string q, string[] k)
-        {
-            // populate Keywords to show which are filtered on
-            this.Keywords = ParseKeywords(k);
-
-            // populate Results
-            var assets = await JsonLoader.LoadAssets(this.env.ContentRootPath);
-
-            var query = ApplyQuery(assets);
-
-            this.Results = query.Select(a => new SearchResultModel {
-              Id = a.Id,
-              Title = a.Metadata.Title,
-              Abstract = a.Metadata.Abstract.Substring(0, 300) + " ...",
-              DatasetReferenceDate = a.Metadata.DatasetReferenceDate,
-              ResourceType = a.Metadata.ResourceType,
-            })
-            .Take(10)
-            .ToList();
-        }
-
-        List<KeywordModel> ParseKeywords(string[] keywords)
+        private List<Keyword> ParseKeywords(string[] keywords)
         {
             return keywords.Select(k =>
             {
@@ -53,19 +75,19 @@ namespace Datahub.Web.Pages
                     // has a slash, so assume this keyword this has a vocab
                     string vocab = k.Substring(0, lastIndexOfSlash);
                     string value = k.Substring(lastIndexOfSlash + 1);
-                    return new KeywordModel { Vocab = vocab, Value = value };
+                    return new Keyword { Vocab = vocab, Value = value };
                 }
                 else
                 {
-                    return new KeywordModel { Vocab = null, Value = k };
+                    return new Keyword { Vocab = null, Value = k };
                 }
             }).ToList();
         }
 
-        IEnumerable<Asset> ApplyQuery(IEnumerable<Asset> assets)
+        private IEnumerable<Asset> ApplyQuery(IEnumerable<Asset> assets)
         {
             return assets.Where(a => a.Metadata.Keywords.Any(k =>
-                this.Keywords.Any(kx => kx.Vocab == k.Vocab && kx.Value == k.Value)
+                Keywords.Any(kx => kx.Vocab == k.Vocab && kx.Value == k.Value)
                 ));
         }
     }

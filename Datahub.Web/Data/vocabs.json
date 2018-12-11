@@ -1,0 +1,222 @@
+[
+    {
+        "id": "http://vocab.jncc.gov.uk/reference-manager-code",
+        "name": "JNCC Reference Manager Code",
+        "description": "A field for the Reference Manager code used within JNCC."
+    },
+    {
+        "id": "http://www.bmapa.org/documents/bmapa_glossary.pdf",
+        "name": "BMAPA Marine Aggregate Terminology",
+        "description": "See http://www.bmapa.org/documents/BMAPA_Glossary.pdf",
+        "sid": "http://vocab.jncc.gov.uk/bmapa/marine-aggregate-terminology"
+    },
+    {
+        "id": "http://www.fao.org/fi/glossary/aquaculture/en",
+        "name": "FAO Glossary of Aquaculture",
+        "description": "See http://www.fao.org/faoterm/collection/aquaculture/en/",
+        "sid": "http://vocab.jncc.gov.uk/fao/glossary-of-aquaculture"
+    },
+    {
+        "id": "http://www.generalcable.com/GeneralCable/en-us/Resources/glossary",
+        "name": "General Cable Glossary",
+        "description": "See http://www.generalcable.com/GeneralCable/en-US/Resources/Glossary/",
+        "sid": "http://vocab.jncc.gov.uk/general-cable/general-cable-glossary"
+    },
+    {
+        "id": "http://www.snh.org.uk/publications/on-line/heritagemanagement/erosion/7.1.shtml",
+        "name": "SNH Erosion Glossary",
+        "description": "See http://www.snh.org.uk/publications/on-line/heritagemanagement/erosion/7.1.shtml",
+        "sid": "http://vocab.jncc.gov.uk/snh/erosion_glossary"
+    },
+    {
+        "id": "http://evidence.environment-agency.gov.uk/fcerm/libraries/fluvial_documents/glossary.sflb.ashx",
+        "name": "EA Fluvial Glossary",
+        "description": "See http://evidence.environment-agency.gov.uk/FCERM/Libraries/Fluvial_Documents/Glossary.sflb.ashx",
+        "sid": "http://vocab.jncc.gov.uk/ea/fluvial-glossary"
+    },
+    {
+        "id": "http://www.bgs.ac.uk/mineralsuk/glossary.html",
+        "name": "BGS Minerals UK Glossary",
+        "description": "See http://www.bgs.ac.uk/mineralsUK/glossary.html",
+        "sid": "http://vocab.jncc.gov.uk/bgs/minerals-uk-glossary"
+    },
+    {
+        "id": "http://en.wikipedia.org/wiki/glossary_of_nautical_terms",
+        "name": "Wikipedia Glossary of Nautical Terms",
+        "description": "See http://en.wikipedia.org/wiki/Glossary_of_nautical_terms",
+        "sid": "http://vocab.jncc.gov.uk/wikipedia/glossary-of-nautical-terms"
+    },
+    {
+        "id": "http://www.dtic.mil/doctrine/dod_dictionary",
+        "name": "DOD Dictionary of Military Terms",
+        "description": "See http://www.dtic.mil/doctrine/dod_dictionary/",
+        "sid": "http://vocab.jncc.gov.uk/dtic/dod-dictionary-of-military-terms"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/recreation",
+        "name": "JNCC Recreation Vocabulary",
+        "description": "Used by Marine Human Activities. The lineage of this keyword set is uncertain!"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/ukho",
+        "name": "UKHO Vocabulary",
+        "description": "Used by Marine Human Activities. The lineage of this keyword set is uncertain!"
+    },
+    {
+        "id": "http://en.wikipedia.org/wiki/glossary_of_fishery_terms",
+        "name": "Wikipedia Glossary of Fishery Terms",
+        "description": "See http://en.wikipedia.org/wiki/Glossary_of_fishery_terms",
+        "sid": "http://vocab.jncc.gov.uk/wikipedia/glossary-of-fishery-terms"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/original-seabed-classification-system",
+        "name": "Original Seabed Classification",
+        "description": "Used by MESH"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/seabed-survey-purpose",
+        "name": "Seabed Survey Purpose",
+        "description": "Used by MESH"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/seabed-map-status",
+        "name": "Seabed Map Status",
+        "description": "Used by MESH"
+    },
+    {
+        "id": "http://vocabs.jncc.gov.uk/overseas-territories",
+        "name": "Overseas Territories",
+        "description": "A list of the UK overseas territories"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/mesh-gui",
+        "name": "MESH GUI",
+        "description": "Unique Identifiers used for the MESH Seabed Habitat Map records"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/seabed-survey-cruise-id",
+        "name": "Cruise ID",
+        "description": "Management keyword for Offshore Seabed Survey"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/seabed-survey-vessel",
+        "name": "Survey Vessel",
+        "description": "Management keyword for Offshore Seabed Survey"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/location",
+        "name": "Location",
+        "description": "Location keyword. Could be moved to the Gemini location field."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/seabed-survey-data-type",
+        "name": "Seabed Survey Data Type",
+        "description": "Management keyword for Offshore Seabed Survey"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/natural-capital-glossary",
+        "name": "Natural Capital Glossary",
+        "description": "JNCC glossary / keyword set for the Natural Capital resource library."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/species",
+        "name": "Species",
+        "description": "An ad-hoc, unverified partial list of common name species."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/human-activity",
+        "name": "Human Activity List",
+        "description": "A list of human activities."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/jncc-publication-status",
+        "name": "Publication status",
+        "description": "Describes various properties of JNCC Publications"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/jncc-report-series-number",
+        "name": "JNCC Report series number",
+        "description": "JNCC Report series number"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/nhbs",
+        "name": "NHBS Numbers",
+        "description": "NHBS Number"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/isbn",
+        "name": "ISBN Numbers",
+        "description": "ISBN Numbers"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/issn",
+        "name": "ISSN Numbers",
+        "description": "ISSN Numbers"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/seabed-survey-technique",
+        "name": "Seabed Survey Technique",
+        "description": "Used by MESH"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/seabird-season",
+        "name": "Seabird Season",
+        "description": "List of seasons for seabird surveys."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/jncc-publication-category",
+        "name": "Publication category",
+        "description": "Publication category"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/jncc-domain",
+        "name": "JNCC Domain",
+        "description": "The broad domain within JNCC."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/transparency",
+        "name": "Transparency",
+        "description": "Tags for information that support the Government's transparency agenda"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/processing-history",
+        "name": "Processing History",
+        "description": "Tags to say whether the data is processed or raw, useful for many different kinds of data."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/metadata-admin",
+        "name": "Metadata Admin",
+        "description": "Tags for managing Topcat records."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/uk-biodiversity",
+        "name": "UK Biodiversity & Conservation",
+        "description": "Information related to UK conservation and legislation (mostly terrestrial)"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/base-mapping",
+        "name": "Base Mapping",
+        "description": "Grids, boundaries, OS and other spatial base maps for reference use"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/jncc-category",
+        "name": "JNCC Category",
+        "description": "The data category within JNCC."
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/protected-areas",
+        "name": "Protected Areas",
+        "description": "All UK Protected Areas designations and submissions"
+    },
+    {
+        "id": "http://vocab.jncc.gov.uk/earth-observation",
+        "name": "Earth Observation",
+        "description": "Earth Observation data and terrestrial habitat mapping"
+    },
+    {
+        "id": "http://www.enchantedlearning.com/wordlist/energy.shtml",
+        "name": "Enchanted Learning Energy Word List",
+        "description": "See http://www.enchantedlearning.com/wordlist/energy.shtml",
+        "sid": "http://vocab.jncc.gov.uk/enchanted-learning/energy-wordlist"
+    }
+]
