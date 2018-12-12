@@ -30,13 +30,13 @@ let main = async function() {
   }
 }
 
-let sendLocalElasticSearchRequest = ({method, path, body}) => {
-  return request('http://localhost:9200/' + path, {
-    method: method,
-    headers: { 'host': 'localhost:9200' }, // is this needed?
-    json: body
-  })
-}
+// let sendLocalElasticSearchRequest = ({method, path, body}) => {
+//   return request('http://localhost:9200/' + path, {
+//     method: method,
+//     headers: { 'host': 'localhost:9200' }, // is this needed?
+//     json: body
+//   })
+// }
 
 let setupIndex = async () => {
   
@@ -78,6 +78,9 @@ let setupIndex = async () => {
         "footprint": {
           "type": "geo_shape"
         }
+        // URL (applies to datahub too, for website serp)
+        // website object { PageID, Author? }
+        // PDF document size
       }
     }
   })

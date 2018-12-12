@@ -40,7 +40,12 @@ Pass the asset in the request body. (Note: if you forget to specify the content 
 
  You can make a local ElasticSearch server easily with Docker:
 
-    yarn elastic:pull      # pull Docker image
-    yarn elastic:run       # run Docker image
-    yarn elastic:populate  # set up ElasticSearch with dev data
+    yarn search:pull      # pull Docker image
+    yarn search:run       # run Docker image
 
+To setup the data and index, use the setup script:
+
+    yarn search:setup create-index --endpoint http://localhost:9200/
+    yarn search:setup insert-dev-data --endpoint http://localhost:9200/
+
+This setup script can also be used (with caution) to setup a live instance.
