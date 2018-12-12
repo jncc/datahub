@@ -15,8 +15,11 @@ namespace Datahub.Web.Models
         [Text(Name = "content")]
         public string Content { get; set; }
 
-        [Text(Name = "content_truncated")]
+        [Text(Name = "content_truncated", Index = false)]
         public string ContentTruncated { get; set; }
+
+        [Text(Name = "url")]
+        public string URL { get; set; }
 
         [Nested]
         [PropertyName("keywords")]

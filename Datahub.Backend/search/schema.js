@@ -7,7 +7,7 @@ const mapping = {
     "site": { "type": "keyword" },
     "title": { "type": "text" },
     "content": { "type": "text" },
-    "content_truncated": {"type": "keyword", "index": false},
+    "content_truncated": {"type": "keyword", "index": false },
     "keywords": {
       "type": "nested",
       "properties": {

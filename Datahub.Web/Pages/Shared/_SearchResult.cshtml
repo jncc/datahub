@@ -3,7 +3,7 @@
 @using Datahub.Web.Models
 
 <h5 class="display-5">
-    <a href="/assets/@(Model.Id)">@(Model.Source.Title)</a>
+    <a href="@(Model.Source.URL)">@(Model.Source.Title)</a>
 </h5>
 <p>
     @foreach (var k in Model.Source.Keywords)
