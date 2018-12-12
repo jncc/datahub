@@ -4,6 +4,7 @@ using Nest;
 using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
 using Datahub.Web.Models;
+using System.Threading.Tasks;
 
 namespace Datahub.Web.Elasticsearch
 {
@@ -73,6 +74,24 @@ namespace Datahub.Web.Elasticsearch
         public static int GetStartFromPage(int page, int size)
         {
             return (page - 1) * size;
+        }
+
+        public async Task<IIndexResponse> CreateDocument(SearchDocument result)
+        {
+            IndexRequest<SearchDocument> doc = new IndexRequest<SearchDocument>("main", "_doc", result.Id)
+            {
+                Document = result
+            };
+
+            return await _client.IndexAsync(doc);
+        }
+
+        public async Task<IDeleteByQueryResponse> DeleteDocument(string search)
+        {
+            return await _client.DeleteByQueryAsync<SearchDocument>(d => d
+                .Index("main")
+                .Query(q => q.Match(m => m.Field(f=> f.Title).Query("Test Title")))
+            );
         }
 
         public static QueryContainer BuildDatahubQuery(string query = null, List<Keyword> keywords = null, string site = null)
