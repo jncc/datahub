@@ -61,7 +61,7 @@ public class ExamplesController : Controller
 /// </summary>
 public class Env
 {    
-    static Env() { } // this is a singleton
+    static Env() { } // singleton to avoid reading a variable more than once
     private static readonly Env env = new Env();
 
     public string ESAwsRegion          { get; private set; }
@@ -73,12 +73,18 @@ public class Env
     
     private Env()
     {
-        ESAwsRegion = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION");
-        ESAwsAccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY");
-        ESAwsSecretAccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY");
-        ESEndpointHost = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST");
-        ESEndpointScheme = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_SCHEME");
-        ESEndpointPort = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_PORT");
+        ESAwsRegion = GetVariable("ELASTICSEARCH_AWS_REGION");
+        ESAwsAccessKey = GetVariable("ELASTICSEARCH_AWS_ACCESSKEY");
+        ESAwsSecretAccessKey = GetVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY");
+        ESEndpointHost = GetVariable("ELASTICSEARCH_HOST");
+        ESEndpointScheme = GetVariable("ELASTICSEARCH_HOST_SCHEME");
+        ESEndpointPort = GetVariable("ELASTICSEARCH_HOST_PORT");
+    }
+
+    string GetVariable(string variable)
+    {
+        return Environment.GetEnvironmentVariable(variable)
+            ?? throw new Exception($"The environment variable {variable} couldn't be read. You may need to define it in your .env file.");
     }
 
     public static Env Var
