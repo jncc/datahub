@@ -24,7 +24,7 @@ const insertDevData = async () => {
     await sendRequest({
       method: 'POST',
       path: path,
-      body: schema.makeDatahubIndexObjectFromTopcatRecord(doc),
+      body: schema.makeSearchDocumentFromTopcatRecord(doc),
     })
   }
 

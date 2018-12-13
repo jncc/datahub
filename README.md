@@ -42,7 +42,7 @@ Configure a local .aws profile (not recommended for deployment inside AWS, use i
 
 Use a profile with sufficient permissions to connect to the production AWS Elasticsearch Service. 
 
-    aws configure --profile jncc-datahub-elasticsearch-dev-reader
+    aws configure --profile jncc-website-live-search-reader
 
 Alternatively, configure static access keys (not recommended for deployment inside AWS, use instance profiles instead):
 

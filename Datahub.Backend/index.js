@@ -22,6 +22,14 @@ api.get('/assets', db.scanAssets,
   }
 )
 
+// Puts the document into the elasticsearch index.
+// This API is for use by the jncc-website and the microsites.
+api.post('/search', es.putDocument,
+  {
+    authorizationType: 'AWS_IAM',
+  }
+)
+
 api.post('/envtest', () => {
   console.log("ES_ENDPOINT is " + config.ES_ENDPOINT)
   return 'Done!'

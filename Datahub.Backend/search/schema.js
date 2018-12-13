@@ -27,7 +27,7 @@ const mapping = {
   }
 }
 
-const makeDatahubIndexObjectFromTopcatRecord = (doc) => {
+const makeSearchDocumentFromTopcatRecord = (doc) => {
   return {
     'site': 'datahub',
     'title': doc.metadata.title,
@@ -88,4 +88,4 @@ const attachmentPipeline = {
   ]
 }
 
-module.exports = { mapping, makeDatahubIndexObjectFromTopcatRecord, attachmentPipeline }
+module.exports = { mapping, makeSearchDocumentFromTopcatRecord, attachmentPipeline }
