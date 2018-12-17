@@ -13,16 +13,6 @@ using Nest;
 
 public class ExamplesController : Controller
 {
-    private readonly ElasticClient _client;
-    private readonly IElasticsearchService _elasticsearchService;
-
-    public ExamplesController(IElasticsearchService elasticsearchService)
-    {
-        _client = elasticsearchService.Client();
-        _elasticsearchService = elasticsearchService;
-    }
-
-
     [HttpGet("/api/examples/esget")]
     public async Task<IActionResult> ESGet(string q = null, List<Keyword> k = null, string site = "datahub", int start = 0, int size = 10)
     {
@@ -60,10 +50,6 @@ public class ExamplesController : Controller
                 ""fields"": {{ ""content"": {{}} }}
             }}
         }}", start, size, site, query).Trim();
-
-        UriBuilder uriBuilder = new UriBuilder(GetESEndpointUrl());
-        uriBuilder.Path = "main/_search";
-
 
         return new HttpRequestMessage
         {
