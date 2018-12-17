@@ -16,7 +16,7 @@ public class ExamplesController : Controller
         string query = @"
             {
                 ""query"" : {
-                    ""simple_query_string"": { ""query"": ""sea"" }
+                    ""simple_query_string"": { ""query"": ""example"" }
                 }
             }
             ".Trim();
@@ -38,7 +38,7 @@ public class ExamplesController : Controller
     async Task<HttpRequestMessage> GetSignedRequest(HttpRequestMessage request)
     {
         var signer = new AWS4RequestSigner(Env.Var.ESAwsAccessKey, Env.Var.ESAwsSecretAccessKey);
-        return await signer.Sign(request, "ess", Env.Var.ESAwsRegion);
+        return await signer.Sign(request, "es", Env.Var.ESAwsRegion);
     }
 
     string GetESEndpointUrl()
