@@ -39,10 +39,13 @@ public class ExamplesController : Controller
             ""query"": {{
                 ""bool"": {{
                     ""filter"": [
-                        {{ ""term"": {{ ""site"": ""{2}"" }} }}
+                        {{ ""match"": {{ ""site"": ""{2}"" }} }}
                     ],
                     ""must"": [
                         {{ ""common"": {{ ""content"": {{ ""query"": ""{3}"", ""cutoff_frequency"": 0.001, ""low_freq_operator"": ""or"" }} }} }}
+                    ],
+                    ""should"": [
+                        {{ ""common"": {{ ""title"": {{ ""query"": ""{3}"", ""cutoff_frequency"": 0.001, ""low_freq_operator"": ""or"" }} }} }}
                     ]
                 }}
             }},
