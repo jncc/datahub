@@ -22,7 +22,7 @@ const sendSignedRequest = ({method, path, body}) => {
   )
   r.method = method
   r.path += path
-  // .headers['host'] = config.ES_ENDPOINT   // can we do without? if not, try extracting host
+  r.headers['host'] = config.ES_ENDPOINT // setting host explicitly seems to be required
   r.headers['Content-Type'] = 'application/json'
   r.body = JSON.stringify(body)
 
