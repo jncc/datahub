@@ -35,8 +35,8 @@ const makeSearchDocumentFromTopcatRecord = (doc) => {
     'content_truncated': doc.metadata.abstract,
     'keywords': [
         {
-          'vocab': 'http://vocab.jncc.gov.uk/web-vocab',
-          'value': 'publication'
+          'vocab': 'http://vocab.jncc.gov.uk/website-vocab',
+          'value': 'None'
         },
         ...doc.metadata.keywords
     ],
@@ -78,13 +78,15 @@ const attachmentPipeline = {
       "remove": {
         "field": "attachment"
       }
-    },
-    {
-  		"script": {
-  			"lang": "painless",
-  			"source": "int last = ctx._source.content.substring(0,200).lastIndexOf(\" \"); ctx._source.content_truncated = ctx._source.content.substring(0, (last > 0 ? last : 200));"
-  		}
-  	}
+    }
+    // todo: this script throws an error when i try to insert PDF dummy doc
+    // ,
+    // {
+  	// 	"script": {
+  	// 		"lang": "painless",
+  	// 		"source": "int last = ctx._source.content.substring(0,200).lastIndexOf(\" \"); ctx._source.content_truncated = ctx._source.content.substring(0, (last > 0 ? last : 200));"
+  	// 	}
+  	// }
   ]
 }
 

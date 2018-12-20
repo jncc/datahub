@@ -32,7 +32,7 @@ const createIndex = async () => {
   // thirdly, create an ingest pipeline that tells elastic search
   // how to extract attachment information (PDFs)
 
-  console.log(`Creating attachment ingest pipeline ...`)
+  console.log(`Creating attachment ingest pipeline...`)
 
   await sendRequest({
     method: 'PUT',
