@@ -25,13 +25,14 @@ const sendSignedRequest = ({method, path, body}) => {
   r.headers['host'] = config.ES_ENDPOINT // setting host explicitly seems to be required
   r.headers['Content-Type'] = 'application/json'
   r.body = JSON.stringify(body)
-
-  // (2) sign the request with the current IAM principal
-  // (this will be the executing role of the aws lambda function)
-  let credentials = new AWS.EnvironmentCredentials('AWS')
-  let signer = new AWS.Signers.V4(r, 'es')
+  
+  // (2) sign the request for AWS IAM
+  let credentials = config.AWS_ACCESS_KEY
+    ? new AWS.Credentials(config.AWS_ACCESS_KEY, config.AWS_SECRET_KEY) // sign the request with the configured IAM key
+    : new AWS.EnvironmentCredentials('AWS') // use the executing role of the aws lambda function
+  let signer = new AWS.Signers.V4(r, 'es') // 'es' for the aws elastic search service
   signer.addAuthorization(credentials, new Date())
-
+  
   // (3) return a promise so we can await it
   // (rather than letting the aws lambda finish before the request completes!)
   return new Promise((resolve, reject) => {

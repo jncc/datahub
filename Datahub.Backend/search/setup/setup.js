@@ -1,4 +1,6 @@
 
+require('dotenv').config()
+
 const program = require('yargs')
 const createIndex = require('./commands/createIndex')
 const deleteIndex = require('./commands/deleteIndex')
@@ -14,10 +16,11 @@ const main = () => {
       describe: 'The ElasticSearch endpoint URL.',
       type: 'string'
     })
-    .option('r', {
-      alias: 'awsRegion',
-      default: 'eu-west-1',
-      describe: 'The AWS region.'
+    .option('i', {
+      alias: 'index',
+      demandOption: true,
+      describe: 'The name of the index to use (main or edit).',
+      type: 'string'
     })
     .command('hello [name]', 'Print the wecome.', (yargs) => {
       yargs.positional('name', {
