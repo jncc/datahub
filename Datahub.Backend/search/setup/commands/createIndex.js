@@ -1,31 +1,38 @@
 
+const env = require('../../../env')
 const sendRequest = require('../../sendRequest')
 const schema = require('../../schema')
 
 const createIndex = async () => {
   
-  // firstly, create the index itself (we'll call it 'main')
-  console.log('Creating index \'main\'...')
+  // firstly, create the index itself
 
-  await sendRequest({
-    method: 'PUT', path: 'main'
-  })
-
-  console.log('Created index \'main\'.')
-
-  // secondly, create the "mapping" that tells elastic search about our index structure
-  console.log('Creating mapping for \'main\'...')
+  console.log(`Creating index '${env.ES_INDEX}'...`)
 
   await sendRequest({
     method: 'PUT',
-    path: 'main/_mapping/_doc',
+    path: env.ES_INDEX
+  })
+
+  console.log(`Created index '${env.ES_INDEX}'.`)
+
+  // secondly, create the "mapping" that tells elastic search
+  // about our index structure
+
+  console.log(`Creating mapping for '${env.ES_INDEX}'...`)
+
+  await sendRequest({
+    method: 'PUT',
+    path: `${env.ES_INDEX}/_mapping/_doc`,
     body: schema.mapping
   })
 
-  console.log('Created mapping for index \'main\'.')
+  console.log(`Created mapping for '${env.ES_INDEX}'.`)
   
-  // thirdly, create an ingest pipeline that tells elastic search to extract attachment information (PDFs)
-  console.log('Creating ingest pipeline for index \'main\'...')
+  // thirdly, create an ingest pipeline that tells elastic search
+  // how to extract attachment information (PDFs)
+
+  console.log(`Creating attachment ingest pipeline ...`)
 
   await sendRequest({
     method: 'PUT',
@@ -33,7 +40,7 @@ const createIndex = async () => {
     body: schema.attachmentPipeline
   })
 
-  console.log('Created ingest pipeline for index \'main\'.')
+  console.log(`Created attachment ingest pipeline.`)
 }
 
 module.exports = createIndex

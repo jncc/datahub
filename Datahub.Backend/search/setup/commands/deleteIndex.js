@@ -1,15 +1,17 @@
 
+const env = require('../../../env')
 const sendRequest = require('../../sendRequest')
 
 const deleteIndex = async () => {
 
-  console.log('Deleting index \'main\'...')
+  console.log(`Deleting index '${env.ES_INDEX}'...`)
 
   await sendRequest({
-    method: 'DELETE', path: 'main'
+    method: 'DELETE',
+    path: env.ES_INDEX
   })
 
-  console.log('Deleted index \'main\'.')
+  console.log(`Deleted index '${env.ES_INDEX}'.`)
 }
 
 module.exports = deleteIndex

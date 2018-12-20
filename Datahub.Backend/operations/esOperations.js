@@ -1,22 +1,6 @@
 
+const env = require('../env')
 const sendSignedRequest = require('../search/sendSignedRequest')
-
-module.exports.esauthtest = async function(req) {
-
-  console.log('Hello from esauthtest')
-
-  await sendSignedRequest({
-    method: 'POST',
-    path: 'node-test/_doc/2',
-    body: {
-     "title": "Moneyball",
-     "director": "Bennett Miller",
-     "year": "2011"
-    }
-  })
-
-  return 'Done.'
-}
 
 module.exports.putDocument = async function(req) {
 
@@ -27,7 +11,7 @@ module.exports.putDocument = async function(req) {
 
   await sendSignedRequest({
     method: 'PUT',
-    path: 'main/_doc/' + req.body.id,
+    path: env.ES_INDEX + '/_doc/' + req.body.id,
     body: req.body,
   })
 

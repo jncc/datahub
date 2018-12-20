@@ -1,12 +1,12 @@
 
-Under development
------------------
+Datahub.Backend
+---------------
 
-This is a Node v8 project that implements API endpoints and handlers for the Datahub and its Elastic Search service, which is shared by the JNCC Website.
+This is a Node v8 project which implements API endpoints, handlers and setup scripts for the JNCC Datahub, as well as the JNCC Website ElasticSearch service which is used and managed by the Datahub.
 
 Development
 -----------
-You just need Node v8 and Yarn. Restore packages by running 
+You just need Node v8 and Yarn. Install packages by running 
 
     yarn
 
@@ -15,12 +15,24 @@ You just need Node v8 and Yarn. Restore packages by running
     yarn search:pull      # pull Docker image
     yarn search:run       # run Docker image
 
-To setup the data and index, use the setup script:
+To setup the search index and dummy data, use the search setup script. 
 
     yarn search:setup create-index --endpoint http://localhost:9200/ --index main
-    yarn search:setup insert-dev-data --endpoint http://localhost:9200/ --index main
+    yarn search:setup insert-dummy-data --endpoint http://localhost:9200/ --index main
 
-This setup script can also be used (with caution) to setup indexes on the live instance. You will need to add AWS variables in a project .env file. See .env.example (TODO). Do not confuse this with the Datahub.Web project .env file.
+This setup script can also be used (with caution) to set up indexes on the live AWS managed instance. You need to configure an appropriate AWS profile:
+
+    aws configure --profile jncc-website-live-search-writer
+
+Then set the `AWS_REGION` and `AWS_PROFILE` environment variables before running the setup script as above. E.g.
+
+    export AWS_REGION=eu-west-1
+    export AWS_PROFILE=jncc-website-live-search-writer
+
+Alternatively you can pass these variables as optional arguments to the script.
+
+    yarn search:setup create-index --endpoint https://our.live.search.endpoint.amazonaws.com/ --index test --aws-profile jncc-website-live-search-writer --aws-region eu-west-1
+    
 
 Deployment
 ----------
@@ -58,15 +70,15 @@ There is a priliminary API endpoint to upsert entries into the shared Search ser
 
 PUT https://sbu241ug78.execute-api.eu-west-1.amazonaws.com/latest/search
 
-{
-	"id": "edff0279-375b-48f5-871a-51e1a5b815ad",
-	"site": "website",
-	"title": "This is an example",
-	"content": "This is some example content that should be indexed.",
-	"keywords": [
-		{ "vocab": "http://vocab.jncc.gov.uk/web-vocab", "value": "Example" }
-	],
-	"published_date": "2018-12-13",
-	"url": "http://example.com/examples/7b1d5345-d14c-4958-a5d3-e4d8f8ba0910"
-}
+    {
+        "id": "edff0279-375b-48f5-871a-51e1a5b815ad",
+        "site": "website",
+        "title": "This is an example",
+        "content": "This is some example content that should be indexed.",
+        "keywords": [
+            { "vocab": "http://vocab.jncc.gov.uk/web-vocab", "value": "Example" }
+        ],
+        "published_date": "2018-12-13",
+        "url": "http://example.com/examples/7b1d5345-d14c-4958-a5d3-e4d8f8ba0910"
+    }
 

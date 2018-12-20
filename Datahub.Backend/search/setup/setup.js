@@ -1,10 +1,10 @@
 
-require('dotenv').config()
-
 const program = require('yargs')
 const createIndex = require('./commands/createIndex')
 const deleteIndex = require('./commands/deleteIndex')
-const insertDevData = require('./commands/insertDevData')
+const insertDummyData = require('./commands/insertDummyData')
+
+const env = require('../../env')
 
 const main = () => {
   program
@@ -19,13 +19,21 @@ const main = () => {
     .option('i', {
       alias: 'index',
       demandOption: true,
-      describe: 'The name of the index to use (main or edit).',
+      describe: 'The name of the index to use (e.g. main, edit, test).',
+      type: 'string'
+    })
+    .option('aws-region', {
+      describe: 'The name of the AWS_REGION to use. Optionally, set an environment variable.',
+      type: 'string'
+    })
+    .option('aws-profile', {
+      describe: 'The name of the AWS_PROFILE to use. Optionally, set an environment variable.',
       type: 'string'
     })
     .command('hello [name]', 'Print the wecome.', (yargs) => {
       yargs.positional('name', {
         type: 'string',
-        default: 'Pete',
+        default: 'Mr. Developer',
         describe: 'The developer to say hello to.'
       })
     }, (argv) => {
@@ -40,9 +48,9 @@ const main = () => {
       startup(argv)
       deleteIndex()
     })
-    .command('insert-dev-data', 'Insert dev data into the index.', (yargs) => {}, (argv) => {
+    .command('insert-dummy-data', 'Insert dummy (pretend) data into the index.', (yargs) => {}, (argv) => {
       startup(argv)
-      insertDevData()
+      insertDummyData()
     })
     .strict()
     .help()
@@ -51,10 +59,22 @@ const main = () => {
 
 const startup = (argv) => {   
   console.log(`Welcome to the JNCC Datahub & Website ElasticSearch setup tool.`) 
-  process.env['AWS_REGION'] = argv.awsRegion
+
   process.env['ES_ENDPOINT'] = argv.endpoint
-  console.log(`AWS_REGION : ${process.env['AWS_REGION']}`)
-  console.log(`ES_ENDPOINT  : ${process.env['ES_ENDPOINT']}`)
+  console.log(`ES_ENDPOINT : ${process.env['ES_ENDPOINT']}`)
+
+  process.env['ES_INDEX'] = argv.index
+  console.log(`ES_INDEX    : ${process.env['ES_INDEX']}`)
+
+  if (argv.awsRegion) {
+    process.env['AWS_REGION'] = argv.awsRegion
+  }
+  console.log(`AWS_REGION  : ${process.env['AWS_REGION']}`)
+
+  if (argv.awsProfile) {
+    process.env['AWS_PROFILE'] = argv.awsProfile
+  }
+  console.log(`AWS_PROFILE : ${process.env['AWS_PROFILE']}`)
 }
 
 main()
