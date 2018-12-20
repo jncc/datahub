@@ -1,4 +1,5 @@
 
+const url = require('url')
 const AWS = require('aws-sdk')
 const config = require('../config')
 
@@ -22,7 +23,7 @@ const sendSignedRequest = ({method, path, body}) => {
   )
   r.method = method
   r.path += path
-  r.headers['host'] = config.ES_ENDPOINT // setting host explicitly seems to be required
+  r.headers['host'] = url.parse(config.ES_ENDPOINT).hostname // setting host explicitly seems to be required
   r.headers['Content-Type'] = 'application/json'
   r.body = JSON.stringify(body)
   
