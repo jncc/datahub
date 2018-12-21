@@ -17,21 +17,21 @@ You just need Node v8 and Yarn. Install packages by running
 
 To setup the search index and dummy data, use the search setup script. 
 
-    yarn search:setup create-index --endpoint http://localhost:9200/ --index main
-    yarn search:setup insert-dummy-data --endpoint http://localhost:9200/ --index main
+    yarn search:setup create-index --index main --endpoint http://localhost:9200/
+    yarn search:setup insert-dummy-data --index main --endpoint http://localhost:9200/
 
 This setup script can also be used (with caution) to set up indexes on the live AWS managed instance. You need to configure an appropriate AWS profile:
 
-    aws configure --profile jncc-website-live-search-writer
+    aws configure --profile jncc-website-live-search-developer-writer
 
 Then set the `AWS_REGION` and `AWS_PROFILE` environment variables before running the setup script as above. E.g.
 
     export AWS_REGION=eu-west-1
-    export AWS_PROFILE=jncc-website-live-search-writer
+    export AWS_PROFILE=jncc-website-live-search-developer-writer
 
 Alternatively you can pass these variables as optional arguments to the script.
 
-    yarn search:setup create-index --endpoint https://our.live.search.endpoint.amazonaws.com/ --index test --aws-profile jncc-website-live-search-writer --aws-region eu-west-1
+    yarn search:setup create-index --index test --endpoint https://our.live.search.endpoint.amazonaws.com/ --aws-region eu-west-1 --aws-profile jncc-website-live-search-developer-writer
     
 
 Deployment
