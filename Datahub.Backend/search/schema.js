@@ -97,7 +97,7 @@ const attachmentPipeline = {
 }
 
 const documentPipeline = {
-  "description": "",
+  "description": "Simple truncator script to truncate content to 200 characters",
   "processors": [
     {
       "script": {

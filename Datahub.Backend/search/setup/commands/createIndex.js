@@ -13,7 +13,6 @@ const createIndex = async () => {
     method: 'PUT',
     path: env.ES_INDEX
   })
-
   console.log(`Created index '${env.ES_INDEX}'.`)
 
   // secondly, create the "mapping" that tells elastic search
@@ -41,6 +40,16 @@ const createIndex = async () => {
   })
 
   console.log(`Created attachment ingest pipeline.`)
+
+  console.log(`Creating document pipeline...`)
+
+  await sendRequest({
+    method: 'PUT',
+    path: '_ingest/pipeline/document',
+    body: schema.documentPipeline
+  })
+
+  console.log(`Created document pipeline...`)
 }
 
 module.exports = createIndex
