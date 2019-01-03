@@ -41,52 +41,58 @@ const makeSearchDocumentFromTopcatRecord = (doc) => {
         ...doc.metadata.keywords
     ],
     'published_date': doc.metadata.datasetReferenceDate,
-//  'parent_id'
-//  'parent_title'
     'data_type': doc.metadata.resourceType,
     'url': 'https://example.com/' + doc.id
   }
 }
 
 const attachmentPipeline = {
-  "description": "Extracts attachment information.",
+  "description": "Optionally extract attachment data field and incorporates results into the document, truncates content field into a content_truncated field which is not indexed",
   "processors": [
-    {
-      "attachment": {
-        "field": "data"
+      {
+          "attachment": {
+              "field": "data",
+              "ignore_missing": true
+          }
+      },
+      {
+          "set": {
+            "field": "data",
+            "value": ""
+          }
+      },
+      {
+          "remove": {
+              "field": "data"
+          }
+      },
+      {
+          "script": {
+            "source": "if (ctx.attachment != null && ctx.attachment.content != null) { ctx.content = ctx.attachment.content }"
+          }
+      },
+      {
+          "script": {
+            "source": "if (ctx.attachment != null && ctx.attachment.title != null) { ctx.title = ctx.attachment.title }"
+          }
+      },
+      {
+          "set": {
+            "field": "attachment",
+            "value": ""
+          }
+      },
+      {
+          "remove": {
+              "field": "attachment"
+          }
+      },
+      {
+          "script": {
+              "lang": "painless",
+              "source": "String content = ctx.content; content = content.replace(\"\n\", \"\"); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : 200));"
+          }
       }
-    },
-    {
-      "remove": {
-        "field": "data"
-      }
-    },
-    {
-      "rename": {
-        "field": "attachment.content",
-        "target_field": "content"
-      }
-    },
-    {
-      "rename": {
-        "field": "attachment.title",
-        "ignore_missing": true,
-        "target_field": "title"
-      }
-    },
-    {
-      "remove": {
-        "field": "attachment"
-      }
-    }
-    // todo: this script throws an error when i try to insert PDF dummy doc
-    // ,
-    // {
-  	// 	"script": {
-  	// 		"lang": "painless",
-  	// 		"source": "int last = ctx._source.content.substring(0,200).lastIndexOf(\" \"); ctx._source.content_truncated = ctx._source.content.substring(0, (last > 0 ? last : 200));"
-  	// 	}
-  	// }
   ]
 }
 

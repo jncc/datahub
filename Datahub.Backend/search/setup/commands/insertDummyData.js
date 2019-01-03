@@ -28,7 +28,7 @@ const insertDummyDocsFromWebProject = async () => {
   for (let file of files) {
     
     let doc = JSON.parse(await readFileAsync(file , 'utf8'))
-    let path = env.ES_INDEX + '/_doc/' + doc.id //+ '?pipeline=attachment'
+    let path = env.ES_INDEX + '/_doc/' + doc.id + '?pipeline=attachment'
 
     console.log(`Inserting ${path}...`)
 
@@ -58,9 +58,8 @@ const insertDummyPdfDoc = async () => {
 const makeDummyPdfDoc = async () => ({
   'data': JSON.parse(await readFileAsync('./data/pdfData.json', 'utf8')).data,
   'site': 'datahub',
-  //'title': 'This is a PDF document',
-  //'content': 'This PDF document is for testing the PDF indexing capabilities of ElasticSearch. I hope it works.',
-  // 'content_truncated': doc.metadata.abstract,
+  'title': 'This is a PDF document',
+  'content': 'This PDF document is for testing the PDF indexing capabilities of ElasticSearch. I hope it works.',
   'keywords': [
       {
         'vocab': 'http://vocab.jncc.gov.uk/website-vocab',
