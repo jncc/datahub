@@ -15,6 +15,14 @@ You just need Node v8 and Yarn. Install packages by running
     yarn search:pull      # pull Docker image
     yarn search:run       # run Docker image
 
+N.B. On windows machines the search:run command will not work due to an issue with the $(docker build -q .) section of the command; to run in windows either navigate to ./search/dev folder and run the following command in Powershell;
+
+    docker run -p 9200:9200 -p 9300:9300 -e \"discovery.type=single-node\" $(docker build -q .)
+
+Or navigate to the backend folder and run the following;
+
+    cd "./search/dev"; docker run -p 9200:9200 -p 9300:9300 -e \"discovery.type=single-node\" $(docker build -q .)
+
 To setup the search index and dummy data, use the search setup script. 
 
     yarn search:setup create-index --index main --endpoint http://localhost:9200/
