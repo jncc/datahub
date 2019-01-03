@@ -1,12 +1,10 @@
-
-Datahub.Backend
----------------
+# Datahub.Backend
 
 This is a Node v8 project which implements API endpoints, handlers and setup scripts for the JNCC Datahub, as well as the JNCC Website ElasticSearch service which is used and managed by the Datahub.
 
-Development
------------
-You just need Node v8 and Yarn. Install packages by running 
+## Development
+
+You just need Node v8 and Yarn. Install packages by running
 
     yarn
 
@@ -23,7 +21,7 @@ Or navigate to the backend folder and run the following;
 
     cd "./search/dev"; docker run -p 9200:9200 -p 9300:9300 -e \"discovery.type=single-node\" $(docker build -q .)
 
-To setup the search index and dummy data, use the search setup script. 
+To setup the search index and dummy data, use the search setup script.
 
     yarn search:setup create-index --index main --endpoint http://localhost:9200/
     yarn search:setup insert-dummy-data --index main --endpoint http://localhost:9200/
@@ -40,17 +38,14 @@ Then set the `AWS_REGION` and `AWS_PROFILE` environment variables before running
 Alternatively you can pass these variables as optional arguments to the script.
 
     yarn search:setup create-index --index test --endpoint https://our.live.search.endpoint.amazonaws.com/ --aws-region eu-west-1 --aws-profile jncc-website-live-search-developer-writer
-    
 
-Deployment
-----------
+## Deployment
 
 Claudia.js is used to deploy the code to AWS. Just run:
 
     yarn deploy
 
-Usage
------
+## Usage
 
 You can make HTTP requests but they needed to be signed with valid IAM credentials. You can use an AWS SDK, a .NET signing package such as Aws4RequestSigner or Postman for manual requests.
 
@@ -68,15 +63,13 @@ The other APIs are secured with AWS IAM. You might use Postman to test these API
 
     POST https://bz79yqmu63.execute-api.eu-west-1.amazonaws.com/latest/assets
 
-Pass the asset in the request body. 
-    
+Pass the asset in the request body.
 
-Shared Elastic Search service
------------------------------
+## Shared Elastic Search service
 
 There is a priliminary API endpoint to upsert entries into the shared Search service.
 
-PUT https://sbu241ug78.execute-api.eu-west-1.amazonaws.com/latest/search
+    PUT https://sbu241ug78.execute-api.eu-west-1.amazonaws.com/latest/search
 
     {
         "id": "edff0279-375b-48f5-871a-51e1a5b815ad",
@@ -89,4 +82,3 @@ PUT https://sbu241ug78.execute-api.eu-west-1.amazonaws.com/latest/search
         "published_date": "2018-12-13",
         "url": "http://example.com/examples/7b1d5345-d14c-4958-a5d3-e4d8f8ba0910"
     }
-

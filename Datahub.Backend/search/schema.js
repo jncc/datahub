@@ -96,4 +96,16 @@ const attachmentPipeline = {
   ]
 }
 
-module.exports = { mapping, makeSearchDocumentFromTopcatRecord, attachmentPipeline }
+const documentPipeline = {
+  "description": "",
+  "processors": [
+    {
+      "script": {
+          "lang": "painless",
+          "source": "String content = ctx.content; content = content.replace(\"\n\", \"\"); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : 200));"
+      }
+    }
+  ]
+}
+
+module.exports = { mapping, makeSearchDocumentFromTopcatRecord, attachmentPipeline, documentPipeline }
