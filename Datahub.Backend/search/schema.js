@@ -46,13 +46,34 @@ const makeSearchDocumentFromTopcatRecord = (doc) => {
   }
 }
 
+const makeSearchDocumentFromRemote = (doc) => {
+  return {
+    'site': 'datahub',
+    'title': doc.metadata.title,
+    'keywords': [
+        {
+          'vocab': 'http://vocab.jncc.gov.uk/website-vocab',
+          'value': 'None'
+        },
+        ...doc.metadata.keywords
+    ],
+    'published_date': doc.metadata.datasetReferenceDate,
+    'data_type': doc.metadata.resourceType,
+    'url': 'https://example.com/' + doc.parent_id,
+    'parent_id': doc.parent_id,
+    'parent_title': doc.parent_title,
+    'data': doc.data
+  }
+}
+
 const attachmentPipeline = {
   "description": "Optionally extract attachment data field and incorporates results into the document, truncates content field into a content_truncated field which is not indexed",
   "processors": [
       {
           "attachment": {
               "field": "data",
-              "ignore_missing": true
+              "ignore_missing": true,
+              "indexed_chars": -1
           }
       },
       {
@@ -108,4 +129,4 @@ const documentPipeline = {
   ]
 }
 
-module.exports = { mapping, makeSearchDocumentFromTopcatRecord, attachmentPipeline, documentPipeline }
+module.exports = { mapping, makeSearchDocumentFromTopcatRecord, makeSearchDocumentFromRemote, attachmentPipeline, documentPipeline }

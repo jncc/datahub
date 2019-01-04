@@ -3,6 +3,7 @@ const program = require('yargs')
 const createIndex = require('./commands/createIndex')
 const deleteIndex = require('./commands/deleteIndex')
 const insertDummyData = require('./commands/insertDummyData')
+const insertDummyDataWithRemotes = require('./commands/insertDummyDataWithRemotes')
 
 const env = require('../../env')
 
@@ -30,6 +31,10 @@ const main = () => {
       describe: 'The name of the AWS_PROFILE to use. Optionally, set an environment variable.',
       type: 'string'
     })
+    .option('ingest-remotes', {
+      describe: 'Attempt to ingest remote files by following links in dummy data structure (http section only)',
+      type: 'boolean'
+    })
     .command('hello [name]', 'Print the wecome.', (yargs) => {
       yargs.positional('name', {
         type: 'string',
@@ -50,7 +55,11 @@ const main = () => {
     })
     .command('insert-dummy-data', 'Insert dummy (pretend) data into the index.', (yargs) => {}, (argv) => {
       startup(argv)
-      insertDummyData()
+      if (argv.ingestRemotes) {
+        insertDummyDataWithRemotes()
+      } else {
+        insertDummyData()
+      }
     })
     .strict()
     .help()

@@ -43,8 +43,6 @@ namespace Datahub.Web.Pages
             CurrentPage = p;
             Keywords = ParseKeywords(k);
 
-            if (!string.IsNullOrWhiteSpace(q))
-            {
                 Results = _client.Search<SearchResult>(s => s
                     .Index(DefaultIndex)
                     .From(ElasticsearchService.GetStartFromPage(p, size))
@@ -62,7 +60,6 @@ namespace Datahub.Web.Pages
                         .PostTags("</b>")
                     )
                 );
-            }
         }
 
         private List<Keyword> ParseKeywords(string[] keywords)

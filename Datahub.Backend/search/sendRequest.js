@@ -1,4 +1,3 @@
-
 const request = require('request-promise-native')
 const sendSignedRequest = require('./sendSignedRequest')
 const env = require('../env')
