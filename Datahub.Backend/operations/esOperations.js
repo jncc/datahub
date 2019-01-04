@@ -11,7 +11,7 @@ module.exports.putDocument = async function(req) {
 
   await sendSignedRequest({
     method: 'PUT',
-    path: env.ES_INDEX + '/_doc/' + req.body.id,
+    path: env.ES_INDEX + '/_doc/' + req.body.id + '?pipeline=attachment',
     body: req.body,
   })
 
