@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Nest;
+using Newtonsoft.Json;
 
 namespace Datahub.Web.Models
 {
@@ -61,9 +62,11 @@ namespace Datahub.Web.Models
     public class Keyword
     {
         [Text(Name = "vocab")]
+        [JsonProperty(PropertyName = "vocab")]
         public string Vocab { get; set; }
 
         [Text(Name = "value")]
+        [JsonProperty(PropertyName = "value")]
         public string Value { get; set; }
 
         public string Link { get; set; }

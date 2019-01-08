@@ -86,13 +86,16 @@ public class Env
     static Env() { } // singleton to avoid reading a variable more than once
     private static readonly Env env = new Env();
 
-    public string ESAwsRegion          { get; private set; }
-    public string ESAwsAccessKey       { get; private set; }
+    public string ESAwsRegion { get; private set; }
+    public string ESAwsAccessKey { get; private set; }
     public string ESAwsSecretAccessKey { get; private set; }
-    public string ESEndpointHost       { get; private set; }
-    public string ESEndpointScheme     { get; private set; }
-    public string ESEndpointPort       { get; private set; }
-    
+    public string ESEndpointHost { get; private set; }
+    public string ESEndpointScheme { get; private set; }
+    public string ESEndpointPort { get; private set; }
+    public string DatahubRoot { get; private set; }
+    public string SQSIngestQueueURL { get; private set; }
+    public string SQSPayloadBucket { get; private set; }
+
     private Env()
     {
         ESAwsRegion = GetVariable("ELASTICSEARCH_AWS_REGION");
@@ -101,6 +104,8 @@ public class Env
         ESEndpointHost = GetVariable("ELASTICSEARCH_HOST");
         ESEndpointScheme = GetVariable("ELASTICSEARCH_HOST_SCHEME");
         ESEndpointPort = GetVariable("ELASTICSEARCH_HOST_PORT", true);
+        SQSIngestQueueURL = GetVariable("SQS_INGEST_QUEUE");
+        SQSPayloadBucket = GetVariable("SQS_INGEST_PAYLOAD_BUCKET");
     }
 
     string GetVariable(string variable, bool optional = false)
