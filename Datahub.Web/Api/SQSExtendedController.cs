@@ -32,7 +32,7 @@ namespace Datahub.Web.Api
         [HttpPut("/api/sqs/sqs-ext-send")]
         public async Task<SendMessageResponse> SQSExtSend([FromBody] SearchDocument searchDocument)
         {
-            return await _sqsExtendedClient.SendMessageAsync(Env.Var.SQSIngestQueueURL, JsonConvert.SerializeObject(searchDocument));
+            return await _sqsExtendedClient.SendMessageAsync(Env.Var.SQSIngestQueueURL, JsonConvert.SerializeObject(searchDocument, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
         }
 
         [HttpGet("/api/sqs/sqs-ext-send-test")]
@@ -79,8 +79,8 @@ namespace Datahub.Web.Api
                 PublishedDate = "2018-08-30T01:00:01.7578988Z",
                 DataType = "Publication"
             };
-           
-            return await _sqsExtendedClient.SendMessageAsync(Env.Var.SQSIngestQueueURL, JsonConvert.SerializeObject(document));
+
+            return await _sqsExtendedClient.SendMessageAsync(Env.Var.SQSIngestQueueURL, JsonConvert.SerializeObject(document, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
         }
 
         [HttpGet("/api/sqs/sqs-ext-get-reg")]
