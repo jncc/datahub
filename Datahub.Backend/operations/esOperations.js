@@ -1,6 +1,8 @@
 
 const env = require('../env')
 const sendSignedRequest = require('../search/sendSignedRequest')
+const ClaudiaApiBuilder = require('claudia-api-builder')
+
 
 module.exports.putDocument = async function(req) {
 
@@ -16,6 +18,49 @@ module.exports.putDocument = async function(req) {
   })
 
   return 'Done.'
+}
+
+module.exports.deleteDocument = async function(req) {
+  sendDeleteDocument(req.pathParams.id).then(function(id) {
+    return ClaudiaApiBuilder.ApiResponse({'message': 'Successfully deleted document'}, {'Content-Type': 'application/json'}, 200);
+  }).catch(function(error) {
+    return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document', 'error': error }, {'Content-Type': 'application/json'}, 500)
+  });;
+}
+
+module.exports.deleteDocumentWithChildren = async function(req) {
+  sendDeleteDocumentChildren(req.pathParams.id)
+    .then(function() {
+      sendDeleteDocument(req.pathParams.id)
+        .then(function(id) {
+          return ClaudiaApiBuilder.ApiResponse({'message': 'Successfully deleted document and its child documents'}, {'Content-Type': 'application/json'}, 200);
+        }).catch(function(error) {
+          return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document', 'error': error }, {'Content-Type': 'application/json'}, 500)
+        });
+    }).catch(function(error) {
+      return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document children', 'error': error }, {'Content-Type': 'application/json'}, 500)
+    });
+}
+
+function sendDeleteDocument(id) {
+  return sendSignedRequest({
+    method: 'DELETE',
+    path: env.ES_INDEX + '/_doc/' + id
+  });
+}
+
+function sendDeleteDocumentChildren(id) {
+  return sendSignedRequest({
+    method: 'POST',
+    path: env.ES_INDEX + '/_delete_by_query',
+    body: {
+      "query": {
+        "match": {
+          "parent_id": id
+        }
+      }
+    }
+  })
 }
 
 function validateDocument(doc) {
