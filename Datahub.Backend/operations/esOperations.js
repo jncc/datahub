@@ -21,24 +21,27 @@ module.exports.putDocument = async function(req) {
 }
 
 module.exports.deleteDocument = async function(req) {
-  sendDeleteDocument(req.pathParams.id).then(function(id) {
+  sendDeleteDocument(req.pathParams.id).then(function() {
     return ClaudiaApiBuilder.ApiResponse({'message': 'Successfully deleted document'}, {'Content-Type': 'application/json'}, 200);
   }).catch(function(error) {
-    return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document', 'error': error }, {'Content-Type': 'application/json'}, 500)
-  });;
+    Console.log({'message': 'Could not delete document', 'error': error });
+    return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document', 'error': error }, {'Content-Type': 'application/json'}, 500);
+  });
 }
 
 module.exports.deleteDocumentWithChildren = async function(req) {
   sendDeleteDocumentChildren(req.pathParams.id)
     .then(function() {
       sendDeleteDocument(req.pathParams.id)
-        .then(function(id) {
+        .then(function() {
           return ClaudiaApiBuilder.ApiResponse({'message': 'Successfully deleted document and its child documents'}, {'Content-Type': 'application/json'}, 200);
         }).catch(function(error) {
-          return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document', 'error': error }, {'Content-Type': 'application/json'}, 500)
+          Console.log({'message': 'Could not delete document', 'error': error });
+          return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document', 'error': error }, {'Content-Type': 'application/json'}, 500);
         });
     }).catch(function(error) {
-      return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document children', 'error': error }, {'Content-Type': 'application/json'}, 500)
+      Console.log({'message': 'Could not delete document children', 'error': error });
+      return ClaudiaApiBuilder.ApiResponse({'message': 'Could not delete document children', 'error': error }, {'Content-Type': 'application/json'}, 500);
     });
 }
 
