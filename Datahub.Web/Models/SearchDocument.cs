@@ -17,9 +17,6 @@ namespace Datahub.Web.Models
         [JsonProperty(PropertyName = "content")]
         public string Content { get; set; }
 
-        [JsonProperty(PropertyName = "content_truncated")]
-        public string ContentTruncated { get; set; }
-
         [JsonProperty(PropertyName = "keywords")]
         public List<Keyword> Keywords { get; set; }
 

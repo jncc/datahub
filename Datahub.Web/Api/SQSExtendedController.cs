@@ -18,20 +18,34 @@ namespace Datahub.Web.Api
     {
         AmazonSQSExtendedClient _sqsExtendedClient;
         AmazonSQSClient _sqsClient;
+        AmazonS3Client _s3Client;
 
         public SQSExtendedController()
         {
             Env env = Env.Var;
 
             _sqsClient = new AmazonSQSClient(new BasicAWSCredentials(env.ESAwsAccessKey, env.ESAwsSecretAccessKey), RegionEndpoint.GetBySystemName(env.ESAwsRegion));
-            AmazonS3Client s3Client = new AmazonS3Client(new BasicAWSCredentials(env.ESAwsAccessKey, env.ESAwsSecretAccessKey), RegionEndpoint.GetBySystemName(env.ESAwsRegion));
+            _s3Client = new AmazonS3Client(new BasicAWSCredentials(env.ESAwsAccessKey, env.ESAwsSecretAccessKey), RegionEndpoint.GetBySystemName(env.ESAwsRegion));
 
-            _sqsExtendedClient = new AmazonSQSExtendedClient(_sqsClient, new ExtendedClientConfiguration().WithLargePayloadSupportEnabled(s3Client, env.SQSPayloadBucket));
+            _sqsExtendedClient = new AmazonSQSExtendedClient(_sqsClient, new ExtendedClientConfiguration().WithLargePayloadSupportEnabled(_s3Client, env.SQSPayloadBucket));
         }
 
         [HttpPut("/api/sqs/sqs-ext-send")]
         public async Task<SendMessageResponse> SQSExtSend([FromBody] SearchDocument searchDocument)
         {
+            //// s3 write to guid
+            //var req = new Amazon.S3.Model.PutObjectRequest()
+            //{
+            //    BucketName = "bucket-name",
+            //    Key = "key-id",
+            //    FilePath = "file/path.loc"
+            //};
+            //// check success
+            //await _s3Client.PutObjectAsync(req);
+            //// sqs write s3 message location
+            //await _sqsClient.SendMessageAsync(Env.Var.SQSIngestQueueURL, "{\"s3Bucket\":\"bucket-name\", \"s3Key\":\"key-id\"}");
+            //// check success
+            
             return await _sqsExtendedClient.SendMessageAsync(Env.Var.SQSIngestQueueURL, JsonConvert.SerializeObject(searchDocument, Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
         }
 
