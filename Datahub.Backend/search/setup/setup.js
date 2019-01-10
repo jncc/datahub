@@ -84,6 +84,13 @@ const startup = (argv) => {
     process.env['AWS_PROFILE'] = argv.awsProfile
   }
   console.log(`AWS_PROFILE : ${process.env['AWS_PROFILE']}`)
+
+  if (argv.datahubRoot) {
+    process.env['DATAHUB_ROOT'] = argv.awsProfile;
+  } else {
+    process.env['DATAHUB_ROOT'] = 'https://datahub.jncc.gov.uk';
+  }
+  console.log(`DATAHUB_ROOT : ${process.env['DATAHUB_ROOT']}`)
 }
 
 main()

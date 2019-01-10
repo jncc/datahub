@@ -6,7 +6,7 @@ const env = require('../../../env');
 const sendRequest = require('../../sendRequest');
 const schema = require('../../schema');
 const request = require('request');
-const uuidv4 = require('uuid/v4');
+const uuidv5 = require('uuid/v5');
 const url = require("url");
 const pathModule = require("path");
 
@@ -45,8 +45,10 @@ const insertDummyDocsFromWebProjectWithRemotes = async () => {
                 docRemote.parent_id = doc.id;
                 docRemote.parent_title = doc.metadata.title;
                 // Generate new ID and set title to the filename
-                docRemote.id = uuidv4();
                 docRemote.title = pathModule.basename((url.parse(data.http.url)).pathname);
+                docRemote.url = `${env.DATAHUB_ROOT}/assets/${doc.id}/data/${docRemote.title}`
+                docRemote.id = uuidv5(docRemote.url, uuidv5.URL);
+                docRemote.mime_type = response.headers['content-type'];
 
                 await new Promise((resolve, reject) => {
                     request(data.http.url, {

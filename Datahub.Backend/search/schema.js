@@ -59,7 +59,8 @@ const makeSearchDocumentFromRemote = (doc) => {
     ],
     'published_date': doc.metadata.datasetReferenceDate,
     'data_type': doc.metadata.resourceType,
-    'url': 'https://example.com/' + doc.parent_id,
+    'mime_type': doc.mime_type,
+    'url': doc.url,
     'parent_id': doc.parent_id,
     'parent_title': doc.parent_title,
     'data': doc.data
