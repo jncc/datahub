@@ -1,20 +1,16 @@
 const url = require('url')
 const AWS = require('aws-sdk')
 const env = require('./env')
-const httpClient = new AWS.HttpClient();
 
-exports.handler = async function (event, context) {
-    event.Records.forEach(message => {
-        console.log(message);
-        putDocument(JSON.parse(message.body)).then(() => {
-            console.log('Pushed message with document id of ' + message.id);
-        }).catch((error) => {
+exports.handler = async function (event, context, callback) {
+    var body = JSON.parse(event.Records[0].body);
+
+    await putDocument(body.document, callback)
+        .then((responseBody) => {})
+        .catch((error) => {
             console.log(error);
-            throw new 'Error occurred while ingesting message';
+            callback(new Error('Error occurred while ingesting message'));
         });
-    });
-
-    return;
 }
 
 function validateDocument(doc) {
@@ -49,12 +45,7 @@ function validateDocument(doc) {
 
 function putDocument(document) {
     validateDocument(document);
-
-    return sendSignedRequest({
-        method: 'PUT',
-        path: env.ES_INDEX + '/_doc/' + document.id + '?pipeline=attachment',
-        body: document
-    });
+    return sendSignedRequest('PUT', env.ES_INDEX + '/_doc/' + document.id + '?pipeline=attachment', document);
 }
 
 /**
@@ -66,15 +57,15 @@ function sendSignedRequest(method, path, body) {
     // https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-request-signing.html#es-request-signing-node
 
     // (1) configure an http request
-    let r = new AWS.HttpRequest(
+    let request = new AWS.HttpRequest(
         new AWS.Endpoint(env.ES_ENDPOINT),
         env.AWS_REGION
     );
-    r.method = method;
-    r.path += path;
-    r.headers['host'] = url.parse(env.ES_ENDPOINT).hostname; // setting host explicitly seems to be required by this SDK
-    r.headers['Content-Type'] = 'application/json';
-    r.body = JSON.stringify(body);
+    request.method = method;
+    request.path += path;
+    request.headers['host'] = url.parse(env.ES_ENDPOINT).hostname; // setting host explicitly seems to be required by this SDK
+    request.headers['Content-Type'] = 'application/json';
+    request.body = JSON.stringify(body);
 
     // (2) sign the request for AWS IAM
     // use the credentials of the current AWS_PROFILE if set;
@@ -83,24 +74,28 @@ function sendSignedRequest(method, path, body) {
     let credentials = env.AWS_PROFILE ?
         new AWS.SharedIniFileCredentials() :
         new AWS.EnvironmentCredentials('AWS');
-    let signer = new AWS.Signers.V4(r, 'es'); // 'es' for the aws elastic search service
+    let signer = new AWS.Signers.V4(request, 'es'); // 'es' for the aws elastic search service
     signer.addAuthorization(credentials, new Date());
 
     // (3) return a promise so we can await it
     // (rather than letting the aws lambda finish before the request completes!)
-    var client = new AWS.HttpClient();
     return new Promise((resolve, reject) => {
-        client.handleRequest(request, null, function(response) {
-        console.log(response.statusCode + ' ' + response.statusMessage);
-        var responseBody = '';
-        response.on('data', function (chunk) {
-            responseBody += chunk;
-        });
-        response.on('end', function (chunk) {
-            console.log('Response body: ' + responseBody);
-        });
+        var client = new AWS.HttpClient();
+        client.handleRequest(request, {}, function(response) {
+            var responseBody = '';
+            response.on('data', function (chunk) {
+                responseBody += chunk;
+            });
+            response.on('end', function (chunk) {
+                console.log(this.statusCode);
+                if (this.statusCode == 200) {
+                    resolve(responseBody);
+                } else {
+                    reject({"statusCode": this.statusCode, "statusMessage": this.statusMessage, "responseBody": responseBody});
+                }
+            });
         }, function(error) {
-        console.log('Error: ' + error);
+            reject(error);
         });
     });
 }
