@@ -13,7 +13,7 @@ exports.handler = async function (event, context, callback) {
                 callback(new Error('Error occurred while ingesting message'));
             });
     } else if (body.verb === "delete") {
-        await deleteDocument(body.document.id, body.index)
+        await deleteDocument(body.document, body.index)
             .then((responseBody) => {})
             .catch((error) => {
                 console.log(error);
@@ -24,7 +24,7 @@ exports.handler = async function (event, context, callback) {
     }
 }
 
-function deleteDocument(id, index) {
+function deleteDocument(document, index) {
     return sendSignedRequest('DELETE', index + '/_doc/' + document.id);
 }
 
@@ -102,8 +102,9 @@ function sendSignedRequest(method, path, body) {
                 responseBody += chunk;
             });
             response.on('end', function (chunk) {
-                console.log(this.statusCode);
-                if (this.statusCode == 200) {
+                // Need to do better check for status code, currently should probably only be 200 / 201 results but //#endregion
+                // not clear from elasticsearch documentation as to what it should be
+                if (this.statusCode >= 200 && this.statusCode <= 300) {
                     resolve(responseBody);
                 } else {
                     reject({"statusCode": this.statusCode, "statusMessage": this.statusMessage, "responseBody": responseBody});
