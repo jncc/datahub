@@ -4,13 +4,28 @@ const env = require('./env')
 
 exports.handler = async function (event, context, callback) {
     var body = JSON.parse(event.Records[0].body);
+    
+    if (body.verb === "upsert") {
+        await putDocument(body.document, body.index)
+            .then((responseBody) => {})
+            .catch((error) => {
+                console.log(error);
+                callback(new Error('Error occurred while ingesting message'));
+            });
+    } else if (body.verb === "delete") {
+        await deleteDocument(body.document.id, body.index)
+            .then((responseBody) => {})
+            .catch((error) => {
+                console.log(error);
+                callback(new Error('Error occured while deleting document'));
+            })
+    } else {
+        callback(new Error('Unkown verb passed to ingester expected (upsert|delete) got (' + body.verb + ')'));
+    }
+}
 
-    await putDocument(body.document, callback)
-        .then((responseBody) => {})
-        .catch((error) => {
-            console.log(error);
-            callback(new Error('Error occurred while ingesting message'));
-        });
+function deleteDocument(id, index) {
+    return sendSignedRequest('DELETE', index + '/_doc/' + document.id);
 }
 
 function validateDocument(doc) {
@@ -43,9 +58,9 @@ function validateDocument(doc) {
     // todo: more validation
 }
 
-function putDocument(document) {
+function putDocument(document, index) {
     validateDocument(document);
-    return sendSignedRequest('PUT', env.ES_INDEX + '/_doc/' + document.id + '?pipeline=attachment', document);
+    return sendSignedRequest('PUT', index + '/_doc/' + document.id + '?pipeline=attachment', document);
 }
 
 /**
