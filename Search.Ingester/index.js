@@ -4,24 +4,60 @@ const env = require('./env')
 
 exports.handler = async function (event, context, callback) {
     var body = JSON.parse(event.Records[0].body);
+    var s3Message = false;
+    var s3Bucket = body.S3BucketName;
+    var s3Key = body.S3Key;
+
+    // Import message from S3 if message exists
+    if (s3Bucket && s3Key) {
+        obj = await importMessageFromS3(s3Bucket, s3Key);
+        body = JSON.parse(obj.Body.toString('ascii'));
+        s3Message = true;
+    }
     
     if (body.verb === "upsert") {
         await putDocument(body.document, body.index)
             .then((responseBody) => {})
             .catch((error) => {
                 console.log(error);
-                callback(new Error('Error occurred while ingesting message'));
+                throw new Error('Error occurred while ingesting message');
             });
     } else if (body.verb === "delete") {
         await deleteDocument(body.document, body.index)
             .then((responseBody) => {})
             .catch((error) => {
                 console.log(error);
-                callback(new Error('Error occured while deleting document'));
+                throw new Error('Error occured while deleting document');
             })
     } else {
         callback(new Error('Unkown verb passed to ingester expected (upsert|delete) got (' + body.verb + ')'));
     }
+
+    if (s3Message) {
+        // May fail but it doesn't matter if it does or not, will be caught by
+        // bucket lifecycle if delete fails, but worth monitoring at some level
+        await deleteS3Message(s3Bucket, s3Key);
+    }
+}
+
+function importMessageFromS3(bucket, key) {
+    var client = new AWS.S3();
+    return client.getObject({Bucket: bucket, Key: key}, function(err, data) {
+        if (err) {
+            console.log(err, err.stack);
+            throw new Error(err);
+        }
+    }).promise();
+}
+
+function deleteS3Message(bucket, key) {
+    var client = new AWS.S3();
+    return client.deleteObject({Bucket: bucket, Key: key}, (error, data) => {
+        if (error) {
+            console.log(error);
+            console.log('Could not delete message in bucket (' + bucket + ') with key (' + key + ')');
+        }
+    }).promise();
 }
 
 function deleteDocument(document, index) {
