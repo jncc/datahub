@@ -7,7 +7,13 @@ const mapping = {
     "site": { "type": "keyword" },
     "title": { "type": "text" },
     "content": { "type": "text" },
+    // we don't ever return the content field because it could be massive.
+    // we normally use the highlights field but a highlight search *might* not
+    // return anything in the highlights field if there are no highlights.
+    // so we need to show some content
+    // todo: update this to 500 or whatever Topcat does.
     "content_truncated": {"type": "keyword", "index": false},
+    "url": { "type": "keyword" }, // the clickthrough URL of the search result - needed when not known by convention or to avoid a DB call
     "keywords": {
       "type": "nested",
       "properties": {
@@ -21,7 +27,6 @@ const mapping = {
     "mime_type": { "type": "keyword" }, // why do we need this at the asset level?
     "data_type": { "type": "keyword" }, // clarify
     "footprint": { "type": "geo_shape" },
-    "url": { "type": "keyword" } // is there a URL type? The URL of the search result - needed when not known by convention.
     // maybe: website object { PageID, Author? }
     // maybe: PDF document size
   }
