@@ -43,7 +43,7 @@ namespace Datahub.Web.Pages
             CurrentPage = p;
             Keywords = ParseKeywords(k);
 
-                Results = _client.Search<SearchResult>(s => s
+                Results = await _client.SearchAsync<SearchResult>(s => s
                     .Index(DefaultIndex)
                     .From(ElasticsearchService.GetStartFromPage(p, size))
                     .Size(size)
