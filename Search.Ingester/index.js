@@ -1,4 +1,3 @@
-const url = require('url')
 const AWS = require('aws-sdk')
 const env = require('./env')
 
@@ -7,10 +6,12 @@ exports.handler = async function (event, context, callback) {
     var s3Message = false;
     var s3Bucket = body.S3BucketName;
     var s3Key = body.S3Key;
+    var s3Client = null;
 
     // Import message from S3 if message exists
     if (s3Bucket && s3Key) {
-        obj = await importMessageFromS3(s3Bucket, s3Key);
+        s3Client = new AWS.S3();
+        obj = await importMessageFromS3(s3Client, s3Bucket, s3Key);
         body = JSON.parse(obj.Body.toString('ascii'));
         s3Message = true;
     }
@@ -36,12 +37,11 @@ exports.handler = async function (event, context, callback) {
     if (s3Message) {
         // May fail but it doesn't matter if it does or not, will be caught by
         // bucket lifecycle if delete fails, but worth monitoring at some level
-        await deleteS3Message(s3Bucket, s3Key);
+        await deleteS3Message(s3Client, s3Bucket, s3Key);
     }
 }
 
-function importMessageFromS3(bucket, key) {
-    var client = new AWS.S3();
+function importMessageFromS3(client, bucket, key) {
     return client.getObject({Bucket: bucket, Key: key}, function(err, data) {
         if (err) {
             console.log(err, err.stack);
@@ -50,8 +50,7 @@ function importMessageFromS3(bucket, key) {
     }).promise();
 }
 
-function deleteS3Message(bucket, key) {
-    var client = new AWS.S3();
+function deleteS3Message(client, bucket, key) {
     return client.deleteObject({Bucket: bucket, Key: key}, (error, data) => {
         if (error) {
             console.log(error);
@@ -66,29 +65,29 @@ function deleteDocument(document, index) {
 
 function validateDocument(doc) {
     if (!doc.id) {
-        throw 'doc.id is required.';
+        throw new Error('doc.id is required.');
     }
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(doc.id)) {
-        throw 'doc.id must be a regex' // this is a first-stab to ensure that IDs are unique;
+        throw new Error('doc.id must be a regex'); // this is a first-stab to ensure that IDs are unique
     }
     if (!doc.site) {
-        throw 'doc.site is required.';
+        throw new Error('doc.site is required.');
     }
     if (!['website', 'mhc', 'datahub'].includes(doc.site)) {
-        throw new 'doc.site must be one of website|mhc';
+        throw new Error('doc.site must be one of website|mhc');
     }
     if (!doc.title) {
-        throw 'doc.title is required.';
+        throw new Error('doc.title is required.');
     }
     if (!doc.content) {
-        throw 'doc.content is required.';
+        throw new Error('doc.content is required.');
     }
     if (!doc.published_date) {
-        throw 'doc.published_date is required.';
+        throw new Error('doc.published_date is required.');
     }
     // https://www.myintervals.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
     if (!/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/.test(doc.published_date)) {
-        throw 'doc.published_date must be an ISO 8601 date. (E.g., \'2018\' will do!)';
+        throw new Error('doc.published_date must be an ISO 8601 date. (E.g., \'2018\' will do!)');
     }
 
     // todo: more validation
@@ -109,12 +108,12 @@ function sendSignedRequest(method, path, body) {
 
     // (1) configure an http request
     let request = new AWS.HttpRequest(
-        new AWS.Endpoint(env.ES_ENDPOINT),
+        new AWS.Endpoint(env.ES_PROTOCOL + '://' + env.ES_HOSTNAME),
         env.AWS_REGION
     );
     request.method = method;
     request.path += path;
-    request.headers['host'] = url.parse(env.ES_ENDPOINT).hostname; // setting host explicitly seems to be required by this SDK
+    request.headers['host'] = env.ES_HOSTNAME; // setting host explicitly seems to be required by this SDK
     request.headers['Content-Type'] = 'application/json';
     request.body = JSON.stringify(body);
 
