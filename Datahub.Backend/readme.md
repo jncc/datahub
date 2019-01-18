@@ -44,6 +44,7 @@ Alternatively you can pass these variables as optional arguments to the script.
 Claudia.js is used to deploy the code to AWS. Just run:
 
     yarn deploy
+    yarn deploy --profile jncc-claudia-deployer   # work in progress
 
 ## Usage
 
