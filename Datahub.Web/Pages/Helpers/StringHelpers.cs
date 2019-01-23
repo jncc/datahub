@@ -14,5 +14,15 @@ namespace Datahub.Web.Pages.Helpers
                 default: return input.First().ToString().ToUpper() + input.Substring(1);
             }
         }
+
+        public static bool IsBlank(this string input)
+        {
+            return String.IsNullOrWhiteSpace(input);
+        }
+
+        public static bool IsNotBlank(this string input)
+        {
+            return !String.IsNullOrWhiteSpace(input);
+        }
     }
 }

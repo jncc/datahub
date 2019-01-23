@@ -1,7 +1,10 @@
-﻿@page "/assets/{assetId}"
+﻿
+@page "/assets/{assetId}"
 @model AssetModel
+
 @using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
+
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
 }
@@ -12,11 +15,11 @@
         })
     </script>
 }
-  
+ 
 <h1 class="display-5 mb-4">
     <span style="color: rgba(77, 219, 58, 1);">
-    <i class="fas @(AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType))"
-        data-toggle="tooltip" title="@(Model.Asset.Metadata.ResourceType)"></i>
+    <i class="fas @AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType)"
+        data-toggle="tooltip" title="@Model.Asset.Metadata.ResourceType"></i>
     </span>
     @Model.Asset.Metadata.Title
     <span class="small text-muted">@Model.Asset.Metadata.DatasetReferenceDate.Substring(0, 4)</span>
@@ -28,7 +31,7 @@
     }
 </p>
 
-@if (!String.IsNullOrWhiteSpace(Model.Asset.DigitalObjectIdentifier)) {
+@if (Model.Asset.DigitalObjectIdentifier.IsNotBlank()) {
   <p><span class="text-muted">@Model.Asset.DigitalObjectIdentifier</span></p>
 }
 
@@ -112,13 +115,32 @@
             </div>
 
             <div class="tab-pane fade" id="extent" role="tabpanel" aria-labelledby="extent-tab">
+                @{string begin = Model.Asset.Metadata.TemporalExtent.Begin;}
+                @{string end = Model.Asset.Metadata.TemporalExtent.End;}
 
-                <p><span class="text-muted">Temporal extent.</span> @Model.Asset.Metadata.TemporalExtent.Begin
-                    <i class="fas fa-long-arrow-alt-right"></i>
-                    @Model.Asset.Metadata.TemporalExtent.End
+                @if (begin.IsNotBlank() || end.IsNotBlank()) {
+                    <p>
+                        <span class="text-muted">Temporal extent.</span>
+
+                        <span data-toggle="tooltip" data-placement="top" title="@begin">
+                            <span>@begin.SplitIso8601DateIfPossible().First()</span>@foreach (var item in begin.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@item</span>}
+                        </span>
+
+                        <span style="color:rgba(77, 219, 58, 1);">
+                            &#8594;
+                        </span>
+
+                        <span data-toggle="tooltip" data-placement="top" title="@end">
+                            <span>@end.SplitIso8601DateIfPossible().First()</span>@foreach (var item in end.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@item</span>}
+                        </span>
+                    </p>
+                }
+
+                <p>
+                    <span class="text-muted">Bounding box.</span>
+                    
+                    A, B, C, D
                 </p>
-
-                <p><span class="text-muted">Bounding box.</span> A, B, C, D</p>
 
             </div>
         </div>
