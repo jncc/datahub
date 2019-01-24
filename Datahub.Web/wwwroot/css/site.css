@@ -41,7 +41,7 @@ body {
 
 
   .module .collapse, .module .collapsing {
-    height: 15em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
+    height: 7.8em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
   }
   
   .module .collapse {
