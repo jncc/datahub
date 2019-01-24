@@ -31,10 +31,6 @@
     }
 </p>
 
-@if (Model.Asset.DigitalObjectIdentifier.IsNotBlank()) {
-  <p><span class="text-muted">@Model.Asset.DigitalObjectIdentifier</span></p>
-}
-
 <div class="module">
     <p class="collapse" id="collapseExample" aria-expanded="false">
         <span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract
@@ -80,19 +76,49 @@
         <div class="tab-content py-4" id="primary-tabs-content" style="min-height: 20em;">
             <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
 
-                <p class="mb-2"><span class="text-muted">Resource type.</span> @(Model.Asset.Metadata.ResourceType.FirstCharToUpper())</p>
+                <p class="mb-2"><span class="text-muted">Asset type.</span> @(Model.Asset.Metadata.ResourceType.FirstCharToUpper())</p>
 
                 <p class="mb-2"><span class="text-muted">Topic category.</span> @(Model.Asset.Metadata.TopicCategory.FirstCharToUpper())</p>
 
-                <p class="mb-2"><span class="text-muted">Data format.</span> Data format goes here</p>
+                <p class="mb-2">
+                    <span class="text-muted">Date.</span>
+                    <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
+                        <span>@Model.Asset.Metadata.DatasetReferenceDate.SplitIso8601DateIfPossible().First()</span>@foreach (var part in Model.Asset.Metadata.DatasetReferenceDate.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
+                    </span>
+                </p>
 
-                <p class="mb-2"><span class="text-muted">Dataset reference date.</span> @(Model.Asset.Metadata.DatasetReferenceDate)</p>
+                @if (Model.Asset.DigitalObjectIdentifier.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-muted">DOI.</span>
+                    <span title="Digital Object Identifier" data-toggle="tooltip" data-placement="top">
+                        @Model.Asset.DigitalObjectIdentifier
+                    </span>
+                </p>
+                }
 
-                <p class="mb-2"><span class="text-muted">Resource locator.</span> <a href="#">http://nowhere.example.com/example</a></p>
+                @if (Model.Asset.Citation.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-muted">Citation.</span>
+                    <br />
+                    @Model.Asset.Citation
+                </p>
+                }
 
-                <p class="mb-2"><span class="text-muted">Lineage.</span> @Model.Asset.Metadata.Lineage</p>
+                @if (Model.Asset.Metadata.Lineage.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-muted">Lineage.</span>
+                    <br />
+                    @Model.Asset.Metadata.Lineage
+                </p>
+                }
 
-                <p class="mb-2"><span class="text-muted">Additional information source.</span> Somewhere else</p>
+                @if (Model.Asset.Metadata.AdditionalInformationSource.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-muted">Additional information source.</span>
+                    <br />
+                    @Model.Asset.Metadata.AdditionalInformationSource
+                </p>
+                }
 
             </div>
 
@@ -123,7 +149,7 @@
                         <span class="text-muted">Temporal extent.</span>
 
                         <span data-toggle="tooltip" data-placement="top" title="@begin">
-                            <span>@begin.SplitIso8601DateIfPossible().First()</span>@foreach (var item in begin.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@item</span>}
+                            <span>@begin.SplitIso8601DateIfPossible().First()</span>@foreach (var part in begin.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
                         </span>
 
                         <span style="color:rgba(77, 219, 58, 1);">
@@ -131,7 +157,7 @@
                         </span>
 
                         <span data-toggle="tooltip" data-placement="top" title="@end">
-                            <span>@end.SplitIso8601DateIfPossible().First()</span>@foreach (var item in end.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@item</span>}
+                            <span>@end.SplitIso8601DateIfPossible().First()</span>@foreach (var part in end.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
                         </span>
                     </p>
                 }
@@ -152,7 +178,7 @@
         <li class="nav-item">
             <a class="nav-link active" id="downloads-tab" data-toggle="tab" href="#downloads" role="tab" aria-controls="main" aria-selected="true">
                 <i class="fas fa-download"></i>
-                Downloads
+                Resources
             </a>
         </li>
         </ul>

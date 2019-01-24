@@ -9,6 +9,7 @@ namespace Datahub.Web.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string DigitalObjectIdentifier { get; set; }
+        public string Citation { get; set; }
         public Metadata Metadata { get; set; }
         public List<Data> Data { get; set; }
     }
