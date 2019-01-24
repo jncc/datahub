@@ -76,20 +76,20 @@ const attachmentPipeline = {
   "processors": [
       {
           "attachment": {
-              "field": "data",
+              "field": "content_base64",
               "ignore_missing": true,
               "indexed_chars": -1
           }
       },
       {
           "set": {
-            "field": "data",
+            "field": "content_base64",
             "value": ""
           }
       },
       {
           "remove": {
-              "field": "data"
+              "field": "content_base64"
           }
       },
       {
@@ -116,7 +116,7 @@ const attachmentPipeline = {
       {
           "script": {
               "lang": "painless",
-              "source": "String content = ctx.content; content = content.replace(\"\n\", \"\"); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : 200));"
+              "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
           }
       }
   ]
@@ -128,7 +128,7 @@ const documentPipeline = {
     {
       "script": {
           "lang": "painless",
-          "source": "String content = ctx.content; content = content.replace(\"\n\", \"\"); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : 200));"
+          "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
       }
     }
   ]
