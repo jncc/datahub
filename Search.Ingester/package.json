@@ -1,0 +1,14 @@
+{
+  "name": "search-ingester",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "OGL",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "aws-sdk": "^2.343.0"
+  },
+  "devDependencies": {
+    "glob": "^7.1.3"
+  }
+}
