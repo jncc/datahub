@@ -56,7 +56,9 @@ const insertDummyPdfDoc = async () => {
 }
 
 const makeDummyPdfDoc = async () => ({
-  'data': JSON.parse(await readFileAsync('./data/pdfData.json', 'utf8')).data,
+  'file_base64': JSON.parse(await readFileAsync('./data/pdfData.json', 'utf8')).data,
+  'file_size': 172000,
+  'file_extension': 'pdf',
   'site': 'datahub',
   'title': 'This is a PDF document',
   'content': 'This PDF document is for testing the PDF indexing capabilities of ElasticSearch. I hope it works.',
