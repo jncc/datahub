@@ -6,7 +6,7 @@ const mapping = {
   "properties": {
     "site": { "type": "keyword" },
     "title": { "type": "text" },
-    "content": { "type": "text" },
+    "content": { "type": "text", "term_vector": "with_positions_offsets" },
     // we don't ever return the content field because it could be massive.
     // we normally use the highlights field but a highlight search *might* not
     // return anything in the highlights field if there are no highlights.
@@ -76,20 +76,20 @@ const attachmentPipeline = {
   "processors": [
       {
           "attachment": {
-              "field": "content_base64",
+              "field": "file_base64",
               "ignore_missing": true,
               "indexed_chars": -1
           }
       },
       {
           "set": {
-            "field": "content_base64",
+            "field": "file_base64",
             "value": ""
           }
       },
       {
           "remove": {
-              "field": "content_base64"
+              "field": "file_base64"
           }
       },
       {
