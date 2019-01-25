@@ -22,13 +22,11 @@ const mapping = {
       }
     },
     "published_date": { "type": "date" },
-    "parent_id": { "type": "keyword" }, // clarify
-    "parent_title": { "type": "text" }, // clarify
-    "mime_type": { "type": "keyword" }, // why do we need this at the asset level?
-    "data_type": { "type": "keyword" }, // clarify
-    "footprint": { "type": "geo_shape" },
-    // maybe: website object { PageID, Author? }
-    // maybe: PDF document size
+    "parent_id": { "type": "keyword" },
+    "parent_title": { "type": "text" },
+    "file_extension": { "type": "keyword" },
+    "file_bytes": { "type": "long", "index": false },
+    "footprint": { "type": "geo_shape" }
   }
 }
 
@@ -65,9 +63,11 @@ const makeSearchDocumentFromRemote = (doc) => {
     'published_date': doc.metadata.datasetReferenceDate,
     'data_type': doc.metadata.resourceType,
     'url': 'https://example.com/' + doc.parent_id,
+    'file_extension': doc.file_extension,
+    'file_size': doc.file_size,
+    'file_base64': doc.file_base64,
     'parent_id': doc.parent_id,
-    'parent_title': doc.parent_title,
-    'data': doc.data
+    'parent_title': doc.parent_title
   }
 }
 
@@ -75,49 +75,49 @@ const attachmentPipeline = {
   "description": "Optionally extract attachment data field and incorporates results into the document, truncates content field into a content_truncated field which is not indexed",
   "processors": [
       {
-          "attachment": {
-              "field": "file_base64",
-              "ignore_missing": true,
-              "indexed_chars": -1
-          }
+        "attachment": {
+          "field": "file_base64",
+          "ignore_missing": true,
+          "indexed_chars": -1
+        }
       },
       {
-          "set": {
-            "field": "file_base64",
-            "value": ""
-          }
+        "set": {
+          "field": "file_base64",
+          "value": ""
+        }
       },
       {
-          "remove": {
-              "field": "file_base64"
-          }
+        "remove": {
+            "field": "file_base64"
+        }
       },
       {
-          "script": {
-            "source": "if (ctx.attachment != null && ctx.attachment.content != null) { ctx.content = ctx.attachment.content }"
-          }
+        "script": {
+          "source": "if (ctx.attachment != null && ctx.attachment.content != null) { ctx.content = ctx.attachment.content }"
+        }
       },
       {
-          "script": {
-            "source": "if (ctx.attachment != null && ctx.attachment.title != null) { ctx.title = ctx.attachment.title }"
-          }
+        "script": {
+          "source": "if (ctx.attachment != null && ctx.attachment.title != null) { ctx.title = ctx.attachment.title }"
+        }
       },
       {
-          "set": {
-            "field": "attachment",
-            "value": ""
-          }
+        "set": {
+          "field": "attachment",
+          "value": ""
+        }
       },
       {
-          "remove": {
-              "field": "attachment"
-          }
+        "remove": {
+          "field": "attachment"
+        }
       },
       {
-          "script": {
-              "lang": "painless",
-              "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
-          }
+        "script": {
+          "lang": "painless",
+          "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
+        }
       }
   ]
 }
@@ -127,8 +127,8 @@ const documentPipeline = {
   "processors": [
     {
       "script": {
-          "lang": "painless",
-          "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
+        "lang": "painless",
+        "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0,200).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
       }
     }
   ]

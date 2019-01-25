@@ -48,14 +48,16 @@ const insertDummyDocsFromWebProjectWithRemotes = async () => {
                 docRemote.id = uuidv4();
                 docRemote.title = pathModule.basename((url.parse(data.http.url)).pathname);
 
-                await new Promise((resolve, reject) => {
+                var ret = await new Promise((resolve, reject) => {
                     request(data.http.url, {
                         encoding: null
                     }, (error, response, body) => {
                         if (!error && response.statusCode == 200) {
-                            docRemote.data = Buffer.from(body).toString('base64');
+                            docRemote.file_base64 = Buffer.from(body).toString('base64');
+                            docRemote.file_size = Buffer.byteLength(body);
+                            docRemote.file_extension = 'pdf'
                             path = env.ES_INDEX + '/_doc/' + docRemote.id + '?pipeline=attachment';
-
+                            
                             console.log(`Sending pdf file to elasticsearch on ${path}...`);
                             sendRequest({
                                     method: 'PUT',
@@ -69,6 +71,7 @@ const insertDummyDocsFromWebProjectWithRemotes = async () => {
                         }
                     });
                 }).catch(resp => console.log(`Error occurred while downloading or uploading remote: ${resp}`));
+                console.log(ret);
             }
         }
     }
