@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Nest;
 
 namespace Datahub.Web.Models
 {
@@ -61,36 +60,21 @@ namespace Datahub.Web.Models
 
     public class Keyword
     {
-        [Text(Name = "vocab")]
         public string Vocab { get; set; }
-
-        [Text(Name = "value")]
         public string Value { get; set; }
-
         public string Link { get; set; }
     }
 
     public class Data
     {
-        public string Name { get; set; }
         public string Title { get; set; }
-        public HTTP HTTP { get; set; }
+        public HttpResource Http { get; set; }
     }
 
-    public interface IDataType
+    public class HttpResource
     {
-        string Type { get; set; }
-        //string DataFormat { get; set; }
+        public string Url { get; set; }
+        public string FileExtension { get; set; }
+        public string FileBytes { get; set; }
     }
-
-    public class HTTP : IDataType
-    {
-        public string URL { get; set; }
-        public string Type { get; set; }
-        //public string DataFormat { get; set; }
-    }
-}
-
-namespace Datahub.Web.Models.DataTypes
-{
 }

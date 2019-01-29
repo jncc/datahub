@@ -66,22 +66,23 @@
         {
             "title": "Using the Crick Framework",
             "http": {
-                "url": "http://jncc.defra.gov.uk/page-6281",
-                "type": "application/zip"
+                "url": "http://jncc.defra.gov.uk/page-6281"
             }
         },
         {
             "title": "Crick Framework - Further Information Spreadsheet",
             "http": {
                 "url": "http://jncc.defra.gov.uk/docs/CF_spreadsheet_130125.xlsx",
-                "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                "fileExtension": "xlsx",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Crick Framework - User Manual",
             "http": {
                 "url": "http://jncc.defra.gov.uk/docs/cf_User_manual_20130205.doc",
-                "type": "application/msword"
+                "fileExtension": "docx",
+                "fileBytes": "10023244"
             }
         }
     ]

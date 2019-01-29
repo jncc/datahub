@@ -57,28 +57,32 @@
             "title": "Common Standards Monitoring Guidance for Coastal vegetated shingle",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_shingle.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Sand dunes",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_sand_dune.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Saltmarsh",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_saltmarsh.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Maritime cliff & Slope",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_cliff_slope.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

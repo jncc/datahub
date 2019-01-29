@@ -55,7 +55,8 @@
             "title": "Common Standard Monitoring Guidance for Lowland Grassland",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_lowland_grassland.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

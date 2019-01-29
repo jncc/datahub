@@ -58,7 +58,8 @@
             "title": "An Illustrated Guide to British Upland Vegetation",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/British_Upland_Vegetation_(2014_reprint)Low_Res.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

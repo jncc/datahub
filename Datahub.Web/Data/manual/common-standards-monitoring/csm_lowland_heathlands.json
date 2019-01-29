@@ -55,14 +55,16 @@
             "title": "Common Standards Monitoring Guidance for Lowland heathland",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/0902_CSM_lowland_heathlandv2.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": " Common Standards Monitoring Guidance for Lowland heathland [Forms Only]",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_lowland_heathland-formsonly.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

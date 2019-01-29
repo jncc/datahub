@@ -67,7 +67,8 @@
             "title": "Prediction of outcrops or subcrops of rock in UK shelf seabed (public)",
             "http": {
                 "url": "http://data.jncc.gov.uk/data/7f632f1c-f2d3-464b-9886-5e73a4e5dfe9-c20180716-UKcombinedRock-WGS84.zip",
-                "type": "application/zip"
+                "fileExtension": "zip",
+                "fileBytes": "10023244"
             }
         }
     ]

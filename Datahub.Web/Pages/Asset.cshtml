@@ -76,12 +76,18 @@
         <div class="tab-content py-4" id="primary-tabs-content" style="min-height: 20em;">
             <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
 
-                <p class="mb-2"><span class="text-muted">Asset type.</span> @(Model.Asset.Metadata.ResourceType.FirstCharToUpper())</p>
-
-                <p class="mb-2"><span class="text-muted">Topic category.</span> @(Model.Asset.Metadata.TopicCategory.FirstCharToUpper())</p>
+                <p class="mb-2">
+                    <span class="text-muted">Resource type.</span>
+                    @Model.Asset.Metadata.ResourceType.FirstCharToUpper()
+                </p>
 
                 <p class="mb-2">
-                    <span class="text-muted">Date.</span>
+                    <span class="text-muted">Topic category.</span>
+                    @Model.Asset.Metadata.TopicCategory.FirstCharToUpper()
+                </p>
+
+                <p class="mb-2">
+                    <span class="text-muted">Reference date.</span>
                     <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
                         <span>@Model.Asset.Metadata.DatasetReferenceDate.SplitIso8601DateIfPossible().First()</span>@foreach (var part in Model.Asset.Metadata.DatasetReferenceDate.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
                     </span>
@@ -176,9 +182,9 @@
         
         <ul class="nav nav-tabs" id="secondary-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="downloads-tab" data-toggle="tab" href="#downloads" role="tab" aria-controls="main" aria-selected="true">
-                <i class="fas fa-download"></i>
-                Resources
+            <a class="nav-link active" id="resources-tab" data-toggle="tab" href="#resources" role="tab" aria-controls="main" aria-selected="true">
+                <i class="fas fa-cloud-download-alt"></i>
+                Resources <span class="badge badge-primary">@Model.Asset.Data.Count(d => d.Http != null)</span>
             </a>
         </li>
         </ul>
@@ -188,9 +194,31 @@
 
                 <ul>
                     @foreach (var d in Model.Asset.Data) {
-                    <li class="pb-2">
-                        <a href="@d.HTTP.URL">@(d.Title)</a> <span class="small ">@d.HTTP.Type</span>
-                    </li>
+                        if (@d.Http != null) {
+                            <li class="pb-2">
+                                <span>
+                                    <a href="@d.Http.Url">@d.Title</a>
+                                    @if (d.Http.FileExtension.IsNotBlank()) {
+                                        <span class="badge badge-light">@d.Http.FileExtension.ToUpper()</span>
+                                    } else {
+                                        <span class="badge badge-light" title="External link" data-toggle="tooltip">
+                                            <span class="fas fa-external-link-alt"></span>
+                                        </span>
+                                    }
+                                </span>
+                                <br />
+                                <span class="small">
+                                    @if (d.Http.FileExtension.IsNotBlank() && d.Http.FileBytes.IsNotBlank()) {
+                                        <span style="word-spacing:-0.3em; margin-right:0.6em">
+                                            @ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)
+                                        </span>
+                                        <span style="overflow-wrap: break-word;" class="text-muted">
+                                            @AssetHelpers.GetFileNameForDisplay(d.Http.Url)
+                                        </span>
+                                    }
+                                </span>
+                            </li>
+                        }
                     }
                 </ul>
 
