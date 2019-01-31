@@ -67,9 +67,10 @@ function validateDocument(doc) {
     if (!doc.id) {
         throw new Error('doc.id is required.');
     }
-    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(doc.id)) {
-        throw new Error('doc.id must be a regex'); // this is a first-stab to ensure that IDs are unique
-    }
+    // Non-Datahub ID's may be not a guid
+    // if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(doc.id)) {
+    //     throw new Error('doc.id must be a regex'); // this is a first-stab to ensure that IDs are unique
+    // }
     if (!doc.site) {
         throw new Error('doc.site is required.');
     }
