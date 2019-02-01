@@ -49,6 +49,12 @@
             "name": "Communications Team, Joint Nature Conservation Committee",
             "contact": "communications@jncc.gov.uk",
             "role": "distributor"
+        },
+        "boundingBox": {
+            "west": -15,
+            "south": 45,
+            "east": 15,
+            "north": 65
         }
     },
     "properties": {},

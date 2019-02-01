@@ -28,7 +28,7 @@ namespace Datahub.Web.Models
         public string UseConstraints { get; set; }
         public string Copyright { get; set; }
         public string SpatialReferenceSystem { get; set; }
-        public DateTime MetadataDate { get; set; }
+        public string MetadataDate { get; set; }
         public ResponsibleOrganisation MetadataPointOfContact { get; set; }
         public string ResourceType { get; set; }  // dataset | series | service | nonGeographicDataset | (custom:| publication)
         public BoundingBox BoundingBox { get; set; }

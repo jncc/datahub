@@ -130,19 +130,42 @@
 
             <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
 
-                <p><span class="text-muted">Responsible party.</span> Name, Email, Role</p>
+                <p>
+                    <span class="text-muted">Responsible party.</span>
+                    @Model.Asset.Metadata.ResponsibleOrganisation.Name 
+                    <span class="badge badge-light">@Model.Asset.Metadata.ResponsibleOrganisation.Role</span>
+                    <br />
+                    <span class="text-primary">@Model.Asset.Metadata.ResponsibleOrganisation.Email</span>
+                </p>
                 
-                <p><span class="text-muted">Limitations on public access.</span> Stuff</p>
+                <p>
+                    <span class="text-muted">Limitations on public access.</span>
+                    @Model.Asset.Metadata.LimitationsOnOublicAccess
+                </p>
 
-                <p><span class="text-muted">Use constraints.</span> Stuff</p>
+                <p>
+                    <span class="text-muted">Use constraints.</span>
+                    <span class="">@Model.Asset.Metadata.UseConstraints</span>
+                </p>
 
             </div>
 
             <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
 
-                <p><span class="text-muted">Metadata date.</span> 2016-04-14</p>
+                <p>
+                    <span class="text-muted">Metadata date.</span>
+                    <span title="@Model.Asset.Metadata.MetadataDate" data-toggle="tooltip">
+                        <span>@Model.Asset.Metadata.MetadataDate.SplitIso8601DateIfPossible().First()</span>@foreach (var part in Model.Asset.Metadata.MetadataDate.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
+                    </span>
+                </p>
 
-                <p><span class="text-muted">Metadata point of contact.</span> Name, Email, Role</p>
+                <p>
+                    <span class="text-muted">Metadata point of contact.</span>
+                    <span class="">@Model.Asset.Metadata.MetadataPointOfContact.Name</span>
+                    <span class="badge badge-light">@Model.Asset.Metadata.MetadataPointOfContact.Role</span>
+                    <br />
+                    <span class="">@Model.Asset.Metadata.MetadataPointOfContact.Email</span>
+                </p>
 
             </div>
 
@@ -154,7 +177,7 @@
                     <p>
                         <span class="text-muted">Temporal extent.</span>
 
-                        <span data-toggle="tooltip" data-placement="top" title="@begin">
+                        <span data-toggle="tooltip" title="@begin">
                             <span>@begin.SplitIso8601DateIfPossible().First()</span>@foreach (var part in begin.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
                         </span>
 
@@ -162,17 +185,20 @@
                             &#8594;
                         </span>
 
-                        <span data-toggle="tooltip" data-placement="top" title="@end">
+                        <span data-toggle="tooltip" title="@end">
                             <span>@end.SplitIso8601DateIfPossible().First()</span>@foreach (var part in end.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
                         </span>
                     </p>
                 }
 
-                <p>
-                    <span class="text-muted">Bounding box.</span>
-                    
-                    A, B, C, D
-                </p>
+                @if (Model.Asset.Metadata.BoundingBox != null && Model.Asset.Metadata.BoundingBox.North != 0M) {
+                    <p>
+                        <span class="text-muted">North.</span> @Model.Asset.Metadata.BoundingBox.North
+                        <span class="text-muted">South.</span> @Model.Asset.Metadata.BoundingBox.South
+                        <span class="text-muted">East.</span> @Model.Asset.Metadata.BoundingBox.East
+                        <span class="text-muted">West.</span> @Model.Asset.Metadata.BoundingBox.West
+                    </p>
+                }
 
             </div>
         </div>
