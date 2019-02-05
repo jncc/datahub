@@ -13,8 +13,12 @@ body {
 }
 
 
-
-
+.asset-image {
+    -webkit-filter: drop-shadow(5px 5px 5px #666);
+    filter: drop-shadow(5px 5px 5px #666);
+    margin-bottom:1em;
+    margin-right:2em;
+}
 
 .keyword {
     white-space:nowrap;

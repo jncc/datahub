@@ -2,6 +2,7 @@
     "id": "1122d9be-6f1b-42f2-bdf7-1e26b33779a2",
     "name": "prediction-of-outcrops-or-subcrops-of-rock-in-uk-shelf-seabed-public",
     "digitalObjectIdentifier": "10.25603/840424.1.0.0",
+    "imageUrl": "/images/example-cover-image.png",
     "metadata": {
         "title": "Prediction of outcrops or subcrops of rock in UK shelf seabed (public)",
         "lineage": "No limitations",
@@ -41,7 +42,7 @@
         },
         "useConstraints": "Released under the Open Government Licence v3.0. Attribution statement: “Contains data from © JNCC/BGS/Cefas 2018”.",
         "metadataLanguage": "English",
-        "limitationsOnOublicAccess": "",
+        "limitationsOnOublicAccess": "no limitations",
         "datasetReferenceDate": "2004-08-01",
         "metadataPointOfContact": {
             "name": "Marine Monitoring & Evidence, JNCC",

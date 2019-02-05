@@ -16,36 +16,53 @@
     </script>
 }
  
-<h1 class="display-5 mb-4">
-    <span style="color: rgba(77, 219, 58, 1);">
-    <i class="fas @AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType)"
-        data-toggle="tooltip" title="@Model.Asset.Metadata.ResourceType"></i>
-    </span>
-    @Model.Asset.Metadata.Title
-    <span class="small text-muted">@Model.Asset.Metadata.DatasetReferenceDate.Substring(0, 4)</span>
-</h1>
+<div class="row">
 
-<p>
-    @foreach (var k in Model.Asset.Metadata.Keywords) {
-        @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
-    }
-</p>
+    <div class="col-lg">
 
-<div class="module">
-    <p class="collapse" id="collapseExample" aria-expanded="false">
-        <span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract
-    </p>
-    <div class="float-right">
-    <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
-        aria-expanded="false" aria-controls="collapseExample"></a>
+        <h1 class="display-5 mb-4">
+            <span style="color: rgba(77, 219, 58, 1);">
+            <i class="fas @AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType)"
+                data-toggle="tooltip" title="@Model.Asset.Metadata.ResourceType"></i>
+            </span>
+            @Model.Asset.Metadata.Title
+            <span class="small text-muted">@Model.Asset.Metadata.DatasetReferenceDate.Substring(0, 4)</span>
+        </h1>
+
+        <p>
+            @foreach (var k in Model.Asset.Metadata.Keywords) {
+                @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+            }
+        </p>
+
+        <div class="module">
+            <p class="collapse" id="collapseExample" aria-expanded="false">
+                <span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract
+            </p>
+            <div class="float-right">
+            <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
+                aria-expanded="false" aria-controls="collapseExample"></a>
+            </div>
+        </div>
     </div>
-</div>
 
+    @{
+        if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty) {
+            Model.Asset.ImageUrl = "/images/example-cover-image.png"; // use dummy image
+        }
+    }
+    @if (Model.Asset.ImageUrl.IsNotBlank()) {
+    <div class="col-lg-auto order-lg-first" >
+        <img src="@Model.Asset.ImageUrl"  height="400" class="asset-image" />
+    </div>
+    }
+
+</div>
 
 <br />
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg">
 
         <ul class="nav nav-tabs" id="primary-tabs" role="tablist">
         <li class="nav-item">
@@ -73,7 +90,7 @@
             </a>
         </li>
         </ul>
-        <div class="tab-content py-4" id="primary-tabs-content" style="min-height: 20em;">
+        <div class="tab-content py-4" id="primary-tabs-content">
             <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
 
                 <p class="mb-2">
@@ -131,7 +148,8 @@
             <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
 
                 <p>
-                    <span class="text-muted">Responsible party.</span>
+                    <span class="text-muted">Responsible organisation.</span>
+                    <br />
                     @Model.Asset.Metadata.ResponsibleOrganisation.Name 
                     <span class="badge badge-light">@Model.Asset.Metadata.ResponsibleOrganisation.Role</span>
                     <br />
@@ -140,7 +158,9 @@
                 
                 <p>
                     <span class="text-muted">Limitations on public access.</span>
-                    @Model.Asset.Metadata.LimitationsOnOublicAccess
+                    @(Model.Asset.Metadata.LimitationsOnOublicAccess == "no limitations"
+                        ? "No limitations"
+                        : @Model.Asset.Metadata.LimitationsOnOublicAccess)
                 </p>
 
                 <p>
@@ -161,10 +181,11 @@
 
                 <p>
                     <span class="text-muted">Metadata point of contact.</span>
+                    <br />
                     <span class="">@Model.Asset.Metadata.MetadataPointOfContact.Name</span>
                     <span class="badge badge-light">@Model.Asset.Metadata.MetadataPointOfContact.Role</span>
                     <br />
-                    <span class="">@Model.Asset.Metadata.MetadataPointOfContact.Email</span>
+                    <span class="text-primary">@Model.Asset.Metadata.MetadataPointOfContact.Email</span>
                 </p>
 
             </div>
@@ -194,8 +215,11 @@
                 @if (Model.Asset.Metadata.BoundingBox != null && Model.Asset.Metadata.BoundingBox.North != 0M) {
                     <p>
                         <span class="text-muted">North.</span> @Model.Asset.Metadata.BoundingBox.North
+                        <br />
                         <span class="text-muted">South.</span> @Model.Asset.Metadata.BoundingBox.South
+                        <br />
                         <span class="text-muted">East.</span> @Model.Asset.Metadata.BoundingBox.East
+                        <br />
                         <span class="text-muted">West.</span> @Model.Asset.Metadata.BoundingBox.West
                     </p>
                 }
@@ -204,7 +228,7 @@
         </div>
 
     </div>
-    <div class="col-md-6">
+    <div class="col-lg">
         
         <ul class="nav nav-tabs" id="secondary-tabs" role="tablist">
         <li class="nav-item">
@@ -215,7 +239,7 @@
         </li>
         </ul>
 
-        <div class="tab-content py-4" id="secondary-tabs-content" style="min-height: 20em;">
+        <div class="tab-content py-4" id="secondary-tabs-content">
             <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
 
                 <ul>
@@ -223,7 +247,7 @@
                         if (@d.Http != null) {
                             <li class="pb-2">
                                 <span>
-                                    <a href="@d.Http.Url">@d.Title</a>
+                                    <a href="@d.Http.Url" target="_blank">@d.Title</a>
                                     @if (d.Http.FileExtension.IsNotBlank()) {
                                         <span class="badge badge-light">@d.Http.FileExtension.ToUpper()</span>
                                     } else {
