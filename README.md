@@ -71,9 +71,9 @@ Work in progress. You should be able to build a production Docker image of the w
 
     docker build .
 
-Then run on port 8000 with
+Then run on port 8000 (with your exising dev .env file)
 
-    docker run -it -p 8000:80 {image-name}
+    docker run -it -p 8000:80 -e ./Datahub.Web/.env {image-name}
 
 ## Notes
 
