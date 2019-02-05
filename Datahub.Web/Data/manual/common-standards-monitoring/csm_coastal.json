@@ -1,6 +1,8 @@
 {
     "id": "896f9132-8b1f-44cd-91f3-2423311668f2",
     "name": "guidance-for-coastal",
+    "digitalObjectIdentifier": "10.1037/rmh0000008",
+    "citation": "This is a citation. It might go on for a bit and have line breaks.",
     "metadata": {
         "title": "Common Standards Monitoring Guidance for Coastal",
         "lineage": "",
@@ -47,6 +49,12 @@
             "name": "Communications Team, Joint Nature Conservation Committee",
             "contact": "communications@jncc.gov.uk",
             "role": "distributor"
+        },
+        "boundingBox": {
+            "west": -15,
+            "south": 45,
+            "east": 15,
+            "north": 65
         }
     },
     "properties": {},
@@ -55,28 +63,32 @@
             "title": "Common Standards Monitoring Guidance for Coastal vegetated shingle",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_shingle.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Sand dunes",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_sand_dune.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Saltmarsh",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_saltmarsh.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Maritime cliff & Slope",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_coastal_cliff_slope.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

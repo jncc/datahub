@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Nest;
 
 namespace Datahub.Web.Models
 {
@@ -9,6 +8,8 @@ namespace Datahub.Web.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public string DigitalObjectIdentifier { get; set; }
+        public string Citation { get; set; }
+        public string ImageUrl { get; set; }
         public Metadata Metadata { get; set; }
         public List<Data> Data { get; set; }
     }
@@ -28,7 +29,7 @@ namespace Datahub.Web.Models
         public string UseConstraints { get; set; }
         public string Copyright { get; set; }
         public string SpatialReferenceSystem { get; set; }
-        public DateTime MetadataDate { get; set; }
+        public string MetadataDate { get; set; }
         public ResponsibleOrganisation MetadataPointOfContact { get; set; }
         public string ResourceType { get; set; }  // dataset | series | service | nonGeographicDataset | (custom:| publication)
         public BoundingBox BoundingBox { get; set; }
@@ -60,36 +61,21 @@ namespace Datahub.Web.Models
 
     public class Keyword
     {
-        [Text(Name = "vocab")]
         public string Vocab { get; set; }
-
-        [Text(Name = "value")]
         public string Value { get; set; }
-
         public string Link { get; set; }
     }
 
     public class Data
     {
-        public string Name { get; set; }
         public string Title { get; set; }
-        public HTTP HTTP { get; set; }
+        public HttpResource Http { get; set; }
     }
 
-    public interface IDataType
+    public class HttpResource
     {
-        string Type { get; set; }
-        //string DataFormat { get; set; }
+        public string Url { get; set; }
+        public string FileExtension { get; set; }
+        public string FileBytes { get; set; }
     }
-
-    public class HTTP : IDataType
-    {
-        public string URL { get; set; }
-        public string Type { get; set; }
-        //public string DataFormat { get; set; }
-    }
-}
-
-namespace Datahub.Web.Models.DataTypes
-{
 }

@@ -55,7 +55,8 @@
             "title": "NVC Names Codes",
             "http": {
                 "url": "http://jncc.defra.gov.uk/files/NVC_names_codes_26_3_2008.zip",
-                "type": "application/zip"
+                "fileExtension": "zip",
+                "fileBytes": "10023244"
             }
         }
     ]

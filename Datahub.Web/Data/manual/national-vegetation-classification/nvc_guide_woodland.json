@@ -58,7 +58,8 @@
             "title": "NVC Field Guide to Woodland",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/fieldguidetowoodland.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

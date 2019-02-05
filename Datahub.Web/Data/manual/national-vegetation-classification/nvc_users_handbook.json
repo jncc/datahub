@@ -50,7 +50,8 @@
             "title": "National Vegetation Classification Users' handbook",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/pub06_NVCusershandbook2006.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

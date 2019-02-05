@@ -44,7 +44,8 @@
         "datasetReferenceDate": "2002-01-01",
         "metadataPointOfContact": {
             "name": "Digital and Data Solutions Team, Joint Nature Conservation Committee",
-            "email": "data@jncc.gov.uk"
+            "email": "data@jncc.gov.uk",
+            "role": "author"
         },
         "responsibleOrganisation": {
             "name": "Elkington, T., Dayton, N., Jackson, D.L., & Strachan, I.M.",
@@ -58,7 +59,8 @@
             "title": "National Vegetation Classification field guide to mires and heaths",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/Mires_Heaths.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

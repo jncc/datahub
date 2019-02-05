@@ -13,8 +13,12 @@ body {
 }
 
 
-
-
+.asset-image {
+    -webkit-filter: drop-shadow(5px 5px 5px #666);
+    filter: drop-shadow(5px 5px 5px #666);
+    margin-bottom:1em;
+    margin-right:2em;
+}
 
 .keyword {
     white-space:nowrap;
@@ -41,7 +45,7 @@ body {
 
 
   .module .collapse, .module .collapsing {
-    height: 15em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
+    height: 7.8em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
   }
   
   .module .collapse {

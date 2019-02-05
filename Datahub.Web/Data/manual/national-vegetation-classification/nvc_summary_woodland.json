@@ -54,7 +54,8 @@
             "title": "Summary of National Vegetation Classification woodland descriptions",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/Pub92_Summary_of_NVC_woodland_descriptions_PRINT.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

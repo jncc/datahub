@@ -88,7 +88,8 @@
             "title": "Making Earth Observation Work for UK Biodiversity Conservation - Phase 2",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/MEOW_Phase2Norfolk_Report_Draft_highres_web-2_p1_63.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

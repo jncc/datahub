@@ -55,7 +55,8 @@
             "title": "Common Standards Monitoring Guidance for Lowland Wetland",
             "http": {
                 "url": "http://jncc.defra.gov.uk/pdf/CSM_lowland_wetland.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]

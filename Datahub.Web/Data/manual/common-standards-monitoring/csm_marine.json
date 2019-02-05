@@ -55,56 +55,64 @@
             "title": "Common Standards Monitoring Guidance for Generic Introduction for marine features",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_introduction.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Littoral rock and inshore sublittoral rock (Reefs)",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_rock.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Littoral sediment flats (mud/sand flats)",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_littoral_sediment.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Inshore sublittoral sediments (sandbanks)",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_sublittoral_sediment.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Estuaries",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_estuaries.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Inlets and Bays",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_ins_bays.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Sea Caves",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_sea_caves.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         },
         {
             "title": "Common Standards Monitoring Guidance for Lagoons",
             "http": {
                 "url": "http://jncc.defra.gov.uk/PDF/CSM_marine_lagoons.pdf",
-                "type": "application/pdf"
+                "fileExtension": "pdf",
+                "fileBytes": "10023244"
             }
         }
     ]
