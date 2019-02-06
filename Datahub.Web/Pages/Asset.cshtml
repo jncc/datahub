@@ -106,7 +106,7 @@
                 <p class="mb-2">
                     <span class="text-muted">Reference date.</span>
                     <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
-                        <span>@Model.Asset.Metadata.DatasetReferenceDate.SplitIso8601DateIfPossible().First()</span>@foreach (var part in Model.Asset.Metadata.DatasetReferenceDate.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
+                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.DatasetReferenceDate)
                     </span>
                 </p>
 
@@ -175,7 +175,7 @@
                 <p>
                     <span class="text-muted">Metadata date.</span>
                     <span title="@Model.Asset.Metadata.MetadataDate" data-toggle="tooltip">
-                        <span>@Model.Asset.Metadata.MetadataDate.SplitIso8601DateIfPossible().First()</span>@foreach (var part in Model.Asset.Metadata.MetadataDate.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
+                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.MetadataDate)                        
                     </span>
                 </p>
 
@@ -198,7 +198,7 @@
                         <span class="text-muted">Temporal extent.</span>
 
                         <span data-toggle="tooltip" title="@begin">
-                            <span>@begin.SplitIso8601DateIfPossible().First()</span>@foreach (var part in begin.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
+                            @await Html.PartialAsync("_IsoDate", begin)
                         </span>
 
                         <span style="color:rgba(77, 219, 58, 1);">
@@ -206,7 +206,7 @@
                         </span>
 
                         <span data-toggle="tooltip" title="@end">
-                            <span>@end.SplitIso8601DateIfPossible().First()</span>@foreach (var part in end.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
+                            @await Html.PartialAsync("_IsoDate", end)
                         </span>
                     </p>
                 }
