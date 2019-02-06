@@ -60,20 +60,26 @@ Install the eb deploy tool:
 
     dotnet tool install -g Amazon.ElasticBeanstalk.Tools
 
-Deploy:
-
-    cd /Datahub.web
-    dotnet eb deploy-environment -app datahub -env jncc-datahub-test --region eu-west-1
-
-## Docker
-
-Work in progress. You should be able to build a production Docker image of the web app with
+Build a docker image:
 
     docker build .
 
-Then run on port 8000 (with your exising dev .env file)
+You can run on port 8000 (with your exising dev .env file) like so:
 
     docker run -it -p 8000:80 -e ./Datahub.Web/.env {image-name}
+
+From the AWS console copy the `jncc-datahub-web` Amazon ECR repository URI (e.g. `123456789.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web`).
+
+    docker tag {image-name} {aws-ecr-repository-uri}
+
+Using an AWS profile with sufficient permissions, get the Docker login command:
+
+    aws ecr get-login --no-include-email
+
+Run the command that you're given. Then run 
+
+    docker push {aws-ecr-repository-uri}
+
 
 ## Notes
 
