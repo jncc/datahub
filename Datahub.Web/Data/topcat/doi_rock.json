@@ -42,7 +42,7 @@
         },
         "useConstraints": "Released under the Open Government Licence v3.0. Attribution statement: “Contains data from © JNCC/BGS/Cefas 2018”.",
         "metadataLanguage": "English",
-        "limitationsOnOublicAccess": "no limitations",
+        "LimitationsOnPublicAccess": "no limitations",
         "datasetReferenceDate": "2004-08-01",
         "metadataPointOfContact": {
             "name": "Marine Monitoring & Evidence, JNCC",

@@ -7,10 +7,6 @@
         "abstract": "A spatial dataset of Ramsar sites in the United Kingdom (i.e. Great Britain and Northern Ireland). Note that this does not include sites in the UK's Overseas Territories and Crown Dependencies. Ramsar sites are wetlands of international importance designated under the Ramsar Convention. Ramsar sites are submitted to the Ramsar Secretariat by JNCC on behalf of the UK Government.",
         "keywords": [
             {
-                "value": "Example",
-                "vocab": "http://vocab.jncc.gov.uk/web-category"
-            },
-            {
                 "value": "Freshwater",
                 "vocab": "http://vocab.jncc.gov.uk/jncc-domain"
             },
@@ -59,22 +55,28 @@
             "name": "Joint Nature Conservation Committee (JNCC)",
             "contact": "data@jncc.gov.uk",
             "role": "distributor"
+        },
+        "boundingBox": {
+            "west": -9.105,
+            "south": 49.81,
+            "east": 2.587,
+            "north": 60.59
         }
     },
     "properties": {},
     "data": [
         {
-            "title": "UK RAMSAR 2015 GIS data",
-            "http": {
-                "url": "http://data.jncc.defra.gov.uk/todo/UK_RAMSAR_20150903_OSGB1936.zip",
-                "fileExtension": "pdf",
-                "fileBytes": "10023244"
-            }
-        },
-        {
             "title": "Download GIS data",
             "http": {
                 "url": "http://jncc.defra.gov.uk/ProtectedSites/SACselection/gis_data/terms_conditions.asp"
+            }
+        },
+        {
+            "title": "UK RAMSAR 2015 GIS data",
+            "http": {
+                "url": "http://data.jncc.defra.gov.uk/todo/UK_RAMSAR_20150903_OSGB1936.zip",
+                "fileExtension": "zip",
+                "fileBytes": "10023244"
             }
         }
     ]

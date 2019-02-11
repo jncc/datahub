@@ -68,7 +68,7 @@
         },
         "useConstraints": "Re-use of information in the Conservation Designations Spreadsheet is subject to the terms of the Open Government Licence, which means it may be used and distributed freely with only a few conditions. If you re-use this information you must acknowledge the source of the information in your product or application by including or linking to the following attribution statement: Contains JNCC/NE/NRW/SNH/NIEA data copyright and database right 2017.",
         "metadataLanguage": "English",
-        "limitationsOnOublicAccess": "no limitations",
+        "LimitationsOnPublicAccess": "no limitations",
         "datasetReferenceDate": "2018-07-27",
         "metadataPointOfContact": {
             "name": "Digital & Data Solutions, JNCC",

@@ -25,7 +25,7 @@ namespace Datahub.Web.Models
         public string Lineage { get; set; }
         public string AdditionalInformationSource { get; set; }
         public ResponsibleOrganisation ResponsibleOrganisation { get; set; }
-        public string LimitationsOnOublicAccess { get; set; }
+        public string LimitationsOnPublicAccess { get; set; }
         public string UseConstraints { get; set; }
         public string Copyright { get; set; }
         public string SpatialReferenceSystem { get; set; }

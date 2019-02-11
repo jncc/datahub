@@ -27,6 +27,8 @@ namespace Datahub.Web.Data
                 s_assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(topcatPath, "uk_species_conservation_designation_master_list.json"))));
 
                 var manualPath = Path.Combine(appRootPath, "Data", "manual");
+                s_assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(manualPath, "ramsar.json"))));
+
                 var csmPath = Path.Combine(manualPath, "common-standards-monitoring");
                 s_assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(csmPath, "csm_freshwater.json"))));
                 s_assets.Add(JsonConvert.DeserializeObject<Asset>(await File.ReadAllTextAsync(Path.Combine(csmPath, "csm_lowland_grasslands.json"))));
