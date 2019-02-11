@@ -66,7 +66,7 @@ Build a docker image:
 
 You can run on port 8000 (with your exising dev .env file) like so:
 
-    docker run -it -p 8000:80 -e ./Datahub.Web/.env {image-name}
+    docker run -it -p 8000:80 --env-file ./Datahub.Web/.env {image-name}
 
 From the AWS console copy the `jncc-datahub-web` Amazon ECR repository URI (e.g. `123456789.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web`).
 
