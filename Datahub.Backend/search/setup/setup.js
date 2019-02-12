@@ -23,6 +23,11 @@ const main = () => {
       describe: 'The name of the index to use (e.g. main, edit, test).',
       type: 'string'
     })
+    .option('hub-url', {
+      describe: 'The (Elastic Beanstalk) URL of the target environment (for the \'url\` field).',
+      type: 'string',
+      default: 'http://hub.example.com/'
+    })
     .option('aws-region', {
       describe: 'The name of the AWS_REGION to use. Optionally, set an environment variable.',
       type: 'string'
@@ -71,9 +76,12 @@ const startup = (argv) => {
 
   process.env['ES_ENDPOINT'] = argv.endpoint
   console.log(`ES_ENDPOINT : ${process.env['ES_ENDPOINT']}`)
-
+  
   process.env['ES_INDEX'] = argv.index
   console.log(`ES_INDEX    : ${process.env['ES_INDEX']}`)
+  
+  process.env['HUB_URL'] = argv.hubUrl
+  console.log(`HUB_URL     : ${process.env['HUB_URL']}`)
 
   if (argv.awsRegion) {
     process.env['AWS_REGION'] = argv.awsRegion

@@ -11,12 +11,18 @@ const url = require("url");
 const pathModule = require("path");
 
 const insertDummyDataWithRemotes = async () => {
-    console.log(`Inserting dummy data into index '${env.ES_INDEX}' with additional PDF ingestion...`);
+
+    console.log(`Inserting dummy data into index '${env.ES_INDEX}' including data file ingestion...`);
     await insertDummyDocsFromWebProjectWithRemotes();
     console.log(`Inserted dummy data into index '${env.ES_INDEX}'.`);
 }
 
 module.exports = insertDummyDataWithRemotes;
+
+// todo: this desparately needs refactoring.
+// it's copied-pasted from the original insertDummyDocsFromWebProject command.
+// it would be much better to have a flag like --include-data-files
+// and unify the two commands.
 
 const insertDummyDocsFromWebProjectWithRemotes = async () => {
     // TODO: Clear existing index with a match all query
@@ -35,7 +41,7 @@ const insertDummyDocsFromWebProjectWithRemotes = async () => {
         await sendRequest({
             method: 'PUT',
             path: path,
-            body: schema.makeSearchDocumentFromTopcatRecord(doc),
+            body: schema.makeSearchDocumentFromTopcatRecord(doc, env.HUB_URL),
         })
 
         for (let data of doc.data) {
@@ -58,11 +64,11 @@ const insertDummyDocsFromWebProjectWithRemotes = async () => {
                             docRemote.file_extension = 'pdf'
                             path = env.ES_INDEX + '/_doc/' + docRemote.id + '?pipeline=attachment';
                             
-                            console.log(`Sending pdf file to elasticsearch on ${path}...`);
+                            console.log(`Sending data file to elasticsearch on ${path}...`);
                             sendRequest({
                                     method: 'PUT',
                                     path: path,
-                                    body: schema.makeSearchDocumentFromRemote(docRemote)
+                                    body: schema.makeSearchDocumentFromRemote(docRemote, env.HUB_URL)
                                 })
                                 .then(resp => resolve(resp))
                                 .catch(resp => reject(resp))

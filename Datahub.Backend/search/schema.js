@@ -30,7 +30,7 @@ const mapping = {
   }
 }
 
-const makeSearchDocumentFromTopcatRecord = (doc) => {
+const makeSearchDocumentFromTopcatRecord = (doc, hubUrl) => {
   return {
     'site': 'datahub',
     'title': doc.metadata.title,
@@ -45,11 +45,11 @@ const makeSearchDocumentFromTopcatRecord = (doc) => {
     ],
     'published_date': doc.metadata.datasetReferenceDate,
     'data_type': doc.metadata.resourceType,
-    'url': 'https://example.com/' + doc.id
+    'url': hubUrl + 'assets/' + doc.id
   }
 }
 
-const makeSearchDocumentFromRemote = (doc) => {
+const makeSearchDocumentFromRemote = (doc, hubUrl) => {
   return {
     'site': 'datahub',
     'title': doc.metadata.title,
@@ -62,7 +62,7 @@ const makeSearchDocumentFromRemote = (doc) => {
     ],
     'published_date': doc.metadata.datasetReferenceDate,
     'data_type': doc.metadata.resourceType,
-    'url': 'https://example.com/' + doc.parent_id,
+    'url': hubUrl + 'assets/' + doc.parent_id,
     'file_extension': doc.file_extension,
     'file_size': doc.file_size,
     'file_base64': doc.file_base64,

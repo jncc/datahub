@@ -35,7 +35,7 @@ const insertDummyDocsFromWebProject = async () => {
     await sendRequest({
       method: 'PUT',
       path: path,
-      body: schema.makeSearchDocumentFromTopcatRecord(doc),
+      body: schema.makeSearchDocumentFromTopcatRecord(doc, env.HUB_URL),
     })
   }
 }
