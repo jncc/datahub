@@ -12,7 +12,7 @@ namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        public const string DefaultIndex = "main";
+        public const string DefaultIndex = "test";
         public const string DefaultSite = "datahub";
         public const int DefaultSize = 10;
         public const int DefaultStart = 0;
