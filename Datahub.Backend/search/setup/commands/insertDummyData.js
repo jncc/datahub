@@ -28,7 +28,7 @@ const insertDummyDocsFromWebProject = async () => {
   for (let file of files) {
     
     let doc = JSON.parse(await readFileAsync(file , 'utf8'))
-    let path = env.ES_INDEX + '/_doc/' + doc.id + '?pipeline=document'
+    let path = env.ES_INDEX + '/_doc/' + doc.id + '?pipeline=attachment'
 
     console.log(`Inserting ${path}...`)
 
