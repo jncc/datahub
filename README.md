@@ -52,8 +52,6 @@ Fill in the appropriate sections and inject the `IElasticsearchService` service 
 
 ## Deployment
 
-Manual deployments to `jncc-datahub-test` env:
-
 Ensure the machine you are deploying from has awscli installed and confiured.
 
 Install the eb deploy tool:
@@ -64,22 +62,29 @@ Build a docker image:
 
     docker build .
 
-You can run on port 8000 (with your exising dev .env file) like so:
+Run locally (on port 8000 with your exising dev .env file):
 
-    docker run -it -p 8000:80 --env-file ./Datahub.Web/.env {image-name}
+    docker run -p 8000:80 --env-file ./Datahub.Web/.env {image-name}
 
-From the AWS console copy the `jncc-datahub-web` Amazon ECR repository URI (e.g. `123456789.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web`).
+From the AWS console, copy the `jncc-datahub-web` Amazon ECR repository URI to clipboard (e.g. `123456789.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web`).
 
     docker tag {image-name} {aws-ecr-repository-uri}
 
 Using an AWS profile with sufficient permissions, get the Docker login command:
 
-    aws ecr get-login --no-include-email
+    aws ecr get-login --no-include-email [--profile your-profile-name]
 
-Run the command that you're given. Then run 
+Run the command that you're given. Then run:
 
     docker push {aws-ecr-repository-uri}
 
+Make a Dockerrun.aws.json file (see Dockerrun.aws.json.example) with the aws-ecr-repository-uri (it should be .gitignored).
+
+Then in Elastic Beanstalk, click Upload and Deploy > Choose file and upload the Dockerrun.aws.json file.
+
+TODO: There's an error at this point.
+
+Done! (Phew.)
 
 ## Notes
 
