@@ -1,5 +1,9 @@
 {
+    "AWSEBDockerrunVersion": "1",
     "Image": {
-        "Name": "123456789.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web:latest"
-    }
+        "Name": "1234567890.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web:latest"
+    },
+    "Ports": [
+        { "ContainerPort": "80" }
+    ]
 }
