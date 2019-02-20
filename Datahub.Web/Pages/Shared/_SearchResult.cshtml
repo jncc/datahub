@@ -1,21 +1,21 @@
 ﻿
 @model Nest.IHit<Datahub.Web.Models.SearchResult>
 @using Datahub.Web.Models
+@using Datahub.Web.Pages.Helpers
 
 <h5 class="display-5">
     <a href="/assets/@(Model.Id)">@(Model.Source.Title)</a>
 </h5>
-<p>
+<div>
     @foreach (var k in Model.Source.Keywords)
     {
         @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
     }
-</p>
+</div>
 @foreach (var h in Model.Highlights.ToList())
 {
-    @foreach (var s in h.Value.Highlights)
-    {
-    <p>@(Html.Raw(s))</p>
-    }
+    var x = h.Value.Highlights.Take(3).ToConcatenatedString(s => s, " ... ");
+    <p>@(Html.Raw(x))</p>
 }
 
+<br />
