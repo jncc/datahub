@@ -42,7 +42,7 @@ You can also connect to the live AWS Elasticsearch Service and use a test index 
 
 Configure a local .aws profile (not recommended for deployment inside AWS, use instance profiles instead):
 
-    ELASTICSEARCH_AWS_PROFILE=
+    ES_AWS_PROFILE=
 
 Use a profile with sufficient permissions to connect to the production AWS Elasticsearch Service.
 
@@ -50,8 +50,8 @@ Use a profile with sufficient permissions to connect to the production AWS Elast
 
 Alternatively, configure static access keys (not recommended for deployment inside AWS, use instance profiles instead):
 
-    ELASTICSEARCH_AWS_ACCESSKEY=
-    ELASTICSEARCH_AWS_SECRETACCESSKEY=
+    ES_AWS_ACCESSKEY=
+    ES_AWS_SECRETACCESSKEY=
 
 Fill in the appropriate sections and inject the `IElasticsearchService` service to get a configured singleton client in the code. The code should fallback from defined access keys, local profile and then instance profile config if they are not configured.
 

@@ -17,23 +17,23 @@ namespace Datahub.Web.Elasticsearch
         public ElasticsearchService()
         {
             var builder = new UriBuilder();
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_SCHEME"))) 
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ES_ENDPOINT_SCHEME"))) 
             {
-                builder.Scheme = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_SCHEME");
+                builder.Scheme = Environment.GetEnvironmentVariable("ES_ENDPOINT_SCHEME");
             }
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_PORT")))
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ES_ENDPOINT_PORT")))
             {
-                builder.Port = int.Parse(Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST_PORT"));
+                builder.Port = int.Parse(Environment.GetEnvironmentVariable("ES_ENDPOINT_PORT"));
             }
-            builder.Host = Environment.GetEnvironmentVariable("ELASTICSEARCH_HOST");
+            builder.Host = Environment.GetEnvironmentVariable("ES_ENDPOINT_HOST");
 
             var endpointUri = new Uri(builder.ToString());
             var pool = new SingleNodeConnectionPool(endpointUri);
 
-            string awsAccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_ACCESSKEY");
-            string awsSecretAccessKey = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY");
-            string awsRegion = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_REGION");
-            string awsProfile = Environment.GetEnvironmentVariable("ELASTICSEARCH_AWS_PROFILE");            
+            string awsAccessKey = Environment.GetEnvironmentVariable("ES_AWS_ACCESSKEY");
+            string awsSecretAccessKey = Environment.GetEnvironmentVariable("ES_AWS_SECRETACCESSKEY");
+            string awsRegion = Environment.GetEnvironmentVariable("ES_AWS_REGION");
+            string awsProfile = Environment.GetEnvironmentVariable("ES_AWS_PROFILE");            
 
             if (endpointUri.IsLoopback)
             {

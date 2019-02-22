@@ -95,12 +95,12 @@ public class Env
     
     private Env()
     {
-        ESAwsRegion = GetVariable("ELASTICSEARCH_AWS_REGION");
-        ESAwsAccessKey = GetVariable("ELASTICSEARCH_AWS_ACCESSKEY");
-        ESAwsSecretAccessKey = GetVariable("ELASTICSEARCH_AWS_SECRETACCESSKEY");
-        ESEndpointHost = GetVariable("ELASTICSEARCH_HOST");
-        ESEndpointScheme = GetVariable("ELASTICSEARCH_HOST_SCHEME");
-        ESEndpointPort = GetVariable("ELASTICSEARCH_HOST_PORT", true);
+        ESAwsRegion = GetVariable("ES_AWS_REGION");
+        ESAwsAccessKey = GetVariable("ES_AWS_ACCESSKEY");
+        ESAwsSecretAccessKey = GetVariable("ES_AWS_SECRETACCESSKEY");
+        ESEndpointHost = GetVariable("ES_ENDPOINT_HOST");
+        ESEndpointScheme = GetVariable("ES_ENDPOINT_SCHEME");
+        ESEndpointPort = GetVariable("ES_ENDPOINT_PORT", true);
     }
 
     string GetVariable(string variable, bool optional = false)
