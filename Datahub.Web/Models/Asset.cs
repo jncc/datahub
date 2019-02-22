@@ -3,17 +3,21 @@ using System.Collections.Generic;
 
 namespace Datahub.Web.Models
 {
+    // see https://github.com/jncc/topcat/blob/master/Catalogue.Data/Model/Record.cs
     public class Asset
     {
         public string Id { get; set; }
-        public string Name { get; set; }
+
+        public Metadata Metadata { get; set; }
+
         public string DigitalObjectIdentifier { get; set; }
         public string Citation { get; set; }
         public string ImageUrl { get; set; }
-        public Metadata Metadata { get; set; }
+        
         public List<Data> Data { get; set; }
     }
 
+    // see https://github.com/jncc/topcat/blob/master/Catalogue.Gemini/Model/Metadata.cs
     public class Metadata
     {
         public string Title { get; set; }
