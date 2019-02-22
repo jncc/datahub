@@ -1,7 +1,13 @@
 
 const AWS = require('aws-sdk')
+const env = require('../env')
 
-const dynamo = new AWS.DynamoDB.DocumentClient()
+// allow dev-time dynamo endpoint
+const dynamoService = env.DYNAMO_ENDPOINT
+  ? new AWS.DynamoDB({ endpoint: new AWS.Endpoint(DYNAMO_ENDPOINT) })
+  : new AWS.DynamoDB()
+
+const dynamo = new AWS.DynamoDB.DocumentClient({ service: dynamoService })
 
 module.exports.putAsset = function(req) {
 
@@ -12,18 +18,10 @@ module.exports.putAsset = function(req) {
   console.log('Hello from putAsset')
 
   var params = {  
-    TableName: 'datahub-assets',  
-    Item: {
-        id: req.body.asset.id,
-        // other properties go here
-    } 
+    TableName: env.DYNAMO_TABLE,  
+    Item: req.body.asset
   }
 
   // put the asset into the database
   return dynamo.put(params).promise()
-}
-
-module.exports.scanAssets = async function (req) {
-  let response = await dynamo.scan({ TableName: 'datahub-assets' }).promise()
-  return response.Items
 }
