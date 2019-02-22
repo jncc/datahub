@@ -26,6 +26,7 @@ namespace Datahub.Web.Pages
         public string QueryString      { get; private set; }
         public int    CurrentPage      { get; private set; }
         public int    CurrentPageSize  { get; private set; }
+        public string ESQueryJson      { get; private set; }
 
         public List<Keyword> Keywords { get; set; }
 
@@ -42,7 +43,9 @@ namespace Datahub.Web.Pages
 
             Keywords = ParseKeywords(k);
 
-            Results = await _esService.Client().SearchAsync<SearchResult>(s => s
+            var client = _esService.Client();
+
+            Results = await client.SearchAsync<SearchResult>(s => s
                 .Index(ES_INDEX)
                 .From(ElasticsearchService.GetStartFromPage(p, size)) // todo check this
                 .Size(size)
@@ -59,6 +62,7 @@ namespace Datahub.Web.Pages
                     .PostTags("</b>")
                 )
             );
+            //var json = client.RequestResponseSerializer.SerializeToString(request);
         }
 
         private List<Keyword> ParseKeywords(string[] keywords)

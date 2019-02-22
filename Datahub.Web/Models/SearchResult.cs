@@ -37,11 +37,11 @@ namespace Datahub.Web.Models
         [Text(Name = "data_type")]
         public string DataType { get; set; }
 
-        [Nested]
-        [PropertyName("datahub_keywords")]
-        public Keyword[] DatahubKeywords { get; set; }
+        // [Nested]
+        // [PropertyName("datahub_keywords")]
+        // public Keyword[] DatahubKeywords { get; set; }
 
-        [GeoShape(Name = "footprint")]
-        public IGeoShape Footprint { get; set; }
+        // [GeoShape(Name = "footprint")]
+        // public IGeoShape Footprint { get; set; }
     }
 }
