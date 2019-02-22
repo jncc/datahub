@@ -14,6 +14,8 @@ It's important to make sure you're in the correct project directory when you're 
 
 Created in .NET Core v2.1.4. Should work on any platform with .NET Core installed. Created with VS Code, but should be able to use Visual Studio 2017 too.
 
+Environment variables and secrets are configured using the .env pattern. You can make a `.env` file with the appropriate variables. See the `.env.example` file for examples. (And see below for Elasticsearch .)
+
 To restore local packages (equivalent to `npm install`, and VS Code might do this automatically):
 
     dotnet restore
@@ -28,15 +30,15 @@ To add new packages:
 
     dotnet add package Newtonsoft.Json
 
-### Environment variables
-
-Environment variables and secrets are configured using the .env pattern. You can make a `.env` file with the appropriate variables. See the `.env.example` file for examples.
-
 ### Elasticsearch
 
 The Datahub uses Elasticsearch as a backing service.
 
-See the `README.md` in Datahub.Backend to set up a local dev Elasticsearch. You can also connect to the live AWS Elasticsearch Service and use a test index like `test` or `beta`.
+See the `README.md` in Datahub.Backend to set up a local dev Elasticsearch and load it with dummy data.
+
+You can check it's working by browsing to http://locahost:9200/_stats
+
+You can also connect to the live AWS Elasticsearch Service and use a test index like `test` or `beta`.
 
 Configure a local .aws profile (not recommended for deployment inside AWS, use instance profiles instead):
 

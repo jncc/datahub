@@ -23,8 +23,8 @@ Or navigate to the backend folder and run the following;
 
 To setup the search index and dummy data, use the search setup script.
 
-    yarn search:setup create-index --index main --endpoint http://localhost:9200/
-    yarn search:setup insert-dummy-data --index main --endpoint http://localhost:9200/
+    yarn search:setup create-index --index test --endpoint http://localhost:9200/
+    yarn search:setup insert-dummy-data --index test --endpoint http://localhost:9200/
 
 This setup script can also be used (with caution) to set up indexes on the live AWS managed instance. You need to configure an appropriate AWS profile:
 
