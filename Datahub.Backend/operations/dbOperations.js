@@ -25,3 +25,8 @@ module.exports.putAsset = function(req) {
   // put the asset into the database
   return dynamo.put(params).promise()
 }
+
+module.exports.scanAssets = async function (req) {
+  let response = await dynamo.scan({ TableName: 'datahub-assets' }).promise()
+  return response.Items
+}
