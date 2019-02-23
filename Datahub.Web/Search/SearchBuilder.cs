@@ -37,7 +37,7 @@ namespace Datahub.Web.Search
                         .Field(f => f.Content)
                     )
                 )
-                .Query(l => ElasticsearchService.BuildDatahubQuery(input.q, ParseKeywords(input.k), _env.ES_SITE))
+                .Query(l => ElasticsearchService.BuildDatahubQuery(_env.ES_SITE, input.q, ParseKeywords(input.k)))
                 .Highlight(h => h
                     .Fields(f => f.Field(x => x.Content))
                     .PreTags("<b>")

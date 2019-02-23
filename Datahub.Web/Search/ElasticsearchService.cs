@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Nest;
 using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
 using Datahub.Web.Models;
+using Datahub.Web.Pages.Helpers;
 
 namespace Datahub.Web.Search
 {
@@ -80,39 +82,38 @@ namespace Datahub.Web.Search
             return (page - 1) * size;
         }
 
-        public static QueryContainer BuildDatahubQuery(string query = null, List<Keyword> keywords = null, string site = null)
+        public static QueryContainer BuildDatahubQuery(string site, string q, List<Keyword> keywords)
         {
             QueryContainer container = null;
 
-            if (!string.IsNullOrWhiteSpace(site))
-            {
-                // Match on site
-                container &= new MatchQuery()
-                {
-                    Field = "site",
-                    Query = site
-                };
-            }
+            // site
+            container &= new MatchQuery { Field = "site", Query = site };
 
-            if (!string.IsNullOrWhiteSpace(query))
+            // text
+            if (q.IsNotBlank())
             {
                 container &= new CommonTermsQuery()
                 {
                     Field = "content",
-                    Query = query,
+                    Query = q,
                     CutoffFrequency = 0.001,
                     LowFrequencyOperator = Operator.Or
                 };
             }
 
-            if (keywords != null)
+            // keywords
+            if (keywords.Any())
             {
-                // For each keyword add a new query container containing a must match pair
+                // for each keyword add a new query container containing a must match pair
                 foreach (Keyword keyword in keywords)
                 {
-                    container &= new BoolQuery()
+                    container &= new BoolQuery
                     {
-                        Must = new QueryContainer[] { new MatchQuery() { Field = "keywords.vocab", Query = keyword.Vocab }, new MatchQuery() { Field = "keywords.value", Query = keyword.Value } }
+                        Must = new QueryContainer[]
+                        {   
+                            new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
+                            new MatchQuery { Field = "keywords.value", Query = keyword.Value },
+                        }
                     };
                 }
             }

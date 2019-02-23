@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Datahub.Web.Search;
 using Nest;
-using Elasticsearch.Net;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Datahub.Web.Pages
@@ -19,8 +18,8 @@ namespace Datahub.Web.Pages
 
         // view model properties
         public SearchParams SearchParams { get; private set; }
-        public List<Keyword> Keywords { get; set; }
-        public ISearchResponse<SearchResult> Results { get; set; }
+        public List<Keyword> Keywords { get; private set; }
+        public ISearchResponse<SearchResult> Results { get; private set; }
 
         public SearchModel(IEnv env, ISearchBuilder searchBuilder, IElasticsearchService esService)
         {
