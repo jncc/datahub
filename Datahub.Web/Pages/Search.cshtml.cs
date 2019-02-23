@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Datahub.Web.Elasticsearch;
 using Nest;
+using Elasticsearch.Net;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        const string ES_INDEX = "test";
         const string ES_SITE = "datahub";
         
-        const int DefaultSize = 10;
-        const int DefaultStart = 0;
+        const int DefaultPage = 0;
+        const int DefaultPageSize = 10;
 
-        private readonly IHostingEnvironment _env;
-        private readonly IElasticsearchService _esService;
+        readonly IEnv _env;
+        readonly IElasticsearchService _esService;
 
         public ISearchResponse<SearchResult> Results { get; set; }
 
@@ -30,42 +30,52 @@ namespace Datahub.Web.Pages
 
         public List<Keyword> Keywords { get; set; }
 
-        public SearchModel(IHostingEnvironment env, IElasticsearchService elasticsearchService)
+        public SearchModel(IEnv env, IElasticsearchService elasticsearchService)
         {
             _env = env;
             _esService = elasticsearchService;
         }
         
-        public async Task OnGetAsync(string q, string[] k, int p = 1, int size = DefaultSize)
+        public async Task OnGetAsync(SearchParams input)
         {
-            CurrentPageSize = size;
-            CurrentPage = p;
+            System.Console.WriteLine("Hello");
+            System.Console.WriteLine(input.q);
 
-            Keywords = ParseKeywords(k);
+            CurrentPageSize = input.size; //todo rename 'size'
+            CurrentPage = input.p;
+            Keywords = ParseKeywords(input.k);
+
+            var search = BuildQuery(input);
 
             var client = _esService.Client();
 
-            Results = await client.SearchAsync<SearchResult>(s => s
-                .Index(ES_INDEX)
-                .From(ElasticsearchService.GetStartFromPage(p, size)) // todo check this
-                .Size(size)
+            var json = client.RequestResponseSerializer.SerializeToString(search);
+            System.Console.WriteLine(json);
+
+            Results = await client.SearchAsync<SearchResult>(search);
+        }
+
+        SearchDescriptor<SearchResult> BuildQuery(SearchParams input)
+        {
+            return new SearchDescriptor<SearchResult>()
+                .Index(_env.ES_INDEX)
+                .From(ElasticsearchService.GetStartFromPage(input.p, input.size)) // todo check this
+                .Size(input.size)
                 .Source(src => src
                     .IncludeAll()
                     .Excludes(e => e
                         .Field(f => f.Content)
                     )
                 )
-                .Query(l => ElasticsearchService.BuildDatahubQuery(q, ParseKeywords(k), ES_SITE))
+                .Query(l => ElasticsearchService.BuildDatahubQuery(input.q, ParseKeywords(input.k), ES_SITE))
                 .Highlight(h => h
                     .Fields(f => f.Field(x => x.Content))
                     .PreTags("<b>")
                     .PostTags("</b>")
-                )
-            );
-            //var json = client.RequestResponseSerializer.SerializeToString(request);
+                );
         }
 
-        private List<Keyword> ParseKeywords(string[] keywords)
+        List<Keyword> ParseKeywords(string[] keywords)
         {
             return keywords.Select(k =>
             {
@@ -84,7 +94,7 @@ namespace Datahub.Web.Pages
             }).ToList();
         }
 
-        private IEnumerable<Asset> ApplyQuery(IEnumerable<Asset> assets)
+        IEnumerable<Asset> ApplyQuery(IEnumerable<Asset> assets)
         {
             return assets.Where(a => a.Metadata.Keywords.Any(k =>
                 Keywords.Any(kx => kx.Vocab == k.Vocab && kx.Value == k.Value)
