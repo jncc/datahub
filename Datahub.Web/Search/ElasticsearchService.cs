@@ -5,8 +5,13 @@ using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
 using Datahub.Web.Models;
 
-namespace Datahub.Web.Elasticsearch
+namespace Datahub.Web.Search
 {
+    public interface IElasticsearchService
+    {
+        ElasticClient Client();
+    }
+
     public class ElasticsearchService : IElasticsearchService
     {
         private readonly ElasticClient _client;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Nest;
 using Datahub.Web.Models;
-using Datahub.Web.Elasticsearch;
+using Datahub.Web.Search;
 
 namespace Datahub.Web.Pages
 {

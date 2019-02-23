@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using dotenv.net;
+using Datahub.Web.Search;
 
 namespace Datahub.Web
 {
@@ -25,8 +26,14 @@ namespace Datahub.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             // inject env variables
             services.AddSingleton(typeof(IEnv), new Env());
+
+            // register dependencies
+            services.AddTransient<IElasticsearchService, ElasticsearchService>();
+            services.AddTransient<ISearchBuilder, SearchBuilder>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -34,11 +41,6 @@ namespace Datahub.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddSingleton<Elasticsearch.IElasticsearchService>(new Elasticsearch.ElasticsearchService());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

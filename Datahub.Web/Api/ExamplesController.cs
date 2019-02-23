@@ -8,7 +8,7 @@ using Aws4RequestSigner;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Datahub.Web.Models;
-using Datahub.Web.Elasticsearch;
+using Datahub.Web.Search;
 using Nest;
 
 public class ExamplesController : Controller
