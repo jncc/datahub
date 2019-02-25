@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Nest;
 using Datahub.Web.Models;
-using Datahub.Web.Elasticsearch;
+using Datahub.Web.Search;
 
 namespace Datahub.Web.Pages
 {
@@ -36,7 +36,7 @@ namespace Datahub.Web.Pages
                             .Field(f => f.Content)
                         )
                     )
-                    .Query(query => ElasticsearchService.BuildDatahubQuery(q, default(List<Keyword>), Site))
+                    .Query(query => ElasticsearchService.BuildDatahubQuery(Site, q, default(List<Keyword>)))
                     .Highlight(h => h
                         .Fields(f => f.Field(x => x.Content))
                         .PreTags("<b>")
