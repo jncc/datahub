@@ -17,8 +17,7 @@ namespace Datahub.Web.Search
     public class ElasticsearchService : IElasticsearchService
     {
         readonly IEnv env;
-        
-        ElasticClient client;
+        readonly ElasticClient client;
 
         // the datahub only ever searches over the "datahub" site
         static readonly string ES_SITE = "datahub";
@@ -29,11 +28,10 @@ namespace Datahub.Web.Search
         public ElasticsearchService(IEnv env)
         {
             this.env = env;
-
-            InitialiseClient();
+            this.client = InitialiseClient();
         }
 
-        void InitialiseClient()
+        ElasticClient InitialiseClient()
         {
             // build the endpoint URL from its components to workaround apparent issue
             // with putting full URLs in AWS environment variables
@@ -44,13 +42,13 @@ namespace Datahub.Web.Search
                 Port = Convert.ToInt32(env.ES_ENDPOINT_PORT),
             };
 
-            var endpointUri = new Uri(b.ToString());
-            var pool = new SingleNodeConnectionPool(endpointUri);        
+            var endpoint = new Uri(b.ToString());
+            var pool = new SingleNodeConnectionPool(endpoint);        
 
-            if (endpointUri.IsLoopback)
+            if (endpoint.IsLoopback)
             {
                 // support localhost for local development
-                client = new ElasticClient(new ConnectionSettings(pool));
+                return new ElasticClient(new ConnectionSettings(pool));
             }
             else if (env.ES_AWS_ACCESSKEY.IsNotBlank() && env.ES_AWS_SECRETACCESSKEY.IsNotBlank())
             {
@@ -62,7 +60,7 @@ namespace Datahub.Web.Search
                             SecretKey = env.ES_AWS_SECRETACCESSKEY,
                         }));
 
-                client = new ElasticClient(new ConnectionSettings(pool, connection));
+                return new ElasticClient(new ConnectionSettings(pool, connection));
             }
             else if (env.ES_AWS_PROFILE.IsNotBlank())
             {
@@ -72,8 +70,7 @@ namespace Datahub.Web.Search
             {
                 // attempt to use AWS instance profile (for production)
                 var connection = new AwsHttpConnection(env.ES_AWS_REGION, new InstanceProfileCredentialProvider());
-                
-                client = new ElasticClient(new ConnectionSettings(pool, connection));
+                return new ElasticClient(new ConnectionSettings(pool, connection));
             }
         }
 
@@ -81,6 +78,8 @@ namespace Datahub.Web.Search
         {
             return client;
         }
+
+        // todo move to QueryBuilder
 
         public static int GetStartFromPage(int page, int size)
         {
