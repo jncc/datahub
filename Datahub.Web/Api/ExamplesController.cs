@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 using Aws4RequestSigner;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Datahub.Web;
 using Datahub.Web.Models;
 using Datahub.Web.Search;
 using Nest;
 
 public class ExamplesController : Controller
 {
+    readonly IEnv env;
+
+    public ExamplesController(IEnv env)
+    {
+        this.env = env;
+    }
+
     [HttpGet("/api/examples/esget")]
     public async Task<IActionResult> ESGet(string q = null, List<Keyword> k = null, string site = "datahub", int start = 0, int size = 10)
     {
@@ -25,8 +33,8 @@ public class ExamplesController : Controller
 
     async Task<HttpRequestMessage> GetSignedRequest(HttpRequestMessage request)
     {
-        var signer = new AWS4RequestSigner(Env.Var.ESAwsAccessKey, Env.Var.ESAwsSecretAccessKey);
-        return await signer.Sign(request, "es", Env.Var.ESAwsRegion);
+        var signer = new AWS4RequestSigner(env.ES_AWS_ACCESSKEY, env.ES_AWS_SECRETACCESSKEY);
+        return await signer.Sign(request, "es", env.ES_AWS_REGION);
     }
 
 
@@ -68,53 +76,13 @@ public class ExamplesController : Controller
         // the reason for building the endpoint URL from host, scheme and port here is obscure
         // and apparently helps to solve a problem when reading environment variables on elastic beanstalk
         // (there's no need to make it this complicated outside elasticbeanstalk!)
-        var uri = new UriBuilder() { Host = Env.Var.ESEndpointHost };
-        if (!string.IsNullOrEmpty(Env.Var.ESEndpointScheme)) 
-            uri.Scheme = Env.Var.ESEndpointScheme;
-        if (!string.IsNullOrEmpty(Env.Var.ESEndpointPort))
-            uri.Port = int.Parse(Env.Var.ESEndpointPort);
+        var uri = new UriBuilder
+        {
+            Host = env.ES_ENDPOINT_HOST,
+            Scheme = env.ES_ENDPOINT_SCHEME,
+            Port = Convert.ToInt32(env.ES_ENDPOINT_PORT),
+        };
 
         return uri.ToString();
-    }
-}
-
-/// <summary>
-/// Provides environment variables.
-/// </summary>
-public class Env
-{    
-    static Env() { } // singleton to avoid reading a variable more than once
-    private static readonly Env env = new Env();
-
-    public string ESAwsRegion          { get; private set; }
-    public string ESAwsAccessKey       { get; private set; }
-    public string ESAwsSecretAccessKey { get; private set; }
-    public string ESEndpointHost       { get; private set; }
-    public string ESEndpointScheme     { get; private set; }
-    public string ESEndpointPort       { get; private set; }
-    
-    private Env()
-    {
-        ESAwsRegion = GetVariable("ES_AWS_REGION");
-        ESAwsAccessKey = GetVariable("ES_AWS_ACCESSKEY");
-        ESAwsSecretAccessKey = GetVariable("ES_AWS_SECRETACCESSKEY");
-        ESEndpointHost = GetVariable("ES_ENDPOINT_HOST");
-        ESEndpointScheme = GetVariable("ES_ENDPOINT_SCHEME");
-        ESEndpointPort = GetVariable("ES_ENDPOINT_PORT", true);
-    }
-
-    string GetVariable(string variable, bool optional = false)
-    {
-        if (optional)
-        {
-            return null;
-        }
-        return Environment.GetEnvironmentVariable(variable)
-            ?? throw new Exception($"The environment variable {variable} couldn't be read. You may need to define it in your .env file.");
-    }
-
-    public static Env Var
-    {
-        get { return env; }
     }
 }
