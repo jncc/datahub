@@ -12,7 +12,6 @@ namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        readonly IEnv env;
         readonly ISearchBuilder searchBuilder;
         readonly IElasticsearchService esService;
 
@@ -21,9 +20,8 @@ namespace Datahub.Web.Pages
         public List<Keyword> Keywords { get; private set; }
         public ISearchResponse<SearchResult> Results { get; private set; }
 
-        public SearchModel(IEnv env, ISearchBuilder searchBuilder, IElasticsearchService esService)
+        public SearchModel(ISearchBuilder searchBuilder, IElasticsearchService esService)
         {
-            this.env = env;
             this.searchBuilder = searchBuilder;
             this.esService = esService;
         }

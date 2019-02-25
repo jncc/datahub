@@ -15,13 +15,11 @@ using Datahub.Web;
 
 public class QueryController : Controller
 {
-    readonly IEnv env;
     readonly ISearchBuilder searchBuilder;
     readonly IElasticsearchService esService;
     
-    public QueryController(IEnv env, ISearchBuilder searchBuilder, IElasticsearchService esService)
+    public QueryController(ISearchBuilder searchBuilder, IElasticsearchService esService)
     {
-        this.env = env;
         this.searchBuilder = searchBuilder;
         this.esService = esService;
     }
@@ -33,7 +31,7 @@ public class QueryController : Controller
         var client = esService.Client();
 
         var keywords = searchBuilder.ParseKeywords(input.k);
-        var query = ElasticsearchService.BuildDatahubQuery(env.ES_SITE, input.q, keywords);
+        var query = ElasticsearchService.BuildDatahubQuery(input.q, keywords);
 
         // perhaps use SerializationFormatting.None?
         string json = client.RequestResponseSerializer.SerializeToString(query);

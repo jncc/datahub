@@ -13,7 +13,6 @@ namespace Datahub.Web.Pages
         private readonly ElasticClient _client;
 
         private const string Index = "main";
-        private const string Site = "datahub";
         private const int Start = 0;
         private const int Size = 10;
 
@@ -36,7 +35,7 @@ namespace Datahub.Web.Pages
                             .Field(f => f.Content)
                         )
                     )
-                    .Query(query => ElasticsearchService.BuildDatahubQuery(Site, q, default(List<Keyword>)))
+                    .Query(query => ElasticsearchService.BuildDatahubQuery(q, default(List<Keyword>)))
                     .Highlight(h => h
                         .Fields(f => f.Field(x => x.Content))
                         .PreTags("<b>")

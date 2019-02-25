@@ -16,7 +16,10 @@ namespace Datahub.Web.Search
 
     public class ElasticsearchService : IElasticsearchService
     {
-        private readonly ElasticClient _client;
+        readonly ElasticClient _client;
+
+        // the datahub only ever searches over the "datahub" site
+        static readonly string ES_SITE = "datahub";
 
         /// <summary>
         /// Initialises a new ElasticClient instance with support for localhost and AWS endpoints.
@@ -82,12 +85,12 @@ namespace Datahub.Web.Search
             return (page - 1) * size;
         }
 
-        public static QueryContainer BuildDatahubQuery(string site, string q, List<Keyword> keywords)
+        public static QueryContainer BuildDatahubQuery(string q, List<Keyword> keywords)
         {
             QueryContainer container = null;
 
             // site
-            container &= new MatchQuery { Field = "site", Query = site };
+            container &= new MatchQuery { Field = "site", Query = ES_SITE };
 
             // text
             if (q.IsNotBlank())
