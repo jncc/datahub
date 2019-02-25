@@ -32,9 +32,9 @@ namespace Datahub.Web
             this.ES_ENDPOINT_SCHEME = GetVariable("ES_ENDPOINT_SCHEME");
             this.ES_ENDPOINT_HOST = GetVariable("ES_ENDPOINT_HOST");
             this.ES_ENDPOINT_PORT = GetVariable("ES_ENDPOINT_PORT");
-            this.ES_AWS_ACCESSKEY = GetVariable("ES_AWS_ACCESSKEY");
-            this.ES_AWS_SECRETACCESSKEY = GetVariable("ES_AWS_SECRETACCESSKEY");
-            this.ES_AWS_REGION = GetVariable("ES_AWS_REGION");
+            this.ES_AWS_ACCESSKEY = GetVariable("ES_AWS_ACCESSKEY", false);
+            this.ES_AWS_SECRETACCESSKEY = GetVariable("ES_AWS_SECRETACCESSKEY", false);
+            this.ES_AWS_REGION = GetVariable("ES_AWS_REGION", false);
             this.ES_AWS_PROFILE = GetVariable("ES_AWS_PROFILE", false);
         }
 
