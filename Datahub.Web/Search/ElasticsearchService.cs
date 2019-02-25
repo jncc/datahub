@@ -16,69 +16,70 @@ namespace Datahub.Web.Search
 
     public class ElasticsearchService : IElasticsearchService
     {
-        readonly ElasticClient _client;
+        readonly IEnv env;
+        readonly ElasticClient client;
 
         // the datahub only ever searches over the "datahub" site
         static readonly string ES_SITE = "datahub";
 
         /// <summary>
-        /// Initialises a new ElasticClient instance with support for localhost and AWS endpoints.
+        /// Initialises a new NEST ElasticClient instance with support for localhost and AWS endpoints.
         /// </summary>
-        public ElasticsearchService()
+        public ElasticsearchService(IEnv env)
         {
-            var builder = new UriBuilder();
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ES_ENDPOINT_SCHEME"))) 
+            this.env = env;
+            this.client = InitialiseClient();
+        }
+
+        ElasticClient InitialiseClient()
+        {
+            // build the endpoint URL from its components to workaround apparent issue
+            // with putting full URLs in AWS environment variables
+            var b = new UriBuilder
             {
-                builder.Scheme = Environment.GetEnvironmentVariable("ES_ENDPOINT_SCHEME");
-            }
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ES_ENDPOINT_PORT")))
-            {
-                builder.Port = int.Parse(Environment.GetEnvironmentVariable("ES_ENDPOINT_PORT"));
-            }
-            builder.Host = Environment.GetEnvironmentVariable("ES_ENDPOINT_HOST");
+                Scheme = env.ES_ENDPOINT_SCHEME,
+                Host = env.ES_ENDPOINT_HOST,
+                Port = Convert.ToInt32(env.ES_ENDPOINT_PORT),
+            };
 
-            var endpointUri = new Uri(builder.ToString());
-            var pool = new SingleNodeConnectionPool(endpointUri);
+            var endpoint = new Uri(b.ToString());
+            var pool = new SingleNodeConnectionPool(endpoint);        
 
-            string awsAccessKey = Environment.GetEnvironmentVariable("ES_AWS_ACCESSKEY");
-            string awsSecretAccessKey = Environment.GetEnvironmentVariable("ES_AWS_SECRETACCESSKEY");
-            string awsRegion = Environment.GetEnvironmentVariable("ES_AWS_REGION");
-            string awsProfile = Environment.GetEnvironmentVariable("ES_AWS_PROFILE");            
-
-            if (endpointUri.IsLoopback)
+            if (endpoint.IsLoopback)
             {
                 // support localhost for local development
-                _client = new ElasticClient(new ConnectionSettings(pool));
+                return new ElasticClient(new ConnectionSettings(pool));
             }
-            else if (!string.IsNullOrWhiteSpace(awsAccessKey) && !string.IsNullOrWhiteSpace(awsSecretAccessKey))
+            else if (env.ES_AWS_ACCESSKEY.IsNotBlank() && env.ES_AWS_SECRETACCESSKEY.IsNotBlank())
             {
-                // use AWS access keys to configure
-                var httpConnection = new AwsHttpConnection(awsRegion, new StaticCredentialsProvider(new AwsCredentials
-                {
-                    AccessKey = awsAccessKey,
-                    SecretKey = awsSecretAccessKey
-                }));
-                _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
+                var connection = new AwsHttpConnection(env.ES_AWS_REGION,
+                    new StaticCredentialsProvider(
+                        new AwsCredentials
+                        {
+                            AccessKey = env.ES_AWS_ACCESSKEY,
+                            SecretKey = env.ES_AWS_SECRETACCESSKEY,
+                        }));
+
+                return new ElasticClient(new ConnectionSettings(pool, connection));
             }
-            else if (!string.IsNullOrWhiteSpace(awsProfile))
+            else if (env.ES_AWS_PROFILE.IsNotBlank())
             {
-                // use AWS profile
                 throw new NotImplementedException("AWS profile support is not working yet. Specify access keys instead.");
-                // var httpConnection = new AwsHttpConnection(awsRegion, new NamedProfileCredentialProvider(awsProfile));
-                // _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
             }
             else
             {
                 // attempt to use AWS instance profile (for production)
-                var httpConnection = new AwsHttpConnection(awsRegion, new InstanceProfileCredentialProvider());
-                _client = new ElasticClient(new ConnectionSettings(pool, httpConnection));
+                var connection = new AwsHttpConnection(env.ES_AWS_REGION, new InstanceProfileCredentialProvider());
+                return new ElasticClient(new ConnectionSettings(pool, connection));
             }
         }
 
         public ElasticClient Client()
         {
-            return _client;
+            return client;
         }
+
+        // todo move to QueryBuilder
 
         public static int GetStartFromPage(int page, int size)
         {
