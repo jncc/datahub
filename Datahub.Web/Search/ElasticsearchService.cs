@@ -4,6 +4,7 @@ using System.Linq;
 using Nest;
 using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
+using Datahub.Web.Config;
 using Datahub.Web.Models;
 using Datahub.Web.Pages.Helpers;
 
@@ -17,30 +18,33 @@ namespace Datahub.Web.Search
     public class ElasticsearchService : IElasticsearchService
     {
         private readonly ElasticClient _client;
+        private readonly IEnv _env;
 
         /// <summary>
         /// Initialises a new ElasticClient instance with support for localhost and AWS endpoints.
         /// </summary>
-        public ElasticsearchService()
+        public ElasticsearchService(IEnv env)
         {
+            this._env = env;
+
             var builder = new UriBuilder();
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ES_ENDPOINT_SCHEME"))) 
+            if (!string.IsNullOrEmpty(this._env.ES_ENDPOINT_SCHEME))
             {
-                builder.Scheme = Environment.GetEnvironmentVariable("ES_ENDPOINT_SCHEME");
+                builder.Scheme = this._env.ES_ENDPOINT_SCHEME;
             }
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ES_ENDPOINT_PORT")))
+            if (!string.IsNullOrEmpty(this._env.ES_ENDPOINT_PORT))
             {
-                builder.Port = int.Parse(Environment.GetEnvironmentVariable("ES_ENDPOINT_PORT"));
+                builder.Port = int.Parse(this._env.ES_ENDPOINT_PORT);
             }
-            builder.Host = Environment.GetEnvironmentVariable("ES_ENDPOINT_HOST");
+            builder.Host = this._env.ES_ENDPOINT_HOST;
 
             var endpointUri = new Uri(builder.ToString());
             var pool = new SingleNodeConnectionPool(endpointUri);
 
-            string awsAccessKey = Environment.GetEnvironmentVariable("ES_AWS_ACCESSKEY");
-            string awsSecretAccessKey = Environment.GetEnvironmentVariable("ES_AWS_SECRETACCESSKEY");
-            string awsRegion = Environment.GetEnvironmentVariable("ES_AWS_REGION");
-            string awsProfile = Environment.GetEnvironmentVariable("ES_AWS_PROFILE");            
+            string awsAccessKey = this._env.ES_AWS_ACCESSKEY;
+            string awsSecretAccessKey = this._env.ES_AWS_SECRETACCESSKEY;
+            string awsRegion = this._env.ES_AWS_REGION;
+            string awsProfile = this._env.ES_AWS_PROFILE;
 
             if (endpointUri.IsLoopback)
             {
@@ -110,7 +114,7 @@ namespace Datahub.Web.Search
                     container &= new BoolQuery
                     {
                         Must = new QueryContainer[]
-                        {   
+                        {
                             new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
                             new MatchQuery { Field = "keywords.value", Query = keyword.Value },
                         }

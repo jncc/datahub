@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Datahub.Web.Search;
 using Datahub.Web.Models;
+using Datahub.Web.Config;
 using Nest;
 
 namespace Datahub.Web.Search
@@ -16,8 +17,8 @@ namespace Datahub.Web.Search
 
     public class SearchBuilder : ISearchBuilder
     {
-        readonly IEnv _env;
-        readonly IElasticsearchService _esService;
+        private readonly IEnv _env;
+        private readonly IElasticsearchService _esService;
 
         public SearchBuilder(IEnv env, IElasticsearchService esService)
         {

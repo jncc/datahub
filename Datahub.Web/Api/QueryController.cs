@@ -10,30 +10,31 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Datahub.Web.Models;
 using Datahub.Web.Search;
+using Datahub.Web.Config;
 using Nest;
 using Datahub.Web;
 
 public class QueryController : Controller
 {
-    readonly IEnv env;
-    readonly ISearchBuilder searchBuilder;
-    readonly IElasticsearchService esService;
+    private readonly IEnv _env;
+    private readonly ISearchBuilder _searchBuilder;
+    private readonly IElasticsearchService _esService;
     
     public QueryController(IEnv env, ISearchBuilder searchBuilder, IElasticsearchService esService)
     {
-        this.env = env;
-        this.searchBuilder = searchBuilder;
-        this.esService = esService;
+        this._env = env;
+        this._searchBuilder = searchBuilder;
+        this._esService = esService;
     }
 
     [HttpGet("/query")]
     public IActionResult Query(SearchParams input)
     {
         // var search = searchBuilder.BuildQuery(input);
-        var client = esService.Client();
+        var client = _esService.Client();
 
-        var keywords = searchBuilder.ParseKeywords(input.k);
-        var query = ElasticsearchService.BuildDatahubQuery(env.ES_SITE, input.q, keywords);
+        var keywords = _searchBuilder.ParseKeywords(input.k);
+        var query = ElasticsearchService.BuildDatahubQuery(_env.ES_SITE, input.q, keywords);
 
         // perhaps use SerializationFormatting.None?
         string json = client.RequestResponseSerializer.SerializeToString(query);

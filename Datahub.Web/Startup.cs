@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using dotenv.net;
 using Datahub.Web.Search;
+using Datahub.Web.Config;
 
 namespace Datahub.Web
 {
@@ -30,6 +31,7 @@ namespace Datahub.Web
 
             // inject env variables
             services.AddSingleton(typeof(IEnv), new Env());
+            services.AddSingleton(typeof(IPublicEnv), new PublicEnv());
 
             // register dependencies
             services.AddTransient<IElasticsearchService, ElasticsearchService>();

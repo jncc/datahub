@@ -5,6 +5,7 @@ using Datahub.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Datahub.Web.Search;
+using Datahub.Web.Config;
 using Nest;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +13,9 @@ namespace Datahub.Web.Pages
 {
     public class SearchModel : PageModel
     {
-        readonly IEnv env;
-        readonly ISearchBuilder searchBuilder;
-        readonly IElasticsearchService esService;
+        private readonly IEnv _env;
+        private readonly ISearchBuilder _searchBuilder;
+        private readonly IElasticsearchService _esService;
 
         // view model properties
         public SearchParams SearchParams { get; private set; }
@@ -23,18 +24,18 @@ namespace Datahub.Web.Pages
 
         public SearchModel(IEnv env, ISearchBuilder searchBuilder, IElasticsearchService esService)
         {
-            this.env = env;
-            this.searchBuilder = searchBuilder;
-            this.esService = esService;
+            this._env = env;
+            this._searchBuilder = searchBuilder;
+            this._esService = esService;
         }
         
         public async Task OnGetAsync(SearchParams input)
         {
             SearchParams = input;
-            Keywords = searchBuilder.ParseKeywords(input.k);
+            Keywords = _searchBuilder.ParseKeywords(input.k);
 
-            var search = searchBuilder.BuildQuery(input);
-            var client = esService.Client();
+            var search = _searchBuilder.BuildQuery(input);
+            var client = _esService.Client();
             Results = await client.SearchAsync<SearchResult>(search);
         }
     }
