@@ -33,7 +33,7 @@ namespace Datahub.Web
             services.AddSingleton(typeof(IEnv), new Env());
 
             // register dependencies
-            services.AddTransient<IRazorEnvModel, RazorEnvModel>();
+            services.AddTransient<ILayoutViewModel, LayoutViewModel>();
             services.AddTransient<IElasticsearchService, ElasticsearchService>();
             services.AddTransient<ISearchBuilder, SearchBuilder>();
 

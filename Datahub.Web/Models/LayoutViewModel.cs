@@ -1,14 +1,14 @@
 namespace Datahub.Web.Models {
-    public interface IRazorEnvModel
+    public interface ILayoutViewModel
     {
         string GTM_ID { get; }
     }
 
-    public class RazorEnvModel : IRazorEnvModel
+    public class LayoutViewModel : ILayoutViewModel
     {
         public string GTM_ID { get; private set; }
 
-        public RazorEnvModel(IEnv env)
+        public LayoutViewModel(IEnv env)
         {
             this.GTM_ID = env.GTM_ID;
         }
