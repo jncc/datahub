@@ -14,12 +14,10 @@ namespace Datahub.Web
     {
         public Startup(IConfiguration configuration)
         {
-            if (System.IO.File.Exists(".env"))
-            { 
-                DotEnv.Config();
-            }
-
             Configuration = configuration;
+
+            // initialise env vars for local development
+            DotEnv.Config(false); // (do not throw if .env file doen't exist)
         }
 
         public IConfiguration Configuration { get; }

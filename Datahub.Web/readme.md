@@ -81,7 +81,7 @@ Run the command that you're given. Then run:
 
 All but one layer should already exist and you should see the new layer being uploaded.
 
-Make a `Dockerrun.aws.json` file (see `Dockerrun.aws.json.example` and paste in with the real `aws-ecr-repository-uri`). This will be`.gitignore`d.
+Make a `Dockerrun.aws.json` file (see `Dockerrun.aws.json.example` and paste in the image URL `aws-ecr-image-uri`) of the latest image uploaded to ECR. This file will be`.gitignore`d.
 
 In **AWS Elastic Beanstalk**, click Upload and Deploy > Choose file and upload the `Dockerrun.aws.json` file.
 
