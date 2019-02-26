@@ -246,7 +246,10 @@
                         if (@d.Http != null) {
                             <li class="pb-2">
                                 <span>
-                                    <a href="@d.Http.Url" target="_blank">@d.Title</a>
+                                    <a href=@(d.Http.Url) 
+                                        data-event=@(d.Http.FileExtension.IsNotBlank() ? "download" : "external") 
+                                        data-size=@(d.Http.FileBytes.IsNotBlank() ? d.Http.FileBytes : "0") 
+                                        target="_blank">@d.Title</a>
                                     @if (d.Http.FileExtension.IsNotBlank()) {
                                         <span class="badge badge-light">@d.Http.FileExtension.ToUpper()</span>
                                     } else {

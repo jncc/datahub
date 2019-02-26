@@ -13,6 +13,7 @@ namespace Datahub.Web
         string ES_AWS_SECRETACCESSKEY { get; }
         string ES_AWS_REGION { get; }
         string ES_AWS_PROFILE { get; }
+        string GTM_ID { get; }
     }
 
     public class Env : IEnv
@@ -25,6 +26,7 @@ namespace Datahub.Web
         public string ES_AWS_SECRETACCESSKEY { get; private set; }
         public string ES_AWS_REGION { get; private set; }
         public string ES_AWS_PROFILE { get; private set; }
+        public string GTM_ID { get; private set; }
 
         public Env()
         {
@@ -36,12 +38,13 @@ namespace Datahub.Web
             this.ES_AWS_SECRETACCESSKEY = GetVariable("ES_AWS_SECRETACCESSKEY", false);
             this.ES_AWS_REGION = GetVariable("ES_AWS_REGION", false);
             this.ES_AWS_PROFILE = GetVariable("ES_AWS_PROFILE", false);
+            this.GTM_ID = GetVariable("GTM_ID", false, "");
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
         {
             string value = Environment.GetEnvironmentVariable(name) ?? defaultValue;
-            
+
             if (required && value == null)
                 throw new Exception($"Environment variable ${name} is required but not set.");
 
