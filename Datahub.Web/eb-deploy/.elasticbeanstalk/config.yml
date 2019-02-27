@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: datahub-live
+    environment: environment-name
 environment-defaults:
   datahub-live:
     branch: null
