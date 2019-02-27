@@ -92,3 +92,6 @@ Done! (Phew.)
 ## Notes
 
 The green I used for the favicon is rgba(77, 219, 58, 1)
+
+## CI Deployment
+The eb-deploy/.elasticbeanstalk/config.yml file contains the basic config required to deploy to elastic beanstalk. This is used by the CI system
