@@ -9,6 +9,7 @@ namespace example_uploader
         public string AWS_REGION { get; private set; }
         public string AWS_ACCESSKEY { get; private set; }
         public string AWS_SECRETACCESSKEY { get; private set; }
+        public string HUB_API_ENDPOINT { get; private set; }
 
         public Env()
         {
@@ -17,6 +18,7 @@ namespace example_uploader
             this.AWS_REGION = GetVariable("AWS_REGION");
             this.AWS_ACCESSKEY = GetVariable("AWS_ACCESSKEY");
             this.AWS_SECRETACCESSKEY = GetVariable("AWS_SECRETACCESSKEY");
+            this.HUB_API_ENDPOINT = GetVariable("HUB_API_ENDPOINT");
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
