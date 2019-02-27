@@ -1,6 +1,6 @@
 
 # this dockerfile builds the Datahub.Web project
-# in the future it might 
+
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /app
 
