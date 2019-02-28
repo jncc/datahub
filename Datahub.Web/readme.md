@@ -81,7 +81,9 @@ Run the command that you're given. Then run:
 
 All but one layer should already exist and you should see the new layer being uploaded.
 
-Make a `Dockerrun.aws.json` file (see `Dockerrun.aws.json.example` and paste in the image URL `aws-ecr-image-uri`) of the latest image uploaded to ECR. This file will be`.gitignore`d.
+### AWS Console deployment to Elastic beanstalk
+
+Make a `Dockerrun.aws.json` file (see `Dockerrun.aws.json.template` and paste in the image URL `aws-ecr-image-uri`) of the latest image uploaded to ECR. This file will be`.gitignore`d.
 
 In **AWS Elastic Beanstalk**, click Upload and Deploy > Choose file and upload the `Dockerrun.aws.json` file.
 
@@ -89,9 +91,28 @@ Provide an incremented version string (this appears to be required).
 
 Done! (Phew.)
 
+### Command line deployment to Elastic beanstalk
+
+Install the elastic beanstalk cli if not already done so
+
+    pip install awsebcli --upgrade --user
+
+This will be installed in ~/.local/bin on liunx - you probably want to add this to your PATH statement.
+
+Make a `Dockerrun.aws.json` file (see `Dockerrun.aws.json.template` and paste in the image URL `aws-ecr-image-uri`) of the latest image uploaded to ECR. This file will be`.gitignore`d.
+
+Copy this file into {solution root}/Datahub.Web/eb-deploy
+
+Edit {solution root}/Datahub.Web/eb-deploy/.elasticbeanstalk/config.yaml
+
+Change branch-default/default/environment to the name of the datahub environment you want to deploy to
+
+    cd {solution root}/Datahub.Web/eb-deploy
+
+    eb deploy
+
 ## Notes
 
 The green I used for the favicon is rgba(77, 219, 58, 1)
 
-## CI Deployment
-The eb-deploy/.elasticbeanstalk/config.yml file contains the basic config required to deploy to elastic beanstalk. This is used by the CI system
+
