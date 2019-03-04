@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,14 +22,20 @@ namespace example_uploader
         {
             Console.WriteLine($"Using AWS Access Key {env.AWS_ACCESSKEY}");
 
-            var doc = new { id = "1000000" };
+            var uri = new Uri(new Uri(env.HUB_API_ENDPOINT), "latest/assets");
+            Console.WriteLine(uri);
+
+            // var doc = new { id = "1000000" };
+            // JsonConvert.SerializeObject(doc),
+
+            string json = File.ReadAllText("../Datahub.Web/Data/manual/common-standards-monitoring/csm_coastal.json");
 
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Put,
-                RequestUri = new Uri(new Uri(env.HUB_API_ENDPOINT), "assets"),
+                RequestUri = uri,
                 Content = new StringContent(
-                    JsonConvert.SerializeObject(doc),
+                    json,
                     Encoding.UTF8,
                     "application/json"
                 )
@@ -46,7 +53,13 @@ namespace example_uploader
         async Task<HttpRequestMessage> GetSignedRequest(HttpRequestMessage request)
         {
             var signer = new AWS4RequestSigner(env.AWS_ACCESSKEY, env.AWS_SECRETACCESSKEY);
-            return await signer.Sign(request, "es", env.AWS_REGION);
-        }        
+            return await signer.Sign(request, "execute-api", env.AWS_REGION);
+        }
+
+        async Task GetDummyAssets()
+        {
+            // let files = await glob('../../../Datahub.Web/Data/**/*.json')
+            // var files = Directory.GetFiles("../Datahub.Web/Data", "*.json", SearchOption.AllDirectories);
+        }
     }
 }
