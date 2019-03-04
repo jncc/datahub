@@ -10,13 +10,11 @@ module.exports.putAsset = function(req) {
 
   // log something to cloudwatch
   console.log('Hello from putAsset')
+  console.log(`PUTting asset ${req.body.asset.id}`)
 
   var params = {  
-    TableName: 'datahub-assets',  
-    Item: {
-        id: req.body.asset.id,
-        // other properties go here
-    } 
+    TableName: 'datahub-live-assets',  
+    Item: req.body.asset
   }
 
   // put the asset into the database
