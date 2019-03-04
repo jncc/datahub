@@ -57,21 +57,3 @@ The other APIs are secured with AWS IAM. You might use Postman to test these API
     POST https://bz79yqmu63.execute-api.eu-west-1.amazonaws.com/latest/assets
 
 Pass the asset in the request body.
-
-## Shared Elastic Search service
-
-There is a priliminary API endpoint to upsert entries into the shared Search service.
-
-    PUT https://sbu241ug78.execute-api.eu-west-1.amazonaws.com/latest/search
-
-    {
-        "id": "edff0279-375b-48f5-871a-51e1a5b815ad",
-        "site": "website",
-        "title": "This is an example",
-        "content": "This is some example content that should be indexed.",
-        "keywords": [
-            { "vocab": "http://vocab.jncc.gov.uk/web-vocab", "value": "Example" }
-        ],
-        "published_date": "2018-12-13",
-        "url": "http://example.com/examples/7b1d5345-d14c-4958-a5d3-e4d8f8ba0910"
-    }
