@@ -114,7 +114,7 @@ namespace example_uploader
 
             var request = new HttpRequestMessage
             {
-                Method = HttpMethod.Put,
+                Method = HttpMethod.Post,
                 RequestUri = dbUrl,
                 Content = new StringContent(
                     json,

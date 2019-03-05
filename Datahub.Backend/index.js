@@ -9,7 +9,8 @@ const api = new ClaudiaApiBuilder()
 api.get('/hello', () => 'Hello!')
 
 // Endpoint for inserting a Datahub asset.
-api.put('/assets', db.putAsset, { authorizationType: 'AWS_IAM' })
+api.post('/assets', db.putAsset, { authorizationType: 'AWS_IAM' })
 api.get('/assets', db.scanAssets, { authorizationType: 'AWS_IAM' })
+api.delete('/assets', db.deleteAsset, { authorizationType: 'AWS_IAM' })
 
 module.exports = api

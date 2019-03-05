@@ -21,6 +21,21 @@ module.exports.putAsset = function(req) {
   return dynamo.put(params).promise()
 }
 
+module.exports.deleteAsset = function(req) {
+
+  // log something to cloudwatch
+  console.log('Hello from deleteAsset')
+  console.log(`DELETEing asset ${req.body.id}`)
+
+  var params = {  
+    TableName: 'datahub-live-assets',  
+    Key: { id: req.body.id }
+  }
+
+  // put the asset into the database
+  return dynamo.delete(params).promise()
+}
+
 module.exports.scanAssets = async function (req) {
   let response = await dynamo.scan({ TableName: 'datahub-live-assets' }).promise()
   return response.Items
