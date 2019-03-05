@@ -33,7 +33,11 @@ namespace example_uploader
                 id = "1122d9be-6f1b-42f2-bdf7-1e26b33779a2",
                 name = "prediction-of-outcrops-or-subcrops-of-rock-in-uk-shelf-seabed-public",
                 digitalObjectIdentifier = "10.25603/840424.1.0.0",
-                imageUrl = "/images/example-cover-image.png",
+                image = new {
+                    url = "/images/example-cover-image.png",
+                    width = "100",
+                    height = "100",
+                },
                 metadata = new {
                     title = "Prediction of outcrops or subcrops of rock in UK shelf seabed (public)",
                     lineage = "No limitations",

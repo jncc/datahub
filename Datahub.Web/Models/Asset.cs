@@ -10,11 +10,11 @@ namespace Datahub.Web.Models
 
         public Metadata Metadata { get; set; }
 
+        public Image Image { get; set; }        
+        public List<Data> Data { get; set; }
+
         public string DigitalObjectIdentifier { get; set; }
         public string Citation { get; set; }
-        public string ImageUrl { get; set; }
-        
-        public List<Data> Data { get; set; }
     }
 
     // see https://github.com/jncc/topcat/blob/master/Catalogue.Gemini/Model/Metadata.cs
@@ -81,5 +81,19 @@ namespace Datahub.Web.Models
         public string Url { get; set; }
         public string FileExtension { get; set; }
         public string FileBytes { get; set; }
+    }
+
+    public class Image
+    {
+        public string Url { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public ImageCrops Crops { get; set; }
+    }
+
+    public class ImageCrops
+    {
+        public string SquareUrl { get; set; }
+        public string ThumbnailUrl { get; set; }
     }
 }
