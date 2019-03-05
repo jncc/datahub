@@ -46,7 +46,7 @@ namespace Datahub.Web
             string value = Environment.GetEnvironmentVariable(name) ?? defaultValue;
 
             if (required && value == null)
-                throw new Exception($"Environment variable ${name} is required but not set.");
+                throw new Exception($"Environment variable {name} is required but not set.");
 
             return value;
         }

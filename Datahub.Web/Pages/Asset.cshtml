@@ -47,13 +47,14 @@
     </div>
 
     @{
+        // support adding "img" to the querystring just to see what any page could look like with an image
         if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty) {
-            Model.Asset.ImageUrl = "/images/example-cover-image.png"; // use dummy image
+            Model.Asset.Image.Url = "/images/example-cover-image.png"; // use dummy image
         }
     }
-    @if (Model.Asset.ImageUrl.IsNotBlank()) {
+    @if (Model.Asset.Image != null && Model.Asset.Image.Url.IsNotBlank()) {
     <div class="col-lg-auto order-lg-first" >
-        <img src="@Model.Asset.ImageUrl"  height="400" class="asset-image" />
+        <img src="@(Model.Asset.Image.Url)"  height="400" class="asset-image" />
     </div>
     }
 
