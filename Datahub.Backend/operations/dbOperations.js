@@ -10,11 +10,11 @@ module.exports.putAsset = function(req) {
 
   // log something to cloudwatch
   console.log('Hello from putAsset')
-  console.log(`PUTting asset ${req.body.asset.id}`)
+  console.log(`PUTting asset ${req.body.id}`)
 
   var params = {  
     TableName: 'datahub-live-assets',  
-    Item: req.body.asset
+    Item: req.body
   }
 
   // put the asset into the database
@@ -22,6 +22,6 @@ module.exports.putAsset = function(req) {
 }
 
 module.exports.scanAssets = async function (req) {
-  let response = await dynamo.scan({ TableName: 'datahub-assets' }).promise()
+  let response = await dynamo.scan({ TableName: 'datahub-live-assets' }).promise()
   return response.Items
 }
