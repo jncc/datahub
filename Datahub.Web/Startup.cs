@@ -34,6 +34,7 @@ namespace Datahub.Web
             services.AddTransient<ILayoutViewModel, LayoutViewModel>();
             services.AddTransient<IElasticsearchService, ElasticsearchService>();
             services.AddTransient<ISearchBuilder, SearchBuilder>();
+            services.AddDefaultAWSOptions()
 
             services.Configure<CookiePolicyOptions>(options =>
             {

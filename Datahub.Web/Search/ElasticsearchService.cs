@@ -50,26 +50,26 @@ namespace Datahub.Web.Search
                 // support localhost for local development
                 return new ElasticClient(new ConnectionSettings(pool));
             }
-            else if (env.ES_AWS_ACCESSKEY.IsNotBlank() && env.ES_AWS_SECRETACCESSKEY.IsNotBlank())
+            else if (env.AWS_ACCESS_KEY_ID.IsNotBlank() && env.AWS_SECRET_ACCESS_KEY.IsNotBlank())
             {
-                var connection = new AwsHttpConnection(env.ES_AWS_REGION,
+                var connection = new AwsHttpConnection(env.AWS_DEFAULT_REGION,
                     new StaticCredentialsProvider(
                         new AwsCredentials
                         {
-                            AccessKey = env.ES_AWS_ACCESSKEY,
-                            SecretKey = env.ES_AWS_SECRETACCESSKEY,
+                            AccessKey = env.AWS_ACCESS_KEY_ID,
+                            SecretKey = env.AWS_SECRET_ACCESS_KEY,
                         }));
 
                 return new ElasticClient(new ConnectionSettings(pool, connection));
             }
-            else if (env.ES_AWS_PROFILE.IsNotBlank())
+            else if (env.AWS_DEFAULT_PROFILE.IsNotBlank())
             {
                 throw new NotImplementedException("AWS profile support is not working yet. Specify access keys instead.");
             }
             else
             {
                 // attempt to use AWS instance profile (for production)
-                var connection = new AwsHttpConnection(env.ES_AWS_REGION, new InstanceProfileCredentialProvider());
+                var connection = new AwsHttpConnection(env.AWS_DEFAULT_REGION, new InstanceProfileCredentialProvider());
                 return new ElasticClient(new ConnectionSettings(pool, connection));
             }
         }
