@@ -10,29 +10,32 @@ namespace example_uploader
 {
     class Program
     {
-        Env env = new Env();
+        static Env env = new Env();
 
         static void Main()
         {
             Console.WriteLine("Hello World!");
-            new Program().Example().GetAwaiter().GetResult();
-        }
-
-        async Task Example()
-        {
             Console.WriteLine($"Using AWS Access Key {env.AWS_ACCESSKEY}");
 
             var dbUrl = new Uri(new Uri(env.HUB_API_ENDPOINT), "latest/assets");
-            Console.WriteLine(dbUrl);
+            Console.WriteLine(dbUrl);            
 
-            //string json = File.ReadAllText("../Datahub.Web/Data/topcat/doi_rock.json");
+            new Program().Post(dbUrl).GetAwaiter().GetResult();
 
-            // note: empty string values are NOT ALLOWED!
+            // uncomment to run Delete
+            // new Program().Delete(dbUrl).GetAwaiter().GetResult();
+        }
+
+        async Task Post(Uri dbUrl)
+        {
+            // string json = File.ReadAllText("../Datahub.Web/Data/topcat/doi_rock.json");
+
+            // note: empty string values are NOT ALLOWED in DynamoDB!
             var asset = new
             {
                 id = "1122d9be-6f1b-42f2-bdf7-1e26b33779a2",
                 digitalObjectIdentifier = "10.25603/840424.1.0.0",
-                citation = (string) null, // nulls appear to be ok :-(
+                citation = (string) null, // nulls are ok :-(
                 image = new {
                     url = "/images/example-cover-image.png",
                     width = "100",
@@ -130,7 +133,31 @@ namespace example_uploader
             Console.WriteLine(responseString);
         }
 
+        async Task Delete(Uri dbUrl)
+        {
+            var content = new { id = "1122d9be-6f1b-42f2-bdf7-1e26b33779a2" };
 
+            var json = JsonConvert.SerializeObject(content);
+            Console.WriteLine(json);
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = dbUrl,
+                Content = new StringContent(
+                    json,
+                    Encoding.UTF8,
+                    "application/json"
+                )
+            };
+
+            var signedRequest = await GetSignedRequest(request);
+            var response = await new HttpClient().SendAsync(signedRequest);
+            var responseString = await response.Content.ReadAsStringAsync();        
+
+            Console.WriteLine(responseString);
+
+        }
 
         async Task<HttpRequestMessage> GetSignedRequest(HttpRequestMessage request)
         {
