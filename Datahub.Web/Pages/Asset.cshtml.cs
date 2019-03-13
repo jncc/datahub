@@ -12,9 +12,12 @@ namespace Datahub.Web.Pages
     public class AssetModel : PageModel
     {
         private readonly IHostingEnvironment _env;
-        public AssetModel(IHostingEnvironment env)
+        private readonly IDynamodbService _db;
+
+        public AssetModel(IHostingEnvironment env, IDynamodbService db)
         {
             _env = env;
+            _db = db;
         }
 
         public Asset Asset { get; set; }
@@ -22,8 +25,10 @@ namespace Datahub.Web.Pages
 
         public async Task OnGetAsync(string assetId)
         {
-            var assets = await JsonLoader.LoadAssets(_env.ContentRootPath);
-            this.Asset = assets.Single(a => a.Id == assetId);
+            this.Asset = await _db.GetAsset(assetId);
+
+            // var assets = await JsonLoader.LoadAssets(_env.ContentRootPath);
+            // this.Asset = assets.Single(a => a.Id == assetId);
         }
     }
 }

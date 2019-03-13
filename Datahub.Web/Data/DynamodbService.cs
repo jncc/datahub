@@ -1,14 +1,19 @@
 using System;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.Runtime;
+using Datahub.Web.Models;
 using Datahub.Web.Pages.Helpers;
+using Newtonsoft.Json;
 
 namespace Datahub.Web.Data 
 {
     public interface IDynamodbService
     {
         AmazonDynamoDBClient Client();
+        Task<Asset> GetAsset(string assetId);
     }
 
     public class DynamodbService : IDynamodbService
@@ -46,7 +51,11 @@ namespace Datahub.Web.Data
             return client;
         }
 
-
+        async public Task<Asset> GetAsset(string assetId)
+        {
+            var doc = await Table.LoadTable(client, "datahub-live-assets").GetItemAsync(assetId);
+            return JsonConvert.DeserializeObject<Asset>(doc.ToJson());
+        }
     }
 
 }
