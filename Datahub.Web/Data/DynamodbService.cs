@@ -53,7 +53,7 @@ namespace Datahub.Web.Data
 
         async public Task<Asset> GetAsset(string assetId)
         {
-            var doc = await Table.LoadTable(client, "datahub-live-assets").GetItemAsync(assetId);
+            var doc = await Table.LoadTable(client, env.DB_TABLE).GetItemAsync(assetId);
             return JsonConvert.DeserializeObject<Asset>(doc.ToJson());
         }
     }

@@ -9,6 +9,7 @@ namespace Datahub.Web
         string ES_ENDPOINT_SCHEME { get; }
         string ES_ENDPOINT_HOST { get; }
         string ES_ENDPOINT_PORT { get; }
+        string DB_TABLE { get; }
         string AWS_ACCESS_KEY_ID { get; }
         string AWS_SECRET_ACCESS_KEY { get; }
         string AWS_DEFAULT_REGION { get; }
@@ -27,6 +28,7 @@ namespace Datahub.Web
         public string AWS_DEFAULT_REGION { get; private set; }
         public string AWS_DEFAULT_PROFILE { get; private set; }
         public string GTM_ID { get; private set; }
+        public string DB_TABLE { get; private set; }
 
         public Env()
         {
@@ -39,6 +41,7 @@ namespace Datahub.Web
             this.AWS_DEFAULT_REGION = GetVariable("ES_AWS_REGION", false);
             this.AWS_DEFAULT_PROFILE = GetVariable("ES_AWS_PROFILE", false);
             this.GTM_ID = GetVariable("GTM_ID", false, "");
+            this.DB_TABLE = GetVariable("DB_TABLE");
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
