@@ -12,7 +12,6 @@ namespace Datahub.Web.Data
 {
     public interface IDynamodbService
     {
-        AmazonDynamoDBClient Client();
         Task<Asset> GetAsset(string assetId);
     }
 
@@ -44,11 +43,6 @@ namespace Datahub.Web.Data
                     , RegionEndpoint.GetBySystemName(env.AWS_DEFAULT_REGION));
             }
 
-        }
-
-        public AmazonDynamoDBClient Client()
-        {
-            return client;
         }
 
         async public Task<Asset> GetAsset(string assetId)
