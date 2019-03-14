@@ -13,7 +13,6 @@ namespace Datahub.Web
         string AWS_ACCESS_KEY_ID { get; }
         string AWS_SECRET_ACCESS_KEY { get; }
         string AWS_DEFAULT_REGION { get; }
-        string AWS_DEFAULT_PROFILE { get; }
         string GTM_ID { get; }
     }
 
@@ -26,7 +25,6 @@ namespace Datahub.Web
         public string AWS_ACCESS_KEY_ID { get; private set; }
         public string AWS_SECRET_ACCESS_KEY { get; private set; }
         public string AWS_DEFAULT_REGION { get; private set; }
-        public string AWS_DEFAULT_PROFILE { get; private set; }
         public string GTM_ID { get; private set; }
         public string DB_TABLE { get; private set; }
 
@@ -39,7 +37,6 @@ namespace Datahub.Web
             this.AWS_ACCESS_KEY_ID = GetVariable("AWS_ACCESS_KEY_ID", false);
             this.AWS_SECRET_ACCESS_KEY = GetVariable("AWS_SECRET_ACCESS_KEY", false);
             this.AWS_DEFAULT_REGION = GetVariable("AWS_DEFAULT_REGION", false);
-            this.AWS_DEFAULT_PROFILE = GetVariable("AWS_DEFAULT_PROFILE", false);
             this.GTM_ID = GetVariable("GTM_ID", false, "");
             this.DB_TABLE = GetVariable("DB_TABLE");
         }

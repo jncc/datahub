@@ -62,10 +62,6 @@ namespace Datahub.Web.Search
 
                 return new ElasticClient(new ConnectionSettings(pool, connection));
             }
-            else if (env.AWS_DEFAULT_PROFILE.IsNotBlank())
-            {
-                throw new NotImplementedException("AWS profile support is not working yet. Specify access keys instead.");
-            }
             else
             {
                 // attempt to use AWS instance profile (for production)
