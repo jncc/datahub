@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Datahub.Web.Data;
 using Datahub.Web.Models;
+using Datahub.Web.Pages.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -11,24 +12,30 @@ namespace Datahub.Web.Pages
 {
     public class AssetModel : PageModel
     {
-        private readonly IHostingEnvironment _env;
+        private readonly IHostingEnvironment _hostingEnv;
         private readonly IDynamodbService _db;
+        private readonly IEnv _env;
 
-        public AssetModel(IHostingEnvironment env, IDynamodbService db)
+        public AssetModel(IHostingEnvironment hostingEnv, IDynamodbService db, IEnv env)
         {
-            _env = env;
+            _hostingEnv = hostingEnv;
             _db = db;
+            _env = env;
         }
 
         public Asset Asset { get; set; }
 
-
         public async Task OnGetAsync(string assetId)
         {
-            this.Asset = await _db.GetAsset(assetId);
-
-            // var assets = await JsonLoader.LoadAssets(_env.ContentRootPath);
-            // this.Asset = assets.Single(a => a.Id == assetId);
+            if (_env.DB_TABLE.IsNotBlank())
+            {
+                this.Asset = await _db.GetAsset(assetId);
+            }
+            else
+            {
+                var assets = await JsonLoader.LoadAssets(_hostingEnv.ContentRootPath);
+                this.Asset = assets.Single(a => a.Id == assetId);
+            }
         }
     }
 }

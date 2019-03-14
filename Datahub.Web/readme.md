@@ -42,10 +42,11 @@ You can also connect to the live AWS Elasticsearch Service and use a test index 
 
 There are instructions available on the web for running dynamodb locally in docker however no instructions or configuration is given here. 
 
-You need to specify the DynamoDb table name in the .env file
+To use DynamoDb you need to specify a table name in the .env file
 
     DB_TABLE=
 
+If this is blank the app will use the local json datasets.
 
 ### AWS authentication 
 
