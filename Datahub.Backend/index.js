@@ -2,7 +2,6 @@
 const ClaudiaApiBuilder = require('claudia-api-builder')
 
 const db = require('./operations/dbOperations')
-const es = require('./operations/esOperations')
 
 const api = new ClaudiaApiBuilder()
 
