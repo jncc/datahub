@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using dotenv.net;
 using Datahub.Web.Search;
 using Datahub.Web.Models;
+using Datahub.Web.Data;
 
 namespace Datahub.Web
 {
@@ -34,6 +35,8 @@ namespace Datahub.Web
             services.AddTransient<ILayoutViewModel, LayoutViewModel>();
             services.AddTransient<IElasticsearchService, ElasticsearchService>();
             services.AddTransient<ISearchBuilder, SearchBuilder>();
+            services.AddTransient<IDynamodbService, DynamodbService>();
+
             // services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
 
             services.Configure<CookiePolicyOptions>(options =>

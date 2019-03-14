@@ -29,7 +29,7 @@ namespace Datahub.Web.Data
 
         AmazonDynamoDBClient InitialiseClient()
         {
-    
+            
             if (env.AWS_ACCESS_KEY_ID.IsNotBlank() && env.AWS_SECRET_ACCESS_KEY.IsNotBlank())
             {
                 return new AmazonDynamoDBClient(

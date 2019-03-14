@@ -36,10 +36,10 @@ namespace Datahub.Web
             this.ES_ENDPOINT_SCHEME = GetVariable("ES_ENDPOINT_SCHEME");
             this.ES_ENDPOINT_HOST = GetVariable("ES_ENDPOINT_HOST");
             this.ES_ENDPOINT_PORT = GetVariable("ES_ENDPOINT_PORT");
-            this.AWS_ACCESS_KEY_ID = GetVariable("ES_AWS_ACCESSKEY", false);
-            this.AWS_SECRET_ACCESS_KEY = GetVariable("ES_AWS_SECRETACCESSKEY", false);
-            this.AWS_DEFAULT_REGION = GetVariable("ES_AWS_REGION", false);
-            this.AWS_DEFAULT_PROFILE = GetVariable("ES_AWS_PROFILE", false);
+            this.AWS_ACCESS_KEY_ID = GetVariable("AWS_ACCESS_KEY_ID", false);
+            this.AWS_SECRET_ACCESS_KEY = GetVariable("AWS_SECRET_ACCESS_KEY", false);
+            this.AWS_DEFAULT_REGION = GetVariable("AWS_DEFAULT_REGION", false);
+            this.AWS_DEFAULT_PROFILE = GetVariable("AWS_DEFAULT_PROFILE", false);
             this.GTM_ID = GetVariable("GTM_ID", false, "");
             this.DB_TABLE = GetVariable("DB_TABLE");
         }
