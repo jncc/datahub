@@ -30,9 +30,9 @@ To add new packages:
 
     dotnet add package Newtonsoft.Json
 
-### Elasticsearch
+### Elasticsearch and DynamoDb
 
-The Datahub uses Elasticsearch as a backing service.
+The Datahub uses Elasticsearch and DynamoDb as a backing services.
 
 See the `README.md` in Datahub.Backend to set up a local dev Elasticsearch and load it with dummy data.
 
@@ -40,18 +40,26 @@ You can check it's working by browsing to http://locahost:9200/_stats
 
 You can also connect to the live AWS Elasticsearch Service and use a test index like `test` or `beta`.
 
-Configure a local .aws profile (not recommended for deployment inside AWS, use instance profiles instead):
+There are instructions available on the web for running dynamodb locally in docker however no instructions or configuration is given here. 
 
-    ES_AWS_PROFILE=
+To use DynamoDb you need to specify a table name in the .env file
 
-Use a profile with sufficient permissions to connect to the production AWS Elasticsearch Service.
+    DB_TABLE=
 
-    aws configure --profile jncc-website-live-search-reader
+If this is blank the app will use the local json datasets.
 
-Alternatively, configure static access keys (not recommended for deployment inside AWS, use instance profiles instead):
+### AWS authentication 
 
-    ES_AWS_ACCESSKEY=
-    ES_AWS_SECRETACCESSKEY=
+The same credentials or environment roles should give access to both ElasticBeanstalk and DynamoDb
+
+Configure static access keys for development time (not recommended for deployment inside AWS, use instance profiles instead):
+
+    AWS_ACCESS_KEY_ID=
+    AWS_SECRET_ACCESS_KEY=
+
+Also specify the correct region for the services
+
+    AWS_SECRET_ACCESS_KEY=
 
 Fill in the appropriate sections and inject the `IElasticsearchService` service to get a configured singleton client in the code. The code should fallback from defined access keys, local profile and then instance profile config if they are not configured.
 

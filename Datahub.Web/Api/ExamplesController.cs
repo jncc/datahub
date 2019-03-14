@@ -33,8 +33,8 @@ public class ExamplesController : Controller
 
     async Task<HttpRequestMessage> GetSignedRequest(HttpRequestMessage request)
     {
-        var signer = new AWS4RequestSigner(env.ES_AWS_ACCESSKEY, env.ES_AWS_SECRETACCESSKEY);
-        return await signer.Sign(request, "es", env.ES_AWS_REGION);
+        var signer = new AWS4RequestSigner(env.AWS_ACCESS_KEY_ID, env.AWS_SECRET_ACCESS_KEY);
+        return await signer.Sign(request, "es", env.AWS_DEFAULT_REGION);
     }
 
 
