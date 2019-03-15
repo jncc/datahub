@@ -22,7 +22,7 @@ module.exports.putAsset = function(req) {
 
   // log something to cloudwatch
   console.log('Hello from putAsset')
-  console.log(`PUTting asset ${req.body.id}`)
+  console.log(`PUTting asset ${req.body.id} into ${req.pathParams.env} environment`)
 
   table = getTable(req.pathParams.env)
 
