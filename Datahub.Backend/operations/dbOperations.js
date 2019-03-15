@@ -3,6 +3,18 @@ const AWS = require('aws-sdk')
 
 const dynamo = new AWS.DynamoDB.DocumentClient()
 
+var getTable = function(env) {
+  var table = /live/.test(env) && 'datahub-live-assets' ||
+              /beta/.test(env) && 'datahub-beta-assets' ||
+              'unknown';
+
+  if (table === 'unknown') {
+    throw "Invalid environment name"
+  }
+
+  return table
+}
+
 module.exports.putAsset = function(req) {
 
   // you can get to the lambda context like this:
@@ -10,10 +22,12 @@ module.exports.putAsset = function(req) {
 
   // log something to cloudwatch
   console.log('Hello from putAsset')
-  console.log(`PUTting asset ${req.body.id}`)
+  console.log(`PUTting asset ${req.body.id} into ${req.pathParams.env} environment`)
+
+  table = getTable(req.pathParams.env)
 
   var params = {  
-    TableName: 'datahub-live-assets',  
+    TableName: table,  
     Item: req.body
   }
 
@@ -25,10 +39,12 @@ module.exports.deleteAsset = function(req) {
 
   // log something to cloudwatch
   console.log('Hello from deleteAsset')
-  console.log(`DELETEing asset ${req.body.id}`)
+  console.log(`DELETEing asset ${req.body.id} from ${req.pathParams.env} environment`)
+
+  table = getTable(req.pathParams.env)
 
   var params = {  
-    TableName: 'datahub-live-assets',  
+    TableName: table,  
     Key: { id: req.body.id }
   }
 
@@ -37,6 +53,7 @@ module.exports.deleteAsset = function(req) {
 }
 
 module.exports.scanAssets = async function (req) {
-  let response = await dynamo.scan({ TableName: 'datahub-live-assets' }).promise()
+  table = getTable(req.pathParams.env)
+  let response = await dynamo.scan({ TableName: table }).promise()
   return response.Items
 }
