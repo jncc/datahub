@@ -11,6 +11,8 @@ var getTable = function(env) {
   if (table === 'unknown') {
     throw "Invalid environment name"
   }
+
+  return table
 }
 
 module.exports.putAsset = function(req) {
