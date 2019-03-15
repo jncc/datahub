@@ -39,7 +39,7 @@ module.exports.deleteAsset = function(req) {
 
   // log something to cloudwatch
   console.log('Hello from deleteAsset')
-  console.log(`DELETEing asset ${req.body.id}`)
+  console.log(`DELETEing asset ${req.body.id} from ${req.pathParams.env} environment`)
 
   table = getTable(req.pathParams.env)
 
