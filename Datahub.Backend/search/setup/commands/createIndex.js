@@ -27,29 +27,6 @@ const createIndex = async () => {
   })
 
   console.log(`Created mapping for '${env.ES_INDEX}'.`)
-  
-  // thirdly, create an ingest pipeline that tells elastic search
-  // how to extract attachment information (PDFs)
-
-  console.log(`Creating attachment ingest pipeline...`)
-
-  await sendRequest({
-    method: 'PUT',
-    path: '_ingest/pipeline/attachment',
-    body: schema.attachmentPipeline
-  })
-
-  console.log(`Created attachment ingest pipeline.`)
-
-  console.log(`Creating document pipeline...`)
-
-  await sendRequest({
-    method: 'PUT',
-    path: '_ingest/pipeline/document',
-    body: schema.documentPipeline
-  })
-
-  console.log(`Created document pipeline...`)
 }
 
 module.exports = createIndex

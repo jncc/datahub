@@ -6,6 +6,7 @@ const mapping = {
   "properties": {
     "site": { "type": "keyword" },
     "title": { "type": "text" },
+    // 
     "content": { "type": "text", "term_vector": "with_positions_offsets" },
     // we don't ever return the content field because it could be massive.
     // we normally use the highlights field but a highlight search *might* not
@@ -71,67 +72,4 @@ const makeSearchDocumentFromRemote = (doc, hubUrl) => {
   }
 }
 
-const attachmentPipeline = {
-  "description": "Optionally extract attachment data field and incorporates results into the document, truncates content field into a content_truncated field which is not indexed",
-  "processors": [
-      {
-        "attachment": {
-          "field": "file_base64",
-          "ignore_missing": true,
-          "indexed_chars": -1
-        }
-      },
-      {
-        "set": {
-          "field": "file_base64",
-          "value": ""
-        }
-      },
-      {
-        "remove": {
-            "field": "file_base64"
-        }
-      },
-      {
-        "script": {
-          "source": "if (ctx.attachment != null && ctx.attachment.content != null) { ctx.content = ctx.attachment.content }"
-        }
-      },
-      {
-        "script": {
-          "source": "if (ctx.attachment != null && ctx.attachment.title != null) { ctx.title = ctx.attachment.title }"
-        }
-      },
-      {
-        "set": {
-          "field": "attachment",
-          "value": ""
-        }
-      },
-      {
-        "remove": {
-          "field": "attachment"
-        }
-      },
-      {
-        "script": {
-          "lang": "painless",
-          "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0, (200 > content.length() ? content.length() : 200)).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
-        }
-      }
-  ]
-}
-
-const documentPipeline = {
-  "description": "Simple truncator script to truncate content to 200 characters",
-  "processors": [
-    {
-      "script": {
-        "lang": "painless",
-        "source": "String content = ctx.content; content = content.replace(\"\n\", \"\").trim(); int last = content.substring(0, (200 > content.length() ? content.length() : 200)).lastIndexOf(\" \"); ctx.content_truncated = content.substring(0, (last > 0 ? last : (200 > content.length() ? content.length() : 200)));"
-      }
-    }
-  ]
-}
-
-module.exports = { mapping, makeSearchDocumentFromTopcatRecord, makeSearchDocumentFromRemote, attachmentPipeline, documentPipeline }
+module.exports = { mapping, makeSearchDocumentFromTopcatRecord, makeSearchDocumentFromRemote }

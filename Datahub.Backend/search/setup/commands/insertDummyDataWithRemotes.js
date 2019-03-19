@@ -34,7 +34,7 @@ const insertDummyDocsFromWebProjectWithRemotes = async () => {
     // insert each of the dummy entries into the index
     for (let file of files) {
         let doc = JSON.parse(await readFileAsync(file, 'utf8'))
-        let path = env.ES_INDEX + '/_doc/' + doc.id + '?pipeline=attachment'
+        let path = env.ES_INDEX + '/_doc/' + doc.id
 
         console.log(`Inserting ${path}...`)
 
@@ -62,7 +62,7 @@ const insertDummyDocsFromWebProjectWithRemotes = async () => {
                             docRemote.file_base64 = Buffer.from(body).toString('base64');
                             docRemote.file_size = Buffer.byteLength(body);
                             docRemote.file_extension = 'pdf'
-                            path = env.ES_INDEX + '/_doc/' + docRemote.id + '?pipeline=attachment';
+                            path = env.ES_INDEX + '/_doc/' + docRemote.id;
                             
                             console.log(`Sending data file to elasticsearch on ${path}...`);
                             sendRequest({

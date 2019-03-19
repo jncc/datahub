@@ -28,7 +28,7 @@ const insertDummyDocsFromWebProject = async () => {
   for (let file of files) {
     
     let doc = JSON.parse(await readFileAsync(file , 'utf8'))
-    let path = env.ES_INDEX + '/_doc/' + doc.id + '?pipeline=attachment'
+    let path = env.ES_INDEX + '/_doc/' + doc.id
 
     console.log(`Inserting ${path}...`)
 
@@ -45,7 +45,7 @@ const insertDummyPdfDoc = async () => {
   console.log(`Inserting dummy PDF into index '${env.ES_INDEX}'...`)
 
   let pdfEntry = await makeDummyPdfDoc()
-  let pdfPath = env.ES_INDEX + '/_doc/' + '0c693e58-9da0-4e46-8453-8518f20689f2' + '?pipeline=attachment'
+  let pdfPath = env.ES_INDEX + '/_doc/' + '0c693e58-9da0-4e46-8453-8518f20689f2'
   console.log(`Inserting ${pdfPath}...`)
 
   await sendRequest({
