@@ -1,3 +1,5 @@
 
 .vs/
 .env
+wwwroot/css/site.min.css
+wwwroot/js/site.min.js
