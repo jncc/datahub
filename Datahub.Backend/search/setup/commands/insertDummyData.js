@@ -62,6 +62,7 @@ const makeDummyPdfDoc = async () => ({
   'site': 'datahub',
   'title': 'This is a PDF document',
   'content': 'This PDF document is for testing the PDF indexing capabilities of ElasticSearch. I hope it works.',
+  'content_truncated': 'This PDF document is for testing the PDF indexing capabilities of ElasticSearch. I hope it works.',
   'keywords': [
       {
         'vocab': 'http://vocab.jncc.gov.uk/website-vocab',
