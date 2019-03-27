@@ -33,7 +33,6 @@ namespace write
             if (command == "upsert-simple")
             {
                 UpsertSimpleExample(sqsExtendedClient).GetAwaiter().GetResult();            
-
             }
             else if (command == "delete-simple")
             {
@@ -42,6 +41,10 @@ namespace write
             else if (command == "upsert-pdf")
             {
                 UpsertPdfExample(sqsExtendedClient).GetAwaiter().GetResult();            
+            }
+            else if (command == "upsert-datahub-asset")
+            {
+                UpsertDatahubAssetExample(sqsExtendedClient).GetAwaiter().GetResult();            
             }
             else
             {
@@ -56,12 +59,12 @@ namespace write
             var simpleMessage = new
             {
                 verb = "upsert",
-                index = "test",
+                index = "dev",
                 document = new
                 {
                     id = "123456789",
                     site = "datahub", // as opposed to website|sac|mhc
-                    title = "An example searchable document!",
+                    title = "An example searchable document.",
                     content = "This is a searchable document made purely for example purposes.",
                     url = "http://example.com/pages/123456789", // the URL of the page, for clicking through
                     keywords = new []
@@ -69,17 +72,7 @@ namespace write
                         new { vocab = "http://vocab.jncc.gov.uk/jncc-web", value = "Example" }
                     },
                     published_date = "2019-01-14",
-                },
-//                 resources = new [] {
-//                     new {
-//                     title = "An example searchable document",
-// //                  content = "The content field will be set with the contents of the parsed file",
-//                     url = "http://example.com/pages/123456789", // the URL of the page, for clicking through
-//                     file_base64 = pdfEncoded, // base-64 encoded file
-//                     file_extension = "pdf",   // when this is a downloadable
-//                     file_bytes = "1048576",   // file such as a PDF, etc.
-//                 }
-
+                }
             };
 
             var basicResponse = await client.SendMessageAsync(Env.Var.SqsEndpoint,
@@ -87,7 +80,6 @@ namespace write
             );
 
             Console.WriteLine(basicResponse.MessageId);
-
         }
 
         static async Task DeleteExample(AmazonSQSExtendedClient client)
@@ -124,7 +116,7 @@ namespace write
                 document = new
                 {
                     id = "987654321",
-                    site = "website", 
+                    site = "datahub",
                     title = "An example PDF document",
 //                  content = "The content field will be set with the contents of the parsed file",
                     url = "http://example.com/downloads/987654321.pdf",
@@ -144,6 +136,55 @@ namespace write
             );
 
             Console.WriteLine(pdfResponse.MessageId);
+        }
+
+        static async Task UpsertDatahubAssetExample(AmazonSQSExtendedClient client)
+        {
+            // index an asset with several large PDF resources
+
+            var pdf = File.ReadAllBytes(@"../Datahub.Web/data/OffshoreBrighton_SACO_V1.0.pdf");
+            var pdfEncoded = Convert.ToBase64String(pdf);
+            
+            var resources = from i in Enumerable.Range(1, 50)
+                            select new
+                            {
+                                title = "An example searchable PDF resource #" + i,
+                                url = "http://example.com/pages/123456789", // the URL of the page, for clicking through
+                                keywords = new []
+                                {
+                                    new { vocab = "http://vocab.jncc.gov.uk/jncc-web", value = "Example" }
+                                },
+                                file_base64 = pdfEncoded, // base-64 encoded file
+                                file_extension = "pdf",   // when this is a downloadable
+                                file_bytes = "1048576",   // file such as a PDF, etc.
+                                published_date = "2019-02-15",
+                            };
+
+            var bigMessage = new
+            {
+                verb = "upsert",
+                index = "dev",
+                document = new
+                {
+                    id = "123456789",
+                    site = "datahub", // as opposed to website|sac|mhc
+                    title = "An example searchable document with resources :-)",
+                    content = "This is a searchable document made purely for example purposes.",
+                    url = "http://example.com/pages/123456789", // the URL of the page, for clicking through
+                    keywords = new []
+                    {
+                        new { vocab = "http://vocab.jncc.gov.uk/jncc-web", value = "Example" }
+                    },
+                    published_date = "2019-01-14",
+                },
+                resources = resources.ToArray(),
+            };
+
+            var basicResponse = await client.SendMessageAsync(Env.Var.SqsEndpoint,
+                JsonConvert.SerializeObject(bigMessage, Formatting.None)
+            );
+
+            Console.WriteLine(basicResponse.MessageId);
         }
     }
 
