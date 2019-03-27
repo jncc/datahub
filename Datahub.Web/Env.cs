@@ -38,7 +38,7 @@ namespace Datahub.Web
             this.AWS_SECRET_ACCESS_KEY = GetVariable("AWS_SECRET_ACCESS_KEY", false);
             this.AWS_DEFAULT_REGION = GetVariable("AWS_DEFAULT_REGION", false);
             this.GTM_ID = GetVariable("GTM_ID", false, "");
-            this.DB_TABLE = GetVariable("DB_TABLE");
+            this.DB_TABLE = GetVariable("DB_TABLE", false);
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
