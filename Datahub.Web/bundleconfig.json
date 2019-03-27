@@ -3,7 +3,7 @@
         "outputFileName": "wwwroot/css/site.min.css",
         "inputFiles": [
             "wwwroot/css/site.css",
-            "wwwroot/css/cookieconsent2/3.1.0/cookieconsent.css"
+            "wwwroot/css/cookieconsent2/3.1.0/cookieconsent.min.css"
         ]
     },
     {
