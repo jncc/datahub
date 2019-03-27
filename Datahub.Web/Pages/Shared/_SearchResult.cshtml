@@ -7,9 +7,11 @@
     <a href="/assets/@(Model.Id)">@(Model.Source.Title)</a>
 </h5>
 <div>
-    @foreach (var k in Model.Source.Keywords)
-    {
-        @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+    @if (Model.Source.Keywords != null && Model.Source.Keywords.Count > 0) { 
+        @foreach (var k in Model.Source.Keywords)
+        {
+            @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+        }
     }
 </div>
 @foreach (var h in Model.Highlights.ToList())
