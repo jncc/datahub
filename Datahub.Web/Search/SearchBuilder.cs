@@ -39,10 +39,12 @@ namespace Datahub.Web.Search
                 )
                 .Query(l => ElasticsearchService.BuildDatahubQuery(input.q, ParseKeywords(input.k)))
                 .Highlight(h => h
-                    .Fields(f => f.Field(x => x.Content )
-                                .Type(HighlighterType.Fvh)
-                                .Order(HighlighterOrder.Score)
-                                .NumberOfFragments(1))
+                    .Fields(f => f.Field(x => x.Content)
+                                    .Type(HighlighterType.Fvh)
+                                    .Order(HighlighterOrder.Score)
+                                    .NumberOfFragments(1),
+                            f => f.Field(x => x.Title)
+                    )
                     .PreTags("<b>")
                     .PostTags("</b>")
                 );

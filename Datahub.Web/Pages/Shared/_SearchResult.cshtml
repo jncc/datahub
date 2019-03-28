@@ -4,20 +4,32 @@
 @using Datahub.Web.Pages.Helpers
 
 <h5 class="display-5">
-    <a href="/assets/@(Model.Id)">@(Model.Source.Title)</a>
+    @if (Model.Highlights.Any(x => x.Key == "title"))
+    {
+        <a href="/assets/@(Model.Id)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
+    }
+    else
+    {
+        <a href="/assets/@(Model.Id)">@(Model.Source.Title)</a>
+    }
 </h5>
 <div>
-    @if (Model.Source.Keywords != null && Model.Source.Keywords.Count > 0) { 
+    @if (Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
+    {
         @foreach (var k in Model.Source.Keywords)
         {
             @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
         }
     }
 </div>
-@foreach (var h in Model.Highlights.ToList())
+
+@if (Model.Highlights.Any(x => x.Key == "content"))
 {
-    var x = h.Value.Highlights.Take(3).ToConcatenatedString(s => s, " ... ");
-    <p>@(Html.Raw(x))</p>
+    <p>@(Html.Raw(Model.Highlights.First(x => x.Key == "content").Value.Highlights.First()))</p>
+}
+else
+{
+    <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
 }
 
 <br />

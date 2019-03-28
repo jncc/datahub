@@ -43,7 +43,7 @@ namespace Datahub.Web.Search
             };
 
             var endpoint = new Uri(b.ToString());
-            var pool = new SingleNodeConnectionPool(endpoint);        
+            var pool = new SingleNodeConnectionPool(endpoint);
 
             if (endpoint.IsLoopback)
             {
@@ -84,41 +84,65 @@ namespace Datahub.Web.Search
 
         public static QueryContainer BuildDatahubQuery(string q, List<Keyword> keywords)
         {
-            QueryContainer container = null;
 
             // site
             container &= new MatchQuery { Field = "site", Query = ES_SITE };
+            QueryContainer fullTextcontainer;
+            QueryContainer keywordSearch = new QueryContainer();
 
             // text
             if (q.IsNotBlank())
             {
-                container &= new CommonTermsQuery()
+                fullTextcontainer = new BoolQuery()
                 {
-                    Field = "content",
-                    Query = q,
-                    CutoffFrequency = 0.001,
-                    LowFrequencyOperator = Operator.Or
+                    Filter = new QueryContainer[]
+                    {
+                        new MatchQuery { Field = "site", Query = ES_SITE }
+                    },
+                    Should = new QueryContainer[]
+                    {
+                        new CommonTermsQuery() {
+                            Field = "content",
+                            Query = q,
+                            CutoffFrequency = 0.001,
+                            LowFrequencyOperator = Operator.Or
+                        },
+                        new CommonTermsQuery()
+                        {
+                            Field = "title",
+                            Query = q,
+                            CutoffFrequency = 0.001,
+                            LowFrequencyOperator = Operator.Or
+                        }
+                    },
+                    MinimumShouldMatch = 1
                 };
+            } else
+            {
+                // If we have no text search then make sure we are only matching on 
+                // the correct site
+                fullTextcontainer = new MatchQuery { Field = "site", Query = ES_SITE };
             }
 
             // keywords
             if (keywords.Any())
             {
+                // TODO: check this logic even works for multiple queries, suspect it doesn't really 
                 // for each keyword add a new query container containing a must match pair
                 foreach (Keyword keyword in keywords)
                 {
-                    container &= new BoolQuery
+                    keywordSearch = keywordSearch && new BoolQuery
                     {
                         Must = new QueryContainer[]
                         {   
                             new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
-                            new MatchQuery { Field = "keywords.value", Query = keyword.Value },
+                            new MatchQuery { Field = "keywords.value", Query = keyword.Value }
                         }
                     };
                 }
             }
 
-            return container;
+            return fullTextcontainer && +keywordSearch;
         }
     }
 }
