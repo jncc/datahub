@@ -19,16 +19,13 @@ namespace Datahub.Web.Search
         readonly IEnv env;
         readonly ElasticClient client;
 
-        // the datahub only ever searches over the "datahub" site
-        static readonly string ES_SITE = "datahub";
-
         /// <summary>
         /// Initialises a new NEST ElasticClient instance with support for localhost and AWS endpoints.
         /// </summary>
         public ElasticsearchService(IEnv env)
         {
             this.env = env;
-            this.client = InitialiseClient();
+            client = InitialiseClient();
         }
 
         ElasticClient InitialiseClient()
@@ -73,73 +70,6 @@ namespace Datahub.Web.Search
         public ElasticClient Client()
         {
             return client;
-        }
-
-        // todo move to QueryBuilder
-
-        public static int GetStartFromPage(int page, int size)
-        {
-            return (page - 1) * size;
-        }
-
-        public static QueryContainer BuildDatahubQuery(string q, List<Keyword> keywords)
-        {
-            QueryContainer fullTextcontainer;
-            QueryContainer keywordSearch = new QueryContainer();
-
-            // text
-            if (q.IsNotBlank())
-            {
-                fullTextcontainer = new BoolQuery()
-                {
-                    Filter = new QueryContainer[]
-                    {
-                        new MatchQuery { Field = "site", Query = ES_SITE }
-                    },
-                    Should = new QueryContainer[]
-                    {
-                        new CommonTermsQuery() {
-                            Field = "content",
-                            Query = q,
-                            CutoffFrequency = 0.001,
-                            LowFrequencyOperator = Operator.Or
-                        },
-                        new CommonTermsQuery()
-                        {
-                            Field = "title",
-                            Query = q,
-                            CutoffFrequency = 0.001,
-                            LowFrequencyOperator = Operator.Or
-                        }
-                    },
-                    MinimumShouldMatch = 1
-                };
-            } else
-            {
-                // If we have no text search then make sure we are only matching on 
-                // the correct site
-                fullTextcontainer = new MatchQuery { Field = "site", Query = ES_SITE };
-            }
-
-            // keywords
-            if (keywords.Any())
-            {
-                // TODO: check this logic even works for multiple queries, suspect it doesn't really 
-                // for each keyword add a new query container containing a must match pair
-                foreach (Keyword keyword in keywords)
-                {
-                    keywordSearch = keywordSearch && new BoolQuery
-                    {
-                        Must = new QueryContainer[]
-                        {   
-                            new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
-                            new MatchQuery { Field = "keywords.value", Query = keyword.Value }
-                        }
-                    };
-                }
-            }
-
-            return fullTextcontainer && +keywordSearch;
         }
     }
 }

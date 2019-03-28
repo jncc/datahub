@@ -31,7 +31,7 @@ public class QueryController : Controller
         var client = esService.Client();
 
         var keywords = searchBuilder.ParseKeywords(input.k);
-        var query = ElasticsearchService.BuildDatahubQuery(input.q, keywords);
+        var query = searchBuilder.BuildDatahubQuery(input.q, keywords);
 
         // perhaps use SerializationFormatting.None?
         string json = client.RequestResponseSerializer.SerializeToString(query);
