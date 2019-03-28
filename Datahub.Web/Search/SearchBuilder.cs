@@ -84,7 +84,16 @@ namespace Datahub.Web.Search
             QueryContainer fullTextcontainer;
             QueryContainer keywordSearch = new QueryContainer();
 
-            // text
+            /**
+             * Full Text Search Logic
+             * 
+             * Use a bool query, `Filter` on the site first (reduce search area), then match on
+             * `Should`, entires in `Should` are searches on title and content, at least one of
+             * these should match (MinimumShouldMatch = 1)
+             *
+             * If we have no string to search on we convert the Bool Query to a single MatchQuery
+             * matching on the Site (identical to the initial `Filter` query)
+             */
             if (q.IsNotBlank())
             {
                 fullTextcontainer = new BoolQuery()
@@ -119,11 +128,15 @@ namespace Datahub.Web.Search
                 fullTextcontainer = new MatchQuery { Field = "site", Query = ES_SITE };
             }
 
-            // keywords
             if (keywords.Any())
             {
                 // TODO: check this logic even works for multiple queries, suspect it doesn't really 
                 // for each keyword add a new query container containing a must match pair
+
+                /**
+                 * Keyword search logic, each vocab/value pair is unique and needs to be queried as 
+                 * one, so and each individual BoolQuery together into a single container
+                 */
                 foreach (Keyword keyword in keywords)
                 {
                     keywordSearch = keywordSearch && new BoolQuery
@@ -137,6 +150,10 @@ namespace Datahub.Web.Search
                 }
             }
 
+            /**
+             * Use some predicate logic to turn the Keyword Search into a `Filter` for the main
+             * search
+             */
             return fullTextcontainer && +keywordSearch;
         }
     }
