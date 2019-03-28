@@ -58,12 +58,10 @@ namespace Datahub.Web
             {
                 app.UseExceptionHandler("/Error");
 
-                // disable HTTPS enforcement for now
-                // app.UseHsts();
+                // disable HTTPS enforcement until live env is set up
+                // app.UseHttpsRedirection();
             }
 
-            // disable HTTPS enforcement for now
-            // app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
