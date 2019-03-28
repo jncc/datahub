@@ -84,9 +84,6 @@ namespace Datahub.Web.Search
 
         public static QueryContainer BuildDatahubQuery(string q, List<Keyword> keywords)
         {
-
-            // site
-            container &= new MatchQuery { Field = "site", Query = ES_SITE };
             QueryContainer fullTextcontainer;
             QueryContainer keywordSearch = new QueryContainer();
 
