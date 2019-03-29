@@ -22,9 +22,11 @@ const mapping = {
         "value": { "type": "keyword" }
       }
     },
+    "resource_type": { "type": "keyword" },
     "published_date": { "type": "date" },
     "parent_id": { "type": "keyword" },
     "parent_title": { "type": "text" },
+    "parent_resource_type": { "type": "keyword" },
     "file_extension": { "type": "keyword" },
     "file_bytes": { "type": "long", "index": false },
     "footprint": { "type": "geo_shape" }
