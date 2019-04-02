@@ -6,11 +6,11 @@
 <h5 class="display-5">
     @if (Model.Highlights.Any(x => x.Key == "title"))
     {
-        <a href="/assets/@(Model.Id)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
+        <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
     }
     else
     {
-        <a href="/assets/@(Model.Id)">@(Model.Source.Title)</a>
+        <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
     }
 </h5>
 <div>
