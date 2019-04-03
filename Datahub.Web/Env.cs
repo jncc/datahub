@@ -5,7 +5,6 @@ namespace Datahub.Web
 {
     public interface IEnv
     {
-        string FORCE_HTTPS { get; }
         string ES_INDEX { get; }
         string ES_ENDPOINT_SCHEME { get; }
         string ES_ENDPOINT_HOST { get; }
@@ -19,7 +18,6 @@ namespace Datahub.Web
 
     public class Env : IEnv
     {
-        public string FORCE_HTTPS { get; private set; }
         public string ES_INDEX { get; private set; }
         public string ES_ENDPOINT_SCHEME { get; private set; }
         public string ES_ENDPOINT_HOST { get; private set; }
@@ -32,7 +30,6 @@ namespace Datahub.Web
 
         public Env()
         {
-            this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", false);
             this.ES_INDEX = GetVariable("ES_INDEX");
             this.ES_ENDPOINT_SCHEME = GetVariable("ES_ENDPOINT_SCHEME");
             this.ES_ENDPOINT_HOST = GetVariable("ES_ENDPOINT_HOST");
