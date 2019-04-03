@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +49,8 @@ namespace Datahub.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // (note: apparently we can inject any service we like here! - so we can get our env vars)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IEnv envVariables)
         {
             if (env.IsDevelopment())
             {
@@ -58,8 +60,9 @@ namespace Datahub.Web
             {
                 app.UseExceptionHandler("/Error");
 
-                // disable HTTPS enforcement until live env is set up
-                // app.UseHttpsRedirection();
+                // https is not necessarily available on every beanstalk environment
+                if (Convert.ToBoolean(envVariables.FORCE_HTTPS))
+                    app.UseHttpsRedirection();
             }
 
 
