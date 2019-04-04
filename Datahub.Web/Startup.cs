@@ -9,6 +9,8 @@ using Datahub.Web.Search;
 using Datahub.Web.Models;
 using Datahub.Web.Data;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Rewrite;
+using System.Text;
 
 namespace Datahub.Web
 {
@@ -45,13 +47,7 @@ namespace Datahub.Web
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = 
-                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            });
+            });        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,15 +60,57 @@ namespace Datahub.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                //Https is implemented in the infrastructure - this is just a redirect
-                app.UseHttpsRedirection();
-            }
 
+                var redirectOptions = new RewriteOptions()
+                    .AddRedirectToProxiedHttps()
+                    .AddRedirect("(.*)/$", "$1");  // remove trailing slash                
+                app.UseRewriter(redirectOptions);
+            }
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseMvc();
+        }
+    }
+
+    public static class RedirectToProxiedHttpsExtensions
+    {
+        public static RewriteOptions AddRedirectToProxiedHttps(this RewriteOptions options)
+        {
+            options.Rules.Add(new RedirectToProxiedHttpsRule());
+            return options;
+        }
+    }
+
+    public class RedirectToProxiedHttpsRule : IRule
+    {
+        public virtual void ApplyRule(RewriteContext context)
+        {
+            var request = context.HttpContext.Request;
+
+            // #1) Did this request start off as HTTP?
+            string reqProtocol;
+            if (request.Headers.ContainsKey("X-Forwarded-Proto"))
+            {
+                reqProtocol = request.Headers["X-Forwarded-Proto"][0];
+            }
+            else
+            {
+                reqProtocol = (request.IsHttps ? "https" : "http");
+            }
+
+
+            // #2) If so, redirect to HTTPS equivalent
+            if (reqProtocol != "https")
+            {
+                var newUrl = new StringBuilder()
+                    .Append("https://").Append(request.Host)
+                    .Append(request.PathBase).Append(request.Path)
+                    .Append(request.QueryString);
+
+                context.HttpContext.Response.Redirect(newUrl.ToString(), true);
+            }
         }
     }
 }
