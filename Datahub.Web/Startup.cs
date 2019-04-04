@@ -63,8 +63,7 @@ namespace Datahub.Web
                 app.UseExceptionHandler("/Error");
 
                 var redirectOptions = new RewriteOptions()
-                    .AddRedirectToProxiedHttps()
-                    .AddRedirect("(.*)/$", "$1");  // remove trailing slash                
+                    .AddRedirectToProxiedHttps();
                 app.UseRewriter(redirectOptions);
             }
 
