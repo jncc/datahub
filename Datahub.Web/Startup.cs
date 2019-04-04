@@ -8,6 +8,7 @@ using dotenv.net;
 using Datahub.Web.Search;
 using Datahub.Web.Models;
 using Datahub.Web.Data;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Datahub.Web
 {
@@ -45,6 +46,12 @@ namespace Datahub.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = 
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +65,7 @@ namespace Datahub.Web
             {
                 app.UseExceptionHandler("/Error");
                 //Https is implemented in the infrastructure - this is just a redirect
-                app.UseHttpsRedirection(); 
+                app.UseHttpsRedirection();
             }
 
 
