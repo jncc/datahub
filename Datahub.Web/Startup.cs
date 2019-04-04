@@ -11,6 +11,7 @@ using Datahub.Web.Data;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
 using System.Text;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Datahub.Web
 {
@@ -47,7 +48,7 @@ namespace Datahub.Web
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            });        
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +75,9 @@ namespace Datahub.Web
         }
     }
 
+    // Redirect to HTTPS doesn't work in conventional pattern via AWS ELB for some reason, need to 
+    // scan for the header and redirect manually
+    // https://stackoverflow.com/questions/46701670/net-core-https-with-aws-load-balancer-and-elastic-beanstalk-doesnt-work
     public static class RedirectToProxiedHttpsExtensions
     {
         public static RewriteOptions AddRedirectToProxiedHttps(this RewriteOptions options)
@@ -104,12 +108,14 @@ namespace Datahub.Web
             // #2) If so, redirect to HTTPS equivalent
             if (reqProtocol != "https")
             {
-                var newUrl = new StringBuilder()
-                    .Append("https://").Append(request.Host)
-                    .Append(request.PathBase).Append(request.Path)
-                    .Append(request.QueryString);
+                string url = UriHelper.BuildAbsolute(
+                        "https",
+                        request.Host,
+                        request.PathBase,
+                        request.Path,
+                        request.QueryString).ToString();
 
-                context.HttpContext.Response.Redirect(newUrl.ToString(), true);
+                context.HttpContext.Response.Redirect(url, true);
             }
         }
     }

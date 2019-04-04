@@ -12,25 +12,10 @@ namespace Datahub.Web
 {
     public class Program
     {
-        public static void Main(string[] args) { 
-            IHostingEnvironment env = null;
-
+        public static void Main(string[] args)
+        {
             CreateWebHostBuilder(args)
-            .ConfigureServices(services =>
-            {
-                env = services
-                    .Where(x => x.ServiceType == typeof(IHostingEnvironment))
-                    .Select(x => (IHostingEnvironment)x.ImplementationInstance)
-                    .First();
-            })
-            .UseKestrel(options => {
-                if(!env.IsDevelopment()){
-                    options.ListenAnyIP(80);
-                    options.ListenAnyIP(443);    
-                }
-            })
             .UseContentRoot(Directory.GetCurrentDirectory())
-            .UseIISIntegration()
             .Build()
             .Run();
         }
