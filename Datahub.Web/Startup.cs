@@ -57,9 +57,7 @@ namespace Datahub.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-
-                // disable HTTPS enforcement until live env is set up
-                // app.UseHttpsRedirection();
+                app.UseHttpsRedirection();
             }
 
 
