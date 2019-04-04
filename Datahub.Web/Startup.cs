@@ -57,7 +57,8 @@ namespace Datahub.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                app.UseHttpsRedirection();
+                //Https is implemented in the infrastructure - this is just a redirect
+                app.UseHttpsRedirection(); 
             }
 
 
