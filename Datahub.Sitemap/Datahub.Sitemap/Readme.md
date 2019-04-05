@@ -9,7 +9,7 @@ takes in a small config json input in the form of;
 	"Table": "dynamnodb-table",
 	"Host": "public-facing-host.com",
 	"Scheme": "https|http",
-	"BasePath": "base/path/"
+	"BasePath": "base/path/",
 
 	"bucket": "s3-bucket",
 	"key": "path/to/sitemap.xml"
