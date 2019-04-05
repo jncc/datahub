@@ -10,7 +10,7 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using Amazon.S3;
 using Amazon.S3.Model;
-
+using UrlCombineLib;
 using System.Xml.Linq;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -69,12 +69,18 @@ namespace Datahub.Sitemap
 
         private string GenerateAssetURL(string id, Config config)
         {
-            return new UriBuilder
+            var url = new UriBuilder
             {
                 Host = config.Host,
-                Scheme = config.Scheme,
-                Path = id
-            }.ToString();
+                Scheme = config.Scheme
+            }.Uri;
+
+            if (!String.IsNullOrWhiteSpace(config.BasePath))
+            {
+                url = url.Combine(config.BasePath);
+            }
+
+            return url.Combine(id).ToString();
         }
 
         public XDocument CreateSitemapXML(ScanResponse clientRequest, Config config)
