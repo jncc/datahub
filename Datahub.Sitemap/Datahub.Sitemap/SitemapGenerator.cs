@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,7 +47,13 @@ namespace Datahub.Sitemap
 
             var s3Client = new AmazonS3Client();
             
-            await SaveSitemapToS3(s3Client, "bucket", "key", mStream);
+            var s3Response = await SaveSitemapToS3(s3Client, "bucket", "key", mStream);
+
+            // TODO: Do this better
+            if (s3Response.HttpStatusCode != HttpStatusCode.OK)
+            {
+                throw new AmazonS3Exception(s3Response.ToString());
+            }
             
             return input;
         }
