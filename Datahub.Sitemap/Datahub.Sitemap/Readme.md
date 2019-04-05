@@ -11,8 +11,8 @@ takes in a small config json input in the form of;
 	"Scheme": "https|http",
 	"BasePath": "base/path/",
 
-	"bucket": "s3-bucket",
-	"key": "path/to/sitemap.xml"
+	"Bucket": "s3-bucket",
+	"Key": "path/to/sitemap.xml"
 }
 ```
 
