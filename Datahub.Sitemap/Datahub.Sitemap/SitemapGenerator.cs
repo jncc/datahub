@@ -47,7 +47,7 @@ namespace Datahub.Sitemap
 
             var s3Client = new AmazonS3Client();
             
-            var s3Response = await SaveSitemapToS3(s3Client, "bucket", "key", mStream);
+            var s3Response = await SaveSitemapToS3(s3Client, input.Bucket, input.Key, mStream);
 
             // TODO: Do this better
             if (s3Response.HttpStatusCode != HttpStatusCode.OK)

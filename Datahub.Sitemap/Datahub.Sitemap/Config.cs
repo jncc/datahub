@@ -15,7 +15,7 @@ namespace Datahub.Sitemap
         public string BasePath { get; set; }
 
         // S3 Sitemap hosting variables
-        public string bucket { get; set; }
-        public string key { get; set; }
+        public string Bucket { get; set; }
+        public string Key { get; set; }
     }
 }
