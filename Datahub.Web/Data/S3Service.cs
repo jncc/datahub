@@ -20,8 +20,8 @@ namespace Datahub.Web.Data
 
         public S3Service(IEnv env)
         {
-            _client = InitialiseClient();
             _env = env;
+            _client = InitialiseClient();
         }
 
         private AmazonS3Client InitialiseClient()

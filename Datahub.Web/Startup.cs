@@ -155,8 +155,7 @@ namespace Datahub.Web
 
         public async Task Invoke(HttpContext context)
         {
-            TimeSpan cacheSpan;
-
+            TimeSpan cacheSpan = TimeSpan.FromHours(6);
             if (context.Request.Path == _sitemapPath)
             {              
                 if (!_cache.TryGetValue(CacheKeys.Sitemap, out byte[] SitemapBytes))
@@ -171,7 +170,7 @@ namespace Datahub.Web
 
                         SitemapBytes = mStream.ToArray();
                         cacheSpan = TimeSpan.FromHours(6);
-                        cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(6));
+                        cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(cacheSpan);
                     }
                     catch (Exception ex)
                     {
