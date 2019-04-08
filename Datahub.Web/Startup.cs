@@ -155,13 +155,24 @@ namespace Datahub.Web
 
         public async Task Invoke(HttpContext context)
         {
-            TimeSpan cacheSpan = TimeSpan.FromHours(6);
+            // If the request is going to the /sitemap.xml then return the sitemap from the MemoryCache (fetch
+            // it into the MemoryCache from S3 if it isn't or the cache has expired), if the request is going 
+            // to robots.txt then return that from the MemoryCache (or create it if is not present), otherwise
+            // return control to the main router
             if (context.Request.Path == _sitemapPath)
-            {              
+            {
+                // Default time span of 6 hours to cache the sitemap
+                TimeSpan cacheSpan = TimeSpan.FromHours(6);
+
+                // Try and retrieve the Sitemap bytes from the MemoryCache, if its not present, fetch it from
+                // S3 and cache the result
                 if (!_cache.TryGetValue(CacheKeys.Sitemap, out byte[] SitemapBytes))
                 {
                     MemoryCacheEntryOptions cacheEntryOptions;
 
+                    // Try to retrieve from S3, if that fails, log the error and if it is a FileNotFound | AmazonS3
+                    // Exception return a default sitemap.xml then set the cache to expire in 30 minutes to try again
+                    // otherwise return the byte array representation of the sitemap.xml
                     try
                     {
                         MemoryStream mStream = new MemoryStream();
@@ -197,6 +208,9 @@ namespace Datahub.Web
             }
             else if (context.Request.Path == _robotsTxtPath)
             {
+                // If the robots.txt file is not in the MemoryCache create it and store that in the cache,
+                // does not expire as this is a per instance setup and would require a re-deploy to modify
+                // anyway
                 if (!_cache.TryGetValue(CacheKeys.RobotsTxt, out byte[] RobotBytes))
                 {
                     StringBuilder sb = new StringBuilder();
@@ -215,7 +229,7 @@ namespace Datahub.Web
 
                     RobotBytes = Encoding.UTF8.GetBytes(sb.ToString());
 
-                    MemoryCacheEntryOptions cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1));
+                    MemoryCacheEntryOptions cacheEntryOptions = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.NeverRemove);
 
                     _cache.Set(CacheKeys.RobotsTxt, RobotBytes, cacheEntryOptions);
                 }
