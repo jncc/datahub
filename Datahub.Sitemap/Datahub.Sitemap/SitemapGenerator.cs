@@ -26,30 +26,38 @@ namespace Datahub.Sitemap
         /// A simple function that takes a config element and produces a sitemap from a dynamodb
         /// table scan
         /// </summary>
-        /// <param name="input">The Config Object for this lambda run, parsed from the JSON input to the lambda function</param>
+        /// <param name="parameters">The Config Object for this lambda run, parsed from the JSON input to the lambda function</param>
         /// <param name="context">The Lambda Context for this lambda run</param>
         /// <returns></returns>
-        public async Task<Config> SitemapGeneratorHandler(Config input, ILambdaContext context)
+        public async Task<Parameters> SitemapGeneratorHandler(Parameters parameters, ILambdaContext context)
         {
             var dynamoClient = new AmazonDynamoDBClient();
 
-            IEnumerable<Dictionary<string, AttributeValue>> items = new List<Dictionary<string, AttributeValue>> { };
+            IEnumerable<Dictionary<string, string>> items = new List<Dictionary<string, string>> { };
             Dictionary<string, AttributeValue> lastKeyEvaluated = null;
             do
             {
-                ScanResponse result = await GetDynamoDbScanResults(dynamoClient, input.Table, lastKeyEvaluated);
-                items = items.Concat(result.Items);
+                ScanResponse result = await GetDynamoDbScanResults(dynamoClient, parameters.Table, lastKeyEvaluated);
+                IEnumerable<Dictionary<string, string>> resultItems = result.Items.Select(x =>
+                    new Dictionary<string, string>
+                    {
+                        ["id"] = x.Single(y => y.Key == "id").Value.S,
+                        ["timestamp"] = x.Single(y => y.Key == "timestamp").Value.S
+                    }
+                );
+                items = items.Concat(resultItems);
+
                 lastKeyEvaluated = result.LastEvaluatedKey;
             } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
 
-            var xml = CreateSitemapXML(items, input);
+            var xml = CreateSitemapXML(items, parameters);
 
             MemoryStream mStream = new MemoryStream();
             xml.Save(mStream);
 
             var s3Client = new AmazonS3Client();
             
-            var s3Response = await SaveSitemapToS3(s3Client, input.Bucket, input.Key, mStream);
+            var s3Response = await SaveSitemapToS3(s3Client, parameters.Bucket, parameters.Key, mStream);
 
             // TODO: Do this better
             if (s3Response.HttpStatusCode != HttpStatusCode.OK)
@@ -57,16 +65,26 @@ namespace Datahub.Sitemap
                 throw new AmazonS3Exception(s3Response.ToString());
             }
             
-            return input;
+            return parameters;
         }
 
+        /// <summary>
+        /// Creates a dynamo db scan, grabbing only the id and timestamp fields and an optional paging
+        /// parameter (lastKeyEvaluated), returns the result as a Task to await on the other caller 
+        /// side
+        /// </summary>
+        /// <param name="client">The DynamoDB client to use</param>
+        /// <param name="table">The table to scan through</param>
+        /// <param name="lastKeyEvaluated">(Optional) The last key evaluated by a preivous scan</param>
+        /// <returns></returns>
         private Task<ScanResponse> GetDynamoDbScanResults(AmazonDynamoDBClient client, string table, Dictionary<string, AttributeValue> lastKeyEvaluated = null)
         {
             ScanRequest request = new ScanRequest
             {
                 TableName = table,
                 AttributesToGet = new List<string> { "id", "timestamp" },
-                ExclusiveStartKey = lastKeyEvaluated
+                ExclusiveStartKey = lastKeyEvaluated,
+                Limit = 5
             };
 
             return client.ScanAsync(request);
@@ -100,17 +118,17 @@ namespace Datahub.Sitemap
         /// <param name="id">The ID of the asset to create a URL for</param>
         /// <param name="config">The Config Object for this lambda run</param>
         /// <returns></returns>
-        private string GenerateAssetURL(string id, Config config)
+        private string GenerateAssetURL(string id, Parameters parameters)
         {
             var url = new UriBuilder
             {
-                Host = config.Host,
-                Scheme = config.Scheme
+                Host = parameters.Host,
+                Scheme = parameters.Scheme
             }.Uri;
 
-            if (!string.IsNullOrWhiteSpace(config.BasePath))
+            if (!string.IsNullOrWhiteSpace(parameters.BasePath))
             {
-                url = url.Combine(config.BasePath);
+                url = url.Combine(parameters.BasePath);
             }
 
             return url.Combine(id).ToString();
@@ -122,7 +140,7 @@ namespace Datahub.Sitemap
         /// <param name="clientRequest">The ScanResponse from the DynamoDB table scan</param>
         /// <param name="config">The Config Object for this lambda run</param>
         /// <returns></returns>
-        public XDocument CreateSitemapXML(IEnumerable<Dictionary<string, AttributeValue>> items, Config config)
+        public XDocument CreateSitemapXML(IEnumerable<Dictionary<string, string>> items, Parameters parameters)
         {
             XNamespace xmlNS = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
@@ -132,7 +150,8 @@ namespace Datahub.Sitemap
                     from item in items
                     select
                         new XElement(xmlNS + "url",
-                            new XElement(xmlNS + "loc", GenerateAssetURL(item.Single(x => x.Key == "id").Value.S, config)),
+                            new XElement(xmlNS + "loc", GenerateAssetURL(item.Single(x => x.Key == "id").Value, parameters)),
+                            new XElement(xmlNS + "lastmod", GenerateAssetURL(item.Single(x => x.Key == "timestamp").Value, parameters)),
                             new XElement(xmlNS + "changefreq", "weekly"))
                 )
             );

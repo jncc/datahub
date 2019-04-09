@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Datahub.Sitemap
 {
-    public class Config
+    public class Parameters
     {
         // DynamoDB Variables
         public string Table { get; set; }
