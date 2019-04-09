@@ -8,15 +8,8 @@ using dotenv.net;
 using Datahub.Web.Search;
 using Datahub.Web.Models;
 using Datahub.Web.Data;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
-using System.Text;
 using Microsoft.AspNetCore.Http.Extensions;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
-using Amazon.S3;
 
 namespace Datahub.Web
 {
@@ -77,9 +70,6 @@ namespace Datahub.Web
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            // Use custom Sitemap / Robots TXT
-            app.UseSitemapMiddleware();
-
             app.UseMvc();
         }
     }
@@ -126,133 +116,6 @@ namespace Datahub.Web
 
                 context.HttpContext.Response.Redirect(url, true);
             }
-        }
-    }
-
-    public static class CacheKeys
-    {
-        public static string RobotsTxt { get { return "_RobotsTxt"; } }
-        public static string Sitemap { get { return "_Sitemap"; } }
-    }
-
-    public class SitemapMiddleware
-    {
-        private static readonly PathString _robotsTxtPath = new PathString("/robots.txt");
-        private static readonly PathString _sitemapPath = new PathString("/sitemap.xml");
-
-        private IEnv _env;
-        private IMemoryCache _cache;
-        private IS3Service _s3Service;
-        private RequestDelegate _next;
-
-        public SitemapMiddleware(RequestDelegate next, IMemoryCache cache, IEnv env, IS3Service s3Service)
-        {
-            _cache = cache;
-            _env = env;
-            _s3Service = s3Service;
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
-        {
-            // If the request is going to the /sitemap.xml then return the sitemap from the MemoryCache (fetch
-            // it into the MemoryCache from S3 if it isn't or the cache has expired), if the request is going 
-            // to robots.txt then return that from the MemoryCache (or create it if is not present), otherwise
-            // return control to the main router
-            if (context.Request.Path == _sitemapPath)
-            {
-                // Default time span of 6 hours to cache the sitemap
-                TimeSpan cacheSpan = TimeSpan.FromHours(6);
-
-                // Try and retrieve the Sitemap bytes from the MemoryCache, if its not present, fetch it from
-                // S3 and cache the result
-                if (!_cache.TryGetValue(CacheKeys.Sitemap, out byte[] SitemapBytes))
-                {
-                    MemoryCacheEntryOptions cacheEntryOptions;
-
-                    // Try to retrieve from S3, if that fails, log the error and if it is a FileNotFound | AmazonS3
-                    // Exception return a default sitemap.xml then set the cache to expire in 30 minutes to try again
-                    // otherwise return the byte array representation of the sitemap.xml
-                    try
-                    {
-                        MemoryStream mStream = new MemoryStream();
-                        Stream sitemapStream = await _s3Service.GetObjectAsStream(_env.SITEMAP_S3_BUCKET, _env.SITEMAP_S3_KEY);
-                        await sitemapStream.CopyToAsync(mStream);
-
-                        SitemapBytes = mStream.ToArray();
-                        cacheSpan = TimeSpan.FromHours(6);
-                        cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(cacheSpan);
-                    }
-                    catch (Exception ex)
-                    {
-                        if (ex is FileNotFoundException || ex is AmazonS3Exception)
-                        {
-                            // TODO: Log failure
-                            SitemapBytes = Encoding.UTF8.GetBytes(string.Format("<sitemap><url><loc>{0}</loc></url></sitemap>", _env.SELF_REFERENCE_URL));
-                            cacheSpan = TimeSpan.FromMinutes(30);
-                            cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(cacheSpan);
-                        }
-
-                        throw ex;
-                    }
-
-                    _cache.Set(CacheKeys.Sitemap, SitemapBytes, cacheEntryOptions);
-                }
-
-                Stream stream = context.Response.Body;
-                context.Response.StatusCode = 200;
-                context.Response.ContentType = "application/xml";
-                context.Response.Headers.Add("Cache-Control", $"max-age={cacheSpan}");
-
-                await stream.WriteAsync(SitemapBytes);
-            }
-            else if (context.Request.Path == _robotsTxtPath)
-            {
-                // If the robots.txt file is not in the MemoryCache create it and store that in the cache,
-                // does not expire as this is a per instance setup and would require a re-deploy to modify
-                // anyway
-                if (!_cache.TryGetValue(CacheKeys.RobotsTxt, out byte[] RobotBytes))
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("User-agent: *");
-                    sb.AppendLine("Dissallow: /css/");
-                    sb.AppendLine("Dissallow: /images/");
-                    sb.AppendLine("Dissallow: /js/");
-                    sb.AppendLine("Dissallow: /lib/");
-                    sb.AppendLine(string.Format(format: "Sitemap: {0}",
-                        UriHelper.BuildAbsolute(
-                            context.Request.IsHttps ? "https" : "http",
-                            new HostString(_env.SELF_REFERENCE_URL),
-                            _sitemapPath
-                        ).ToString()
-                    ));
-
-                    RobotBytes = Encoding.UTF8.GetBytes(sb.ToString());
-
-                    MemoryCacheEntryOptions cacheEntryOptions = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.NeverRemove);
-
-                    _cache.Set(CacheKeys.RobotsTxt, RobotBytes, cacheEntryOptions);
-                }
-
-                Stream stream = context.Response.Body;
-                context.Response.StatusCode = 200;
-                context.Response.ContentType = "text/plain";
-                context.Response.Headers.Add("Cache-Control", $"max-age={TimeSpan.FromDays(1)}");
-                
-                await stream.WriteAsync(RobotBytes);
-            }
-            else
-            {
-                await _next(context);
-            }
-        }
-    }
-
-    public static class BuilderExtensions
-    {
-        public static IApplicationBuilder UseSitemapMiddleware(this IApplicationBuilder app)
-        {
-            return app.UseMiddleware<SitemapMiddleware>();
         }
     }
 }
