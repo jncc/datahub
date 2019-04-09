@@ -12,6 +12,7 @@ using Amazon.S3;
 using Amazon.S3.Model;
 
 using UrlCombineLib;
+using System.Collections.Generic;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -32,14 +33,16 @@ namespace Datahub.Sitemap
         {
             var dynamoClient = new AmazonDynamoDBClient();
 
-
-            var request = new ScanRequest
+            IEnumerable<Dictionary<string, AttributeValue>> items = new List<Dictionary<string, AttributeValue>> { };
+            Dictionary<string, AttributeValue> lastKeyEvaluated = null;
+            do
             {
-                TableName = input.Table
-            };
+                ScanResponse result = await GetDynamoDbScanResults(dynamoClient, input.Table, lastKeyEvaluated);
+                items = items.Concat(result.Items);
+                lastKeyEvaluated = result.LastEvaluatedKey;
+            } while (lastKeyEvaluated != null && lastKeyEvaluated.Count != 0);
 
-            var clientRequest = await dynamoClient.ScanAsync(request);
-            var xml = CreateSitemapXML(clientRequest, input);
+            var xml = CreateSitemapXML(items, input);
 
             MemoryStream mStream = new MemoryStream();
             xml.Save(mStream);
@@ -57,6 +60,18 @@ namespace Datahub.Sitemap
             return input;
         }
 
+        private Task<ScanResponse> GetDynamoDbScanResults(AmazonDynamoDBClient client, string table, Dictionary<string, AttributeValue> lastKeyEvaluated = null)
+        {
+            ScanRequest request = new ScanRequest
+            {
+                TableName = table,
+                AttributesToGet = new List<string> { "id", "timestamp" },
+                ExclusiveStartKey = lastKeyEvaluated
+            };
+
+            return client.ScanAsync(request);
+        }
+
         /// <summary>
         /// PUTs the outputted Sitemap XML into the given bucket at the specified key, the xml is contained in a MemoryStream
         /// for simplicity of feeding the document into the S3 Client handler
@@ -66,7 +81,7 @@ namespace Datahub.Sitemap
         /// <param name="key">The key path to PUT the file on in the specified bucket</param>
         /// <param name="inputStream">A Stream containing the XML file to write out to S3 (currently a MemoryStream)</param>
         /// <returns></returns>
-        public Task<PutObjectResponse> SaveSitemapToS3(AmazonS3Client client, string bucket, string key, Stream inputStream)
+        private Task<PutObjectResponse> SaveSitemapToS3(AmazonS3Client client, string bucket, string key, Stream inputStream)
         {   
             return client.PutObjectAsync(new PutObjectRequest{
                 BucketName = bucket,
@@ -107,14 +122,14 @@ namespace Datahub.Sitemap
         /// <param name="clientRequest">The ScanResponse from the DynamoDB table scan</param>
         /// <param name="config">The Config Object for this lambda run</param>
         /// <returns></returns>
-        public XDocument CreateSitemapXML(ScanResponse clientRequest, Config config)
+        public XDocument CreateSitemapXML(IEnumerable<Dictionary<string, AttributeValue>> items, Config config)
         {
             XNamespace xmlNS = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             return new XDocument(
                 new XDeclaration("1.0", "UTF-8", null),
                 new XElement(xmlNS + "urlset",
-                    from item in clientRequest.Items
+                    from item in items
                     select
                         new XElement(xmlNS + "url",
                             new XElement(xmlNS + "loc", GenerateAssetURL(item.Single(x => x.Key == "id").Value.S, config)),
