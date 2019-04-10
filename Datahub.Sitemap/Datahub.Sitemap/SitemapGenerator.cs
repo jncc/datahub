@@ -42,7 +42,7 @@ namespace Datahub.Sitemap
                     new Dictionary<string, string>
                     {
                         ["id"] = x.Single(y => y.Key == "id").Value.S,
-                        ["timestamp"] = x.Single(y => y.Key == "timestamp").Value.S
+                        ["timestamp"] = x.Single(y => y.Key == "timestamp_utc").Value.S
                     }
                 );
                 items = items.Concat(resultItems);
@@ -53,7 +53,7 @@ namespace Datahub.Sitemap
             var xml = CreateSitemapXML(items, parameters);
 
             MemoryStream mStream = new MemoryStream();
-            xml.Save(mStream);
+            xml.Save(mStream, SaveOptions.DisableFormatting);
 
             var s3Client = new AmazonS3Client();
             
@@ -83,8 +83,7 @@ namespace Datahub.Sitemap
             {
                 TableName = table,
                 AttributesToGet = new List<string> { "id", "timestamp" },
-                ExclusiveStartKey = lastKeyEvaluated,
-                Limit = 5
+                ExclusiveStartKey = lastKeyEvaluated
             };
 
             return client.ScanAsync(request);
