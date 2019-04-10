@@ -28,7 +28,7 @@ module.exports.putAsset = function(req) {
 
   var item = {
     ...req.body,
-    timestamp_utc = new Date().toISOString(),
+    timestamp_utc: new Date().toISOString(),
   }
 
   var params = {  
