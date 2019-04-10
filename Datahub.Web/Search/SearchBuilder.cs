@@ -81,9 +81,6 @@ namespace Datahub.Web.Search
 
         public QueryContainer BuildDatahubQuery(string q, List<Keyword> keywords)
         {
-            QueryContainer fullTextcontainer;
-            QueryContainer keywordSearch = new QueryContainer();
-
             /**
              * Full Text Search Logic
              * 
@@ -94,30 +91,56 @@ namespace Datahub.Web.Search
              * If we have no string to search on we convert the Bool Query to a single MatchQuery
              * matching on the Site (identical to the initial `Filter` query)
              */
-            if (q.IsNotBlank())
-            {
-                fullTextcontainer = new BoolQuery()
+             
+            QueryContainer fullQuery;
+
+            List<QueryContainer> commonQueries = new List<QueryContainer>();
+
+            if (q.IsNotBlank()) {
+                commonQueries.Add(new CommonTermsQuery() {
+                            Field = "content",
+                            Query = q,
+                            CutoffFrequency = 0.001,
+                            LowFrequencyOperator = Operator.Or});
+                commonQueries.Add(new CommonTermsQuery() {
+                            Field = "title",
+                            Query = q,
+                            CutoffFrequency = 0.001,
+                            LowFrequencyOperator = Operator.Or
+                        });
+            }
+
+            var keywordQueries = new List<QueryContainer>();
+
+            if (keywords.Any()) {         
+
+                foreach (var keyword in keywords)
+                {
+                    var x = new NestedQuery() {
+                        Path = "keywords",
+                        Query = new BoolQuery() {
+                            Must = new QueryContainer[]
+                                {
+                                    new MatchQuery { Field = "keywords.value", Query = keyword.Value},
+                                    new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab}
+                                }
+                            }
+                    };
+
+                    keywordQueries.Add(x);
+                }
+            }
+
+            if (commonQueries.Any() || keywordQueries.Any())
+            {           
+                fullQuery = new BoolQuery()
                 {
                     Filter = new QueryContainer[]
                     {
                         new MatchQuery { Field = "site", Query = ES_SITE }
                     },
-                    Should = new QueryContainer[]
-                    {
-                        new CommonTermsQuery() {
-                            Field = "content",
-                            Query = q,
-                            CutoffFrequency = 0.001,
-                            LowFrequencyOperator = Operator.Or
-                        },
-                        new CommonTermsQuery()
-                        {
-                            Field = "title",
-                            Query = q,
-                            CutoffFrequency = 0.001,
-                            LowFrequencyOperator = Operator.Or
-                        }
-                    },
+                    Should = commonQueries.ToArray(),
+                    Must = keywordQueries.ToArray(),
                     MinimumShouldMatch = 1
                 };
             }
@@ -125,36 +148,36 @@ namespace Datahub.Web.Search
             {
                 // If we have no text search then make sure we are only matching on 
                 // the correct site
-                fullTextcontainer = new MatchQuery { Field = "site", Query = ES_SITE };
+                fullQuery = new MatchQuery { Field = "site", Query = ES_SITE };
             }
 
-            if (keywords.Any())
-            {
-                // TODO: check this logic even works for multiple queries, suspect it doesn't really 
-                // for each keyword add a new query container containing a must match pair
+            // if (keywords.Any())
+            // {
+            //     // TODO: check this logic even works for multiple queries, suspect it doesn't really 
+            //     // for each keyword add a new query container containing a must match pair
 
-                /**
-                 * Keyword search logic, each vocab/value pair is unique and needs to be queried as 
-                 * one, so and each individual BoolQuery together into a single container
-                 */
-                foreach (Keyword keyword in keywords)
-                {
-                    keywordSearch = keywordSearch && new BoolQuery
-                    {
-                        Must = new QueryContainer[]
-                        {
-                            new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
-                            new MatchQuery { Field = "keywords.value", Query = keyword.Value }
-                        }
-                    };
-                }
-            }
+            //     /**
+            //      * Keyword search logic, each vocab/value pair is unique and needs to be queried as 
+            //      * one, so and each individual BoolQuery together into a single container
+            //      */
+            //     foreach (Keyword keyword in keywords)
+            //     {
+            //         keywordSearch = keywordSearch && new BoolQuery
+            //         {
+            //             Must = new QueryContainer[]
+            //             {
+            //                 new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
+            //                 new MatchQuery { Field = "keywords.value", Query = keyword.Value }
+            //             }
+            //         };
+            //     }
+            // }
 
             /**
              * Use some predicate logic to turn the Keyword Search into a `Filter` for the main
              * search
              */
-            return fullTextcontainer && +keywordSearch;
+            return fullQuery;
         }
     }
 }
