@@ -33,7 +33,7 @@ module.exports.putAsset = function(req) {
 
   var params = {  
     TableName: table,  
-    item,
+    Item: item,
   }
 
   // put the asset into the database
