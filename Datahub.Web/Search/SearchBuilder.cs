@@ -141,7 +141,7 @@ namespace Datahub.Web.Search
                     },
                     Should = commonQueries.ToArray(),
                     Must = keywordQueries.ToArray(),
-                    MinimumShouldMatch = 1
+                    MinimumShouldMatch = commonQueries.Any() ? 1 : 0
                 };
             }
             else
