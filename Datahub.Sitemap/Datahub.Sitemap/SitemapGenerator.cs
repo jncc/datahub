@@ -82,7 +82,7 @@ namespace Datahub.Sitemap
             ScanRequest request = new ScanRequest
             {
                 TableName = table,
-                AttributesToGet = new List<string> { "id", "timestamp" },
+                AttributesToGet = new List<string> { "id", "timestamp_utc" },
                 ExclusiveStartKey = lastKeyEvaluated
             };
 
@@ -134,6 +134,23 @@ namespace Datahub.Sitemap
         }
 
         /// <summary>
+        /// Create an XML element for a given asset (id/timestamp) combo, timestamp may be null so need to deal with it here
+        /// </summary>
+        /// <param name="xmlNS">The XML Namesapce to use</param>
+        /// <param name="parameters">Any input parameters to use</param>
+        /// <param name="id">The id of the asset</param>
+        /// <param name="timestamp">The timestamp of the asset</param>
+        /// <param name="changeFreq">(Optional) The change frequency of the asset (defaults to weekly)</param>
+        /// <returns></returns>
+        private XElement CreateElement(XNamespace xmlNS, Parameters parameters, string id, string timestamp, string changeFreq = "weekly")
+        {
+            return new XElement(xmlNS + "url",
+                    new XElement(xmlNS + "loc", GenerateAssetURL(id, parameters)),
+                    new XElement(xmlNS + "lastmod", timestamp),
+                    new XElement(xmlNS + "changefreq", changeFreq));
+        }
+
+        /// <summary>
         /// Create the sitemap XML file from the scanned DynamoDB assets
         /// </summary>
         /// <param name="clientRequest">The ScanResponse from the DynamoDB table scan</param>
@@ -148,10 +165,7 @@ namespace Datahub.Sitemap
                 new XElement(xmlNS + "urlset",
                     from item in items
                     select
-                        new XElement(xmlNS + "url",
-                            new XElement(xmlNS + "loc", GenerateAssetURL(item.Single(x => x.Key == "id").Value, parameters)),
-                            new XElement(xmlNS + "lastmod", GenerateAssetURL(item.Single(x => x.Key == "timestamp").Value, parameters)),
-                            new XElement(xmlNS + "changefreq", "weekly"))
+                    CreateElement(xmlNS, parameters, item.Single(x => x.Key == "id").Value, item.Single(x => x.Key == "timestamp").Value)
                 )
             );
         }
