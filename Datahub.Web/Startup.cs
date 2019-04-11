@@ -1,3 +1,5 @@
+
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -53,7 +55,7 @@ namespace Datahub.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IEnv envVars)
         {
             if (env.IsDevelopment())
             {
@@ -63,9 +65,10 @@ namespace Datahub.Web
             {
                 app.UseExceptionHandler("/Error");
 
-                var redirectOptions = new RewriteOptions()
-                    .AddRedirectToProxiedHttps();
-                app.UseRewriter(redirectOptions);
+                if (Convert.ToBoolean(envVars.FORCE_HTTPS)){
+                    var redirectOptions = new RewriteOptions().AddRedirectToProxiedHttps();
+                    app.UseRewriter(redirectOptions);
+                }
             }
 
             app.UseStaticFiles();

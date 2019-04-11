@@ -17,6 +17,7 @@ namespace Datahub.Web
         string SELF_REFERENCE_URL { get; }
         string SITEMAP_S3_BUCKET { get; }
         string SITEMAP_S3_KEY { get;  }
+        string FORCE_HTTPS { get; }
     }
 
     public class Env : IEnv
@@ -33,6 +34,7 @@ namespace Datahub.Web
         public string SELF_REFERENCE_URL { get; private set; }
         public string SITEMAP_S3_BUCKET { get; private set; }
         public string SITEMAP_S3_KEY { get; private set; }
+        public string FORCE_HTTPS { get; private set; }
 
         public Env()
         {
@@ -48,6 +50,7 @@ namespace Datahub.Web
             this.SELF_REFERENCE_URL = GetVariable("SELF_REFERENCE_URL", false, "hub.jncc.gov.uk");
             this.SITEMAP_S3_BUCKET = GetVariable("SITEMAP_S3_BUCKET");
             this.SITEMAP_S3_KEY = GetVariable("SITEMAP_S3_KEY");
+            this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", false);
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
