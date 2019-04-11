@@ -29,7 +29,8 @@ const mapping = {
     "parent_resource_type": { "type": "keyword" },
     "file_extension": { "type": "keyword" },
     "file_bytes": { "type": "long", "index": false },
-    "footprint": { "type": "geo_shape" }
+    "footprint": { "type": "geo_shape" },
+    "timestamp_utc": { "type": "date" }
   }
 }
 

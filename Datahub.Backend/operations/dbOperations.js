@@ -26,9 +26,14 @@ module.exports.putAsset = function(req) {
 
   table = getTable(req.pathParams.env)
 
+  var item = {
+    ...req.body,
+    timestamp_utc: new Date().toISOString(),
+  }
+
   var params = {  
     TableName: table,  
-    Item: req.body
+    Item: item,
   }
 
   // put the asset into the database
