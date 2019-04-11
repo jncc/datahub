@@ -14,6 +14,7 @@ namespace Datahub.Web
         string AWS_SECRET_ACCESS_KEY { get; }
         string AWS_DEFAULT_REGION { get; }
         string GTM_ID { get; }
+        string FORCE_HTTPS { get; }
     }
 
     public class Env : IEnv
@@ -27,6 +28,7 @@ namespace Datahub.Web
         public string AWS_DEFAULT_REGION { get; private set; }
         public string GTM_ID { get; private set; }
         public string DB_TABLE { get; private set; }
+        public string FORCE_HTTPS { get; private set; }
 
         public Env()
         {
@@ -39,6 +41,7 @@ namespace Datahub.Web
             this.AWS_DEFAULT_REGION = GetVariable("AWS_DEFAULT_REGION", false);
             this.GTM_ID = GetVariable("GTM_ID", false, "");
             this.DB_TABLE = GetVariable("DB_TABLE", false);
+            this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", false);
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
