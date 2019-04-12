@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-    @(ViewData["Title"] == null || ViewData["Title"].ToString() == String.Empty
-        ? "JNCC Resource Hub"
-        : ViewData["Title"] + " | JNCC Resource Hub")
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+        @(ViewData["Title"] == null || ViewData["Title"].ToString() == String.Empty
+            ? "JNCC Resource Hub"
+            : ViewData["Title"] + " | JNCC Resource Hub")
     </title>
-
     <environment exclude="Development">
         <!-- Google Tag Manager -->
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -18,26 +18,18 @@
         })(window,document,'script','dataLayer','@(LayoutViewModel.GTM_ID)');</script>
         <!-- End Google Tag Manager -->
     </environment>
-
-    <!-- todo: dev/prod split -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/css/site.css" />
     <environment include="Development">
-        <!-- <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" /> -->
         <!-- <link rel="stylesheet" href="~/css/site.css" /> -->
     </environment>
     <environment exclude="Development">
-        <!-- <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" /> -->
         <!-- <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" /> -->
     </environment>
-    <!-- todo: dev/prod split for fonts & icons, too -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-    <style>
-        body { font-family: 'Roboto Mono', monospace !important; }
-    </style>
+	<link rel="stylesheet" href="frontend/css/app.css">
+	<link rel="shortcut icon" href="frontend/favicon.ico" type="image/x-icon">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+	<script>window.jQuery || document.write('<script src="frontend/js/lib/jquery-3.3.1.min.js" defer><\/script>')</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.0/js/foundation.min.js" defer></script>
+	<script src="frontend/js/app.js" defer></script>
 </head>
 <body>
     <environment exclude="Development">
@@ -46,75 +38,106 @@
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->        
     </environment>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container">
-            <a class="navbar-brand" asp-page="/Index"><i class="fas fa-database"></i> Resource Hub</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item"> <!-- class="active" can be added -->
-                    <a class="nav-link" asp-page="/Search">Search</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-page="/About">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-page="/Contact">Contact</a>
-                </li>
-                </ul>
-                <form action="/search" method="get" class="form-inline mt-2 mt-md-0">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Search" name="q">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-success" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </nav>
+	<noscript><div>Javascript must be enabled for the correct page display</div></noscript>
+	<div id="wrapper">
+		<a class="accessibility" href="#main" accesskey="S">Skip to Content</a>
+		<header id="header">
+			<div class="container">
+				<strong class="logo">
+					<a href="#" accesskey="1"><img src="frontend/images/logo.png" alt="JNCC"></a>
+				</strong>
+				<form action="#" role="search" class="top-bar search-form input-group" id="search-form" data-animate="hinge-in-from-top spin-out">
+					<label for="search-field" class="show-for-sr" accesskey="4">Search:</label>
+					<input type="search" placeholder="Search" class="input-group-field" id="search-field">
+					<button class="input-group-button" aria-label="search-button"><i class="icon-search"></i></button>
+				</form>
+				<div class="show-for-small-only">
+					<div class="title-bar" data-responsive-toggle="search-form" data-hide-for="medium">
+						<button type="button" class="search-opener" data-toggle="search-form" aria-label="search-opener"><i class="icon-search"></i></button>
+					</div>
+					<div class="title-bar" data-responsive-toggle="menu" data-hide-for="medium">
+						<button type="button" class="nav-opener" data-toggle="menu" data-responsive-toggle="menu" aria-label="navigation-opener"><span></span></button>
+					</div>
+				</div>
+			</div>
+			<nav class="top-bar nav" id="menu" data-animate="hinge-in-from-top spin-out" aria-label="main-navigation">
+				<div class="container">
+					<ul class="vertical medium-horizontal menu dropdown">
+						<li class="active"><a href="#">Valuing the environment</a></li>
+						<li><a href="#">Advice</a></li>
+						<li><a href="#">Monitoring</a></li>
+						<li><a href="#">Pressures</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Resources</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
 
-    <!-- <partial name="_CookieConsentPartial" /> -->
-
-    <div class="container body-content mt-5">
+        <main id="main">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 Joint Nature Conservation Committee</p>
-        </footer>
-    </div>
+        </main>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <!-- <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script> -->
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <!-- <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script> -->
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-    <!-- todo: dev/prod split -->
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
-    @RenderSection("Scripts", required: false)
+		<footer id="footer" class="text-center medium-text-left">
+			<div class="container">
+				<div class="row">
+					<div class="columns small-12 medium-4">
+						<nav class="holder" id="footer-nav" aria-label="footer-navigation">
+							<h3>About Us</h3>
+							<ul class="footer-nav no-bullet">
+								<li><a href="#" accesskey="2">News</a></li>
+								<li><a href="#">Procurement</a></li>
+								<li><a href="#">Consultations</a></li>
+								<li><a href="#">Career</a></li>
+								<li><a href="#" accesskey="9">Contact Us</a></li>
+								<li><a href="#">More About Us</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="columns small-12 medium-4">
+						<nav class="holder" aria-label="footer-navigation">
+							<h3>OUR Science</h3>
+							<ul class="footer-nav no-bullet">
+								<li><a href="#">Data Hub</a></li>
+								<li><a href="#">MHC</a></li>
+							</ul>
+						</nav>
+					</div>
+					<div class="columns small-12 medium-4">
+						<nav class="holder" aria-label="footer-navigation">
+							<h3>Our Services</h3>
+							<ul class="footer-nav no-bullet">
+								<li><a href="#">Valuing the Environment</a></li>
+								<li><a href="#">Advice</a></li>
+								<li><a href="#">Monitoring</a></li>
+								<li><a href="#">Pressures</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<ul class="social-media no-bullet">
+					<li><a href="#"><span class="show-for-sr">Facebook</span><i class="icon-facebook"></i></a></li>
+					<li><a href="#"><span class="show-for-sr">Twitter</span><i class="icon-twitter"></i></a></li>
+					<li><a href="#"><span class="show-for-sr">Youtube</span><i class="icon-youtube"></i></a></li>
+				</ul>
+			</div>
+			<div class="footer-bottom">
+				<div class="container">
+					<ul class="footer-bottom-list no-bullet">
+						<li><a href="#">Join Nature Conservation Commitee</a></li>
+						<li>Press Office<a href="tel:01733868888"> 01733 868888</a></li>
+					</ul>
+					<ul class="footer-bottom-list no-bullet info">
+						<li><a href="#" accesskey="8">Terms of use</a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Cookie policy</a></li>
+						<li><a href="#">Accessability</a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<a class="accessibility" href="#wrapper">Back to top</a>
 </body>
 </html>

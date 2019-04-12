@@ -2,7 +2,26 @@
 @using System.Net
 @using Datahub.Web.Models
 
-<h1 class="display-4">
+
+<div class="visual-section" style="background-image: url(frontend/images/arun-valley.jpg);">
+    <div class="container">
+        <h1>Resource hub</h1>
+        <form action="search" method="get">
+            <div class="input-group mb-5">
+                <input type="text" class="form-control" placeholder="Search the JNCC Resource Hub" autofocus aria-label="Search the JNCC Resource Hub" name="q">
+                <div class="input-group-append">
+                    <button class="btn btn-success px-4" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+
+<h1>
     <span style="color: rgba(77, 219, 58, 1);">
     <i class="fas fa-database"></i>
     </span>
@@ -10,18 +29,6 @@
 </h1>
 
 <br />
-<div>
-    <form action="search" method="get">
-        <div class="input-group mb-5">
-            <input type="text" class="form-control" placeholder="Search the JNCC Resource Hub" autofocus aria-label="Search the JNCC Resource Hub" name="q">
-            <div class="input-group-append">
-                <button class="btn btn-success px-4" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-</div>
 
 
 <br />
@@ -32,6 +39,11 @@
 <br />
 <br />
 <br />
+
+</div>
+
+
+
 
 <!--
 <div class="row mb-4">
