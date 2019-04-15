@@ -2,19 +2,16 @@
 @using System.Net
 @using Datahub.Web.Models
 
+@{ ViewBag.CurrentPage = "Index"; }
 
 <div class="visual-section" style="background-image: url(frontend/images/arun-valley.jpg);">
     <div class="container">
         <h1>Resource hub</h1>
-        <form action="search" method="get">
-            <div class="input-group mb-5">
-                <input type="text" class="form-control" placeholder="Search the JNCC Resource Hub" autofocus aria-label="Search the JNCC Resource Hub" name="q">
-                <div class="input-group-append">
-                    <button class="btn btn-success px-4" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
+
+        <form action="search" method="get" role="search" class="search-form input-group" style="max-width:100%" data-animate="hinge-in-from-top spin-out">
+            <label for="datahub-search-field" class="show-for-sr" accesskey="4">Search the Resource hub:</label>
+            <input autofocus type="search" placeholder="Search the JNCC Resource hub" class="input-group-field" id="datahub-search-field" name="q">
+            <button class="input-group-button" aria-label="search-button"><i class="icon-search"></i></button>
         </form>
     </div>
 </div>
@@ -25,16 +22,10 @@
     <span style="color: rgba(77, 219, 58, 1);">
     <i class="fas fa-database"></i>
     </span>
-    Resource Hub
 </h1>
 
 <br />
-
-
-<br />
-<br />
-<br />
-<h2><i class="fas fa-truck-pickup"></i> Data assets will appear here shortly.</h2>
+<p><i class="fas fa-truck-pickup"></i> Data assets will appear here shortly.</p>
 <br />
 <br />
 <br />
@@ -42,11 +33,55 @@
 
 </div>
 
+<environment include="Development">
+<div class="container">
+<div class="row">
+    <div class="large-6">
+
+        <h2>Common Standards Monitoring</h2>
+        <p>
+            @await Html.PartialAsync("_Keyword", new Keyword {
+                Vocab="http://vocab.jncc.gov.uk/web-category",
+                Value="Common Standards Monitoring",
+                Link="/Search?k=" + WebUtility.UrlEncode("http://vocab.jncc.gov.uk/web-category/Common Standards Monitoring")
+            })
+        </p>
+        <ul>
+            <li><a href="/assets/896f9132-8b1f-44cd-91f3-2423311668f2">Common Standards Monitoring Guidance for Coastal</a></li>
+            <li><a href="/assets/6c6efb44-d9a3-45f4-9547-99e44a30e066">Common Standards Monitoring Guidance for Freshwater Habitats and Species</a></li>
+            <li><a href="/assets/36959434-2b2a-4ce1-a42d-3294cd1a9731">Common Standards Monitoring Guidance for Lowland Grassland</a></li>
+            <li><a href="/assets/36959434-2b2a-4ce1-a42d-3294cd1a9731">Common Standards Monitoring Guidance for Lowland Heathlands</a></li>
+            <li><a href="/assets/5a83589c-6570-4490-a243-c926580d3036">Common Standards Monitoring Guidance for Lowland Wetland</a></li>
+            <li><a href="/assets/c9f48a5d-e003-46cf-b3ff-9dc15e0d8acb">Common Standards Monitoring Guidance for Marine</a></li>
+        </ul>
+
+    </div>
+    <div class="large-6">
+
+        <h2>Earth Observation</h2>
+        <p>
+            @await Html.PartialAsync("_Keyword", new Keyword {
+                Vocab="http://vocab.jncc.gov.uk/web-category",
+                Value="Earth Observation",
+                Link="/Search?k=" + WebUtility.UrlEncode("http://vocab.jncc.gov.uk/web-category/Earth Observation")
+            })
+        </p>
+        <ul>
+            <li><a href="/assets/4b9204f4-e3c8-4c48-b689-73773a42407c">Crick Framework: a systematic description of the potential for the use of Earth Observation in habitat mapping</a></li>
+            <li><a href="/assets/5955fd9c-8c9a-4a8c-b72e-2ed3fb756f5c">Making Earth Observation Work for UK Biodiversity Conservation Phase 1</a></li>
+            <li><a href="/assets/9192679c-5260-443e-a413-acee4798a62a">Making Earth Observation Work for UK Biodiversity (SHOULD BE CALLED PHASE 2?)</a></li>
+        </ul>
+
+    </div>
+</div>
+</div>
+</environment>
+
 
 
 
 <!--
-<div class="row mb-4">
+<div class="row">
     <div class="col-md-6">
         <h2>Common Standards Monitoring</h2>
         <p>
@@ -56,7 +91,7 @@
                 Link="/Search?k=" + WebUtility.UrlEncode("http://vocab.jncc.gov.uk/web-category/Common Standards Monitoring")
             })
         </p>
-        
+        <ul>
             <li><a href="/assets/896f9132-8b1f-44cd-91f3-2423311668f2">Common Standards Monitoring Guidance for Coastal</a></li>
             <li><a href="/assets/6c6efb44-d9a3-45f4-9547-99e44a30e066">Common Standards Monitoring Guidance for Freshwater Habitats and Species</a></li>
             <li><a href="/assets/36959434-2b2a-4ce1-a42d-3294cd1a9731">Common Standards Monitoring Guidance for Lowland Grassland</a></li>

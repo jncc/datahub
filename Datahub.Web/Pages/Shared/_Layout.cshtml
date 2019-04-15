@@ -24,12 +24,12 @@
     <environment exclude="Development">
         <!-- <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" /> -->
     </environment>
-	<link rel="stylesheet" href="frontend/css/app.css">
-	<link rel="shortcut icon" href="frontend/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="~/frontend/css/app.css">
+	<link rel="shortcut icon" href="~/frontend/favicon.ico" type="image/x-icon">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
-	<script>window.jQuery || document.write('<script src="frontend/js/lib/jquery-3.3.1.min.js" defer><\/script>')</script>
+	<script>window.jQuery || document.write('<script src="/frontend/js/lib/jquery-3.3.1.min.js" defer><\/script>')</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.0/js/foundation.min.js" defer></script>
-	<script src="frontend/js/app.js" defer></script>
+	<script src="~/frontend/js/app.js" defer></script>
 </head>
 <body>
     <environment exclude="Development">
@@ -44,11 +44,12 @@
 		<header id="header">
 			<div class="container">
 				<strong class="logo">
-					<a href="#" accesskey="1"><img src="frontend/images/logo.png" alt="JNCC"></a>
+					<a href="@(LayoutViewModel.JNCC_WEBSITE_URL)" accesskey="1"><img src="~/frontend/images/logo.png" alt="JNCC"></a>
 				</strong>
-				<form action="#" role="search" class="top-bar search-form input-group" id="search-form" data-animate="hinge-in-from-top spin-out">
+                <!-- <h4>Resource hub</h4> -->
+				<form action="@(LayoutViewModel.JNCC_WEBSITE_URL)/search" role="search" name="q" class="top-bar search-form input-group" id="search-form" data-animate="hinge-in-from-top spin-out">
 					<label for="search-field" class="show-for-sr" accesskey="4">Search:</label>
-					<input type="search" placeholder="Search" class="input-group-field" id="search-field">
+					<input type="search" placeholder="Search jncc.gov.uk" class="input-group-field" id="search-field">
 					<button class="input-group-button" aria-label="search-button"><i class="icon-search"></i></button>
 				</form>
 				<div class="show-for-small-only">
@@ -63,13 +64,9 @@
 			<nav class="top-bar nav" id="menu" data-animate="hinge-in-from-top spin-out" aria-label="main-navigation">
 				<div class="container">
 					<ul class="vertical medium-horizontal menu dropdown">
-						<li class="active"><a href="#">Valuing the environment</a></li>
-						<li><a href="#">Advice</a></li>
-						<li><a href="#">Monitoring</a></li>
-						<li><a href="#">Pressures</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Resources</a></li>
-						<li><a href="#">Contact</a></li>
+						<li><a href="@(LayoutViewModel.JNCC_WEBSITE_URL)"><i class="icon-keyboard-arrow-left"></i> Back to main site</a></li>
+						<li class="@(ViewBag.CurrentPage == "Index" ? "active" : "") "><a href="~/">Resource hub</a></li>
+						<li class="@(ViewBag.CurrentPage == "About" ? "active" : "") "><a href="~/about">About</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -139,5 +136,7 @@
 		</footer>
 	</div>
 	<a class="accessibility" href="#wrapper">Back to top</a>
+
+@RenderSection("Scripts", required: false)
 </body>
 </html>

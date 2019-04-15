@@ -15,6 +15,7 @@ namespace Datahub.Web
         string AWS_DEFAULT_REGION { get; }
         string GTM_ID { get; }
         string FORCE_HTTPS { get; }
+        string JNCC_WEBSITE_URL { get; }
     }
 
     public class Env : IEnv
@@ -29,6 +30,7 @@ namespace Datahub.Web
         public string GTM_ID { get; private set; }
         public string DB_TABLE { get; private set; }
         public string FORCE_HTTPS { get; private set; }
+        public string JNCC_WEBSITE_URL { get; private set; }
 
         public Env()
         {
@@ -42,6 +44,7 @@ namespace Datahub.Web
             this.GTM_ID = GetVariable("GTM_ID", false, "");
             this.DB_TABLE = GetVariable("DB_TABLE", false);
             this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", false);
+            this.JNCC_WEBSITE_URL = GetVariable("JNCC_WEBSITE_URL", false, "https://example.com");
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
