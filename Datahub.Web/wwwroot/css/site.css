@@ -39,6 +39,12 @@ body {
     width: 0;
     margin-right: 0.15em;
   }
+.keyword-remove-btn {
+    display: inline-block;
+    width: 7px;
+    margin-right: 2px;
+    background-color:  rgb(201, 37, 50);
+}
 
 
 

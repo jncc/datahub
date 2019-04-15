@@ -151,32 +151,6 @@ namespace Datahub.Web.Search
                 fullQuery = new MatchQuery { Field = "site", Query = ES_SITE };
             }
 
-            // if (keywords.Any())
-            // {
-            //     // TODO: check this logic even works for multiple queries, suspect it doesn't really 
-            //     // for each keyword add a new query container containing a must match pair
-
-            //     /**
-            //      * Keyword search logic, each vocab/value pair is unique and needs to be queried as 
-            //      * one, so and each individual BoolQuery together into a single container
-            //      */
-            //     foreach (Keyword keyword in keywords)
-            //     {
-            //         keywordSearch = keywordSearch && new BoolQuery
-            //         {
-            //             Must = new QueryContainer[]
-            //             {
-            //                 new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
-            //                 new MatchQuery { Field = "keywords.value", Query = keyword.Value }
-            //             }
-            //         };
-            //     }
-            // }
-
-            /**
-             * Use some predicate logic to turn the Keyword Search into a `Filter` for the main
-             * search
-             */
             return fullQuery;
         }
     }
