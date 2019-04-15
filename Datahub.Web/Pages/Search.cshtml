@@ -51,19 +51,27 @@
     }
 }   
 
+@{
+    var keywordParam = "";
+    foreach (var k in Model.SearchParams.k)
+    {
+        keywordParam = "&k=" + k + keywordParam
+    }
+}
+
     <div>
         <ul class="pagination">
             <li class="page-item @(Model.SearchParams.p == 1 || Model.Results.Total < Model.SearchParams.size ? "disabled":"")">
-                <a data-page="1" class="page-link" href="/search?q=@(Model.SearchParams.q)&k=@(Model.SearchParams.k)&p=1"><i class="fas fa-fast-backward"></i></a>
+                <a data-page="1" class="page-link" href="/search?q=@(Model.SearchParams.q)@keywordParam&p=1"><i class="fas fa-fast-backward"></i></a>
             </li>
             <li class="page-item @(Model.SearchParams.p == 1 || Model.Results.Total < Model.SearchParams.size ? "disabled":"")">
-                <a class="page-link" href="/search?q=@(Model.SearchParams.q)&k=@(Model.SearchParams.k)&p=@(Model.SearchParams.p - 1)"><i class="fas fa-step-backward"></i></a>
+                <a class="page-link" href="/search?q=@(Model.SearchParams.q)@keywordParam&p=@(Model.SearchParams.p - 1)"><i class="fas fa-step-backward"></i></a>
             </li>
             <li class="page-item  @(Model.SearchParams.p == (Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size)) || Model.Results.Total < Model.SearchParams.size ? "disabled":"")">
-                <a class="page-link" href="/search?q=@(Model.SearchParams.q)&k=@(Model.SearchParams.k)&p=@(Model.SearchParams.p + 1)"><i class="fas fa-step-forward"></i></a>
+                <a class="page-link" href="/search?q=@(Model.SearchParams.q)@keywordParam&p=@(Model.SearchParams.p + 1)"><i class="fas fa-step-forward"></i></a>
             </li>
             <li class="page-item @(Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size) == Model.SearchParams.p || Model.Results.Total < Model.SearchParams.size ? "disabled": "")">
-                <a href="/search?q=@(Model.SearchParams.q)&k=@(Model.SearchParams.k)&p=@(Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size))" class="page-link"><i class="fas fa-fast-forward"></i></a>
+                <a href="/search?q=@(Model.SearchParams.q)@keywordParam&p=@(Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size))" class="page-link"><i class="fas fa-fast-forward"></i></a>
             </li>
         </ul>
     </div>
