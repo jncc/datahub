@@ -71,7 +71,9 @@ namespace Datahub.Web.Search
                 {
                     return new Keyword { Vocab = null, Value = k };
                 }
-            }).ToList();
+            }).OrderBy(k => k.Vocab)
+              .ThenBy(k => k.Value)
+              .ToList();
         }
 
         public int GetStartFromPage(int page, int size)
