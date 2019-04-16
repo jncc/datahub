@@ -31,7 +31,10 @@
 
         <p>
             @foreach (var k in Model.Asset.Metadata.Keywords) {
-                @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+                var keyword = k.Vocab + "/" + k.Value;
+                <a href="/search?k=@keyword">
+                    @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+                </a>
             }
         </p>
 
