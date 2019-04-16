@@ -18,6 +18,7 @@ namespace Datahub.Web.Pages
         // view model properties
         public SearchParams SearchParams { get; private set; }
         public List<Keyword> Keywords { get; private set; }
+        public string KeywordParameter { get; private set; }
         public ISearchResponse<SearchResult> Results { get; private set; }
 
         public SearchModel(ISearchBuilder searchBuilder, IElasticsearchService esService)
@@ -30,6 +31,11 @@ namespace Datahub.Web.Pages
         {
             SearchParams = input;
             Keywords = searchBuilder.ParseKeywords(input.k);
+
+            foreach (var k in input.k)
+            {
+                KeywordParameter = "&k=" + k + KeywordParameter;
+            }
 
             var search = searchBuilder.BuildQuery(input);
             var client = esService.Client();
