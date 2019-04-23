@@ -1,16 +1,5 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification 
 for details on configuring this project to bundle and minify static web assets. */
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
 
 
 .asset-image {
@@ -18,6 +7,10 @@ body {
     filter: drop-shadow(5px 5px 5px #666);
     margin-bottom:2em;
     margin-right:2em;
+}
+
+.icon-for-text {
+    
 }
 
 .keyword {
@@ -42,7 +35,7 @@ body {
 
 
 
-
+/* TODO: support expanding Abstract */
 
   .module .collapse, .module .collapsing {
     height: 7.8em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */

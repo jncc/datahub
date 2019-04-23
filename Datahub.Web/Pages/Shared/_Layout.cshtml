@@ -47,10 +47,9 @@
 				<strong class="logo">
 					<a href="@(LayoutViewModel.JNCC_WEBSITE_URL)" accesskey="1"><img src="~/frontend/images/logo.png" alt="JNCC"></a>
 				</strong>
-                <h4 class="show-for-small-only">JNCC Resource hub</h4>
-				<form action="@(LayoutViewModel.JNCC_WEBSITE_URL)/search" role="search" name="q" class="top-bar search-form input-group" id="search-form" data-animate="hinge-in-from-top spin-out">
+				<form action="@(LayoutViewModel.JNCC_WEBSITE_URL)/search" role="search" class="top-bar search-form input-group" id="search-form" data-animate="hinge-in-from-top spin-out">
 					<label for="search-field" class="show-for-sr" accesskey="4">Search:</label>
-					<input type="search" placeholder="Search jncc.gov.uk" class="input-group-field" id="search-field">
+					<input type="search" name="q" placeholder="Search jncc.gov.uk" class="input-group-field" id="search-field">
 					<button class="input-group-button" aria-label="search-button"><i class="icon-search"></i></button>
 				</form>
 				<div class="show-for-small-only">
@@ -64,9 +63,9 @@
 			</div>
 			<nav class="top-bar nav @(ViewBag.PageHero == "True" ? "" : "no-page-hero") " id="menu" data-animate="hinge-in-from-top spin-out" aria-label="main-navigation">
 				<div class="container">
-					<ul class="vertical medium-horizontal menu dropdown">
-						<li><a href="@(LayoutViewModel.JNCC_WEBSITE_URL)"><i class="fas fa-chevron-left"></i> Back to main site</a></li>
-						<li class="@(ViewBag.CurrentPage == "Index" ? "active" : "") "><a href="~/"><i class="fas fa-database"></i> Resource hub</a></li>
+					<ul class="vertical medium-horizontal menu dropdown" style="vertical-align:middle;">
+						<li><a href="@(LayoutViewModel.JNCC_WEBSITE_URL)"><i class="fas fa-chevron-left fa-fw"></i> Main site</a></li>
+						<li class="@(ViewBag.CurrentPage == "Index" ? "active" : "") "><a href="~/"><i class="fas fa-database fa-fw"></i> Resource hub</a></li>
 						<li class="@(ViewBag.CurrentPage == "Search" ? "active" : "") "><a href="~/search">Search</a></li>
 						<li class="@(ViewBag.CurrentPage == "About" ? "active" : "") "><a href="~/about">About</a></li>
 					</ul>
