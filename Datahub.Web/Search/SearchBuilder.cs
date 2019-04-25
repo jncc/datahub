@@ -18,13 +18,13 @@ namespace Datahub.Web.Search
 
     public class SearchBuilder : ISearchBuilder
     {
-        readonly IEnv _env;
+        readonly Env _env;
         readonly IElasticsearchService _esService;
 
         // the datahub only ever searches over the "datahub" site
         static readonly string ES_SITE = "datahub";
 
-        public SearchBuilder(IEnv env, IElasticsearchService esService)
+        public SearchBuilder(Env env, IElasticsearchService esService)
         {
             _env = env;
             _esService = esService;
