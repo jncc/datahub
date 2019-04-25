@@ -9,8 +9,11 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-right:2em;
 }
 
-.icon-for-text {
-    
+.text-muted {
+    color: #999;
+}
+.text-small {
+    font-size: 80%;
 }
 
 .keyword {

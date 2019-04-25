@@ -24,14 +24,18 @@
 
     <div class="col-lg">
 
+<!-- 3adb76 button.success -->
+
         <h1 class="display-5 mb-4">
-            <span style="color: rgba(77, 219, 58, 1);">
+            <span style="color: #48A943; margin-right:0.2rem;">  
             <i class="fas @AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType)"
                 data-toggle="tooltip" title="@Model.Asset.Metadata.ResourceType"></i>
             </span>
             @Model.Asset.Metadata.Title
-            <span class="small text-muted">@Model.Asset.Metadata.DatasetReferenceDate.Substring(0, 4)</span>
+            <span class="text-small text-muted">@Model.Asset.Metadata.DatasetReferenceDate.Substring(0, 4)</span>
         </h1>
+
+        <h2></h2>
 
         <p>
             @foreach (var k in Model.Asset.Metadata.Keywords) {
