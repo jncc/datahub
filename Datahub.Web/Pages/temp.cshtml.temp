@@ -1,25 +1,6 @@
 
+        // <div class="col-lg-auto order-lg-first" > -->
 
-<div class="row">
-<div class="columns">a</div>
-<div class="columns">b</div>
-</div>
-
-
-
-
-    @{
-        // support adding "img" to the querystring just to see what any page could look like with an image
-        if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty) {
-            Model.Asset.Image = new Image { Url = "/images/example-cover-image.png" }; // use dummy image
-        }
-    }
-    @if (Model.Asset.Image != null && Model.Asset.Image.Url.IsNotBlank()) {
-    // <div class="col-lg-auto order-lg-first" > -->
-    <div class="columns large-5">
-        <img src="@(Model.Asset.Image.Url)"  height="400" class="asset-image" />
-    </div>
-    }
 
 
 
