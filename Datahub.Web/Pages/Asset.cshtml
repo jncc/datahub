@@ -8,34 +8,35 @@
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
 }
+@{ ViewBag.CurrentPage = "Index"; }
+
 @section Scripts {
-    <script>
+    <!-- <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
-    </script>
+    </script> -->
 }
  
  <br />
  
 <div class="container">
 
+
+
 <div class="row">
 
-    <div class="col-lg">
+    <div class="columns large-7">
 
-<!-- 3adb76 button.success -->
-
-        <h1 class="display-5 mb-4">
-            <span style="color: #48A943; margin-right:0.2rem;">  
+        <!-- Title -->
+        <h1 class="display-5 mb-4" style="margin-bottom: 1rem;">
+            <span style="color: #48A943; margin-right:0.3rem;">  
             <i class="fas @AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType)"
                 data-toggle="tooltip" title="@Model.Asset.Metadata.ResourceType"></i>
             </span>
-            @Model.Asset.Metadata.Title
+            <span style="margin-right: 0.1em;">@Model.Asset.Metadata.Title</span>
             <span class="text-small text-muted">@Model.Asset.Metadata.DatasetReferenceDate.Substring(0, 4)</span>
         </h1>
-
-        <h2></h2>
 
         <p>
             @foreach (var k in Model.Asset.Metadata.Keywords) {
@@ -45,248 +46,18 @@
 
         <div class="module">
             <p class="collapse" id="collapseExample" aria-expanded="false">
-                <span class="text-muted">Abstract.</span> @Model.Asset.Metadata.Abstract
+                <span class="text-label">Abstract</span> @Model.Asset.Metadata.Abstract
             </p>
             <div class="float-right">
-            <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
-                aria-expanded="false" aria-controls="collapseExample"></a>
+                <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
+                    aria-expanded="false" aria-controls="collapseExample"></a>
             </div>
+
         </div>
     </div>
-
-    @{
-        // support adding "img" to the querystring just to see what any page could look like with an image
-        if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty) {
-            Model.Asset.Image.Url = "/images/example-cover-image.png"; // use dummy image
-        }
-    }
-    @if (Model.Asset.Image != null && Model.Asset.Image.Url.IsNotBlank()) {
-    <div class="col-lg-auto order-lg-first" >
-        <img src="@(Model.Asset.Image.Url)"  height="400" class="asset-image" />
-    </div>
-    }
 
 </div>
 
-<br />
 
-<div class="row">
-    <div class="col-lg">
-
-        <ul class="nav nav-tabs" id="primary-tabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="main-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
-                <i class="fas fa-asterisk"></i>
-                Main
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="usage-tab" data-toggle="tab" href="#usage" role="tab" aria-controls="usage" aria-selected="false">
-                <i class="fas fa-utensils"></i>
-                Usage
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="meta-tab" data-toggle="tab" href="#meta" role="tab" aria-controls="meta" aria-selected="false">
-                <i class="fas fa-cog"></i>
-                Meta
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="extent-tab" data-toggle="tab" href="#extent" role="tab" aria-controls="extent" aria-selected="false">
-                <i class="fas fa-map-marker-alt"></i>
-                Extent
-            </a>
-        </li>
-        </ul>
-        <div class="tab-content py-4" id="primary-tabs-content">
-            <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
-
-                <p class="mb-2">
-                    <span class="text-muted">Resource type.</span>
-                    @Model.Asset.Metadata.ResourceType.FirstCharToUpper()
-                </p>
-
-                <p class="mb-2">
-                    <span class="text-muted">Topic category.</span>
-                    @Model.Asset.Metadata.TopicCategory.FirstCharToUpper()
-                </p>
-
-                <p class="mb-2">
-                    <span class="text-muted">Reference date.</span>
-                    <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
-                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.DatasetReferenceDate)
-                    </span>
-                </p>
-
-                @if (Model.Asset.DigitalObjectIdentifier.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-muted">DOI.</span>
-                    <span title="Digital Object Identifier" data-toggle="tooltip" data-placement="top">
-                        @Model.Asset.DigitalObjectIdentifier
-                    </span>
-                </p>
-                }
-
-                @if (Model.Asset.Citation.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-muted">Citation.</span>
-                    <br />
-                    @Model.Asset.Citation
-                </p>
-                }
-
-                @if (Model.Asset.Metadata.Lineage.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-muted">Lineage.</span>
-                    <br />
-                    @Model.Asset.Metadata.Lineage
-                </p>
-                }
-
-                @if (Model.Asset.Metadata.AdditionalInformationSource.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-muted">Additional information source.</span>
-                    <br />
-                    @Model.Asset.Metadata.AdditionalInformationSource
-                </p>
-                }
-
-            </div>
-
-            <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
-
-                <p>
-                    <span class="text-muted">Responsible organisation.</span>
-                    <br />
-                    @Model.Asset.Metadata.ResponsibleOrganisation.Name 
-                    <span class="badge badge-light">@Model.Asset.Metadata.ResponsibleOrganisation.Role</span>
-                    <br />
-                    <span class="text-primary">@Model.Asset.Metadata.ResponsibleOrganisation.Email</span>
-                </p>
-                
-                <p>
-                    <span class="text-muted">Limitations on public access.</span>
-                    @(Model.Asset.Metadata.LimitationsOnPublicAccess == "no limitations"
-                        ? "No limitations"
-                        : @Model.Asset.Metadata.LimitationsOnPublicAccess)
-                </p>
-
-                <p>
-                    <span class="text-muted">Use constraints.</span>
-                    <span class="">@Model.Asset.Metadata.UseConstraints</span>
-                </p>
-
-            </div>
-
-            <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
-
-                <p>
-                    <span class="text-muted">Metadata date.</span>
-                    <span title="@Model.Asset.Metadata.MetadataDate" data-toggle="tooltip">
-                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.MetadataDate)                        
-                    </span>
-                </p>
-
-                <p>
-                    <span class="text-muted">Metadata point of contact.</span>
-                    <br />
-                    <span class="">@Model.Asset.Metadata.MetadataPointOfContact.Name</span>
-                    <br />
-                    <span class="text-primary">@Model.Asset.Metadata.MetadataPointOfContact.Email</span>
-                </p>
-
-            </div>
-
-            <div class="tab-pane fade" id="extent" role="tabpanel" aria-labelledby="extent-tab">
-                @{string begin = Model.Asset.Metadata.TemporalExtent.Begin;}
-                @{string end = Model.Asset.Metadata.TemporalExtent.End;}
-
-                @if (begin.IsNotBlank() || end.IsNotBlank()) {
-                    <p>
-                        <span class="text-muted">Temporal extent.</span>
-
-                        <span data-toggle="tooltip" title="@begin">
-                            @await Html.PartialAsync("_IsoDate", begin)
-                        </span>
-
-                        <span style="color:rgba(77, 219, 58, 1);">
-                            &#8594;
-                        </span>
-
-                        <span data-toggle="tooltip" title="@end">
-                            @await Html.PartialAsync("_IsoDate", end)
-                        </span>
-                    </p>
-                }
-
-                @if (Model.Asset.Metadata.BoundingBox != null && Model.Asset.Metadata.BoundingBox.North != 0M) {
-                    <p>
-                        <span class="text-muted">North.</span> @Model.Asset.Metadata.BoundingBox.North
-                        <br />
-                        <span class="text-muted">South.</span> @Model.Asset.Metadata.BoundingBox.South
-                        <br />
-                        <span class="text-muted">East.</span> @Model.Asset.Metadata.BoundingBox.East
-                        <br />
-                        <span class="text-muted">West.</span> @Model.Asset.Metadata.BoundingBox.West
-                    </p>
-                }
-
-            </div>
-        </div>
-
-    </div>
-    <div class="col-lg">
-        
-        <ul class="nav nav-tabs" id="secondary-tabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="resources-tab" data-toggle="tab" href="#resources" role="tab" aria-controls="main" aria-selected="true">
-                <i class="fas fa-cloud-download-alt"></i>
-                Resources <span class="badge badge-primary">@Model.Asset.Data.Count(d => d.Http != null)</span>
-            </a>
-        </li>
-        </ul>
-
-        <div class="tab-content py-4" id="secondary-tabs-content">
-            <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
-
-                <ul>
-                    @foreach (var d in Model.Asset.Data) {
-                        if (@d.Http != null) {
-                            <li class="pb-2">
-                                <span>
-                                    <a href=@(d.Http.Url) 
-                                        data-event=@(d.Http.FileExtension.IsNotBlank() ? "download" : "external") 
-                                        data-size=@(d.Http.FileBytes.IsNotBlank() ? d.Http.FileBytes : "0") 
-                                        target="_blank">@d.Title</a>
-                                    @if (d.Http.FileExtension.IsNotBlank()) {
-                                        <span class="badge badge-light">@d.Http.FileExtension.ToUpper()</span>
-                                    } else {
-                                        <span class="badge badge-light" title="External link" data-toggle="tooltip">
-                                            <span class="fas fa-external-link-alt"></span>
-                                        </span>
-                                    }
-                                </span>
-                                <br />
-                                <span class="small">
-                                    @if (d.Http.FileExtension.IsNotBlank() && d.Http.FileBytes.IsNotBlank()) {
-                                        <span style="word-spacing:-0.3em; margin-right:0.6em">
-                                            @ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)
-                                        </span>
-                                        <span style="overflow-wrap: break-word;" class="text-muted">
-                                            @AssetHelpers.GetFileNameForDisplay(d.Http.Url)
-                                        </span>
-                                    }
-                                </span>
-                            </li>
-                        }
-                    }
-                </ul>
-
-            </div>
-
-        </div>
-    </div>
-</div>
 
 </div>

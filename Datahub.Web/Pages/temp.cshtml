@@ -1,0 +1,268 @@
+
+
+<div class="row">
+<div class="columns">a</div>
+<div class="columns">b</div>
+</div>
+
+
+
+
+    @{
+        // support adding "img" to the querystring just to see what any page could look like with an image
+        if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty) {
+            Model.Asset.Image = new Image { Url = "/images/example-cover-image.png" }; // use dummy image
+        }
+    }
+    @if (Model.Asset.Image != null && Model.Asset.Image.Url.IsNotBlank()) {
+    // <div class="col-lg-auto order-lg-first" > -->
+    <div class="columns large-5">
+        <img src="@(Model.Asset.Image.Url)"  height="400" class="asset-image" />
+    </div>
+    }
+
+
+
+
+
+
+
+
+<p class="pete">
+Still in container?
+</p>
+
+<ul class="tabs" data-tabs id="example-tabs">
+  <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Tab 1</a></li>
+  <li class="tabs-title"><a data-tabs-target="panel2" href="#panel2">Tab 2</a></li>
+</ul>
+<div class="tabs-content" data-tabs-content="example-tabs">
+  <div class="tabs-panel is-active" id="panel1">
+    <p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+  </div>
+  <div class="tabs-panel" id="panel2">
+    <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+  </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-lg">
+
+        <ul class="nav nav-tabs" id="primary-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="main-tab" data-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
+                <i class="fas fa-asterisk"></i>
+                Main
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="usage-tab" data-toggle="tab" href="#usage" role="tab" aria-controls="usage" aria-selected="false">
+                <i class="fas fa-utensils"></i>
+                Usage
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="meta-tab" data-toggle="tab" href="#meta" role="tab" aria-controls="meta" aria-selected="false">
+                <i class="fas fa-cog"></i>
+                Meta
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="extent-tab" data-toggle="tab" href="#extent" role="tab" aria-controls="extent" aria-selected="false">
+                <i class="fas fa-map-marker-alt"></i>
+                Extent
+            </a>
+        </li>
+        </ul>
+        <div class="tab-content py-4" id="primary-tabs-content">
+            <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+
+                <p class="mb-2">
+                    <span class="text-label">Resource type</span>
+                    @Model.Asset.Metadata.ResourceType.FirstCharToUpper()
+                </p>
+
+                <p class="mb-2">
+                    <span class="text-label">Topic category</span>
+                    @Model.Asset.Metadata.TopicCategory.FirstCharToUpper()
+                </p>
+
+                <p class="mb-2">
+                    <span class="text-label">Reference date</span>
+                    <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
+                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.DatasetReferenceDate)
+                    </span>
+                </p>
+
+                @if (Model.Asset.DigitalObjectIdentifier.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-label">DOI</span>
+                    <span title="Digital Object Identifier" data-toggle="tooltip" data-placement="top">
+                        @Model.Asset.DigitalObjectIdentifier
+                    </span>
+                </p>
+                }
+
+                @if (Model.Asset.Citation.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-label">Citation</span>
+                    <br />
+                    @Model.Asset.Citation
+                </p>
+                }
+
+                @if (Model.Asset.Metadata.Lineage.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-label">Lineage</span>
+                    <br />
+                    @Model.Asset.Metadata.Lineage
+                </p>
+                }
+
+                @if (Model.Asset.Metadata.AdditionalInformationSource.IsNotBlank()) {
+                <p class="mb-2">
+                    <span class="text-label">Additional information source</span>
+                    <br />
+                    @Model.Asset.Metadata.AdditionalInformationSource
+                </p>
+                }
+
+            </div>
+
+            <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
+
+                <p>
+                    <span class="text-label">Responsible organisation</span>
+                    <br />
+                    @Model.Asset.Metadata.ResponsibleOrganisation.Name 
+                    <span class="badge badge-light">@Model.Asset.Metadata.ResponsibleOrganisation.Role</span>
+                    <br />
+                    <span class="text-primary">@Model.Asset.Metadata.ResponsibleOrganisation.Email</span>
+                </p>
+                
+                <p>
+                    <span class="text-label">Limitations on public access</span>
+                    @(Model.Asset.Metadata.LimitationsOnPublicAccess == "no limitations"
+                        ? "No limitations"
+                        : @Model.Asset.Metadata.LimitationsOnPublicAccess)
+                </p>
+
+                <p>
+                    <span class="text-label">Use constraints</span>
+                    <span class="">@Model.Asset.Metadata.UseConstraints</span>
+                </p>
+
+            </div>
+
+            <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
+
+                <p>
+                    <span class="text-label">Metadata date</span>
+                    <span title="@Model.Asset.Metadata.MetadataDate" data-toggle="tooltip">
+                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.MetadataDate)                        
+                    </span>
+                </p>
+
+                <p>
+                    <span class="text-label">Metadata point of contact</span>
+                    <br />
+                    <span class="">@Model.Asset.Metadata.MetadataPointOfContact.Name</span>
+                    <br />
+                    <span class="text-primary">@Model.Asset.Metadata.MetadataPointOfContact.Email</span>
+                </p>
+
+            </div>
+
+            <div class="tab-pane fade" id="extent" role="tabpanel" aria-labelledby="extent-tab">
+                @{string begin = Model.Asset.Metadata.TemporalExtent.Begin;}
+                @{string end = Model.Asset.Metadata.TemporalExtent.End;}
+
+                @if (begin.IsNotBlank() || end.IsNotBlank()) {
+                    <p>
+                        <span class="text-label">Temporal extent</span>
+
+                        <span data-toggle="tooltip" title="@begin">
+                            @await Html.PartialAsync("_IsoDate", begin)
+                        </span>
+
+                        <span style="color:rgba(77, 219, 58, 1);">
+                            &#8594;
+                        </span>
+
+                        <span data-toggle="tooltip" title="@end">
+                            @await Html.PartialAsync("_IsoDate", end)
+                        </span>
+                    </p>
+                }
+
+                @if (Model.Asset.Metadata.BoundingBox != null && Model.Asset.Metadata.BoundingBox.North != 0M) {
+                    <p>
+                        <span class="text-label">North</span> @Model.Asset.Metadata.BoundingBox.North
+                        <br />
+                        <span class="text-label">South</span> @Model.Asset.Metadata.BoundingBox.South
+                        <br />
+                        <span class="text-label">East</span> @Model.Asset.Metadata.BoundingBox.East
+                        <br />
+                        <span class="text-label">West</span> @Model.Asset.Metadata.BoundingBox.West
+                    </p>
+                }
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg">
+        
+        <ul class="nav nav-tabs" id="secondary-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="resources-tab" data-toggle="tab" href="#resources" role="tab" aria-controls="main" aria-selected="true">
+                <i class="fas fa-cloud-download-alt"></i>
+                Resources <span class="badge badge-primary">@Model.Asset.Data.Count(d => d.Http != null)</span>
+            </a>
+        </li>
+        </ul>
+
+        <div class="tab-content py-4" id="secondary-tabs-content">
+            <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
+
+                <ul>
+                    @foreach (var d in Model.Asset.Data) {
+                        if (@d.Http != null) {
+                            <li class="pb-2">
+                                <span>
+                                    <a href=@(d.Http.Url) 
+                                        data-event=@(d.Http.FileExtension.IsNotBlank() ? "download" : "external") 
+                                        data-size=@(d.Http.FileBytes.IsNotBlank() ? d.Http.FileBytes : "0") 
+                                        target="_blank">@d.Title</a>
+                                    @if (d.Http.FileExtension.IsNotBlank()) {
+                                        <span class="badge badge-light">@d.Http.FileExtension.ToUpper()</span>
+                                    } else {
+                                        <span class="badge badge-light" title="External link" data-toggle="tooltip">
+                                            <span class="fas fa-external-link-alt"></span>
+                                        </span>
+                                    }
+                                </span>
+                                <br />
+                                <span class="small">
+                                    @if (d.Http.FileExtension.IsNotBlank() && d.Http.FileBytes.IsNotBlank()) {
+                                        <span style="word-spacing:-0.3em; margin-right:0.6em">
+                                            @ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)
+                                        </span>
+                                        <span style="overflow-wrap: break-word;" class="text-muted">
+                                            @AssetHelpers.GetFileNameForDisplay(d.Http.Url)
+                                        </span>
+                                    }
+                                </span>
+                            </li>
+                        }
+                    }
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
