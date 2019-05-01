@@ -10,6 +10,9 @@
 }
 @{ ViewBag.CurrentPage = "Index"; }
 
+@section Styles {
+}
+
 @section Scripts {
     <!-- <script>
         $(function () {
@@ -19,17 +22,16 @@
 }
  
  <br />
- 
+
+
 <div class="container">
 
-
-
-<div class="expanded row">
-
-    <div class="column">
-
+<div class="grid-container full">
+  <div class="grid-x grid-margin-x">
+    <div class="cell medium-expand">
+        
         <!-- Title -->
-        <h1 class="display-5 mb-4" style="margin-bottom: 1rem;">
+        <h1 style="margin-bottom: 1rem;">
             <span style="color: #48A943; margin-right:0.3rem;">  
             <i class="fas @AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType)"
                 data-toggle="tooltip" title="@Model.Asset.Metadata.ResourceType"></i>
@@ -39,11 +41,11 @@
         </h1>
 
         <p>
-            @foreach (var k in Model.Asset.Metadata.Keywords) {
+            @foreach (var k in Model.Asset.Metadata.Keywords)
+            {
                 @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
             }
         </p>
-
         <div class="module">
             <p class="collapse" id="collapseExample" aria-expanded="false">
                 <span class="text-label">Abstract</span> @Model.Asset.Metadata.Abstract
@@ -52,27 +54,41 @@
                 <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
                     aria-expanded="false" aria-controls="collapseExample"></a>
             </div>
-
         </div>
+
     </div>
-
-    @{
-        // support adding "img" to the querystring just to see what any page could look like with an image
-        if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty)
-        {
-            Model.Asset.Image = new Image { Url = "/images/example-cover-image.png" }; // use dummy image
+    <div class="cell medium-shrink">
+        @{
+            // support adding "img" to the querystring just to see what any page could look like with an image
+            if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty)
+            {
+                Model.Asset.Image = new Image { Url = "/images/example-cover-image.png" }; // use dummy image
+            }
         }
-    }
-    @if (Model.Asset.Image != null && Model.Asset.Image.Url.IsNotBlank())
-    {
-        <div class="column large-4">
-            <img src="@(Model.Asset.Image.Url)"  height="400" class="asset-image" />
-        </div>
-    }        
+        @if (Model.Asset.Image != null && Model.Asset.Image.Url.IsNotBlank())
+        {
+            <img src="@(Model.Asset.Image.Url)" class="asset-image" />
+        }
+
+    </div>
+  </div>
+</div> <!-- grid-container full -->
 
 
-</div> <!-- row -->
+<!-- tabs -->
+<ul class="tabs" data-tabs id="example-tabs">
+  <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Tab 1</a></li>
+  <li class="tabs-title"><a data-tabs-target="panel2" href="#panel2">Tab 2</a></li>
+</ul>
+<div class="tabs-content" data-tabs-content="example-tabs">
+  <div class="tabs-panel is-active" id="panel1">
+    <p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+  </div>
+  <div class="tabs-panel" id="panel2">
+    <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+  </div>
+</div>
 
 
-<p>Hello</p>
+
 </div> <!-- container -->

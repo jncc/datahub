@@ -3,10 +3,10 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 .asset-image {
+    max-width: 300px;
+    /* drop shadow */
     -webkit-filter: drop-shadow(5px 5px 5px #666);
     filter: drop-shadow(5px 5px 5px #666);
-    margin-bottom:2em;
-    margin-right:2em;
 }
 
 .text-muted {
@@ -23,8 +23,14 @@ for details on configuring this project to bundle and minify static web assets. 
 /* foundation tabs look horrible */
 .tabs {
     border: none;
+    margin-bottom: 1em;
+}
+.tabs > .tabs-title.is-active {
+    border-bottom: 3px solid #777;
 }
 .tabs > .tabs-title > a {
+    color: #666262;
+    background-color: transparent;
     font-size: 100%;
     outline: none; /* remove blue highlight when selected */
 }
@@ -57,9 +63,10 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 
+
 /* TODO: support expanding Abstract */
 
-  .module .collapse, .module .collapsing {
+.module .collapse, .module .collapsing {
     height: 7.8em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
   }
   
