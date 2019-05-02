@@ -180,7 +180,10 @@
                 <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
             </div>
             <div class="tabs-panel" id="extent-detail">
-                <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+                @if (Model.Asset.Metadata.TemporalExtent?.Begin == null && Model.Asset.Metadata.BoundingBox == null || Model.Asset.Metadata.BoundingBox.North == 0m)
+                {
+                    <p>This asset has no extent information.</p>
+                }
             </div>
         </div>
     </div>
