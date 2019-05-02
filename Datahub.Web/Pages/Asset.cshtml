@@ -32,7 +32,7 @@
         
         <!-- Title -->
         <h1 style="margin-bottom: 1rem;">
-            <span style="color: #48A943; margin-right:0.3rem;">  
+            <span class="spot-colour" style="margin-right:0.3rem;">  
             <i class="fas @AssetHelpers.GetIconName(Model.Asset.Metadata.ResourceType)"
                 data-toggle="tooltip" title="@Model.Asset.Metadata.ResourceType"></i>
             </span>
@@ -99,17 +99,17 @@
         </ul>
         <div class="tabs-content space-below" data-tabs-content="the-tabs">
             <div class="tabs-panel is-active" id="main-detail">
-                <p class="metadata-item">
+                <p>
                     <span class="text-label">Resource type</span>
                     @Model.Asset.Metadata.ResourceType.FirstCharToUpper()
                 </p>
 
-                <p class="metadata-item">
+                <p>
                     <span class="text-label">Topic category</span>
                     @Model.Asset.Metadata.TopicCategory.FirstCharToUpper()
                 </p>
 
-                <p class="metadata-item">
+                <p>
                     <span class="text-label">Reference date</span>
                     <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
                         @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.DatasetReferenceDate)
@@ -118,7 +118,7 @@
 
                 @if (Model.Asset.DigitalObjectIdentifier.IsNotBlank())
                 {
-                <p class="metadata-item">
+                <p>
                     <span class="text-label">DOI</span>
                     <span title="Digital Object Identifier" data-toggle="tooltip" data-placement="top">
                         @Model.Asset.DigitalObjectIdentifier
@@ -128,7 +128,7 @@
 
                 @if (Model.Asset.Citation.IsNotBlank())
                 {
-                <p class="metadata-item">
+                <p>
                     <span class="text-label">Citation</span>
                     <br />
                     @Model.Asset.Citation
@@ -137,7 +137,7 @@
 
                 @if (Model.Asset.Metadata.Lineage.IsNotBlank())
                 {
-                <p class="metadata-item">
+                <p>
                     <span class="text-label">Lineage</span>
                     <br />
                     @Model.Asset.Metadata.Lineage
@@ -146,7 +146,7 @@
 
                 @if (Model.Asset.Metadata.AdditionalInformationSource.IsNotBlank())
                 {
-                <p class="metadata-item">
+                <p>
                     <span class="text-label">Additional information source</span>
                     <br />
                     @Model.Asset.Metadata.AdditionalInformationSource
@@ -154,7 +154,27 @@
                 }
             </div>
             <div class="tabs-panel" id="usage-detail">
-                <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+                <p>
+                    <span class="text-label">Responsible organisation</span>
+                    <br />
+                    <span class="space-after">@(Model.Asset.Metadata.ResponsibleOrganisation.Name)</span>
+                    <span class="square-badge">@Model.Asset.Metadata.ResponsibleOrganisation.Role</span>
+                    <br />
+                    <i class="fas fa-envelope email-address-icon"></i>
+                    <span class="email-address">@Model.Asset.Metadata.ResponsibleOrganisation.Email</span>
+                </p>
+                
+                <p>
+                    <span class="text-label">Limitations on public access</span>
+                    @(Model.Asset.Metadata.LimitationsOnPublicAccess == "no limitations"
+                        ? "No limitations"
+                        : @Model.Asset.Metadata.LimitationsOnPublicAccess)
+                </p>
+
+                <p>
+                    <span class="text-label">Use constraints</span>
+                    <span class="">@Model.Asset.Metadata.UseConstraints</span>
+                </p>
             </div>
             <div class="tabs-panel" id="meta-detail">
                 <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>

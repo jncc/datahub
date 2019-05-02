@@ -1,14 +1,6 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification 
 for details on configuring this project to bundle and minify static web assets. */
 
-
-.asset-image {
-    max-width: 300px;
-    /* drop shadow */
-    -webkit-filter: drop-shadow(5px 5px 5px #666);
-    filter: drop-shadow(5px 5px 5px #666);
-}
-
 .text-muted {
     color: #999;
 }
@@ -19,8 +11,40 @@ for details on configuring this project to bundle and minify static web assets. 
     font-weight: bold;
     margin-right: 0.2rem;
 }
+.spot-colour {
+    color: #48A943;
+}
 .space-below {
     margin-bottom: 1.5em;
+}
+.space-after {
+    margin-right: 0.1rem;
+}
+
+
+.asset-image {
+    max-width: 300px;
+    /* drop shadow */
+    -webkit-filter: drop-shadow(5px 5px 5px #666);
+    filter: drop-shadow(5px 5px 5px #666);
+}
+
+.square-badge {
+    font-size: 70%;
+    background-color: #999;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.3rem;
+    vertical-align: middle;
+}
+.email-address-icon {
+    font-size: 90%;
+    margin-right: 0.2rem;
+    color: #777;
+}
+.email-address {
+    color: #007bff;
 }
 
 /* foundation tabs look horrible */
@@ -49,10 +73,6 @@ for details on configuring this project to bundle and minify static web assets. 
 .tabs-content > .tabs-panel {
     padding: 0;
     /* border-left: 1px solid #ddd; */
-}
-
-.metadata-item {
-    margin-bottom: 0.7rem;
 }
 
 .keyword {

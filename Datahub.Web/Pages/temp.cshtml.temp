@@ -8,82 +8,12 @@
 
 
         <div class="tab-content py-4" id="primary-tabs-content">
-            <div class="tab-pane fade show active" id="main" role="tabpanel" aria-labelledby="main-tab">
 
-                <p class="mb-2">
-                    <span class="text-label">Resource type</span>
-                    @Model.Asset.Metadata.ResourceType.FirstCharToUpper()
-                </p>
 
-                <p class="mb-2">
-                    <span class="text-label">Topic category</span>
-                    @Model.Asset.Metadata.TopicCategory.FirstCharToUpper()
-                </p>
 
-                <p class="mb-2">
-                    <span class="text-label">Reference date</span>
-                    <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
-                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.DatasetReferenceDate)
-                    </span>
-                </p>
-
-                @if (Model.Asset.DigitalObjectIdentifier.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-label">DOI</span>
-                    <span title="Digital Object Identifier" data-toggle="tooltip" data-placement="top">
-                        @Model.Asset.DigitalObjectIdentifier
-                    </span>
-                </p>
-                }
-
-                @if (Model.Asset.Citation.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-label">Citation</span>
-                    <br />
-                    @Model.Asset.Citation
-                </p>
-                }
-
-                @if (Model.Asset.Metadata.Lineage.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-label">Lineage</span>
-                    <br />
-                    @Model.Asset.Metadata.Lineage
-                </p>
-                }
-
-                @if (Model.Asset.Metadata.AdditionalInformationSource.IsNotBlank()) {
-                <p class="mb-2">
-                    <span class="text-label">Additional information source</span>
-                    <br />
-                    @Model.Asset.Metadata.AdditionalInformationSource
-                </p>
-                }
-
-            </div>
 
             <div class="tab-pane fade" id="usage" role="tabpanel" aria-labelledby="usage-tab">
 
-                <p>
-                    <span class="text-label">Responsible organisation</span>
-                    <br />
-                    @Model.Asset.Metadata.ResponsibleOrganisation.Name 
-                    <span class="badge badge-light">@Model.Asset.Metadata.ResponsibleOrganisation.Role</span>
-                    <br />
-                    <span class="text-primary">@Model.Asset.Metadata.ResponsibleOrganisation.Email</span>
-                </p>
-                
-                <p>
-                    <span class="text-label">Limitations on public access</span>
-                    @(Model.Asset.Metadata.LimitationsOnPublicAccess == "no limitations"
-                        ? "No limitations"
-                        : @Model.Asset.Metadata.LimitationsOnPublicAccess)
-                </p>
-
-                <p>
-                    <span class="text-label">Use constraints</span>
-                    <span class="">@Model.Asset.Metadata.UseConstraints</span>
-                </p>
 
             </div>
 
