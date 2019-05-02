@@ -21,14 +21,15 @@
     </script> -->
 }
  
- <br />
+<div class="space-below show-for-medium">
+</div>
 
 
 <div class="container">
 
 <div class="grid-container full">
   <div class="grid-x grid-margin-x">
-    <div class="cell medium-expand">
+    <div class="cell medium-expand small-order-1 medium-order-2 space-below">
         
         <!-- Title -->
         <h1 style="margin-bottom: 1rem;">
@@ -57,7 +58,7 @@
         </div>
 
     </div>
-    <div class="cell medium-shrink">
+    <div class="cell medium-shrink small-order-2 medium-order-1 space-below">
         @{
             // support adding "img" to the querystring just to see what any page could look like with an image
             if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty)
@@ -69,7 +70,6 @@
         {
             <img src="@(Model.Asset.Image.Url)" class="asset-image" />
         }
-
     </div>
   </div>
 </div> <!-- grid-container full -->

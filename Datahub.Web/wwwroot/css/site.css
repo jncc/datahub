@@ -19,6 +19,9 @@ for details on configuring this project to bundle and minify static web assets. 
     font-weight: bold;
     margin-right: 0.2rem;
 }
+.space-below {
+    margin-bottom: 1em;
+}
 
 /* foundation tabs look horrible */
 .tabs {
