@@ -20,28 +20,39 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-right: 0.2rem;
 }
 .space-below {
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
 }
 
 /* foundation tabs look horrible */
 .tabs {
     border: none;
-    margin-bottom: 1em;
+    margin-bottom: 0.5rem;
 }
 .tabs > .tabs-title.is-active {
     border-bottom: 3px solid #777;
 }
 .tabs > .tabs-title > a {
     color: #666262;
-    background-color: transparent;
-    font-size: 100%;
+    /* background-color: transparent; */
+    font-size: 95%;
+    /* padding: 1rem 1.5rem; */
     outline: none; /* remove blue highlight when selected */
 }
+.tabs > .tabs-title > a > i {
+    font-size: 90%;
+    margin-right: 0.3rem;
+}
 .tabs-content {
-    border: none;
+    /* border: none; */
+    padding: 1rem;
 }
 .tabs-content > .tabs-panel {
     padding: 0;
+    /* border-left: 1px solid #ddd; */
+}
+
+.metadata-item {
+    margin-bottom: 0.7rem;
 }
 
 .keyword {

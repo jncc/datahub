@@ -22,13 +22,12 @@
 }
  
 <div class="space-below show-for-medium">
+    <!-- whitespace for when the "show-for-small-only" microsite name subtitile is hidden -->
 </div>
-
 
 <div class="container">
 
-<div class="grid-container full">
-  <div class="grid-x grid-margin-x">
+<div class="grid-x grid-margin-x">
     <div class="cell medium-expand small-order-1 medium-order-2 space-below">
         
         <!-- Title -->
@@ -71,22 +70,103 @@
             <img src="@(Model.Asset.Image.Url)" class="asset-image" />
         }
     </div>
-  </div>
-</div> <!-- grid-container full -->
-
+</div> <!-- grid -->
 
 <!-- tabs -->
-<ul class="tabs" data-tabs id="example-tabs">
-  <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Tab 1</a></li>
-  <li class="tabs-title"><a data-tabs-target="panel2" href="#panel2">Tab 2</a></li>
-</ul>
-<div class="tabs-content" data-tabs-content="example-tabs">
-  <div class="tabs-panel is-active" id="panel1">
-    <p>Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
-  </div>
-  <div class="tabs-panel" id="panel2">
-    <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
-  </div>
+<div class="grid-x grid-margin-x">
+    <div class="cell large-6">
+        <ul class="tabs" data-tabs id="the-tabs">
+            <li class="tabs-title is-active">
+                <a href="#main-detail" aria-selected="true">
+                    <i class="fas fa-asterisk"></i> Detail
+                </a>
+            </li>
+            <li class="tabs-title">
+                <a data-tabs-target="usage-detail" href="#usage-detail">
+                    <i class="fas fa-utensils"></i> Usage
+                </a>
+            </li>
+            <li class="tabs-title">
+                <a data-tabs-target="meta-detail" href="#meta-detail">
+                    <i class="fas fa-cog"></i> Meta
+                </a>
+            </li>
+            <li class="tabs-title">
+                <a data-tabs-target="extent-detail" href="#extent-detail">
+                    <i class="fas fa-map-marker-alt"></i> Extent
+                </a>
+            </li>
+        </ul>
+        <div class="tabs-content space-below" data-tabs-content="the-tabs">
+            <div class="tabs-panel is-active" id="main-detail">
+                <p class="metadata-item">
+                    <span class="text-label">Resource type</span>
+                    @Model.Asset.Metadata.ResourceType.FirstCharToUpper()
+                </p>
+
+                <p class="metadata-item">
+                    <span class="text-label">Topic category</span>
+                    @Model.Asset.Metadata.TopicCategory.FirstCharToUpper()
+                </p>
+
+                <p class="metadata-item">
+                    <span class="text-label">Reference date</span>
+                    <span title="Dataset Reference Date" data-toggle="tooltip" data-placement="top">
+                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.DatasetReferenceDate)
+                    </span>
+                </p>
+
+                @if (Model.Asset.DigitalObjectIdentifier.IsNotBlank())
+                {
+                <p class="metadata-item">
+                    <span class="text-label">DOI</span>
+                    <span title="Digital Object Identifier" data-toggle="tooltip" data-placement="top">
+                        @Model.Asset.DigitalObjectIdentifier
+                    </span>
+                </p>
+                }
+
+                @if (Model.Asset.Citation.IsNotBlank())
+                {
+                <p class="metadata-item">
+                    <span class="text-label">Citation</span>
+                    <br />
+                    @Model.Asset.Citation
+                </p>
+                }
+
+                @if (Model.Asset.Metadata.Lineage.IsNotBlank())
+                {
+                <p class="metadata-item">
+                    <span class="text-label">Lineage</span>
+                    <br />
+                    @Model.Asset.Metadata.Lineage
+                </p>
+                }
+
+                @if (Model.Asset.Metadata.AdditionalInformationSource.IsNotBlank())
+                {
+                <p class="metadata-item">
+                    <span class="text-label">Additional information source</span>
+                    <br />
+                    @Model.Asset.Metadata.AdditionalInformationSource
+                </p>
+                }
+            </div>
+            <div class="tabs-panel" id="usage-detail">
+                <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            </div>
+            <div class="tabs-panel" id="meta-detail">
+                <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            </div>
+            <div class="tabs-panel" id="extent-detail">
+                <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+            </div>
+        </div>
+    </div>
+    <div class="cell large-6">
+        
+    </div>
 </div>
 
 
