@@ -18,7 +18,7 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-bottom: 1.5em;
 }
 .space-after {
-    margin-right: 0.1rem;
+    margin-right: 0.2rem;
 }
 
 
@@ -36,6 +36,16 @@ for details on configuring this project to bundle and minify static web assets. 
     font-weight: bold;
     border-radius: 0.3rem;
     padding: 0.1rem 0.3rem;
+    vertical-align: middle;
+}
+.round-badge {
+    background-color: #48A943;
+    font-size: 70%;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    /* width: 300px; */
+    padding: 0.1rem 0.4rem;
     vertical-align: middle;
 }
 .email-address-icon {
@@ -57,7 +67,7 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 .tabs > .tabs-title > a {
     color: #666262;
-    /* background-color: transparent; */
+    background-color: white;
     font-size: 95%;
     /* padding: 1rem 1.5rem; */
     outline: none; /* remove blue highlight when selected */
@@ -67,12 +77,17 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-right: 0.3rem;
 }
 .tabs-content {
-    /* border: none; */
+    border: none;
     padding: 1rem;
 }
 .tabs-content > .tabs-panel {
     padding: 0;
-    /* border-left: 1px solid #ddd; */
+}
+.tabs-content > .tabs-panel > ul {
+    margin-left: 1.5rem;
+}
+.tabs-content > .tabs-panel > ul > li {
+    margin-bottom: 0.5rem;
 }
 
 .keyword {
