@@ -57,19 +57,19 @@
         </div>
 
     </div>
-    <div class="cell medium-shrink small-order-2 medium-order-1 space-below">
-        @{
-            // support adding "img" to the querystring just to see what any page could look like with an image
-            if (this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty)
-            {
-                Model.Asset.Image = new Image { Url = "/images/example-cover-image.png" }; // use dummy image
-            }
-        }
-        @if (Model.Asset.Image != null && Model.Asset.Image.Url.IsNotBlank())
+    @{
+        // support adding "img" to the querystring just to see what any page could look like with an image
+        var image = this.HttpContext.Request.Query["img"] != Microsoft.Extensions.Primitives.StringValues.Empty
+            ? new Image { Url = "/images/example-cover-image.png" } // use dummy image
+            : Model.Asset.Image;
+            
+        if (image != null && image.Url.IsNotBlank())
         {
-            <img src="@(Model.Asset.Image.Url)" class="asset-image" />
+            <div class="cell medium-shrink small-order-2 medium-order-1 space-below">
+                <img src="@(image.Url)" class="asset-image" />
+            </div>
         }
-    </div>
+    }
 </div> <!-- grid -->
 
 <!-- tabs -->
@@ -226,18 +226,72 @@
                 </p>
             </div>
             <div class="tabs-panel" id="meta-detail">
-                <p>Suspendisse dictum feugiat nisl ut dapibus.  Vivamus hendrerit arcu sed erat molestie vehicula. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor.  Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+                <p>
+                    <span class="text-label">Metadata date</span>
+                    <span title="@Model.Asset.Metadata.MetadataDate" data-toggle="tooltip">
+                        @await Html.PartialAsync("_IsoDate", Model.Asset.Metadata.MetadataDate)                        
+                    </span>
+                </p>
+                <p>
+                    <span class="text-label">Metadata point of contact</span>
+                    <br />
+                    <span class="">@Model.Asset.Metadata.MetadataPointOfContact.Name</span>
+                    <br />
+                    <i class="fas fa-envelope email-address-icon"></i>
+                    <span class="email-address">@Model.Asset.Metadata.MetadataPointOfContact.Email</span>
+
+                </p>
             </div>
             <div class="tabs-panel" id="extent-detail">
-                @if (Model.Asset.Metadata.TemporalExtent?.Begin == null && Model.Asset.Metadata.BoundingBox == null || Model.Asset.Metadata.BoundingBox.North == 0m)
+                @{string begin = Model.Asset.Metadata.TemporalExtent?.Begin;}
+                @{string end = Model.Asset.Metadata.TemporalExtent?.End;}
+                @if (begin.IsBlank() && Model.Asset.Metadata.BoundingBox == null)
                 {
-                    <p>This asset has no extent information.</p>
+                    <p>This asset has no extent information. @begin</p>
+                }
+                @if (begin.IsNotBlank() || end.IsNotBlank())
+                {
+                    <p>
+                        <span class="text-label">Temporal extent</span>
+
+                        <span data-toggle="tooltip" title="@begin" class="space-after">
+                            @await Html.PartialAsync("_IsoDate", begin)
+                        </span>
+                        <i class="fas fa-long-arrow-alt-right space-after"></i>
+                        <span data-toggle="tooltip" title="@end">
+                            @await Html.PartialAsync("_IsoDate", end)
+                        </span>
+                    </p>
+                }
+                @if (Model.Asset.Metadata.BoundingBox != null && Model.Asset.Metadata.BoundingBox.North != 0M)
+                {
+                    <table>
+                        <tr>
+                            <th colspan="2">
+                                Spatial extent
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>North</td>
+                            <td>@Model.Asset.Metadata.BoundingBox.North</td> 
+                        </tr>
+                        <tr>
+                            <td>South</td>
+                            <td>@Model.Asset.Metadata.BoundingBox.South</td> 
+                        </tr>
+                        <tr>
+                            <td>East</td>
+                            <td>@Model.Asset.Metadata.BoundingBox.East</td> 
+                        </tr>
+                        <tr>
+                            <td>West</td>
+                            <td>@Model.Asset.Metadata.BoundingBox.West</td> 
+                        </tr>
+                    </table>
                 }
             </div>
         </div>
     </div>
 </div>
-
-
 
 </div> <!-- container -->
