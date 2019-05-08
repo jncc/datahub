@@ -29,6 +29,11 @@ for details on configuring this project to bundle and minify static web assets. 
     filter: drop-shadow(5px 5px 5px #666);
 }
 
+#abstract {
+    max-height: 150px;
+    margin-bottom: 0.5rem;
+}
+
 .square-badge {
     font-size: 70%;
     background-color: #999;
@@ -108,42 +113,4 @@ for details on configuring this project to bundle and minify static web assets. 
     display: inline-block;
     width: 0;
     margin-right: 0.15em;
-  }
-
-
-
-
-/* TODO: support expanding Abstract */
-
-.module .collapse, .module .collapsing {
-    height: 7.8em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
-  }
-  
-  .module .collapse {
-    position: relative;  /* For ...'s content absolute positioning */
-    display: block;
-    overflow: hidden;
-  }
-  
-  .module .collapse:before {
-    content: ' ...';
-    position: absolute;
-    right: 0;
-    bottom: -0.5em;
-  }
-  
-  .module .collapse.show {
-    height: auto;  /* reset the height when not collapsed */
-  }
-  
-  .module .collapse.show:before {
-    display: none;  /* don't want to display ... */
-  }
-  
-  .module a.collapsed:after {
-    content: '+ Show more';
-  }
-  
-  .module a:not(.collapsed):after {
-    content: '- Show less';
   }

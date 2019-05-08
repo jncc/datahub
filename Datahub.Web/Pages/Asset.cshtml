@@ -19,6 +19,14 @@
             $('[data-toggle="tooltip"]').tooltip()
         })
     </script> -->
+    <script >
+        $(function () {
+            new Readmore('#abstract', {
+                moreLink: '<a href="#" class="text-right"><i class="fas fa-sort-down" style="vertical-align: middle;"></i> Read more</a>',
+                lessLink: '<a href="#" class="text-right">Read less</a>'                
+            });
+        })
+    </script>
 }
  
 <div class="space-below show-for-medium">
@@ -28,7 +36,7 @@
 <div class="container">
 
 <div class="grid-x grid-margin-x">
-    <div class="cell medium-expand small-order-1 medium-order-2 space-below">
+    <div class="cell medium-expand small-order-1 medium-order-2">
         
         <!-- Title -->
         <h1 style="margin-bottom: 1rem;">
@@ -47,13 +55,9 @@
             }
         </p>
         <div class="module">
-            <p class="collapse" id="collapseExample" aria-expanded="false">
+            <p id="abstract">
                 <span class="text-label">Abstract</span> @Model.Asset.Metadata.Abstract
             </p>
-            <div class="float-right">
-                <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample" 
-                    aria-expanded="false" aria-controls="collapseExample"></a>
-            </div>
         </div>
 
     </div>
