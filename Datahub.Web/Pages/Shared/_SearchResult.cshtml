@@ -18,7 +18,9 @@
     {
         @foreach (var k in Model.Source.Keywords)
         {
-            @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+            <button type="button" onclick="addKeyword('@k.Vocab', '@k.Value')">
+                @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+            </button>
         }
     }
 </div>

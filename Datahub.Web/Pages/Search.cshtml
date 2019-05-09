@@ -1,4 +1,5 @@
 @page
+@using Datahub.Web.Pages.Helpers;
 @model SearchModel
 @{
     ViewData["Title"] = "Search";
@@ -23,6 +24,20 @@
                 </button>
             </div>
         </div>
+
+        <div id="keywords" class="form-control">
+            @for (int i = 0; i < Model.Keywords.Count; i++)
+            {
+                var k = Model.Keywords[i];
+                var buttonId = "removeKeyword" + i;
+                var fieldId = "keyword" + i;
+
+                    <input id="@fieldId" type="hidden" name="k" value="@(Model.SearchParams.k[i])">
+                <button id="@buttonId" type="button" onclick="removeKeyword('@i')">
+                    @await Html.PartialAsync("_Keyword", k)
+                </button>
+            }
+        </div>
     }
 </div>
 
@@ -39,19 +54,23 @@
     }
 }   
 
+@{
+    var keywordQueryString = Model.Keywords.ToConcatenatedString(k => "&k=" + k);
+}
+
     <div>
         <ul class="pagination">
             <li class="page-item @(Model.SearchParams.p == 1 || Model.Results.Total < Model.SearchParams.size ? "disabled":"")">
-                <a data-page="1" class="page-link" href="/search?q=@(Model.SearchParams.q)&p=1"><i class="fas fa-fast-backward"></i></a>
+                <a data-page="1" class="page-link" href="/search?q=@(Model.SearchParams.q)&p=1@keywordQueryString"><i class="fas fa-fast-backward"></i></a>
             </li>
             <li class="page-item @(Model.SearchParams.p == 1 || Model.Results.Total < Model.SearchParams.size ? "disabled":"")">
-                <a class="page-link" href="/search?q=@(Model.SearchParams.q)&p=@(Model.SearchParams.p - 1)"><i class="fas fa-step-backward"></i></a>
+                <a class="page-link" href="/search?q=@(Model.SearchParams.q)&p=@(Model.SearchParams.p - 1)@keywordQueryString"><i class="fas fa-step-backward"></i></a>
             </li>
             <li class="page-item  @(Model.SearchParams.p == (Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size)) || Model.Results.Total < Model.SearchParams.size ? "disabled":"")">
-                <a class="page-link" href="/search?q=@(Model.SearchParams.q)&p=@(Model.SearchParams.p + 1)"><i class="fas fa-step-forward"></i></a>
+                <a class="page-link" href="/search?q=@(Model.SearchParams.q)&p=@(Model.SearchParams.p + 1)@keywordQueryString"><i class="fas fa-step-forward"></i></a>
             </li>
             <li class="page-item @(Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size) == Model.SearchParams.p || Model.Results.Total < Model.SearchParams.size ? "disabled": "")">
-                <a href="/search?q=@(Model.SearchParams.q)&p=@(Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size))" class="page-link"><i class="fas fa-fast-forward"></i></a>
+                <a href="/search?q=@(Model.SearchParams.q)&p=@(Math.Ceiling((decimal) Model.Results.Total / Model.SearchParams.size))@keywordQueryString" class="page-link"><i class="fas fa-fast-forward"></i></a>
             </li>
         </ul>
     </div>
