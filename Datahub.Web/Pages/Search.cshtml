@@ -50,12 +50,13 @@
 
     @foreach (var r in Model.Results.Hits.ToList())
     {
-        @await Html.PartialAsync("_SearchResult", r)
+        @await Html.PartialAsync("_SearchResult", r);
     }
 }   
 
 @{
-    var keywordQueryString = Model.Keywords.ToConcatenatedString(k => "&k=" + k);
+    var keywordQueryString = Model.Keywords.ToConcatenatedString(k =>
+        "&k=" + System.Net.WebUtility.UrlEncode(k.Vocab + "/" + k.Value));
 }
 
     <div>
