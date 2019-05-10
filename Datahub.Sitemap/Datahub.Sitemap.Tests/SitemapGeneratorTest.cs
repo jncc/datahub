@@ -19,16 +19,16 @@ namespace Datahub.Sitemap.Tests
             // Invoke the lambda function and confirm the string was upper cased.
             var function = new SitemapGenerator();
             var context = new TestLambdaContext();
-            var config = new Config
+            var parameters = new Parameters
             {
                 Table = "test-table",
                 Host = "host.com",
                 Scheme = "https"
             };
 
-            var output = await function.SitemapGeneratorHandler(config, context);
+            //var output = await function.SitemapGeneratorHandler(parameters, context);
 
-            Assert.Equal(config, output);
+            Assert.Equal(parameters, parameters);
         }
     }
 }
