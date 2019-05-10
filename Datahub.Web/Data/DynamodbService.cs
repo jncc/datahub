@@ -17,10 +17,10 @@ namespace Datahub.Web.Data
 
     public class DynamodbService : IDynamodbService
     {
-        readonly IEnv env;
+        readonly Env env;
         readonly AmazonDynamoDBClient client;
 
-        public DynamodbService(IEnv env)
+        public DynamodbService(Env env)
         {
             this.env = env;
             this.client = InitialiseClient();
@@ -52,4 +52,11 @@ namespace Datahub.Web.Data
         }
     }
 
+    public class LocalDevDynamodbService : IDynamodbService
+    {
+        public Task<Asset> GetAsset(string assetId)
+        {
+            throw new NotImplementedException("DynamodbService doesn't work for local development.");
+        }
+    }
 }

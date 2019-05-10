@@ -12,6 +12,7 @@ using Datahub.Web.Models;
 using Datahub.Web.Data;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Http.Extensions;
+using Datahub.Web.Pages.Helpers;
 
 namespace Datahub.Web
 {
@@ -32,17 +33,16 @@ namespace Datahub.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // inject env variables
-            services.AddSingleton(typeof(IEnv), new Env());
+            var env = new Env();
+            services.AddSingleton(env);
+            services.AddTransient<LayoutViewModel>();
 
-            // register dependencies
-            services.AddTransient<ILayoutViewModel, LayoutViewModel>();
+            var dynamodbServiceType = env.DB_TABLE.IsBlank() ? typeof(LocalDevDynamodbService) : typeof(DynamodbService);
+            services.AddTransient(typeof(IDynamodbService), dynamodbServiceType);
+
             services.AddTransient<IElasticsearchService, ElasticsearchService>();
-            services.AddTransient<ISearchBuilder, SearchBuilder>();
-            services.AddTransient<IDynamodbService, DynamodbService>();
+            services.AddTransient<ISearchBuilder, SearchBuilder>(); 
             services.AddTransient<IS3Service, S3Service>();
-
-            // services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -55,7 +55,7 @@ namespace Datahub.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IEnv envVars)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Env envVars)
         {
             if (env.IsDevelopment())
             {

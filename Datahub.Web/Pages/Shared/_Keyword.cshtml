@@ -1,7 +1,7 @@
 @model Datahub.Web.Models.Keyword
 
 <span class="keyword" data-toggle="tooltip" data-placement="top" title="@(Model.Vocab)">
-  <span class="vocabful-colour-edge" style="background-color: rgba(77, 219, 58, 1);">&nbsp;</span>
+  <span class="vocabful-colour-edge" style="background-color: #48A943;">&nbsp;</span>
       @if (String.IsNullOrWhiteSpace(Model.Link)) {
         @(Model.Value)
       } else {

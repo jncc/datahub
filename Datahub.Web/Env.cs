@@ -18,6 +18,7 @@ namespace Datahub.Web
         string SITEMAP_S3_BUCKET { get; }
         string SITEMAP_S3_KEY { get;  }
         string FORCE_HTTPS { get; }
+        string JNCC_WEBSITE_URL { get; }
     }
 
     public class Env : IEnv
@@ -35,6 +36,7 @@ namespace Datahub.Web
         public string SITEMAP_S3_BUCKET { get; private set; }
         public string SITEMAP_S3_KEY { get; private set; }
         public string FORCE_HTTPS { get; private set; }
+        public string JNCC_WEBSITE_URL { get; private set; }
 
         public Env()
         {
@@ -51,6 +53,7 @@ namespace Datahub.Web
             this.SITEMAP_S3_BUCKET = GetVariable("SITEMAP_S3_BUCKET");
             this.SITEMAP_S3_KEY = GetVariable("SITEMAP_S3_KEY");
             this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", false);
+            this.JNCC_WEBSITE_URL = GetVariable("JNCC_WEBSITE_URL", false, "https://example.com");
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)

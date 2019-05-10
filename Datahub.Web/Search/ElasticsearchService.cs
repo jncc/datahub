@@ -16,13 +16,13 @@ namespace Datahub.Web.Search
 
     public class ElasticsearchService : IElasticsearchService
     {
-        readonly IEnv env;
+        readonly Env env;
         readonly ElasticClient client;
 
         /// <summary>
         /// Initialises a new NEST ElasticClient instance with support for localhost and AWS endpoints.
         /// </summary>
-        public ElasticsearchService(IEnv env)
+        public ElasticsearchService(Env env)
         {
             this.env = env;
             client = InitialiseClient();

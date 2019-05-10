@@ -26,10 +26,7 @@
         "metadataDate": "2006-01-01",
         "resourceType": "series",
         "topicCategory": "environment",
-        "temporalExtent": {
-            "begin": "2006-01-01T00:00:00Z",
-            "end": "2006-01-01T00:00:00Z"
-        },
+        "temporalExtent": null,
         "useConstraints": "Data provided under Open Government Licence. (see http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)",
         "metadataLanguage": "English",
         "LimitationsOnPublicAccess": "",
