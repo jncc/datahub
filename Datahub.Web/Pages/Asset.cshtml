@@ -2,6 +2,7 @@
 @page "/assets/{assetId}"
 @model AssetModel
 
+@using System.Net
 @using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
 
@@ -51,7 +52,7 @@
         <p>
             @foreach (var k in Model.Asset.Metadata.Keywords)
             {
-                var keyword = k.Vocab + "/" + k.Value;
+                var keyword = WebUtility.UrlEncode(k.Vocab + "/" + k.Value);
                 <a href="/search?k=@keyword">
                     @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
                 </a>

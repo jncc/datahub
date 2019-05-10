@@ -32,8 +32,8 @@
                 var buttonId = "removeKeyword" + i;
                 var fieldId = "keyword" + i;
 
-                    <input id="@fieldId" type="hidden" name="k" value="@(Model.SearchParams.k[i])">
-                <button id="@buttonId" type="button" onclick="removeKeyword('@i')">
+                <input id="@fieldId" type="hidden" name="k" value="@(Model.SearchParams.k[i])">
+                <button id="@buttonId" type="button" class="keyword-container" onclick="removeKeyword('@i')">
                     @await Html.PartialAsync("_Keyword", k)
                 </button>
             }

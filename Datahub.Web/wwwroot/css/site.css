@@ -96,21 +96,15 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .keyword {
-    white-space:nowrap;
+    color: #666262;
+    white-space: nowrap;
     display: inline-block;
     background-color: #ddd;
-    /* background-color: #f0f0f4; */
-    /* background-color: #f7f7f9; */
-    padding-right: 0.5em;
+    padding: 0.2em 0.4em;
     margin: 0 0.8em 0.45em 0;
+    line-height: normal;
+    border-left: 7px solid #48A943;
 }
-.keyword > .vocabful-colour-edge {
-    display: inline-block;
-    width: 7px;
-    margin-right: 2px;
-  }
-.keyword > .vocabless-colour-edge {
-    display: inline-block;
-    width: 0;
-    margin-right: 0.15em;
-  }
+.keyword:hover {
+    background-color: #ccc;
+}
