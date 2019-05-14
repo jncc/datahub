@@ -3,7 +3,7 @@
 @using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
 
-<h5 class="display-5">
+<h4>
     @if (Model.Highlights.Any(x => x.Key == "title"))
     {
         <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
@@ -12,13 +12,13 @@
     {
         <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
     }
-</h5>
+</h4>
 <div>
     @if (Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
     {
         @foreach (var k in Model.Source.Keywords)
         {
-            <button type="button" onclick="addKeyword('@k.Vocab', '@k.Value')">
+            <button type="button" onclick="addKeyword('@k.Vocab', '@k.Value')" style="">
                 @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
             </button>
         }

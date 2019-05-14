@@ -108,3 +108,11 @@ for details on configuring this project to bundle and minify static web assets. 
 .keyword:hover {
     background-color: #ccc;
 }
+.keyword > i {
+    font-size: 80%;
+    padding-left: 0.2em;
+}
+
+.results-pager {
+    text-align: center;
+}
