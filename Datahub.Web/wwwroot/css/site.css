@@ -116,3 +116,12 @@ for details on configuring this project to bundle and minify static web assets. 
 .results-pager {
     text-align: center;
 }
+.pagination > li {
+    font-size: 1.1875rem;
+}
+.pagination > li.current > a {
+    color: white;
+}
+.pagination > li.current > a:hover {
+    background-color: rgb(45, 122, 41);
+}
