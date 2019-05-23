@@ -21,7 +21,6 @@ namespace Datahub.Sitemap
 {
     public class SitemapGenerator
     {
-
         /// <summary>
         /// A simple function that takes a config element and produces a sitemap from a dynamodb
         /// table scan
@@ -32,13 +31,15 @@ namespace Datahub.Sitemap
         public async Task<Parameters> SitemapGeneratorHandler(Parameters parameters, ILambdaContext context)
         {
             var dynamoClient = new AmazonDynamoDBClient();
+            var items = new List<Dictionary<string, string>> { };
 
-            IEnumerable<Dictionary<string, string>> items = new List<Dictionary<string, string>> { };
+            // Loop through pages of results returned by dynamodb, lastKeyEvaluated is populated by the returned
+            // query and is passed into the next query as the pointer to the start of the next page
             Dictionary<string, AttributeValue> lastKeyEvaluated = null;
             do
             {
-                ScanResponse result = await GetDynamoDbScanResults(dynamoClient, parameters.Table, lastKeyEvaluated);
-                IEnumerable<Dictionary<string, string>> resultItems = result.Items.Select(x =>
+                var result = await GetDynamoDbScanResults(dynamoClient, parameters.Table, lastKeyEvaluated);
+                var resultItems = result.Items.Select(x =>
                     new Dictionary<string, string>
                     {
                         ["id"] = x.Single(y => y.Key == "id").Value.S,
@@ -52,14 +53,14 @@ namespace Datahub.Sitemap
 
             var xml = CreateSitemapXML(items, parameters);
 
-            MemoryStream mStream = new MemoryStream();
+            var mStream = new MemoryStream();
             xml.Save(mStream, SaveOptions.DisableFormatting);
 
             var s3Client = new AmazonS3Client();
-            
             var s3Response = await SaveSitemapToS3(s3Client, parameters.Bucket, parameters.Key, mStream);
 
-            // TODO: Do this better
+            // TODO: Check the save response is valid and has successfully pushed, not necessarily garunteed by
+            // the http status code in all cases (need to check size/etag[md5]/etc...)
             if (s3Response.HttpStatusCode != HttpStatusCode.OK)
             {
                 throw new AmazonS3Exception(s3Response.ToString());
@@ -79,7 +80,7 @@ namespace Datahub.Sitemap
         /// <returns></returns>
         private Task<ScanResponse> GetDynamoDbScanResults(AmazonDynamoDBClient client, string table, Dictionary<string, AttributeValue> lastKeyEvaluated = null)
         {
-            ScanRequest request = new ScanRequest
+            var request = new ScanRequest
             {
                 TableName = table,
                 AttributesToGet = new List<string> { "id", "timestamp_utc" },
@@ -165,7 +166,12 @@ namespace Datahub.Sitemap
                 new XElement(xmlNS + "urlset",
                     from item in items
                     select
-                    CreateElement(xmlNS, parameters, item.Single(x => x.Key == "id").Value, item.Single(x => x.Key == "timestamp").Value)
+                    CreateElement(
+                        xmlNS, 
+                        parameters, 
+                        item.Single(x => x.Key == "id").Value, 
+                        item.Single(x => x.Key == "timestamp").Value
+                    )
                 )
             );
         }
