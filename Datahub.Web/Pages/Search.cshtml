@@ -48,8 +48,27 @@
 {
     <div class="space-below">
         <p>
-            Showing page @(Model.Pager.CurrentPage) of @(Model.Results.Total) results
+            @*Showing page @(Model.Pager.CurrentPage) of *@
+            Found <span class="bold">@(Model.Results.Total) results</span>
             in the resource hub
+            @if (Model.SearchParams.q.IsNotBlank()) {
+                <span>
+                    matching <span class="bold">@(Model.SearchParams.q)</span>
+                </span>
+            }
+            @if (Model.Keywords.Any()) {
+                <span>
+                    <span class="space-after">filtered by tags</span>
+                    @foreach (var k in Model.Keywords) {
+                        <span>
+                            @await Html.PartialAsync("_Keyword", k)
+                        </span>
+                    }
+                </span>
+            }
+            @if (Model.Pager.CurrentPage > 1) {
+                <span>(page @(Model.Pager.CurrentPage) of @(Model.Pager.TotalPages))</span>
+            }
         </p>
     </div>
 
