@@ -9,14 +9,10 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Extensions;
 
-public static class CacheKeys
-{
-    public static string RobotsTxt { get { return "_RobotsTxt"; } }
-    public static string Sitemap { get { return "_Sitemap"; } }
-}
-
 public class SitemapController : Controller
 {
+    private static readonly string _robotsTxtMemCacheKey = "_RobotsTxt";
+    private static readonly string _sitemapMemCacheKey = "_Sitemap";
     private static readonly string _sitemapPath = "/sitemap.xml";
     private readonly IEnv _env;
     private IMemoryCache _cache;
@@ -37,26 +33,24 @@ public class SitemapController : Controller
 
         // Try and retrieve the Sitemap bytes from the MemoryCache, if its not present, fetch it from
         // S3 and cache the result
-        if (!_cache.TryGetValue(CacheKeys.Sitemap, out byte[] SitemapBytes))
+        if (!_cache.TryGetValue(_sitemapMemCacheKey, out byte[] sitemapBytes))
         {
-            MemoryCacheEntryOptions cacheEntryOptions;
-
-            // Try to retrieve from S3, if that fails, log the error and if it is a FileNotFound | AmazonS3
+            // TODO: Try to retrieve from S3, if that fails, log the error and if it is a AmazonS3
             // Exception return a default sitemap.xml then set the cache to expire in 30 minutes to try again
-            // otherwise return the byte array representation of the sitemap.xml
-            MemoryStream mStream = new MemoryStream();
-            Stream sitemapStream = await _s3Service.GetObjectAsStream(_env.SITEMAP_S3_BUCKET, _env.SITEMAP_S3_KEY);
+            // otherwise return the byte array representation of the sitemap.xml?
+            var mStream = new MemoryStream();
+            var sitemapStream = await _s3Service.GetObjectAsStream(_env.SITEMAP_S3_BUCKET, _env.SITEMAP_S3_KEY);
             await sitemapStream.CopyToAsync(mStream);
 
-            SitemapBytes = mStream.ToArray();
+            sitemapBytes = mStream.ToArray();
             cacheSpan = TimeSpan.FromHours(6);
-            cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(cacheSpan);
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(cacheSpan);
 
-            _cache.Set(CacheKeys.Sitemap, SitemapBytes, cacheEntryOptions);
+            _cache.Set(_sitemapMemCacheKey, sitemapBytes, cacheEntryOptions);
         }
 
         Response.Headers.Add("Cache-Control", $"max-age={cacheSpan}");
-        return new FileContentResult(SitemapBytes, "application/xml");
+        return new FileContentResult(sitemapBytes, "application/xml");
     }
 
     [HttpGet("/robots.txt")]
@@ -65,9 +59,9 @@ public class SitemapController : Controller
         // If the robots.txt file is not in the MemoryCache create it and store that in the cache,
         // does not expire as this is a per instance setup and would require a re-deploy to modify
         // anyway
-        if (!_cache.TryGetValue(CacheKeys.RobotsTxt, out byte[] RobotBytes))
+        if (!_cache.TryGetValue(_robotsTxtMemCacheKey, out byte[] RobotBytes))
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendLine("User-agent: *");
             sb.AppendLine("Dissallow: /css/");
             sb.AppendLine("Dissallow: /images/");
@@ -75,17 +69,17 @@ public class SitemapController : Controller
             sb.AppendLine("Dissallow: /lib/");
             sb.AppendLine(string.Format(format: "Sitemap: {0}",
                 UriHelper.BuildAbsolute(
-                    Request.IsHttps ? "https" : "http",
-                    new HostString(_env.SELF_REFERENCE_URL),
+                    this.Request.Scheme,
+                    this.Request.Host,
                     _sitemapPath
                 ).ToString()
             ));
 
             RobotBytes = Encoding.UTF8.GetBytes(sb.ToString());
 
-            MemoryCacheEntryOptions cacheEntryOptions = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.NeverRemove);
+            var cacheEntryOptions = new MemoryCacheEntryOptions().SetPriority(CacheItemPriority.NeverRemove);
 
-            _cache.Set(CacheKeys.RobotsTxt, RobotBytes, cacheEntryOptions);
+            _cache.Set(_robotsTxtMemCacheKey, RobotBytes, cacheEntryOptions);
         }
 
         Response.Headers.Add("Cache-Control", $"max-age={TimeSpan.FromDays(1)}");

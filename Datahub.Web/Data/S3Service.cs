@@ -1,4 +1,5 @@
-﻿using Amazon.S3;
+﻿using System;
+using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon;
 using Amazon.Runtime;
@@ -42,21 +43,22 @@ namespace Datahub.Web.Data
 
         public async Task<Stream> GetObjectAsStream(string bucket, string key)
         {
-            // Error can pop out of here, but should be handled/logged by error request middleware further up
             GetObjectRequest request = new GetObjectRequest
             {
                 BucketName = bucket,
                 Key = key
             };
 
-            GetObjectResponse response = await _client.GetObjectAsync(request);
-
-            if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+            using (GetObjectResponse response = await _client.GetObjectAsync(request))
             {
-                return response.ResponseStream;
-            }
 
-            throw new FileNotFoundException(string.Format("Got a {0} response when trying to retrieve s3://{1}/{2}", response.HttpStatusCode, bucket, key));
+                if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return response.ResponseStream;
+                }
+
+                throw new Exception(string.Format("Got a {0} response when trying to retrieve s3://{1}/{2}", response.HttpStatusCode, bucket, key));
+            }
         }
     }
 }
