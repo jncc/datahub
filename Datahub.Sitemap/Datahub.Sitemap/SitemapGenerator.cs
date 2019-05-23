@@ -116,19 +116,21 @@ namespace Datahub.Sitemap
         /// 
         /// </summary>
         /// <param name="id">The ID of the asset to create a URL for</param>
-        /// <param name="config">The Config Object for this lambda run</param>
+        /// <param name="scheme">The Scheme to use with the host</param>
+        /// <param name="host">The Host URL to base this sitemap on</param>
+        /// <param name="basePath">An Optional basePath parameter to inlcude with the objects</param>
         /// <returns></returns>
-        private string GenerateAssetURL(string id, Parameters parameters)
+        private string GenerateAssetURL(string id, string scheme, string host, string basePath = null)
         {
             var url = new UriBuilder
             {
-                Host = parameters.Host,
-                Scheme = parameters.Scheme
+                Host = host,
+                Scheme = scheme
             }.Uri;
 
-            if (!string.IsNullOrWhiteSpace(parameters.BasePath))
+            if (!string.IsNullOrWhiteSpace(basePath))
             {
-                url = url.Combine(parameters.BasePath);
+                url = url.Combine(basePath);
             }
 
             return url.Combine(id).ToString();
@@ -138,15 +140,17 @@ namespace Datahub.Sitemap
         /// Create an XML element for a given asset (id/timestamp) combo, timestamp may be null so need to deal with it here
         /// </summary>
         /// <param name="xmlNS">The XML Namesapce to use</param>
-        /// <param name="parameters">Any input parameters to use</param>
         /// <param name="id">The id of the asset</param>
         /// <param name="timestamp">The timestamp of the asset</param>
+        /// <param name="scheme">The Scheme to use with the host</param>
+        /// <param name="host">The Host URL to base this sitemap on</param>
+        /// <param name="basePath">An Optional basePath parameter to inlcude with the objects</param>        
         /// <param name="changeFreq">(Optional) The change frequency of the asset (defaults to weekly)</param>
         /// <returns></returns>
-        private XElement CreateElement(XNamespace xmlNS, Parameters parameters, string id, string timestamp, string changeFreq = "weekly")
+        private XElement CreateElement(XNamespace xmlNS, string id, string timestamp, string scheme, string host, string basePath = null, string changeFreq = "weekly")
         {
             return new XElement(xmlNS + "url",
-                    new XElement(xmlNS + "loc", GenerateAssetURL(id, parameters)),
+                    new XElement(xmlNS + "loc", GenerateAssetURL(id, scheme, host, basePath)),
                     new XElement(xmlNS + "lastmod", timestamp),
                     new XElement(xmlNS + "changefreq", changeFreq));
         }
@@ -168,9 +172,12 @@ namespace Datahub.Sitemap
                     select
                     CreateElement(
                         xmlNS, 
-                        parameters, 
                         item.Single(x => x.Key == "id").Value, 
-                        item.Single(x => x.Key == "timestamp").Value
+                        item.Single(x => x.Key == "timestamp").Value,
+                        parameters.Scheme, 
+                        parameters.Host, 
+                        parameters.BasePath, 
+                        parameters.ChangeFrequency 
                     )
                 )
             );
