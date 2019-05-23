@@ -33,11 +33,6 @@ If already installed check if new version is available.
 
     dotnet tool update -g Amazon.Lambda.Tools
 
-Execute unit tests
-
-    cd "Datahub.Sitemap/Datahub.Sitemap.Tests"
-    dotnet test
-
 Deploy function to AWS Lambda
 
     cd "Datahub.Sitemap/src/Datahub.Sitemap"
