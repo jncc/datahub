@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Diagnostics;
+
 
 namespace Datahub.Web.Pages
 {
@@ -15,9 +18,22 @@ namespace Datahub.Web.Pages
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
+        private ILogger<ErrorModel> Logger { get; set; }
+
+        public ErrorModel(ILogger<ErrorModel> logger)
+        {
+            Logger = logger;
+        }
+
         public void OnGet()
         {
-            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            IExceptionHandlerPathFeature exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+
+            if (exceptionFeature != null) {
+                Exception ex = exceptionFeature.Error;
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+                Logger.LogError("{RequestId}: {Message}", RequestId, ex.ToString());
+            } 
         }
     }
 }
