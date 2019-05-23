@@ -31,7 +31,7 @@ namespace Datahub.Sitemap
         public async Task<Parameters> SitemapGeneratorHandler(Parameters parameters, ILambdaContext context)
         {
             var dynamoClient = new AmazonDynamoDBClient();
-            var items = new List<Dictionary<string, string>> { };
+            var items = (new List<Dictionary<string, string>> { }).AsEnumerable();
 
             // Loop through pages of results returned by dynamodb, lastKeyEvaluated is populated by the returned
             // query and is passed into the next query as the pointer to the start of the next page
