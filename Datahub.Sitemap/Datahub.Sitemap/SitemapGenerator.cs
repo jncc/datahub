@@ -19,6 +19,12 @@ using System.Collections.Generic;
 
 namespace Datahub.Sitemap
 {
+    public class AssetInfo
+    {
+        public string Id { get; set; }
+        public string Timestamp { get; set; }
+    }
+
     public class SitemapGenerator
     {
         /// <summary>
@@ -31,7 +37,7 @@ namespace Datahub.Sitemap
         public async Task<Parameters> SitemapGeneratorHandler(Parameters parameters, ILambdaContext context)
         {
             var dynamoClient = new AmazonDynamoDBClient();
-            var items = (new List<Dictionary<string, string>> { }).AsEnumerable();
+            var items = (new List<AssetInfo> { }).AsEnumerable();
 
             // Loop through pages of results returned by dynamodb, lastKeyEvaluated is populated by the returned
             // query and is passed into the next query as the pointer to the start of the next page
@@ -40,10 +46,9 @@ namespace Datahub.Sitemap
             {
                 var result = await GetDynamoDbScanResults(dynamoClient, parameters.Table, lastKeyEvaluated);
                 var resultItems = result.Items.Select(x =>
-                    new Dictionary<string, string>
-                    {
-                        ["id"] = x.Single(y => y.Key == "id").Value.S,
-                        ["timestamp"] = x.Single(y => y.Key == "timestamp_utc").Value.S
+                    new AssetInfo {
+                        Id = x.Single(y => y.Key == "id").Value.S,
+                        Timestamp = x.Single(y => y.Key == "timestamp_utc").Value.S
                     }
                 );
                 items = items.Concat(resultItems);
@@ -59,13 +64,13 @@ namespace Datahub.Sitemap
             var s3Client = new AmazonS3Client();
             var s3Response = await SaveSitemapToS3(s3Client, parameters.Bucket, parameters.Key, mStream);
 
-            // TODO: Check the save response is valid and has successfully pushed, not necessarily garunteed by
+            // TODO: Check the save response is valid and has successfully pushed, not necessarily guaranteed by
             // the http status code in all cases (need to check size/etag[md5]/etc...)
             if (s3Response.HttpStatusCode != HttpStatusCode.OK)
             {
                 throw new AmazonS3Exception(s3Response.ToString());
             }
-            
+
             return parameters;
         }
 
@@ -100,8 +105,9 @@ namespace Datahub.Sitemap
         /// <param name="inputStream">A Stream containing the XML file to write out to S3 (currently a MemoryStream)</param>
         /// <returns></returns>
         private Task<PutObjectResponse> SaveSitemapToS3(AmazonS3Client client, string bucket, string key, Stream inputStream)
-        {   
-            return client.PutObjectAsync(new PutObjectRequest{
+        {
+            return client.PutObjectAsync(new PutObjectRequest
+            {
                 BucketName = bucket,
                 Key = key,
                 InputStream = inputStream
@@ -161,7 +167,7 @@ namespace Datahub.Sitemap
         /// <param name="clientRequest">The ScanResponse from the DynamoDB table scan</param>
         /// <param name="config">The Config Object for this lambda run</param>
         /// <returns></returns>
-        public XDocument CreateSitemapXML(IEnumerable<Dictionary<string, string>> items, Parameters parameters)
+        public XDocument CreateSitemapXML(IEnumerable<AssetInfo> items, Parameters parameters)
         {
             XNamespace xmlNS = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
@@ -170,15 +176,7 @@ namespace Datahub.Sitemap
                 new XElement(xmlNS + "urlset",
                     from item in items
                     select
-                    CreateElement(
-                        xmlNS, 
-                        item.Single(x => x.Key == "id").Value, 
-                        item.Single(x => x.Key == "timestamp").Value,
-                        parameters.Scheme, 
-                        parameters.Host, 
-                        parameters.BasePath, 
-                        parameters.ChangeFrequency 
-                    )
+                    CreateElement(xmlNS, item.Id, item.Timestamp, parameters.Scheme, parameters.Host, parameters.BasePath, parameters.ChangeFrequency)
                 )
             );
         }
