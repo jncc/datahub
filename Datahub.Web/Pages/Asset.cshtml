@@ -117,7 +117,7 @@
                                     @if(d.Http.FileExtension.IsNotBlank() && d.Http.FileBytes.IsNotBlank())
                                     {
                                         <span style="word-spacing:-0.3em; margin-right:0.6em">
-                                            @ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)
+                                            <@ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)>
                                         </span>
                                         <span style="overflow-wrap: break-word;" class="text-muted">
                                             @AssetHelpers.GetFileNameForDisplay(d.Http.Url)

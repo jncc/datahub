@@ -17,38 +17,33 @@
     }
     else
     {
-        <span class="spot-colour" style="margin-right:0.3rem;">  
-            <i class="fas @AssetHelpers.GetIconName(Model.Source.ParentResourceType)"
-                data-toggle="tooltip" title="@Model.Source.ParentResourceType"></i>
-        </span>
+        <span class="square-badge space-after">@Model.Source.FileExtension.ToUpper()</span>
     }
 
 
-
-    @if (isAsset)
+    @if (Model.Highlights.Any(x => x.Key == "title"))
     {
-        if (Model.Highlights.Any(x => x.Key == "title"))
-        {
-            <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
-        }
-        else
-        {
-            <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
-        }
+        <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
     }
     else
     {
-        <a href="/assets/@(Model.Source.ParentId)">@(Model.Source.ParentTitle)</a>
+        <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
     }
+
 
     @if (Model.Source.PublishedDate.IsNotBlank())
     {
         <span class="" style="margin-left:0.3rem;">@Model.Source.PublishedDate.Substring(0, 4)</span>
     }
+
+    @if (Model.Source.FileBytes.IsNotBlank())
+    {
+        <span class="text-small">@ByteHelpers.FormatBytesForDisplay(Model.Source.FileBytes)</span>
+    }    
 </h4>
 
 <div>
-    @if (Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
+    @if (isAsset && Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
     {
         @foreach (var k in Model.Source.Keywords)
         {
@@ -59,66 +54,32 @@
     }
 </div>
 
-
-
-@if (isAsset)
+@if (Model.Highlights.Any(x => x.Key == "content"))
 {
-    if (Model.Highlights.Any(x => x.Key == "content"))
-    {
-        <p>@(Html.Raw(Model.Highlights.First(x => x.Key == "content").Value.Highlights.First()))</p>
-    }
-    else
-    {
-        <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
-    }
+    <p>@(Html.Raw(Model.Highlights.First(x => x.Key == "content").Value.Highlights.First()))</p>
 }
-else 
+else
 {
-    <div class="search-result-resource">
-        <h5>
-            <span class="square-badge space-after">@Model.Source.FileExtension.ToUpper()</span>
-            @if (Model.Highlights.Any(x => x.Key == "title"))
-            {
-                <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
-            }
-            else
-            {
-                <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
-            }
-            <span class="text-small">@ByteHelpers.FormatBytesForDisplay(Model.Source.FileBytes)</span>
-        </h5>
-        @if (Model.Highlights.Any(x => x.Key == "content"))
-        {
-            <p>@(Html.Raw(Model.Highlights.First(x => x.Key == "content").Value.Highlights.First()))</p>
-        }
-        else
-        {
-            <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
-        }
+    <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
+}
+
+
+@if (Model.Source.ParentId.IsNotBlank())
+{
+    <div class="search-result-parent">
+        <i class="text-muted fas fa-arrow-circle-right"></i>
+        <span class="spot-colour" style="margin-right:0.3rem;">  
+            <i class="fas @AssetHelpers.GetIconName(Model.Source.ParentResourceType)"
+                data-toggle="tooltip" title="@Model.Source.ParentResourceType"></i>
+        </span>
+        <a href="/assets/@(Model.Source.ParentId)">@(Model.Source.ParentTitle)</a>
+
+
     </div>
+
 }
 
 
-<br />
 
-@*
-FileBytes: @(Model.Source.FileBytes)
-<br />
-FileExtension: @(Model.Source.FileExtension)
-<br />
-Title: @(Model.Source.Title)
-<br />
-ParentId: @(Model.Source.ParentId)
-<br />
-ParentResourceType: @(Model.Source.ParentResourceType)
-<br />
-ParentTitle: @(Model.Source.ParentTitle)
 
 <br />
-PublishedDate: @(Model.Source.PublishedDate)
-<br />
-ResourceType: @(Model.Source.ResourceType)
-<br />
-Site: @(Model.Source.Site)
-<br />
-*@

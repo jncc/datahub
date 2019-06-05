@@ -138,3 +138,7 @@ for details on configuring this project to bundle and minify static web assets. 
 .search-result-resource {
     padding: 0.5em 0 0 2em;
 }
+
+.search-result-parent {
+    padding: 0 0 0 2em;
+}
