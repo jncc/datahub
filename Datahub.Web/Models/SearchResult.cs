@@ -28,7 +28,7 @@ namespace Datahub.Web.Models
         [PropertyName("keywords")]
         public List<Keyword> Keywords { get; set; }
 
-        [Date(Format = "yyyy-MM-ddTHH:mm:ssZ")]
+        [Text(Name = "published_date")]
         public string PublishedDate { get; set; }
 
         [Text(Name = "resource_type")]
@@ -47,7 +47,7 @@ namespace Datahub.Web.Models
         public string FileExtension {get; set;}
 
         [Number(Name = "file_bytes")]
-        public long FileBytes { get; set; }
+        public string FileBytes { get; set; }
 
         // [GeoShape(Name = "footprint")]
         // public IGeoShape Footprint { get; set; }

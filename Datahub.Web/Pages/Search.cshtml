@@ -44,44 +44,41 @@
 </div>
 
 
-@if (Model.Results != null && Model.Results.Total > 0)
-{
-    <div class="space-below">
-        <p>
-            @*Showing page @(Model.Pager.CurrentPage) of *@
-            Found <span class="bold">@(Model.Results.Total) results</span>
-            in the resource hub
-            @if (Model.SearchParams.q.IsNotBlank()) {
-                <span>
-                    matching <span class="bold">@(Model.SearchParams.q)</span>
-                </span>
-            }
-            @if (Model.Keywords.Any()) {
-                <span>
-                    <span class="space-after">filtered by tags</span>
-                    @foreach (var k in Model.Keywords) {
-                        <span>
-                            @await Html.PartialAsync("_Keyword", k)
-                        </span>
-                    }
-                </span>
-            }
-            @if (Model.Pager.CurrentPage > 1) {
-                <span>(page @(Model.Pager.CurrentPage) of @(Model.Pager.TotalPages))</span>
-            }
-        </p>
-    </div>
+<div class="space-below">
+    <p>
+        @*Showing page @(Model.Pager.CurrentPage) of *@
+        Found <span class="bold">@(Model.Results.Total) results</span>
+        in the resource hub
+        @if (Model.SearchParams.q.IsNotBlank()) {
+            <span>
+                matching <span class="bold">@(Model.SearchParams.q)</span>
+            </span>
+        }
+        @if (Model.Keywords.Any()) {
+            <span>
+                <span class="space-after">filtered by tags</span>
+                @foreach (var k in Model.Keywords) {
+                    <span>
+                        @await Html.PartialAsync("_Keyword", k)
+                    </span>
+                }
+            </span>
+        }
+        @if (Model.Pager.CurrentPage > 1) {
+            <span>(page @(Model.Pager.CurrentPage) of @(Model.Pager.TotalPages))</span>
+        }
+    </p>
+</div>
 
-    @foreach (var r in Model.Results.Hits.ToList())
+@if (Model.Results.Total > 0)
+{
+    foreach (var r in Model.Results.Hits.ToList())
     {
         @await Html.PartialAsync("_SearchResult", r);
     }
-}   
 
-@{
     string keywordQueryString = Model.Keywords.ToConcatenatedString(k =>
         "&k=" + System.Net.WebUtility.UrlEncode(k.Vocab + "/" + k.Value));
-}
 
     <nav aria-label="Pagination" class="results-pager">
     <ul class="pagination">
@@ -148,6 +145,7 @@
         }
     </ul>
     </nav>
+}
     <br />
     <br />
 </div>

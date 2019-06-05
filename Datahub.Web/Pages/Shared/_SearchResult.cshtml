@@ -3,16 +3,50 @@
 @using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
 
+@{
+    // search results can be either Assets (parents) or Resources (children)
+    bool isAsset = Model.Source.FileExtension.IsBlank();
+}
 <h4>
-    @if (Model.Highlights.Any(x => x.Key == "title"))
+    @if (isAsset)
     {
-        <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
+        <span class="spot-colour" style="margin-right:0.3rem;">  
+            <i class="fas @AssetHelpers.GetIconName(Model.Source.ResourceType)"
+                data-toggle="tooltip" title="@Model.Source.ResourceType"></i>
+        </span>
     }
     else
     {
-        <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
+        <span class="spot-colour" style="margin-right:0.3rem;">  
+            <i class="fas @AssetHelpers.GetIconName(Model.Source.ParentResourceType)"
+                data-toggle="tooltip" title="@Model.Source.ParentResourceType"></i>
+        </span>
+    }
+
+
+
+    @if (isAsset)
+    {
+        if (Model.Highlights.Any(x => x.Key == "title"))
+        {
+            <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
+        }
+        else
+        {
+            <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
+        }
+    }
+    else
+    {
+        <a href="/assets/@(Model.Source.ParentId)">@(Model.Source.ParentTitle)</a>
+    }
+
+    @if (Model.Source.PublishedDate.IsNotBlank())
+    {
+        <span class="" style="margin-left:0.3rem;">@Model.Source.PublishedDate.Substring(0, 4)</span>
     }
 </h4>
+
 <div>
     @if (Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
     {
@@ -25,13 +59,66 @@
     }
 </div>
 
-@if (Model.Highlights.Any(x => x.Key == "content"))
+
+
+@if (isAsset)
 {
-    <p>@(Html.Raw(Model.Highlights.First(x => x.Key == "content").Value.Highlights.First()))</p>
+    if (Model.Highlights.Any(x => x.Key == "content"))
+    {
+        <p>@(Html.Raw(Model.Highlights.First(x => x.Key == "content").Value.Highlights.First()))</p>
+    }
+    else
+    {
+        <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
+    }
 }
-else
+else 
 {
-    <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
+    <div class="search-result-resource">
+        <h5>
+            <span class="square-badge space-after">@Model.Source.FileExtension.ToUpper()</span>
+            @if (Model.Highlights.Any(x => x.Key == "title"))
+            {
+                <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
+            }
+            else
+            {
+                <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
+            }
+            <span class="text-small">@ByteHelpers.FormatBytesForDisplay(Model.Source.FileBytes)</span>
+        </h5>
+        @if (Model.Highlights.Any(x => x.Key == "content"))
+        {
+            <p>@(Html.Raw(Model.Highlights.First(x => x.Key == "content").Value.Highlights.First()))</p>
+        }
+        else
+        {
+            <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
+        }
+    </div>
 }
 
+
 <br />
+
+@*
+FileBytes: @(Model.Source.FileBytes)
+<br />
+FileExtension: @(Model.Source.FileExtension)
+<br />
+Title: @(Model.Source.Title)
+<br />
+ParentId: @(Model.Source.ParentId)
+<br />
+ParentResourceType: @(Model.Source.ParentResourceType)
+<br />
+ParentTitle: @(Model.Source.ParentTitle)
+
+<br />
+PublishedDate: @(Model.Source.PublishedDate)
+<br />
+ResourceType: @(Model.Source.ResourceType)
+<br />
+Site: @(Model.Source.Site)
+<br />
+*@

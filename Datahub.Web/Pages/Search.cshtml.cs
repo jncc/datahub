@@ -34,8 +34,6 @@ namespace Datahub.Web.Pages
             var client = esService.Client();
             var results = await client.SearchAsync<SearchResult>(search);
             
-            Console.WriteLine(input.p);
-
             Results = results;
             SearchParams = input;
             Keywords = searchBuilder.ParseKeywords(input.k);
