@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿
+@using Datahub.Web.Pages.Helpers
+
+<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -9,6 +12,10 @@
             ? "JNCC Resource Hub"
             : ViewData["Title"] + " | JNCC Resource Hub")
     </title>
+	@if(ViewData["Description"] != null)
+	{
+	<meta name="description" content="@(ViewData["Description"])">
+	}
     <environment exclude="Development">
         <!-- Google Tag Manager -->
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

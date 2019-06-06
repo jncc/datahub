@@ -9,6 +9,7 @@
 
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
+    ViewData["Description"] = Model.Asset.Metadata.Abstract.Truncate(200); // 200 chars hopefully slightly more than enough
 }
 @{ ViewBag.CurrentPage = "Index"; }
 

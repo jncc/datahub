@@ -24,5 +24,15 @@ namespace Datahub.Web.Pages.Helpers
         {
             return !String.IsNullOrWhiteSpace(input);
         }
+
+        public static string Truncate(this string value, int length)
+        {
+            if (String.IsNullOrEmpty(value))
+                return value;
+                
+            return value.Length <= length
+                ? value
+                : value.Substring(0, length); 
+        }        
     }
 }
