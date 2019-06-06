@@ -11,7 +11,7 @@ public class RobotsController : Controller
 User-agent: *
 Allow: /
 
-Sitemap: http://hub.jncc.gov.uk/sitemap.xml
+Sitemap: https://hub.jncc.gov.uk/sitemap.xml
 ";
 
         return Ok(content);
