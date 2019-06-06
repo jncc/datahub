@@ -5,6 +5,7 @@
 @using System.Net
 @using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
+@using Westwind.AspNetCore.Markdown
 
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
@@ -50,7 +51,7 @@
         </h1>
 
         <p>
-            @foreach (var k in Model.Asset.Metadata.Keywords)
+            @foreach (var k in AssetHelpers.FilterKnownBadKeywords(Model.Asset.Metadata.Keywords))
             {
                 var keyword = WebUtility.UrlEncode(k.Vocab + "/" + k.Value);
                 <a href="/search?k=@keyword">
@@ -60,7 +61,7 @@
         </p>
         <div class="module">
             <p id="abstract">
-                <span class="text-label">Abstract</span> @Model.Asset.Metadata.Abstract
+                <span class="text-label">Abstract</span> @Markdown.ParseHtmlString(Model.Asset.Metadata.Abstract)
             </p>
         </div>
 
@@ -117,7 +118,7 @@
                                     @if(d.Http.FileExtension.IsNotBlank() && d.Http.FileBytes.IsNotBlank())
                                     {
                                         <span style="word-spacing:-0.3em; margin-right:0.6em">
-                                            <@ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)>
+                                            @ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)
                                         </span>
                                         <span style="overflow-wrap: break-word;" class="text-muted">
                                             @AssetHelpers.GetFileNameForDisplay(d.Http.Url)

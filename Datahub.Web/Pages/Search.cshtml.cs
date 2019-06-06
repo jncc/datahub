@@ -41,7 +41,7 @@ namespace Datahub.Web.Pages
                 totalItems:  (int) results.Total,
                 currentPage: input.p,
                 pageSize:    input.size,
-                maxPages:    5);
+                maxPages:    10);
         }
     }
 

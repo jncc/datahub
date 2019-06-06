@@ -45,9 +45,9 @@
 <div>
     @if (isAsset && Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
     {
-        @foreach (var k in Model.Source.Keywords)
+        @foreach (var k in AssetHelpers.FilterKnownBadKeywords(Model.Source.Keywords))
         {
-            <button type="button" onclick="addKeyword('@k.Vocab', '@k.Value')" style="">
+            <button type="button" onclick="addKeyword('@k.Vocab', '@k.Value')" style="font-size:85%;">
                 @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
             </button>
         }
