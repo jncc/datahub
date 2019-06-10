@@ -13,7 +13,7 @@ namespace Datahub.Web
         string AWS_ACCESS_KEY_ID { get; }
         string AWS_SECRET_ACCESS_KEY { get; }
         string AWS_DEFAULT_REGION { get; }
-        string GTM_ID { get; }
+        string GOOGLE_ANALYTICS { get; }
         string FORCE_HTTPS { get; }
         string JNCC_WEBSITE_URL { get; }
     }
@@ -27,7 +27,7 @@ namespace Datahub.Web
         public string AWS_ACCESS_KEY_ID { get; private set; }
         public string AWS_SECRET_ACCESS_KEY { get; private set; }
         public string AWS_DEFAULT_REGION { get; private set; }
-        public string GTM_ID { get; private set; }
+        public string GOOGLE_ANALYTICS { get; private set; }
         public string DB_TABLE { get; private set; }
         public string FORCE_HTTPS { get; private set; }
         public string JNCC_WEBSITE_URL { get; private set; }
@@ -41,7 +41,7 @@ namespace Datahub.Web
             this.AWS_ACCESS_KEY_ID = GetVariable("AWS_ACCESS_KEY_ID", false);
             this.AWS_SECRET_ACCESS_KEY = GetVariable("AWS_SECRET_ACCESS_KEY", false);
             this.AWS_DEFAULT_REGION = GetVariable("AWS_DEFAULT_REGION", false);
-            this.GTM_ID = GetVariable("GTM_ID", false, "");
+            this.GOOGLE_ANALYTICS = GetVariable("GOOGLE_ANALYTICS", false);
             this.DB_TABLE = GetVariable("DB_TABLE", false);
             this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", false);
             this.JNCC_WEBSITE_URL = GetVariable("JNCC_WEBSITE_URL", false, "https://example.com");
