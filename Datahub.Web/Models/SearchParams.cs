@@ -9,7 +9,7 @@ namespace Datahub.Web.Models
             this.q = String.Empty;
             this.k = new string[] {};
             this.p = 1;
-            this.size = 5;
+            this.size = 10;
         }
 
         public string   q    { get; set; }
