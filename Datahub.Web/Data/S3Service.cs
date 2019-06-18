@@ -17,9 +17,9 @@ namespace Datahub.Web.Data
     public class S3Service : IS3Service
     {
         private AmazonS3Client _client;
-        private IEnv _env;
+        private Env _env;
 
-        public S3Service(IEnv env)
+        public S3Service(Env env)
         {
             _env = env;
             _client = InitialiseClient();

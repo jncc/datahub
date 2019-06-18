@@ -3,24 +3,7 @@ using System;
 
 namespace Datahub.Web
 {
-    public interface IEnv
-    {
-        string ES_INDEX { get; }
-        string ES_ENDPOINT_SCHEME { get; }
-        string ES_ENDPOINT_HOST { get; }
-        string ES_ENDPOINT_PORT { get; }
-        string DB_TABLE { get; }
-        string AWS_ACCESS_KEY_ID { get; }
-        string AWS_SECRET_ACCESS_KEY { get; }
-        string AWS_DEFAULT_REGION { get; }
-        string SITEMAP_S3_BUCKET { get; }
-        string SITEMAP_S3_KEY { get;  }
-        string GOOGLE_ANALYTICS { get; }
-        string FORCE_HTTPS { get; }
-        string JNCC_WEBSITE_URL { get; }
-    }
-
-    public class Env : IEnv
+    public class Env
     {
         public string ES_INDEX { get; private set; }
         public string ES_ENDPOINT_SCHEME { get; private set; }

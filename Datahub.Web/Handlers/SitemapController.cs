@@ -14,11 +14,11 @@ public class SitemapController : Controller
     private static readonly string _robotsTxtMemCacheKey = "_RobotsTxt";
     private static readonly string _sitemapMemCacheKey = "_Sitemap";
     private static readonly string _sitemapPath = "/sitemap.xml";
-    private readonly IEnv _env;
+    private readonly Env _env;
     private IMemoryCache _cache;
     private IS3Service _s3Service;
 
-    public SitemapController(IEnv env, IMemoryCache cache, IS3Service s3Service)
+    public SitemapController(Env env, IMemoryCache cache, IS3Service s3Service)
     {
         _env = env;
         _cache = cache;
