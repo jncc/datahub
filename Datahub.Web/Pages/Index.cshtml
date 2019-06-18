@@ -70,8 +70,30 @@
 
 </div>
 
+<div class="exemplar-list-header">
+    <h2>
+        <i class="spot-colour space-after fas fa-layer-group"></i>
+        Content categories
+    </h2>
+    <div class="grid-x grid-margin-x space-below">
+        @foreach (var c in HomePageContent.Content.FeaturedCategories)
+        {
+            <div class="cell medium-6 large">
+                @{ var keyword = WebUtility.UrlEncode(c.Vocab + "/" + c.Value);}
+                <a href="/search?k=@keyword">
+                    @await Html.PartialAsync("_Keyword", new Keyword { Vocab = c.Vocab, Value = c.Value })
+                </a>
+                <p>@c.Description</p>
+            </div>
+        }
+    </div>
+</div>
+
 
 <environment include="Development">
+
+<h2>Dev-time data</h2>
+
 <div class="row">
     <div class="large-6">
 

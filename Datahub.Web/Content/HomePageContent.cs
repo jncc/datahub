@@ -41,8 +41,39 @@ namespace Datahub.Web.Content
             {
                 new CategorySnippet
                 {
-                    Name = "Publications",
+                    Vocab = "http://vocab.jncc.gov.uk/jncc-category",
+                    Value = "JNCC Publications",
                     Description = "Official publications produced by Joint Nature Conservation Committee (JNCC)",
+                },
+                new CategorySnippet
+                {
+                    Vocab = "http://vocab.jncc.gov.uk/jncc-category",
+                    Value = "Another Category",
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                },
+                new CategorySnippet
+                {
+                    Vocab = "http://vocab.jncc.gov.uk/jncc-category",
+                    Value = "Another Category",
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                },
+                new CategorySnippet
+                {
+                    Vocab = "http://vocab.jncc.gov.uk/jncc-category",
+                    Value = "Another Category",
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                },
+                new CategorySnippet
+                {
+                    Vocab = "http://vocab.jncc.gov.uk/jncc-category",
+                    Value = "Another Category",
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                },
+                new CategorySnippet
+                {
+                    Vocab = "http://vocab.jncc.gov.uk/jncc-category",
+                    Value = "Another Category",
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 },
             }
         };
@@ -64,8 +95,8 @@ namespace Datahub.Web.Content
 
     public class CategorySnippet
     {
-        public string Url         { get; set; }
-        public string Name        { get; set; }
+        public string Vocab       { get; set; }
+        public string Value       { get; set; }
         public string Description { get; set; }
     }
 }
