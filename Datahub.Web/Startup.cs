@@ -13,6 +13,7 @@ using Datahub.Web.Data;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Http.Extensions;
 using Datahub.Web.Pages.Helpers;
+using Westwind.AspNetCore.Markdown;
 
 namespace Datahub.Web
 {
@@ -36,13 +37,15 @@ namespace Datahub.Web
             var env = new Env();
             services.AddSingleton(env);
             services.AddTransient<LayoutViewModel>();
-
+            
             var dynamodbServiceType = env.DB_TABLE.IsBlank() ? typeof(LocalDevDynamodbService) : typeof(DynamodbService);
             services.AddTransient(typeof(IDynamodbService), dynamodbServiceType);
 
             services.AddTransient<IElasticsearchService, ElasticsearchService>();
             services.AddTransient<ISearchBuilder, SearchBuilder>(); 
             services.AddTransient<IS3Service, S3Service>();
+
+            services.AddMarkdown();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -74,6 +77,8 @@ namespace Datahub.Web
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseMvc();
+            
+            app.UseMarkdown();
         }
     }
 

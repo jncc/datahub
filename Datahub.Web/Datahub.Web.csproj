@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" />
     <PackageReference Include="NEST" Version="6.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="westwind.aspnetcore.markdown" Version="3.2.4" />
   </ItemGroup>
 
 <ItemGroup>

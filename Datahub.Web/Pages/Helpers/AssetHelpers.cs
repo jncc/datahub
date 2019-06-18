@@ -1,6 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Datahub.Web.Models;
 
 namespace Datahub.Web.Pages.Helpers
 {
@@ -30,6 +33,11 @@ namespace Datahub.Web.Pages.Helpers
                 return fileExtension.ToUpper();
             else
                 return String.Empty;
+        }
+
+        public static IEnumerable<Keyword> FilterKnownBadKeywords(IEnumerable<Keyword> keywords)
+        {
+            return keywords.Where(k => k.Value.ToLowerInvariant() != "todo!");
         }
     }
 }

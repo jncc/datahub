@@ -3,7 +3,24 @@
 @using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
 
-<h5 class="display-5">
+@{
+    // search results can be either Assets (parents) or Resources (children)
+    bool isAsset = Model.Source.FileExtension.IsBlank();
+}
+<h4>
+    @if (isAsset)
+    {
+        <span class="spot-colour" style="margin-right:0.3rem;">  
+            <i class="fas @AssetHelpers.GetIconName(Model.Source.ResourceType)"
+                data-toggle="tooltip" title="@Model.Source.ResourceType"></i>
+        </span>
+    }
+    else
+    {
+        <span class="square-badge space-after">@Model.Source.FileExtension.ToUpper()</span>
+    }
+
+
     @if (Model.Highlights.Any(x => x.Key == "title"))
     {
         <a href="@(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
@@ -12,13 +29,27 @@
     {
         <a href="@(Model.Source.Url)">@(Model.Source.Title)</a>
     }
-</h5>
-<div>
-    @if (Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
+
+
+    @if (Model.Source.PublishedDate.IsNotBlank())
     {
-        @foreach (var k in Model.Source.Keywords)
+        <span class="" style="margin-left:0.3rem;">@Model.Source.PublishedDate.Substring(0, 4)</span>
+    }
+
+    @if (Model.Source.FileBytes.IsNotBlank())
+    {
+        <span class="text-small">@ByteHelpers.FormatBytesForDisplay(Model.Source.FileBytes)</span>
+    }    
+</h4>
+
+<div>
+    @if (isAsset && Model.Source.Keywords != null && Model.Source.Keywords.Count > 0)
+    {
+        @foreach (var k in AssetHelpers.FilterKnownBadKeywords(Model.Source.Keywords))
         {
-            @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+            <button type="button" onclick="addKeyword('@k.Vocab', '@k.Value')" style="font-size:85%;">
+                @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+            </button>
         }
     }
 </div>
@@ -31,5 +62,24 @@ else
 {
     <p>@(Html.Raw(Model.Source.ContentTruncated))</p>
 }
+
+
+@if (Model.Source.ParentId.IsNotBlank())
+{
+    <div class="search-result-parent">
+        <i class="text-muted fas fa-arrow-circle-right"></i>
+        <span class="spot-colour" style="margin-right:0.3rem;">  
+            <i class="fas @AssetHelpers.GetIconName(Model.Source.ParentResourceType)"
+                data-toggle="tooltip" title="@Model.Source.ParentResourceType"></i>
+        </span>
+        <a href="/assets/@(Model.Source.ParentId)">@(Model.Source.ParentTitle)</a>
+
+
+    </div>
+
+}
+
+
+
 
 <br />

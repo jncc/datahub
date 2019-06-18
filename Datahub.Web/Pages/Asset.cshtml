@@ -2,11 +2,14 @@
 @page "/assets/{assetId}"
 @model AssetModel
 
+@using System.Net
 @using Datahub.Web.Models
 @using Datahub.Web.Pages.Helpers
+@using Westwind.AspNetCore.Markdown
 
 @{
     ViewData["Title"] = Model.Asset.Metadata.Title;
+    ViewData["Description"] = Model.Asset.Metadata.Abstract.Truncate(200); // 200 chars hopefully slightly more than enough
 }
 @{ ViewBag.CurrentPage = "Index"; }
 
@@ -49,14 +52,17 @@
         </h1>
 
         <p>
-            @foreach (var k in Model.Asset.Metadata.Keywords)
+            @foreach (var k in AssetHelpers.FilterKnownBadKeywords(Model.Asset.Metadata.Keywords))
             {
-                @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+                var keyword = WebUtility.UrlEncode(k.Vocab + "/" + k.Value);
+                <a href="/search?k=@keyword">
+                    @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
+                </a>
             }
         </p>
         <div class="module">
             <p id="abstract">
-                <span class="text-label">Abstract</span> @Model.Asset.Metadata.Abstract
+                <span class="text-label">Abstract</span> @Markdown.ParseHtmlString(Model.Asset.Metadata.Abstract)
             </p>
         </div>
 
