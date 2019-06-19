@@ -11,7 +11,7 @@ namespace Datahub.Web.Data
 {
     public interface IS3Service
     {
-        Task<Stream> GetObjectAsStream(string bucket, string key);
+        Task<byte[]> GetObjectAsByteArray(string bucket, string key);
     }
 
     public class S3Service : IS3Service
@@ -41,7 +41,7 @@ namespace Datahub.Web.Data
             }
         }
 
-        public async Task<Stream> GetObjectAsStream(string bucket, string key)
+        public async Task<byte[]> GetObjectAsByteArray(string bucket, string key)
         {
             GetObjectRequest request = new GetObjectRequest
             {
@@ -50,11 +50,13 @@ namespace Datahub.Web.Data
             };
 
             using (GetObjectResponse response = await _client.GetObjectAsync(request))
+            using (Stream responseStream = response.ResponseStream)
+            using (StreamReader reader = new StreamReader(responseStream))
             {
-
                 if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    return response.ResponseStream;
+                    string bodyContent = reader.ReadToEnd();
+                    return System.Text.Encoding.UTF8.GetBytes(bodyContent);
                 }
 
                 throw new Exception(string.Format("Got a {0} response when trying to retrieve s3://{1}/{2}", response.HttpStatusCode, bucket, key));

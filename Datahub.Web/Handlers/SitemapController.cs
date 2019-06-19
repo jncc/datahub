@@ -35,11 +35,7 @@ public class SitemapController : Controller
             // TODO: Try to retrieve from S3, if that fails, log the error and if it is a AmazonS3
             // Exception return a default sitemap.xml then set the cache to expire in 30 minutes to try again
             // otherwise return the byte array representation of the sitemap.xml?
-            var mStream = new MemoryStream();
-            var sitemapStream = await _s3Service.GetObjectAsStream(_env.SITEMAP_S3_BUCKET, _env.SITEMAP_S3_KEY);
-            await sitemapStream.CopyToAsync(mStream);
-
-            sitemapBytes = mStream.ToArray();
+            sitemapBytes = await _s3Service.GetObjectAsByteArray(_env.SITEMAP_S3_BUCKET, _env.SITEMAP_S3_KEY);
             cacheSpan = TimeSpan.FromHours(6);
             var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(cacheSpan);
 
