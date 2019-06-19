@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Datahub.Web;
 using Datahub.Web.Data;
@@ -11,9 +10,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 
 public class SitemapController : Controller
 {
-    private static readonly string _robotsTxtMemCacheKey = "_RobotsTxt";
     private static readonly string _sitemapMemCacheKey = "_Sitemap";
-    private static readonly string _sitemapPath = "/sitemap.xml";
     private readonly Env _env;
     private IMemoryCache _cache;
     private IS3Service _s3Service;
