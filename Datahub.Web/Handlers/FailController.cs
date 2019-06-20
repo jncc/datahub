@@ -1,9 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 
-public class ErrorController : Controller
+public class FailController : Controller
 {
-    [HttpGet("/error")]
+    [HttpGet("/fail")]
     public IActionResult Error()
     {
         throw new Exception("Well, that escalated quickly.");
