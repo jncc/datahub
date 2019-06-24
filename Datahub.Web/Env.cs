@@ -3,22 +3,7 @@ using System;
 
 namespace Datahub.Web
 {
-    public interface IEnv
-    {
-        string ES_INDEX { get; }
-        string ES_ENDPOINT_SCHEME { get; }
-        string ES_ENDPOINT_HOST { get; }
-        string ES_ENDPOINT_PORT { get; }
-        string DB_TABLE { get; }
-        string AWS_ACCESS_KEY_ID { get; }
-        string AWS_SECRET_ACCESS_KEY { get; }
-        string AWS_DEFAULT_REGION { get; }
-        string GOOGLE_ANALYTICS { get; }
-        string FORCE_HTTPS { get; }
-        string JNCC_WEBSITE_URL { get; }
-    }
-
-    public class Env : IEnv
+    public class Env
     {
         public string ES_INDEX { get; private set; }
         public string ES_ENDPOINT_SCHEME { get; private set; }
@@ -29,6 +14,8 @@ namespace Datahub.Web
         public string AWS_DEFAULT_REGION { get; private set; }
         public string GOOGLE_ANALYTICS { get; private set; }
         public string DB_TABLE { get; private set; }
+        public string SITEMAP_S3_BUCKET { get; private set; }
+        public string SITEMAP_S3_KEY { get; private set; }
         public string FORCE_HTTPS { get; private set; }
         public string JNCC_WEBSITE_URL { get; private set; }
 
@@ -43,13 +30,15 @@ namespace Datahub.Web
             this.AWS_DEFAULT_REGION = GetVariable("AWS_DEFAULT_REGION", false);
             this.GOOGLE_ANALYTICS = GetVariable("GOOGLE_ANALYTICS", false);
             this.DB_TABLE = GetVariable("DB_TABLE", false);
+            this.SITEMAP_S3_BUCKET = GetVariable("SITEMAP_S3_BUCKET");
+            this.SITEMAP_S3_KEY = GetVariable("SITEMAP_S3_KEY");
             this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", false);
-            this.JNCC_WEBSITE_URL = GetVariable("JNCC_WEBSITE_URL", false, "https://example.com");
+            this.JNCC_WEBSITE_URL = GetVariable("JNCC_WEBSITE_URL", false, "https://jncc.gov.uk");
         }
 
         string GetVariable(string name, bool required = true, string defaultValue = null)
         {
-            string value = Environment.GetEnvironmentVariable(name) ?? defaultValue;
+            var value = Environment.GetEnvironmentVariable(name) ?? defaultValue;
 
             if (required && value == null)
                 throw new Exception($"Environment variable {name} is required but not set.");

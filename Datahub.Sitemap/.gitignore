@@ -1,0 +1,6 @@
+.vs/
+.vscode/
+.env
+.lambda-test-tool
+bin/
+obj/

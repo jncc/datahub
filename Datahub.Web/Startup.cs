@@ -10,9 +10,7 @@ using dotenv.net;
 using Datahub.Web.Search;
 using Datahub.Web.Models;
 using Datahub.Web.Data;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Rewrite;
-using System.Text;
 using Microsoft.AspNetCore.Http.Extensions;
 using Datahub.Web.Pages.Helpers;
 using Westwind.AspNetCore.Markdown;
@@ -45,6 +43,7 @@ namespace Datahub.Web
 
             services.AddTransient<IElasticsearchService, ElasticsearchService>();
             services.AddTransient<ISearchBuilder, SearchBuilder>(); 
+            services.AddTransient<IS3Service, S3Service>();
 
             services.AddMarkdown();
 
@@ -54,6 +53,8 @@ namespace Datahub.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
