@@ -54,12 +54,6 @@ namespace Datahub.Web.Content
                 new CategorySnippet
                 {
                     Vocab = "http://vocab.jncc.gov.uk/jncc-category",
-                    Value = "Geospatial datasets of seabed habitats, features and geology",
-                    Description = "",
-                },
-                new CategorySnippet
-                {
-                    Vocab = "http://vocab.jncc.gov.uk/jncc-category",
                     Value = "JNCC Publications",
                     Description = "Official publications produced by Joint Nature Conservation Committee",
                 },
