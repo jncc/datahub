@@ -1,6 +1,8 @@
 ﻿@page
 @using System.Net
+@using Datahub.Web.Content
 @using Datahub.Web.Models
+@using Datahub.Web.Pages.Helpers
 
 @{
     ViewBag.CurrentPage = "Index";
@@ -16,18 +18,82 @@
             <input autofocus type="search" placeholder="Search the JNCC Resource hub" class="input-group-field" id="datahub-search-field" name="q">
             <button class="input-group-button" aria-label="search-button"><i class="icon-search"></i></button>
         </form>
-
     </div>
 </div>
 
 <div class="container">
 
-<br />
-<p>Welcome to the JNCC Resource hub. Download our Open Data, publications and other JNCC resources.</p>
-<br />
+<div class="homepage-header">
+    <h1>Welcome to the JNCC resource hub</h1>
+    <div>Download our Open Data, publications and other JNCC resources</div>
+</div>
+
+<div class="grid-x grid-margin-x space-below">
+
+        <div class="cell medium-6 large">
+            <div class="exemplar-list-header">
+                <h2>
+                    <i class="spot-colour space-after fas @(AssetHelpers.GetIconName("publication"))"></i>
+                    Featured publications
+                </h2>
+            </div>
+            @foreach (var a in HomePageContent.Content.FeaturedPublications) {
+                <div class="exemplar">
+                    <div class="exemplar-title">
+                        <i class="space-after fas @(AssetHelpers.GetIconName("publication"))"></i>
+                        @a.Title
+                    </div>
+                    <div>@a.Abstract</div>
+                    <a class="button" href="@a.Url">Find out more</a>
+                </div>
+            }
+        </div>
+
+        <div class="cell medium-6 large">
+            <div class="exemplar-list-header">
+                <h2>
+                    <i class="spot-colour space-after fas @(AssetHelpers.GetIconName("dataset"))"></i>
+                    Featured datasets
+                </h2>
+            </div>
+            @foreach (var a in HomePageContent.Content.FeaturedDatasets) {
+                <div class="exemplar">
+                    <div class="exemplar-title">
+                        <i class="space-after fas @(AssetHelpers.GetIconName("dataset"))"></i>
+                        @a.Title
+                    </div>
+                    <div>@a.Abstract</div>
+                    <a class="button" href="@a.Url">Find out more</a>
+                </div>
+            }
+        </div>
+
+</div>
+
+<div class="exemplar-list-header">
+    <h2>
+        <i class="spot-colour space-after fas fa-layer-group"></i>
+        Content categories
+    </h2>
+    <div class="grid-x grid-margin-x space-below">
+        @foreach (var c in HomePageContent.Content.FeaturedCategories)
+        {
+            <div class="cell medium-6 large">
+                @{ var keyword = WebUtility.UrlEncode(c.Vocab + "/" + c.Value);}
+                <a href="/search?k=@keyword">
+                    @await Html.PartialAsync("_Keyword", new Keyword { Vocab = c.Vocab, Value = c.Value })
+                </a>
+                <p>@c.Description</p>
+            </div>
+        }
+    </div>
+</div>
 
 
 <environment include="Development">
+
+<h2>Dev-time data</h2>
+
 <div class="row">
     <div class="large-6">
 
