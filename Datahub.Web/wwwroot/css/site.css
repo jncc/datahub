@@ -1,78 +1,167 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification 
 for details on configuring this project to bundle and minify static web assets. */
-body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.text-muted {
+    color: #999;
+}
+.text-small {
+    font-size: 85%;
+}
+.text-label {
+    font-weight: bold;
+    margin-right: 0.2rem;
+}
+.spot-colour {
+    color: #48A943;
+}
+.space-below {
+    margin-bottom: 1.5em;
+}
+.space-after {
+    margin-right: 0.2rem;
+}
+.bold {
+    font-weight:bold;
 }
 
 
 .asset-image {
+    max-width: 300px;
+    /* drop shadow */
     -webkit-filter: drop-shadow(5px 5px 5px #666);
     filter: drop-shadow(5px 5px 5px #666);
-    margin-bottom:2em;
-    margin-right:2em;
+}
+
+#abstract {
+    max-height: 150px;
+    margin-bottom: 0.5rem;
+}
+
+.square-badge {
+    font-size: 70%;
+    background-color: #999;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.3rem;
+    vertical-align: middle;
+}
+.round-badge {
+    background-color: #48A943;
+    font-size: 70%;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    /* width: 300px; */
+    padding: 0.1rem 0.4rem;
+    vertical-align: middle;
+}
+.email-address-icon {
+    font-size: 90%;
+    margin-right: 0.2rem;
+    color: #777;
+}
+.email-address {
+    color: #007bff;
+}
+
+/* foundation tabs look horrible */
+.tabs {
+    border: none;
+    margin-bottom: 0.5rem;
+}
+.tabs > .tabs-title.is-active {
+    border-bottom: 3px solid #777;
+}
+.tabs > .tabs-title > a {
+    color: #666262;
+    background-color: white;
+    font-size: 95%;
+    /* padding: 1rem 1.5rem; */
+    outline: none; /* remove blue highlight when selected */
+}
+.tabs > .tabs-title > a > i {
+    font-size: 90%;
+    margin-right: 0.3rem;
+}
+.tabs-content {
+    border: none;
+    padding: 1rem;
+}
+.tabs-content > .tabs-panel {
+    padding: 0;
+}
+.tabs-content > .tabs-panel > ul {
+    margin-left: 1.5rem;
+}
+.tabs-content > .tabs-panel > ul > li {
+    margin-bottom: 0.5rem;
 }
 
 .keyword {
-    white-space:nowrap;
+    color: #666262;
+    white-space: nowrap;
     display: inline-block;
     background-color: #ddd;
-    /* background-color: #f0f0f4; */
-    /* background-color: #f7f7f9; */
-    padding-right: 0.5em;
+    padding: 0.2em 0.4em;
     margin: 0 0.8em 0.45em 0;
+    line-height: normal;
+    border-left: 7px solid #48A943;
 }
-.keyword > .vocabful-colour-edge {
-    display: inline-block;
-    width: 7px;
-    margin-right: 2px;
-  }
-.keyword > .vocabless-colour-edge {
-    display: inline-block;
-    width: 0;
-    margin-right: 0.15em;
-  }
+.keyword:hover {
+    background-color: #ccc;
+}
+.keyword > i {
+    font-size: 80%;
+    padding-left: 0.2em;
+}
 
+.results-pager {
+    text-align: center;
+}
+.pagination > li {
+    font-size: 1.1875rem;
+}
+.pagination > li.current > a {
+    color: white;
+}
+.pagination > li.current > a:hover {
+    background-color: rgb(45, 122, 41);
+}
 
+.search-result {
+    display: flex;
+    flex-direction: row;
+}
+.search-result-resource {
+    padding: 0.5em 0 0 2em;
+}
+.search-result-parent {
+    padding: 0 0 0 2em;
+}
 
-
-
-  .module .collapse, .module .collapsing {
-    height: 7.8em;  /* [NUM_OF_LINES] x [LINE_HEIGHT] */
-  }
-  
-  .module .collapse {
-    position: relative;  /* For ...'s content absolute positioning */
-    display: block;
-    overflow: hidden;
-  }
-  
-  .module .collapse:before {
-    content: ' ...';
-    position: absolute;
-    right: 0;
-    bottom: -0.5em;
-  }
-  
-  .module .collapse.show {
-    height: auto;  /* reset the height when not collapsed */
-  }
-  
-  .module .collapse.show:before {
-    display: none;  /* don't want to display ... */
-  }
-  
-  .module a.collapsed:after {
-    content: '+ Show more';
-  }
-  
-  .module a:not(.collapsed):after {
-    content: '- Show less';
-  }
+.homepage-header {
+    margin: 2rem 0 3rem 0;
+}
+.exemplar-list-header > h2 {
+    text-align: center;
+    font-size: 120%;
+    font-weight: bold;
+    border-bottom: 4px solid #48A943;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+.exemplar {
+    background-color: #ddd;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+}
+.exemplar > a.button {
+    margin-top: 1rem;
+    width: 100%;
+}
+.exemplar-title {
+    font-weight: bold;
+    font-size: 120%;
+    margin-bottom: 0.5rem;
+}

@@ -22,12 +22,15 @@ const mapping = {
         "value": { "type": "keyword" }
       }
     },
+    "resource_type": { "type": "keyword" },
     "published_date": { "type": "date" },
     "parent_id": { "type": "keyword" },
     "parent_title": { "type": "text" },
+    "parent_resource_type": { "type": "keyword" },
     "file_extension": { "type": "keyword" },
     "file_bytes": { "type": "long", "index": false },
-    "footprint": { "type": "geo_shape" }
+    "footprint": { "type": "geo_shape" },
+    "timestamp_utc": { "type": "date" }
   }
 }
 
@@ -36,7 +39,7 @@ const makeSearchDocumentFromTopcatRecord = (doc, hubUrl) => {
     'site': 'datahub',
     'title': doc.metadata.title,
     'content': doc.metadata.abstract,
-    'content_truncated': doc.metadata.abstract,
+    'content_truncated': doc.metadata.abstract, // pass this explicitly as the java lambda handler adds it on AWS
     'keywords': [
         {
           'vocab': 'http://vocab.jncc.gov.uk/website-vocab',

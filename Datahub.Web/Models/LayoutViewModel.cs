@@ -1,16 +1,18 @@
-namespace Datahub.Web.Models {
-    public interface ILayoutViewModel
-    {
-        string GTM_ID { get; }
-    }
+using System;
 
-    public class LayoutViewModel : ILayoutViewModel
+namespace Datahub.Web.Models
+{
+    public class LayoutViewModel
     {
-        public string GTM_ID { get; private set; }
+        public bool GOOGLE_ANALYTICS { get; private set; }
+        public string JNCC_WEBSITE_URL { get; private set; }
 
-        public LayoutViewModel(IEnv env)
+        public LayoutViewModel(Env env)
         {
-            this.GTM_ID = env.GTM_ID;
+            Boolean.TryParse(env.GOOGLE_ANALYTICS, out bool googleAnalytics);
+            
+            this.GOOGLE_ANALYTICS = googleAnalytics;
+            this.JNCC_WEBSITE_URL = env.JNCC_WEBSITE_URL;
         }
     }
 }

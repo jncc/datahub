@@ -14,9 +14,9 @@ using Nest;
 
 public class ExamplesController : Controller
 {
-    readonly IEnv env;
+    readonly Env env;
 
-    public ExamplesController(IEnv env)
+    public ExamplesController(Env env)
     {
         this.env = env;
     }

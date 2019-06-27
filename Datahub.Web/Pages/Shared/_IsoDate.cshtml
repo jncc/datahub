@@ -2,4 +2,4 @@
 @model System.String
 @using Datahub.Web.Pages.Helpers
 
-<span>@Model.SplitIso8601DateIfPossible().First()</span>@foreach (var part in Model.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}
+<span>@(Model.SplitIso8601DateIfPossible().First())</span>@foreach (var part in Model.SplitIso8601DateIfPossible().Skip(1)) {<span class="text-muted">&#x00B7</span><span>@part</span>}

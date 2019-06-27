@@ -12,12 +12,13 @@ namespace Datahub.Web
 {
     public class Program
     {
-        public static void Main(string[] args) => CreateWebHostBuilder(args)
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .Build()
-                .Run();
+        public static void Main(string[] args)
+        {
+            CreateWebHostBuilder(args)
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            .Build()
+            .Run();
+        }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

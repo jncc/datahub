@@ -14,9 +14,9 @@ namespace Datahub.Web.Pages
     {
         private readonly IHostingEnvironment _hostingEnv;
         private readonly IDynamodbService _db;
-        private readonly IEnv _env;
+        private readonly Env _env;
 
-        public AssetModel(IHostingEnvironment hostingEnv, IDynamodbService db, IEnv env)
+        public AssetModel(IHostingEnvironment hostingEnv, IDynamodbService db, Env env)
         {
             _hostingEnv = hostingEnv;
             _db = db;

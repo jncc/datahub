@@ -4,6 +4,7 @@
         "Name": "0000000000.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web:latest"
     },
     "Ports": [
-        { "ContainerPort": "80" }
+        { "ContainerPort": "80" },
+        { "ContainerPort": "443" }
     ]
 }

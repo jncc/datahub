@@ -16,19 +16,16 @@ namespace Datahub.Web.Search
 
     public class ElasticsearchService : IElasticsearchService
     {
-        readonly IEnv env;
+        readonly Env env;
         readonly ElasticClient client;
-
-        // the datahub only ever searches over the "datahub" site
-        static readonly string ES_SITE = "datahub";
 
         /// <summary>
         /// Initialises a new NEST ElasticClient instance with support for localhost and AWS endpoints.
         /// </summary>
-        public ElasticsearchService(IEnv env)
+        public ElasticsearchService(Env env)
         {
             this.env = env;
-            this.client = InitialiseClient();
+            client = InitialiseClient();
         }
 
         ElasticClient InitialiseClient()
@@ -43,7 +40,7 @@ namespace Datahub.Web.Search
             };
 
             var endpoint = new Uri(b.ToString());
-            var pool = new SingleNodeConnectionPool(endpoint);        
+            var pool = new SingleNodeConnectionPool(endpoint);
 
             if (endpoint.IsLoopback)
             {
@@ -73,52 +70,6 @@ namespace Datahub.Web.Search
         public ElasticClient Client()
         {
             return client;
-        }
-
-        // todo move to QueryBuilder
-
-        public static int GetStartFromPage(int page, int size)
-        {
-            return (page - 1) * size;
-        }
-
-        public static QueryContainer BuildDatahubQuery(string q, List<Keyword> keywords)
-        {
-            QueryContainer container = null;
-
-            // site
-            container &= new MatchQuery { Field = "site", Query = ES_SITE };
-
-            // text
-            if (q.IsNotBlank())
-            {
-                container &= new CommonTermsQuery()
-                {
-                    Field = "content",
-                    Query = q,
-                    CutoffFrequency = 0.001,
-                    LowFrequencyOperator = Operator.Or
-                };
-            }
-
-            // keywords
-            if (keywords.Any())
-            {
-                // for each keyword add a new query container containing a must match pair
-                foreach (Keyword keyword in keywords)
-                {
-                    container &= new BoolQuery
-                    {
-                        Must = new QueryContainer[]
-                        {   
-                            new MatchQuery { Field = "keywords.vocab", Query = keyword.Vocab },
-                            new MatchQuery { Field = "keywords.value", Query = keyword.Value },
-                        }
-                    };
-                }
-            }
-
-            return container;
         }
     }
 }

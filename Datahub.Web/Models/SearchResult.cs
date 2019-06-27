@@ -6,8 +6,14 @@ namespace Datahub.Web.Models
     [ElasticsearchType(Name = "_doc")]
     public class SearchResult
     {
+        [Text(Name = "id")]
+        public string Id { get; set; }
+
         [Text(Name = "site")]
         public string Site { get; set; }
+
+        [Text(Name = "url")]
+        public string Url { get; set; }
 
         [Text(Name = "title")]
         public string Title { get; set; }
@@ -22,8 +28,11 @@ namespace Datahub.Web.Models
         [PropertyName("keywords")]
         public List<Keyword> Keywords { get; set; }
 
-        [Date(Format = "yyyy-MM-ddTHH:mm:ssZ")]
+        [Text(Name = "published_date")]
         public string PublishedDate { get; set; }
+
+        [Text(Name = "resource_type")]
+        public string ResourceType { get; set; }
 
         [Text(Name = "parent_id")]
         public string ParentId { get; set; }
@@ -31,15 +40,14 @@ namespace Datahub.Web.Models
         [Text(Name = "parent_title")]
         public string ParentTitle { get; set; }
 
-        [Text(Name = "mime_type")]
-        public string MimeType { get; set; }
+        [Text(Name = "parent_resource_type")]
+        public string ParentResourceType { get; set; }
 
-        [Text(Name = "data_type")]
-        public string DataType { get; set; }
+        [Text(Name = "file_extension")]
+        public string FileExtension {get; set;}
 
-        // [Nested]
-        // [PropertyName("datahub_keywords")]
-        // public Keyword[] DatahubKeywords { get; set; }
+        [Number(Name = "file_bytes")]
+        public string FileBytes { get; set; }
 
         // [GeoShape(Name = "footprint")]
         // public IGeoShape Footprint { get; set; }
