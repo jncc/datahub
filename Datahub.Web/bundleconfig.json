@@ -10,7 +10,8 @@
         "outputFileName": "wwwroot/js/site.min.js",
         "inputFiles": [
             "wwwroot/js/site.js",
-            "wwwroot/js/cookieconsent2/3.1.0/cookieconsent.js"
+            "wwwroot/js/cookieconsent2/3.1.0/cookieconsent.js",
+            "wwwroot/frontend/js/app.js"
         ],
         "minify": {
             "enabled": true,
