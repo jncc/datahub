@@ -1,5 +1,4 @@
-
 .vs/
 .env
-wwwroot/css/site.min.css
-wwwroot/js/site.min.js
+Datahub.Web/wwwroot/css/site.min.css
+Datahub.Web/wwwroot/js/site.min.js
