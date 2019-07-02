@@ -33,16 +33,35 @@
 	{
 	<meta name="description" content="@(ViewData["Description"])">
 	}
-	<link rel="stylesheet" href="~/frontend/css/app.css">
-	<link rel="stylesheet" href="~/css/site.css">
-	<link rel="shortcut icon" href="~/frontend/favicon.ico" type="image/x-icon">
+	
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="shortcut icon" href="~/frontend/favicon.ico" type="image/x-icon">
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/frontend/css/app.css">
+	    <link rel="stylesheet" href="~/css/site.css">
+        <link rel="stylesheet" href="~/css/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" />
+    </environment>
+
     @RenderSection("Styles", required: false)
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.0/js/foundation.min.js" defer></script>
-	<script src="~/frontend/js/app.js" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.5.0/js/foundation.min.js" defer></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src="~/js/lib/readmore-3.0.0-beta-1.js" defer></script>
-	<script src="~/js/site.js" defer></script>
+
+    <environment include="Development">
+        <script src="~/js/site.js"></script>
+		<script src="~/frontend/js/app.js" defer></script>
+        <!-- Cookie Consent Library, local hosting for a bugfix -->
+        <script src="~/js/cookieconsent2/3.1.0/cookieconsent.js"></script>        
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js"></script>
+    </environment>
+
 </head>
 <body>
 	<noscript><div>Javascript must be enabled for the correct page display</div></noscript>
@@ -149,7 +168,40 @@
 		</footer>
 	</div>
 	<a class="accessibility" href="#wrapper">Back to top</a>
-
-@RenderSection("Scripts", required: false)
+    
+    @RenderSection("Scripts", required: false)
+    
+    <environment exclude="Development">
+        <!-- Cookie Consent Setup -->
+        <script>
+            window.addEventListener("load", function(){
+            window.cookieconsent.initialise({
+                "cookie": {
+                    "name": "cookiePolicyAcceptance",
+                    "domain": ".jncc.gov.uk"
+                },
+                "content": {
+                    "message":"Our website uses cookies - by continuing to browse our website you are agreeing to our ",
+                    "link": "use of cookies.",
+                    "href": "https://jncc.gov.uk/about-jncc/corporate-information/cookie-policy/"
+                },            
+                "palette": {
+                    "popup": {
+                        "background": "#efefef",
+                        "text": "#404040"
+                    },
+                    "button": {
+                        "background": "#218838",
+                        "text": "#ffffff"
+                    }
+                },
+                "position": "top",
+                "static": true,
+                "dismissOnScroll": 1,
+                "dismissOnWindowClick": true,
+                "dismissOnTimeout": "10"
+            })});  
+        </script>
+    </environment>
 </body>
 </html>
