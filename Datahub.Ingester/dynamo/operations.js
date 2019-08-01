@@ -14,17 +14,17 @@ function getClient () {
   return dynamo
 }
 
-module.exports.putAsset = function (asset) {
+module.exports.putAsset = function (message) {
   // log something to cloudwatch
-  console.log(`PUT asset ${asset.id} into ${env.DYNAMODB_TABLE} table`)
+  console.log(`PUT asset ${message.asset.id} into ${message.config.dynamo.table} table`)
 
   var item = {
-    ...asset,
+    ...message.asset,
     timestamp_utc: new Date().toISOString()
   }
 
   var params = {
-    TableName: env.DYNAMODB_TABLE,
+    TableName: message.config.dynamo.table,
     Item: item
   }
 
@@ -33,11 +33,11 @@ module.exports.putAsset = function (asset) {
 }
 
 module.exports.deleteAsset = function (id) {
-  console.log(`DELETE asset ${id} from ${env.DYNAMODB_TABLE} table`)
+  console.log(`DELETE asset ${message.asset.id} from ${message.config.dynamo.table} table`)
 
   var params = {
-    TableName: env.DYNAMODB_TABLE,
-    Key: { id: id }
+    TableName: message.config.dynamo.table,
+    Key: { id: message.asset.id }
   }
 
   // delete the asset from the database

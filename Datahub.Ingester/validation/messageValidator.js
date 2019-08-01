@@ -32,6 +32,7 @@ var publishSchema = {
       properties: {
         elasticsearch: { $ref: '#/definitions/elasticsearch' },
         hub: { $ref: '#/definitions/hub' },
+        dynamo: { $ref: '#/definitions/dynamo' },
         action: { type: 'string', pattern: '^((publish)|(unpublish)|(index))$' }
       },
       required: ['elasticsearch', 'hub', 'action'],
@@ -52,6 +53,14 @@ var publishSchema = {
         baseUrl: { type: 'string', format: 'uri' }
       },
       required: ['baseUrl'],
+      additionalProperties: false
+    },
+    dynamo: {
+      type: 'object',
+      properties: {
+        table: { type: 'string' }
+      },
+      required: ['table'],
       additionalProperties: false
     },
     asset: {

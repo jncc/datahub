@@ -34,7 +34,7 @@ async function publishToHub (message, callback) {
   var sqsMessages = sqsMessageBuilder.createSQSMessages(message.asset)
 
   // Put new record onto Dynamo handler
-  await dynamo.putAsset(message.asset).catch((err) => {
+  await dynamo.putAsset(message).catch((err) => {
     callback(err)
   })
 
@@ -50,7 +50,7 @@ async function unpublishFromHub (message, callback) {
   // Delete any existing data in search index
   esMessageSender.deleteById(message.asset.id, message.config.elasticsearch.index)
   // Remove asset from dynamo
-  await dynamo.deleteAsset(message.asset).catch((err) => {
+  await dynamo.deleteAsset(message).catch((err) => {
     callback(err)
   })
 }
