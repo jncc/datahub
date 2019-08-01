@@ -2,6 +2,9 @@ const axios = require('axios')
 const urljoin = require('url-join')
 const uuid4 = require('uuid/v4')
 
+/**
+ * Creates the SQS messages for a provided message object
+ */
 module.exports.createSQSMessages = function (message) {
   var messages = [createSQSMessageForAsset(message)]
 
@@ -12,10 +15,22 @@ module.exports.createSQSMessages = function (message) {
   return messages
 }
 
+/**
+ * Create a link to where the asset will live on the hub.
+ *
+ * @param {uuid} id The id of the asset
+ * @param {url} baseUrl The base URL of the hub, provided by the config object in the inital message
+ */
 function getHubUrlById (id, baseUrl) {
   return urljoin(baseUrl, 'assets', id)
 }
 
+/**
+ * Create a series of SQS messages that represent the indexable part of the asset
+ * provided in the initial message.
+ *
+ * @param {message} message The initial message passed to the lambda function, containing config and the asset
+ */
 function createSQSMessageForAsset (message) {
   return {
     index: message.config.elasticsearch.index,
@@ -33,6 +48,13 @@ function createSQSMessageForAsset (message) {
   }
 }
 
+/**
+ * Create an SQS message for a given resource as part of a given message, the message
+ * provides config and a link to the parent of the resource.
+ *
+ * @param {message} message The initial message passed to the lambda function, containing config and the asset
+ * @param {resource} resource The resource in that asset that we need to create a message for
+ */
 async function createSQSMessageForResource (message, resource) {
   var sqsMessage = {
     index: message.config.elasticsearch.index,
@@ -54,15 +76,43 @@ async function createSQSMessageForResource (message, resource) {
     }
   }
 
-  if (resource.http.fileBase64 === undefined) {
-    sqsMessage.file_base64 = await getBase64ForFile(resource.http.url)
+  if (resourceIsIndexable(resource)) {
+    // If the resource is indexable, make sure the base64 filed is populated,
+    // downloading the file at the provided url if necessary
+    if (resource.http.fileBase64 === undefined) {
+      sqsMessage.file_base64 = await getBase64ForFile(resource.http.url)
+    } else {
+      sqsMessage.file_base64 = resource.http.fileBase64
+    }
   } else {
-    sqsMessage.file_base64 = resource.http.fileBase64
+    // Clear base64 if it exists on a non indexable resource
+    delete sqsMessage.file_base64
   }
 
   return sqsMessage
 }
 
+/**
+ * If a resource is http resource and has a pdf file extension, then return true,
+ * otherwise return false. This function is a bit of future proofing as we can
+ * index non-pdf files we just choose not to at present.
+ *
+ * @param {resource} resource The resource to check
+ */
+function resourceIsIndexable (resource) {
+  if (resource.http.file_extension === 'pdf') {
+    return true
+  }
+  return false
+}
+
+/**
+ * Download the file at a given url and convert it into a base64 encoded string,
+ * on an error use the callback function to end the lambda execution.
+ *
+ * @param {string} url The url to try and fetch
+ * @param {callback} callback A callback function to return an error on
+ */
 function getBase64ForFile (url, callback) {
   return axios.get(url, { responseType: 'arraybuffer' })
     .then(response =>
