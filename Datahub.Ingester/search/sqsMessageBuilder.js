@@ -5,14 +5,23 @@ const uuid4 = require('uuid/v4')
 /**
  * Creates the SQS messages for a provided message object
  */
-module.exports.createSQSMessages = function (message) {
+module.exports.createSQSMessages = async function (message) {
+  errors = []
   var messages = [createSQSMessageForAsset(message)]
 
-  for (var resource in message.asset.data) {
-    messages.append(createSQSMessageForResource(message, resource))
-  }
+  await message.asset.data.forEach(async (resource) => {
+    var { success: success, sqsMessage: sqsMessage, error: error } = await createSQSMessageForResource(message, resource)
+    if (success) {
+      messages.push(sqsMessage)
+    } else {
+      errors.push(error)
+    }
+  })
 
-  return messages
+  if (errors.length === 0) {
+    return { success: true, sqsMessages: messages }
+  }
+  return { success: false, errors: errors }
 }
 
 /**
@@ -43,7 +52,7 @@ function createSQSMessageForAsset (message) {
       content: message.asset.metadata.abstract,
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubUrlById(message.asset.metadata.id, message.config.hub.baseUrl)
+      url: getHubUrlById(message.asset.id, message.config.hub.baseUrl)
     }
   }
 }
@@ -80,7 +89,11 @@ async function createSQSMessageForResource (message, resource) {
     // If the resource is indexable, make sure the base64 filed is populated,
     // downloading the file at the provided url if necessary
     if (resource.http.fileBase64 === undefined) {
-      sqsMessage.file_base64 = await getBase64ForFile(resource.http.url)
+      await getBase64ForFile(resource.http.url).then((response) => {
+        sqsMessage.sqsMessage.file_base64 = Buffer.from(response.data, 'binary').toString('base64') 
+      }).catch((error) => {
+        return { success: false, error: error }
+      })
     } else {
       sqsMessage.file_base64 = resource.http.fileBase64
     }
@@ -89,7 +102,7 @@ async function createSQSMessageForResource (message, resource) {
     delete sqsMessage.file_base64
   }
 
-  return sqsMessage
+  return { success: true, sqsMessage: sqsMessage }
 }
 
 /**
@@ -100,7 +113,7 @@ async function createSQSMessageForResource (message, resource) {
  * @param {resource} resource The resource to check
  */
 function resourceIsIndexable (resource) {
-  if (resource.http.file_extension === 'pdf') {
+  if (resource.http.fileExtension === 'pdf') {
     return true
   }
   return false
@@ -111,11 +124,7 @@ function resourceIsIndexable (resource) {
  * on an error use the callback function to end the lambda execution.
  *
  * @param {string} url The url to try and fetch
- * @param {callback} callback A callback function to return an error on
  */
-function getBase64ForFile (url, callback) {
+function getBase64ForFile (url) {
   return axios.get(url, { responseType: 'arraybuffer' })
-    .then(response =>
-      Buffer.from(response.data, 'binary').toString('base64'))
-    .catch(error => callback(error))
 }

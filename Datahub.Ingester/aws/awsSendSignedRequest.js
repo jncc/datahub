@@ -1,4 +1,3 @@
-const url = require('url')
 const AWS = require('aws-sdk')
 const env = require('../env')
 
@@ -21,7 +20,7 @@ const sendSignedRequest = ({ method, path, body }) => {
   )
   r.method = method
   r.path += path
-  r.headers['host'] = url.URL(env.ES_ENDPOINT).hostname // setting host explicitly seems to be required by this SDK
+  r.headers['host'] = new URL(env.ES_ENDPOINT).hostname // setting host explicitly seems to be required by this SDK
   r.headers['Content-Type'] = 'application/json'
   r.body = JSON.stringify(body)
 

@@ -15,6 +15,7 @@ module.exports.deleteById = async function (id, index) {
       }
     }
   }).catch((error) => {
+    console.error(`Failed to send DELETE By Parent ID ES request: ${error}`)
     errors.push(error)
   })
 
@@ -23,9 +24,12 @@ module.exports.deleteById = async function (id, index) {
     method: 'DELETE',
     path: `${index}/doc/${id}`,
     body: {}
+  }).then((resp) => {
+    console.log(resp)
   }).catch((error) => {
+    console.error(`Failed to send DELETE ES request: ${error}`)
     errors.push(error)
   })
 
-  return (errors.length === 1, errors)
+  return { success: errors.length === 0, messages: errors }
 }

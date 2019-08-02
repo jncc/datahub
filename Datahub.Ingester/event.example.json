@@ -7,6 +7,9 @@
       "hub": {
         "baseUrl": "https://hub.jncc.gov.uk"
       },
+      "dynamo": {
+        "table": "dynamo-table-name"
+      },
       "action": "publish"
     },
     "asset": {

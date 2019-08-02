@@ -1,4 +1,6 @@
 const axios = require('axios')
+const urljoin = require('url-join')
+
 const sendSignedRequest = require('./awsSendSignedRequest')
 const env = require('../env')
 
@@ -7,7 +9,7 @@ const env = require('../env')
  * or to a secured AWS ES service.
  */
 const sendRequest = async ({ method, path, body }) => {
-  if (env.ES_ENDPOINT.startsWith('http://localhost')) {
+  if (env.USE_LOCALSTACK) {
     return sendUnsignedLocalRequest({ method, path, body })
   } else {
     return sendSignedRequest({ method, path, body })
@@ -15,11 +17,12 @@ const sendRequest = async ({ method, path, body }) => {
 }
 
 const sendUnsignedLocalRequest = ({ method, path, body }) => {
-  return axios({
-    method: method,
-    url: env.ES_ENDPOINT + path,
-    data: body
-  })
+  if (method === 'DELETE') {
+    return axios.delete(urljoin(env.ES_ENDPOINT, path))
+  }
+  if (method === 'POST') {
+    return axios.post(urljoin(env.ES_ENDPOINT, path), body)
+  }
 }
 
 module.exports = sendRequest

@@ -9,7 +9,7 @@ exports.validatePublishMessage = function (message) {
     return { valid: false, errors: validate.errors }
   }
 
-  return { valid: true, errors: null }
+  return { valid: true }
 }
 
 exports.validateDeleteMessage = function (message) {
@@ -21,7 +21,7 @@ exports.validateDeleteMessage = function (message) {
     return { valid: false, errors: validate.errors }
   }
 
-  return { valid: true, errors: null }
+  return { valid: true }
 }
 
 var publishSchema = {
@@ -35,7 +35,7 @@ var publishSchema = {
         dynamo: { $ref: '#/definitions/dynamo' },
         action: { type: 'string', pattern: '^((publish)|(unpublish)|(index))$' }
       },
-      required: ['elasticsearch', 'hub', 'action'],
+      required: ['elasticsearch', 'hub', 'dynamo', 'action'],
       additionalProperties: false
     },
     elasticsearch: {

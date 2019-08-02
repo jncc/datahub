@@ -2,6 +2,9 @@
 #   Node   #
 ############
 
+# Localstack
+.localstack
+
 # Logs
 logs
 *.log

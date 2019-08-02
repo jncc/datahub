@@ -22,8 +22,7 @@ module.exports.sendMessages = async function (messages, config) {
     if (largeMessage) {
       var msgId = uuid4()
       await uploadFileToS3(message, msgId).catch((error) => {
-        console.error(`Failed to put message ${message.document.id} into S3`)
-        console.error(error)
+        console.error(`Failed to put message ${message.document.id} into S3: ${error}`)
         errors.push(error)
         messageCreated = false
       })
@@ -36,6 +35,7 @@ module.exports.sendMessages = async function (messages, config) {
     if (messageCreated) {
       sqs.sendMessage(params, function (error, data) {
         if (error) {
+          console.error(`Falied to send message to SQS: ${error}`)
           errors.push(error)
         } else {
           console.log(`Pushed message (${message.document.id}) to SQS Queue`)
@@ -44,7 +44,7 @@ module.exports.sendMessages = async function (messages, config) {
     }
   }
 
-  return (errors.length === 0, errors)
+  return { success: errors.length === 0, messages: errors }
 }
 
 function uploadFileToS3 (message, id) {
