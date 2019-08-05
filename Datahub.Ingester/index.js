@@ -42,7 +42,7 @@ async function publishToHub (message, callback) {
   })
 
   // Delete any existing data in search index
-  var { success, messages } = await esMessageSender.deleteById(message.asset.id, message.config.elasticsearch.index)
+  var { success: success, messages: messages } = await esMessageSender.deleteById(message.asset.id, message.config.elasticsearch.index)
   if (!success) {
     callback(new Error(`Failed to delete old search index records for asset ${message.asset.id}, but new DynamoDB record was inserted: ${messages.join(", ")}`))
   }
@@ -57,7 +57,7 @@ async function publishToHub (message, callback) {
 
 async function unpublishFromHub (message, callback) {
   // Delete any existing data in search index
-  var { success: success, messages: messages } = esMessageSender.deleteById(message.asset.id, message.config.elasticsearch.index)
+  var { success: success, messages: messages } = await esMessageSender.deleteById(message.asset.id, message.config.elasticsearch.index)
   if (!success) {
     callback(new Error(`Failed to delete old search index records for asset ${message.asset.id}, DynamoDB record still exists: ${messages.join(", ")}`))
   }
