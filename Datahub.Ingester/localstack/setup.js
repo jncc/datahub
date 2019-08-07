@@ -1,7 +1,9 @@
-const { exec } = require('child_process');
+const { exec } = require('child_process')
 const axios = require('axios')
 const urljoin = require('url-join')
 const program = require('yargs')
+const fs = require('fs')
+const uuid4 = require('uuid/v4')
 
 const main = async () => {
     program
@@ -57,6 +59,9 @@ const main = async () => {
         })
         .command('clear-search-index', 'Clear the search index.', (yargs) => { }, async (argv) => {
             await clearSearchIndex(argv.index)
+        })
+        .command('insert-search-index-dummy-data', 'Insert a set of dummy records into dynamo for testing', (yargs) => { }, async (argv) => {
+            await insertSearchIndexDummyData(argv.index)
         })
         .command('create-dynamodb', 'Create the dynamodb table.', (yargs) => { }, async (argv) => {
             await createDynamoDB(argv.table)
@@ -168,6 +173,18 @@ async function createSearchIndex (index) {
 async function deleteSearchIndex (index) {
     console.log(`DELETE Search Index - ${index}`)
     await axios.delete(urljoin('http://localhost:4571', index))
+}
+
+async function insertSearchIndexDummyData (index) {
+    console.log(`INSERT dummy data into index - ${index}`)
+    var event = JSON.parse(fs.readFileSync('../event.json'))
+    await axios.put(urljoin('http://localhost:4571', index, '_doc', event.asset.id), {
+        "site": "datahub"
+    })
+    await axios.put(urljoin('http://localhost:4571', index, '_doc', uuid4()), {
+        "site": "datahub",
+        "parent_id": event.asset.id
+    })
 }
 
 async function clearSearchIndex (index) {

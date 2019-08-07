@@ -15,20 +15,22 @@ module.exports.deleteById = async function (id, index) {
       }
     }
   }).catch((error) => {
-    console.error(`Failed to send DELETE By Parent ID ES request: ${error}`)
+    console.error(`DELETE By Parent ID '${id}' ES request failed: ${error}`)
     errors.push(error)
   })
 
   // Delete asset
   await sendRequest({
     method: 'DELETE',
-    path: `${index}/doc/${id}`,
+    path: `${index}/_doc/${id}`,
     body: {}
-  }).then((resp) => {
-    console.log(resp)
   }).catch((error) => {
-    console.error(`Failed to send DELETE ES request: ${error}`)
-    errors.push(error)
+    if (error.response.status === 404) {
+      console.log(`DELETE ES request for '${id}' failed: Response was 404, so ignoring error`)
+    } else {
+      console.error(`DELETE ES request for '${id}' failed: ${error}`)
+      errors.push(error)
+    }
   })
 
   return { success: errors.length === 0, messages: errors }

@@ -15,7 +15,7 @@
   "homepage": "https://github.com/jncc/datahub",
   "scripts": {
     "up": "docker-compose up",
-    "down": "docker-compse down",
+    "down": "docker-compose down",
     "setup": "node setup.js",
     "test:index": "node index.js",
     "test:publish": "node publish.js",
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.502.0",
-    "dotenv": "^8.0.0"
+    "dotenv": "^8.0.0",
+    "uuid": "^3.3.2"
   }
 }
