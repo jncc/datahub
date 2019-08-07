@@ -16,7 +16,7 @@ function getClient () {
 
 module.exports.putAsset = function (message) {
   // log something to cloudwatch
-  console.log(`PUT asset ${message.asset.id} into ${message.config.dynamo.table} table`)
+  console.log(`DynamoDB - PUT asset ${message.asset.id} into ${message.config.dynamo.table} table`)
 
   var item = {
     ...message.asset,
@@ -33,7 +33,7 @@ module.exports.putAsset = function (message) {
 }
 
 module.exports.deleteAsset = function (id) {
-  console.log(`DELETE asset ${message.asset.id} from ${message.config.dynamo.table} table`)
+  console.log(`DynamoDB - DELETE asset ${message.asset.id} from ${message.config.dynamo.table} table`)
 
   var params = {
     TableName: message.config.dynamo.table,

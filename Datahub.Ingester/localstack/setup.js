@@ -131,6 +131,8 @@ function createS3Bucket (bucket) {
 }
 
 function deleteS3Bucket (bucket) {
+    console.log(`DELETE S3 Bucket Contents - ${bucket}`)
+    runCommand(`aws s3 --endpoint http://localhost:4572 rm s3://${bucket}/ --recursive`)
     console.log(`DELETE S3 Bucket - ${bucket}`)
     runCommand(`aws s3api --endpoint http://localhost:4572 delete-bucket --bucket ${bucket}`)
 }

@@ -15,7 +15,7 @@ module.exports.deleteById = async function (id, index) {
       }
     }
   }).catch((error) => {
-    console.error(`DELETE By Parent ID '${id}' ES request failed: ${error}`)
+    console.error(`Elasticsearch - DELETE By Parent ID '${id}' ES request failed: ${error}`)
     errors.push(error)
   })
 
@@ -26,9 +26,9 @@ module.exports.deleteById = async function (id, index) {
     body: {}
   }).catch((error) => {
     if (error.response.status === 404) {
-      console.log(`DELETE ES request for '${id}' failed: Response was 404, so ignoring error`)
+      console.log(`Elasticsearch - DELETE request for '${id}' failed: Response was 404, so ignoring error`)
     } else {
-      console.error(`DELETE ES request for '${id}' failed: ${error}`)
+      console.error(`Elasticsearch - DELETE ES request for '${id}' failed: ${error}`)
       errors.push(error)
     }
   })
