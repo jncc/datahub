@@ -1,0 +1,22 @@
+{
+  "config": {
+    "elasticsearch": {
+      "index": "datahub-beta-assets",
+      "site": "datahub"
+    },
+    "hub": {
+      "baseUrl": "https://hub.jncc.gov.uk"
+    },
+    "dynamo": {
+      "table": "dynamo-table-name"
+    },
+    "sqs": {
+      "queueEndpoint": "https://sqs-queue-url",
+      "largeMessageBucket": "large-message-bucket-name"
+    },
+    "action": "reindex"
+  },
+  "asset": {
+    "id": "4ca47820-319e-4163-8615-de1b4d5f7ba5",
+  }
+}

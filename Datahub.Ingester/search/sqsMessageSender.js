@@ -12,13 +12,13 @@ const s3 = new AWS.S3({
 
 module.exports.sendMessages = async function (messages, config) {
   var errors = []
-  var sqs = new AWS.SQS({endpoint: env.USE_LOCALSTACK ? new AWS.Endpoint('http://localhost:4576') : undefined})
+  var sqs = new AWS.SQS()
 
   for (var id in messages) {
     var message = messages[id]
     var params = {
       MessageBody: JSON.stringify(message),
-      QueueUrl: env.SQS_ENDPOINT
+      QueueUrl: config.sqs.queueEndpoint
     }
 
     var messageCreated = true
@@ -27,13 +27,13 @@ module.exports.sendMessages = async function (messages, config) {
     if (largeMessage) {
       console.log(`S3 - Creating large message for ${message.document.id}`)
       var msgId = uuid4()
-      await uploadFileToS3(message, msgId).catch((error) => {
+      await uploadFileToS3(message, msgId, config.sqs.largeMessageBucket).catch((error) => {
         console.error(`Failed to put message ${message.document.id} into S3: ${error}`)
         errors.push(error)
         messageCreated = false
       })
       params.MessageBody = JSON.stringify({
-        s3Bucket: env.S3_BUCKET,
+        s3Bucket: config.sqs.largeMessageBucket,
         s3Key: msgId
       })
     }
@@ -46,16 +46,17 @@ module.exports.sendMessages = async function (messages, config) {
           errors.push(error)
         }
       }).promise()
+      //.then((resp) => {console.log(resp, params)})
     }
   }
 
   return { success: errors.length === 0, messages: errors }
 }
 
-function uploadFileToS3 (message, id) {
+function uploadFileToS3 (message, id, bucket) {
   const params = {
-    Bucket: env.S3_BUCKET,
-    Key: `${id}`,
+    Bucket: bucket,
+    Key: id,
     Body: JSON.stringify(message)
   }
   return s3.putObject(params).promise()

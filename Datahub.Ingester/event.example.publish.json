@@ -10,6 +10,10 @@
       "dynamo": {
         "table": "dynamo-table-name"
       },
+      "sqs": {
+        "queueEndpoint": "https://sqs-queue-url",
+        "largeMessageBucket": "large-message-bucket-name"
+      },
       "action": "publish"
     },
     "asset": {

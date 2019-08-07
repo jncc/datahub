@@ -32,14 +32,28 @@ module.exports.putAsset = function (message) {
   return getClient().put(params).promise()
 }
 
-module.exports.deleteAsset = function (id) {
-  console.log(`DynamoDB - DELETE asset ${message.asset.id} from ${message.config.dynamo.table} table`)
+module.exports.deleteAsset = function (id, table) {
+  console.log(`DynamoDB - DELETE asset ${id} from ${table} table`)
 
   var params = {
-    TableName: message.config.dynamo.table,
-    Key: { id: message.asset.id }
+    TableName: table,
+    Key: { id: id }
   }
 
   // delete the asset from the database
   return getClient().delete(params).promise()
+}
+
+module.exports.getAsset = async function (id, table) {
+  console.log(`DynamoDB - GET asset ${id} from ${table} table`)
+  var params = {
+    TableName: table,
+    Key: { id: id }
+  }
+
+  return getClient().get(params, (error, data) => {
+    if (error) {
+      console.error(`DynamoDB - Unable to get the item: ${JSON.stringify(error, null, 2)}`)
+    }
+  }).promise()
 }

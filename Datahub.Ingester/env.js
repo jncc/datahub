@@ -6,8 +6,6 @@ module.exports = {
   get AWS_REGION () { return process.env.AWS_REGION },
 
   get ES_ENDPOINT () { return process.env.ES_ENDPOINT },
-  get SQS_ENDPOINT () { return process.env.SQS_ENDPOINT },
-  get S3_BUCKET () { return process.env.S3_BUCKET },
 
   get USE_LOCALSTACK () { return process.env.USE_LOCALSTACK }
 }
