@@ -40,12 +40,11 @@ module.exports.sendMessages = async function (messages, config) {
 
     if (messageCreated) {
       console.log(`SQS - Sending message for ${message.document.id}`)
-      await sqs.sendMessage(params, function (error, data) {
-        if (error) {
-          console.error(`Failed to send message to SQS: ${error}`)
-          errors.push(error)
-        }
-      }).promise()
+      var result = await sqs.sendMessage(params).promise()
+      if (!result) {
+        console.error(`Message was not sent to the queue successfully`)
+        errors.push(`Message was not sent to the queue successfully '${message.document.id}'`)
+      }
     }
   }
 
