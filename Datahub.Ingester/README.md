@@ -61,6 +61,25 @@ npm run test -- -j ./event.example.publish.json # test your event handler and ch
 # npm run deploy # deploy to AWS # NOT SETUP ATM
 ```
 
+## Deployment
+
+Need to upload to S3 as package is >10M you only need the following files at the time of writing;
+
+```
+./
+    aws/
+    dynamo/
+    node_modules/
+    search/
+    validation/
+    context.json
+    env.js
+    index.js
+    package.json
+    package-lock.json
+    
+```
+
 ## Data format
 
 Messages will be JSON objects of the form;
