@@ -14,7 +14,7 @@
       "queueEndpoint": "http://localhost:4576/queue/datahub-queue-dev",
       "largeMessageBucket": "datahub-queue-assets-dev"
     },
-    "action": "reindex"
+    "action": "publish"
   },
   "asset": {
     "id": "4ca47820-319e-4163-8615-de1b4d5f7ba5",
