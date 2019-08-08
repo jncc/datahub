@@ -19,6 +19,7 @@ Bring up localstack (docker required)
 
 ```
 cd ./localstack
+npm install
 npm run up
 ```
 
@@ -30,6 +31,7 @@ Other operations
 npm run create-stack    # Sets up the running localstack with S3, SQS, Elasticsearch and Dynamo
 npm run delete-stack    # Deletes all parts of the localstack
 npm run reset-stack     # Resets the stack to an empty state (i.e. equivalent to delete-stack => create-stack)
+npm run down            # Turn off the localstack instace gracefully
 ```
 
 These are all running a setup.js node application, which has further commands that can be used, for more information;
