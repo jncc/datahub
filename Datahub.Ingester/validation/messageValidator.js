@@ -1,6 +1,6 @@
 const Ajv = require('ajv')
 
-exports.validatePublishMessage = function (message) {
+exports.validatePublishOrRedindexMessage = function (message) {
   var ajv = new Ajv({ allErrors: true })
   var validate = ajv.compile(publishSchema)
   var valid = validate(message)
@@ -12,7 +12,7 @@ exports.validatePublishMessage = function (message) {
   return { valid: true }
 }
 
-exports.validateDeleteOrReIndexMessage = function (message) {
+exports.validateDeleteMessage = function (message) {
   var ajv = new Ajv({ allErrors: true })
   var validate = ajv.compile(deleteSchema)
   var valid = validate(message)

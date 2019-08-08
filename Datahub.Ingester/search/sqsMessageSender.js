@@ -7,7 +7,7 @@ const sizeof = require('object-sizeof')
 const AWS = require('aws-sdk')
 const s3 = new AWS.S3({
   endpoint: env.USE_LOCALSTACK ? new AWS.Endpoint('http://localhost:4572') : undefined,
-  s3ForcePathStyle: env.USE_LOCALSTACK ? true : false
+  s3ForcePathStyle: env.USE_LOCALSTACK
 })
 
 module.exports.sendMessages = async function (messages, config) {
@@ -46,7 +46,6 @@ module.exports.sendMessages = async function (messages, config) {
           errors.push(error)
         }
       }).promise()
-      //.then((resp) => {console.log(resp, params)})
     }
   }
 

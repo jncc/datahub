@@ -10,7 +10,7 @@ exports.handler = async function (message, context, callback) {
   console.log('Running Datahub Ingester')
 
   if (message.config.action === 'publish') {
-    var { valid: valid, errors: errors } = validator.validatePublishMessage(message)
+    const { valid, errors } = validator.validatePublishOrRedindexMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
@@ -20,7 +20,7 @@ exports.handler = async function (message, context, callback) {
   }
 
   if (message.config.action === 'unpublish') {
-    var { valid: valid, errors: errors } = validator.validateDeleteOrReIndexMessage(message)
+    const { valid, errors } = validator.validateDeleteMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
@@ -30,12 +30,21 @@ exports.handler = async function (message, context, callback) {
   }
 
   if (message.config.action === 'reindex') {
-    var { valid: valid, errors: errors } = validator.validateDeleteOrReIndexMessage(message)
+    const { valid, errors } = validator.validatePublishOrRedindexMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
     console.log(`Indexing record with id ${message.asset.id}`)
-    await reindexFromHub(message, callback)
+    await reindexFromMessage(message, callback)
+
+    // truncate any base64 fields before returning them in the output
+    message.asset.data = message.asset.data.map((resource) => {
+      if (resource.http.fileBase64 !== undefined) {
+        resource.http.fileBase64 = `${resource.http.fileBase64.substring(0, 10)}...`
+      }
+
+      return resource
+    })
     callback(null, message)
   }
 
@@ -45,9 +54,9 @@ exports.handler = async function (message, context, callback) {
 async function publishToHub (message, callback) {
   // Check the asset and its linked data structures exist, generate messages
   // required to be sent into
-  var { success: success, sqsMessages: sqsMessages, errors: errors } = await sqsMessageBuilder.createSQSMessages(message)
-  if (!success) {
-    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(", ")}]`))
+  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
+  if (!createSuccess) {
+    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
 
   // Put new record onto Dynamo handler
@@ -58,12 +67,10 @@ async function publishToHub (message, callback) {
   // Delete any existing data in search index
   await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
   // Send new indexing messages
-  var { success, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
-  if (!success) {
-    callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(", ")}"`))
+  var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
+  if (!sendSuccess) {
+    callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))
   }
-
-  callback(null, message)
 }
 
 async function unpublishFromHub (message, callback) {
@@ -75,53 +82,26 @@ async function unpublishFromHub (message, callback) {
   })
 }
 
-async function reindexFromHub (message, callback) {
-  var document = await dynamo.getAsset(message.asset.id, message.config.dynamo.table)
-    .catch((error) => {
-      callback(error)
-    })
-
-  // check if return is ok
-  if (isEmptyObject(document) || document === undefined) {
-    callback("DynamoDB - No record found with the provided ID")
+async function reindexFromMessage (message, callback) {
+  // Check the asset and its linked data structures exist, generate messages
+  // required to be sent into
+  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
+  if (!createSuccess) {
+    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
-
-  console.log('DynamoDB - Retrieved document successfully')
-
+  // Remove existing index
   await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
 
-  message.asset = {
-    id: document.Item.id,
-    metadata: {
-      title: document.Item.metadata.title,
-      topicCategory: document.Item.metadata.topicCategory,
-      resourceType: document.Item.metadata.resourceType,
-      keywords: document.Item.metadata.keywords,
-      abstract: document.Item.metadata.abstract,
-      responsibleOrganisation: document.Item.metadata.responsibleOrganisation,
-      metadataPointOfContact: document.Item.metadata.metadataPointOfContact
-    },
-    data: document.Item.data
+  var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
+  if (!sendSuccess) {
+    callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))
   }
-
-  var { success: success, sqsMessages: sqsMessages, errors: errors } = await sqsMessageBuilder.createSQSMessages(message)
-  if (!success) {
-    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(", ")}]`))
-  }
-
-  var { success, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
-  if (!success) {
-    callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(", ")}"`))
-  }
-}
-
-function isEmptyObject (obj) {
-  return !Object.keys(obj).length
 }
 
 async function deleteFromElasticsearch (id, index, callback) {
-  var { success: success, messages: messages } = await esMessageSender.deleteById(id, index)
+  console.log(`Elasticsearch - Removing record with id '${id}' and all records with that as a parent_id in index '${index}'`)
+  var { success, messages } = await esMessageSender.deleteById(id, index)
   if (!success) {
-    callback(new Error(`Failed to delete old search index records for asset ${id}, DynamoDB record still exists: ${messages.join(", ")}`))
+    callback(new Error(`Failed to delete old search index records for asset ${id}, DynamoDB record still exists: ${messages.join(', ')}`))
   }
 }

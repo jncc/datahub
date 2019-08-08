@@ -1,22 +1,22 @@
 {
   "config": {
     "elasticsearch": {
-      "index": "datahub-beta-assets",
+      "index": "website-search-dev",
       "site": "datahub"
     },
     "hub": {
       "baseUrl": "https://hub.jncc.gov.uk"
     },
     "dynamo": {
-      "table": "dynamo-table-name"
+      "table": "datahub-assets-dev"
     },
     "sqs": {
-      "queueEndpoint": "https://sqs-queue-url",
-      "largeMessageBucket": "large-message-bucket-name"
+      "queueEndpoint": "http://localhost:4576/queue/datahub-queue-dev",
+      "largeMessageBucket": "datahub-queue-assets-dev"
     },
     "action": "unpublish"
   },
   "asset": {
-    "id": "4ca47820-319e-4163-8615-de1b4d5f7ba5",
+    "id": "4ca47820-319e-4163-8615-de1b4d5f7ba5"
   }
 }

@@ -6,17 +6,18 @@ const uuid4 = require('uuid/v4')
  * Creates the SQS messages for a provided message object
  */
 module.exports.createSQSMessages = async function (message) {
-  errors = []
+  var errors = []
   var messages = [createSQSMessageForAsset(message)]
 
-  await message.asset.data.forEach(async (resource) => {
-    var { success: success, sqsMessage: sqsMessage, error: error } = await createSQSMessageForResource(message, resource)
+  for (var id in message.asset.data) {
+    var resource = message.asset.data[id]
+    var { success, sqsMessage, error } = await createSQSMessageForResource(message, resource)
     if (success) {
       messages.push(sqsMessage)
     } else {
       errors.push(error)
     }
-  })
+  }
 
   if (errors.length === 0) {
     return { success: true, sqsMessages: messages }
@@ -90,7 +91,7 @@ async function createSQSMessageForResource (message, resource) {
     // downloading the file at the provided url if necessary
     if (resource.http.fileBase64 === undefined) {
       await getBase64ForFile(resource.http.url).then((response) => {
-        sqsMessage.file_base64 = Buffer.from(response.data, 'binary').toString('base64') 
+        sqsMessage.file_base64 = Buffer.from(response.data, 'binary').toString('base64')
       }).catch((error) => {
         return { success: false, error: error }
       })
