@@ -91,16 +91,16 @@ async function createSQSMessageForResource (message, resource) {
     // downloading the file at the provided url if necessary
     if (resource.http.fileBase64 === undefined) {
       await getBase64ForFile(resource.http.url).then((response) => {
-        sqsMessage.file_base64 = Buffer.from(response.data, 'binary').toString('base64')
+        sqsMessage.document.file_base64 = Buffer.from(response.data, 'binary').toString('base64')
       }).catch((error) => {
         return { success: false, error: error }
       })
     } else {
-      sqsMessage.file_base64 = resource.http.fileBase64
+      sqsMessage.document.file_base64 = resource.http.fileBase64
     }
   } else {
     // Clear base64 if it exists on a non indexable resource
-    delete sqsMessage.file_base64
+    delete sqsMessage.document.file_base64
   }
 
   return { success: true, sqsMessage: sqsMessage }

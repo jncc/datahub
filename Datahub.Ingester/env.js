@@ -6,5 +6,5 @@ module.exports = {
 
   get ES_ENDPOINT () { return process.env.ES_ENDPOINT },
 
-  get USE_LOCALSTACK () { return process.env.USE_LOCALSTACK }
+  get USE_LOCALSTACK () { return process.env.USE_LOCALSTACK.toLowerCase() === 'true' ? true : false }
 }

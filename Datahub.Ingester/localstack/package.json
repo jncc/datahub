@@ -16,6 +16,7 @@
   "scripts": {
     "up": "docker-compose up",
     "down": "docker-compose down",
+    "setup": "node setup.js",
     "create-stack": "node setup.js create-stack",
     "delete-stack": "node setup.js delete-stack",
     "reset-stack": "node setup.js reset-stack",
