@@ -179,7 +179,7 @@ const definitions = {
     properties: {
       url: { type: 'string', format: 'uri' },
       fileExtension: { type: 'string' },
-      fileBytes: { type: 'integer', minimum: 1 },
+      fileBytes: { type: 'integer' },
       fileBase64: { type: 'string' }
     },
     required: ['url'],
