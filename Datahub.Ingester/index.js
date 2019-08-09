@@ -48,7 +48,7 @@ exports.handler = async function (message, context, callback) {
     callback(null, message)
   }
 
-  callback(new Error(`Uknown Action type, expected [publish | unpublish | reindex] but got [${message.config.action}]`))
+  callback(new Error(`Unknown Action type, expected [publish | unpublish | reindex] but got [${message.config.action}]`))
 }
 
 async function publishToHub (message, callback) {

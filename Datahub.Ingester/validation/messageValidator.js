@@ -182,7 +182,7 @@ const definitions = {
       fileBytes: { type: 'integer', minimum: 1 },
       fileBase64: { type: 'string' }
     },
-    required: ['url', 'fileExtension', 'fileBytes'],
+    required: ['url'],
     additionalProperties: false
   }
 }
