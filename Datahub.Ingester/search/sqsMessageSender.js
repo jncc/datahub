@@ -33,7 +33,7 @@ module.exports.sendMessages = async function (messages, config) {
         messageCreated = false
       })
       params.MessageBody = JSON.stringify({
-        s3Bucket: config.sqs.largeMessageBucket,
+        s3BucketName: config.sqs.largeMessageBucket,
         s3Key: msgId
       })
     }
