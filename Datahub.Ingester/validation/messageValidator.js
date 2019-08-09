@@ -79,7 +79,7 @@ const definitions = {
       digitalObjectIdentifier: { type: 'string' },
       citation: { type: 'string' },
       image: { $ref: '#/definitions/image' },
-      data: { type: 'array', minItems: 1, items: { $ref: '#/definitions/data' } }
+      data: { type: 'array', items: { $ref: '#/definitions/data' } }
     },
     required: ['id', 'metadata', 'data'],
     additionalProperties: false
