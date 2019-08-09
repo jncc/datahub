@@ -97,7 +97,7 @@ const definitions = {
       dataFormat: { type: 'string' },
       responsibleOrganisation: { $ref: '#/definitions/organisation' },
       limitationsOnPublicAccess: { type: 'string' },
-      useContraints: { type: 'string' },
+      useConstraints: { type: 'string' },
       spatialReferenceSystem: { type: 'string' },
       metadataDate: { type: 'string' },
       metadataPointOfContact: { $ref: '#/definitions/organisation' },
