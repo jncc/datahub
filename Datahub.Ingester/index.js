@@ -59,8 +59,12 @@ async function publishToHub (message, callback) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
 
-  // Put new record onto Dynamo handler
-  await dynamo.putAsset(message).catch((error) => {
+  // Put new record onto Dynamo handler without base64 encodings
+  var dynamoMessage = message
+  dynamoMessage.data.forEach(resource => {
+    resource.http.fileBase64 = null
+  });
+  await dynamo.putAsset(dynamoMessage).catch((error) => {
     callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
   })
 
