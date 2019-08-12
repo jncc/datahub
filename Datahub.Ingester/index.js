@@ -60,10 +60,10 @@ async function publishToHub (message, callback) {
   }
 
   // Put new record onto Dynamo handler without base64 encodings
-  var dynamoMessage = message
+  var dynamoMessage = JSON.parse(JSON.stringify(message.asset))
   dynamoMessage.data.forEach(resource => {
     resource.http.fileBase64 = null
-  });
+  })
   await dynamo.putAsset(dynamoMessage).catch((error) => {
     callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
   })
