@@ -166,10 +166,6 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-bottom: 0.5rem;
 }
 
-.scroll-container {
-    padding-top: 1em;
-    margin-top: -1em;
-}
 .highlightable {
     padding: 0 0.5em 0 0.5em;
 }
@@ -177,4 +173,8 @@ for details on configuring this project to bundle and minify static web assets. 
     max-width: 0.5em;
     height: 100%;
     background-color: #2d7a29;
+}
+.embedded-grid {
+    width: 100%;
+    display: inline-flex;
 }

@@ -34,9 +34,26 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha384-JPbtLYL10d/Z1crlc6GGGGM3PavCzzoUJ1UxH0bXHOfguWHQ6XAWrIzW+MBGGXe5" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            var hash = window.location.hash.replace(".","\\.");
-            $(hash).addClass("highlighted");
-            $(hash).find(".highlightable").effect("highlight", {color: "#FFFF99"}, 4000);
+            @* handle scrolling in an over the top way because it doesn't behave in small Firefox viewports *@
+            $('html, body').hide();
+            if (window.location.hash) {
+                $('html, body').scrollTop(0).show();
+                setTimeout(function() {
+                    var targetId = window.location.hash.replace(".","\\.");
+
+                    $('html, body').animate({
+                        scrollTop: $(targetId).offset().top
+                    });
+                    setTimeout(function(){
+                        $(targetId).addClass("highlighted");
+                        $(targetId).find(".highlightable").effect("highlight", {color: "#FFFF99"}, 2000);
+                    }, 500);
+                    
+                },  10);
+            } else {
+                $('html, body').show();
+            }
+            
         });
     </script>
 }
@@ -107,8 +124,8 @@
                 <ul>
                     @foreach (var d in Model.Asset.Data) {
                         if (@d.Http != null) {
-                            <li class="pb-2 scroll-container" id="@AssetHelpers.GetFileNameForDisplay(d.Http.Url)">
-                                <div class="grid-x">
+                            <li class="pb-2" id="@AssetHelpers.GetFileNameForDisplay(d.Http.Url)">
+                                <div class="grid-x embedded-grid">
                                     <div class="cell small-11">
                                         <div class="highlightable">
                                             <span>
