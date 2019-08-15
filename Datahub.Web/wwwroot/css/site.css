@@ -165,3 +165,16 @@ for details on configuring this project to bundle and minify static web assets. 
     font-size: 120%;
     margin-bottom: 0.5rem;
 }
+
+.scroll-container {
+    padding-top: 1em;
+    margin-top: -1em;
+}
+.highlightable {
+    padding: 0 0.5em 0 0.5em;
+}
+.highlighted .highlight-bar {
+    max-width: 0.5em;
+    height: 100%;
+    background-color: #2d7a29;
+}
