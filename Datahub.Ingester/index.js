@@ -35,8 +35,8 @@ exports.handler = async function (message, context, callback) {
       callback(new Error(`Failed to retrieve S3 message with the following errors: [${s3Errors.join(', ')}]`))
     }
 
-    const { valid, s3MessageErrors } = validator.validateS3PublishMessage(s3Message)
-    if (!valid) {
+    const { s3MessageValid, s3MessageErrors } = validator.validatePublishOrRedindexMessage(s3Message)
+    if (!s3MessageValid) {
       callback(JSON.stringify(s3MessageErrors, null, 2))
     }
 
