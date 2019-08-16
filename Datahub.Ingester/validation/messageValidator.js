@@ -231,7 +231,7 @@ const s3PublishSchema = {
         s3: { $ref: '#/definitions/s3' },
         action: { type: 'string', pattern: 's3-publish' }
       },
-      required: ['s3, action']
+      required: ['s3', 'action']
     },
     asset: {
       type: 'object',
