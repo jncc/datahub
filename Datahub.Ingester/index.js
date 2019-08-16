@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const validator = require('./validation/messageValidator')
+const s3 = require('./s3/operations')
 const dynamo = require('./dynamo/operations')
 const sqsMessageBuilder = require('./search/sqsMessageBuilder')
 const sqsMessageSender = require('./search/sqsMessageSender')
@@ -17,6 +18,31 @@ exports.handler = async function (message, context, callback) {
     console.log(`Publishing record with id ${message.asset.id}`)
     await publishToHub(message, callback)
     callback(null, message)
+  }
+
+  if (message.config.action === 's3-publish') {
+    const { valid, errors } = validator.validateS3PublishMessage(message)
+
+    if (!valid) {
+      callback(JSON.stringify(errors, null, 2))
+    }
+
+    var s3BucketName = message.config.s3.bucketName
+    var s3ObjectKey = decodeURIComponent(message.config.s3.objectKey.replace(/\+/g, " "));
+
+    var { success: createSuccess, s3Message, s3Errors } = await s3.getMessage(s3BucketName, s3ObjectKey)
+    if (!createSuccess) {
+      callback(new Error(`Failed to retrieve S3 message with the following errors: [${s3Errors.join(', ')}]`))
+    }
+
+    const { valid, s3MessageErrors } = validator.validateS3PublishMessage(s3Message)
+    if (!valid) {
+      callback(JSON.stringify(s3MessageErrors, null, 2))
+    }
+
+    console.log(`Publishing record with id ${s3Message.asset.id}`)
+    await publishToHub(s3Message, callback)
+    callback(null, s3Message)
   }
 
   if (message.config.action === 'unpublish') {
