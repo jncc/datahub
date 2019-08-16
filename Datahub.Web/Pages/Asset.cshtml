@@ -37,16 +37,17 @@
             @* handle scrolling in an over the top way because it doesn't behave in small Firefox viewports *@
             $('html, body').hide();
             if (window.location.hash) {
+                $('<div><a href="#header">Back to top</a></div>').insertAfter('#resource-list');
                 $('html, body').scrollTop(0).show();
                 setTimeout(function() {
-                    var targetId = window.location.hash.replace(".","\\.");
+                    var targetId = window.location.hash.replace('.','\\.');
 
                     $('html, body').animate({
                         scrollTop: $(targetId).offset().top
                     });
                     setTimeout(function(){
-                        $(targetId).addClass("highlighted");
-                        $(targetId).find(".highlightable").effect("highlight", {color: "#FFFF99"}, 2000);
+                        $(targetId).addClass('highlighted');
+                        $(targetId).find('.highlightable').effect('highlight', {color: '#FFFF99'}, 2000);
                     }, 500);
                     
                 },  10);
@@ -165,9 +166,6 @@
                         }
                     }
                 </ul>
-            </div>
-            <div>
-                <a href="#header">Back to top</a>
             </div>
         </div>
     </div>

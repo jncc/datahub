@@ -71,7 +71,10 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-bottom: 0.5rem;
 }
 .tabs > .tabs-title.is-active {
-    border-bottom: 3px solid #777;
+    /* use a box shadow instead of a border to keep the size of the div the same */
+    -webkit-box-shadow:inset 0px -3px 0px 0px #777;
+    -moz-box-shadow:inset 0px -3px 0px 0px #777;
+    box-shadow:inset 0px -3px 0px 0px #777;
 }
 .tabs > .tabs-title > a {
     color: #666262;
@@ -79,6 +82,7 @@ for details on configuring this project to bundle and minify static web assets. 
     font-size: 95%;
     /* padding: 1rem 1.5rem; */
     outline: none; /* remove blue highlight when selected */
+    margin-bottom: 3px;
 }
 .tabs > .tabs-title > a > i {
     font-size: 90%;
