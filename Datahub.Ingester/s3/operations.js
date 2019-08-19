@@ -14,13 +14,12 @@ function getClient () {
   return s3Client
 }
 
-module.exports.getMessage = async function (bucketName, objectKey) {
+module.exports.getMessage = function (bucketName, objectKey) {
   console.log(`S3 - Get ${objectKey} from ${bucketName} bucket`)
   var params = {
     Bucket: bucketName,
     Key: objectKey
   }
 
-  var data = await getClient().getObject(params).promise()
-  return data.Body.toString('utf-8')
+  return getClient().getObject(params).promise()
 }
