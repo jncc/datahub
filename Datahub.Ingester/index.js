@@ -34,7 +34,6 @@ exports.handler = async function (message, context, callback) {
       callback(new Error(`Failed to retrieve S3 message`, error))
     })
     var s3Message = JSON.parse(response.Body.toString())
-    console.log(`Retrieved message ${s3Message}`)
     console.log(`Retrieved message for record id ${s3Message.asset.id}`)
 
     const { s3MessageValid, s3MessageErrors } = validator.validatePublishOrRedindexMessage(s3Message)
@@ -80,13 +79,6 @@ exports.handler = async function (message, context, callback) {
 }
 
 async function publishToHub (message, callback) {
-  // Check the asset and its linked data structures exist, generate messages
-  // required to be sent into
-  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
-  if (!createSuccess) {
-    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
-  }
-
   // Put new record onto Dynamo handler without base64 encodings
   var dynamoMessage = JSON.parse(JSON.stringify(message))
   dynamoMessage.asset.data.forEach(resource => {
@@ -95,6 +87,15 @@ async function publishToHub (message, callback) {
   await dynamo.putAsset(dynamoMessage).catch((error) => {
     callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
   })
+
+  // Check the asset and its linked data structures exist, generate messages
+  // required to be sent into
+  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
+  if (!createSuccess) {
+    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
+  } else {
+    console.log(`Created ${sqsMessages.length} SQS messages`)
+  }
 
   // Delete any existing data in search index
   await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
