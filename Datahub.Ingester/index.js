@@ -30,9 +30,10 @@ exports.handler = async function (message, context, callback) {
     var s3BucketName = message.config.s3.bucketName
     var s3ObjectKey = decodeURIComponent(message.config.s3.objectKey.replace(/\+/g, " "));
 
-    await s3.getMessage(s3BucketName, s3ObjectKey).catch((error) => {
+    var s3Message = await s3.getMessage(s3BucketName, s3ObjectKey).catch((error) => {
       callback(new Error(`Failed to retrieve S3 message`, error))
     })
+    console.log(`Retrieved S3 message ${s3Message}`)
 
     const { s3MessageValid, s3MessageErrors } = validator.validatePublishOrRedindexMessage(s3Message)
     if (!s3MessageValid) {
