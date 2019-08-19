@@ -1,6 +1,7 @@
 const Ajv = require('ajv')
 
 exports.validatePublishOrRedindexMessage = function (message) {
+  console.log(`Validating`)
   var ajv = new Ajv({ allErrors: true })
   var validate = ajv.compile(publishSchema)
   var valid = validate(message)
