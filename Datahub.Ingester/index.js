@@ -33,7 +33,7 @@ exports.handler = async function (message, context, callback) {
     var response = await s3.getMessage(s3BucketName, s3ObjectKey).catch((error) => {
       callback(new Error(`Failed to retrieve S3 message`, error))
     })
-    var s3Message = response.Body.toString()
+    var s3Message = JSON.parse(response.Body.toString())
     console.log(`Retrieved message ${s3Message}`)
     console.log(`Retrieved message for record id ${s3Message.asset.id}`)
 
