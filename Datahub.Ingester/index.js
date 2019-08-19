@@ -34,6 +34,7 @@ exports.handler = async function (message, context, callback) {
       callback(new Error(`Failed to retrieve S3 message`, error))
     })
     var s3Message = response.Body.toString()
+    console.log(`Retrieved message ${s3Message}`)
     console.log(`Retrieved message for record id ${s3Message.asset.id}`)
 
     const { s3MessageValid, s3MessageErrors } = validator.validatePublishOrRedindexMessage(s3Message)
