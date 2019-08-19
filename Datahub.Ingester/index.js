@@ -79,33 +79,25 @@ exports.handler = async function (message, context, callback) {
 }
 
 async function publishToHub (message, callback) {
+  // Check the asset and its linked data structures exist, generate messages
+  // required to be sent into
+  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
+  if (!createSuccess) {
+    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
+  }
+
   // Put new record onto Dynamo handler without base64 encodings
-  console.log(`Saving asset in dynamo db`)
   var dynamoMessage = JSON.parse(JSON.stringify(message))
-  console.log(`Dynamo message ${JSON.stringify(dynamoMessage)}`)
   dynamoMessage.asset.data.forEach(resource => {
     resource.http.fileBase64 = null
   })
-  console.log(`Dynamo message without resources ${JSON.stringify(dynamoMessage)}`)
   await dynamo.putAsset(dynamoMessage).catch((error) => {
     callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
   })
 
-  // Check the asset and its linked data structures exist, generate messages
-  // required to be sent into
-  console.log(`Creating queue messages`)
-  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
-  if (!createSuccess) {
-    callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
-  } else {
-    console.log(`Created ${sqsMessages.length} SQS messages`)
-  }
-
   // Delete any existing data in search index
-  console.log(`Deleting from elasticsearch`)
   await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
   // Send new indexing messages
-  console.log(`Sending to elasticsearch`)
   var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
   if (!sendSuccess) {
     callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))

@@ -46,7 +46,7 @@ const definitions = {
       sqs: { $ref: '#/definitions/sqs' },
       action: { type: 'string', pattern: '^((publish)|(unpublish)|(reindex))$' }
     },
-    required: ['action'],
+    required: ['elasticsearch', 'hub', 'dynamo', 'sqs', 'action'],
     additionalProperties: false
   },
   elasticsearch: {

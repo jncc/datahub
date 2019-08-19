@@ -1,0 +1,12 @@
+{
+  "config": {
+    "s3": {
+      "bucketName": "datahub-ingester-bucket",
+      "objectKey": "4ca47820-319e-4163-8615-de1b4d5f7ba5"
+    },
+    "action": "s3-publish"
+  },
+  "asset": {
+    "id": "4ca47820-319e-4163-8615-de1b4d5f7ba5"
+  }
+}
