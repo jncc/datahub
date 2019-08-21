@@ -40,8 +40,8 @@
                 $('<div><a href="#header">Back to top</a></div>').insertAfter('#resource-list');
                 $('html, body').scrollTop(0).show();
                 setTimeout(function() {
-                    var targetId = window.location.hash.replace('.','\\.');
-
+                    var targetId = window.location.hash.replace(/\./g,'\\.');
+                    
                     $('html, body').animate({
                         scrollTop: $(targetId).offset().top
                     });
