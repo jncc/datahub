@@ -12,6 +12,18 @@ exports.validatePublishOrRedindexMessage = function (message) {
   return { valid: true }
 }
 
+exports.validateS3PublishMessage = function (message) {
+  var ajv = new Ajv({ allErrors: true })
+  var validate = ajv.compile(s3PublishSchema)
+  var valid = validate(message)
+
+  if (!valid) {
+    return { valid: false, errors: validate.errors }
+  }
+
+  return { valid: true }
+}
+
 exports.validateDeleteMessage = function (message) {
   var ajv = new Ajv({ allErrors: true })
   var validate = ajv.compile(deleteSchema)
@@ -69,6 +81,15 @@ const definitions = {
       largeMessageBucket: { type: 'string' }
     },
     required: ['queueEndpoint'],
+    additionalProperties: false
+  },
+  s3: {
+    type: 'object',
+    properties: {
+      bucketName: { type: 'string' },
+      objectKey: { type: 'string' }
+    },
+    required: ['bucketName', 'objectKey'],
     additionalProperties: false
   },
   asset: {
@@ -194,6 +215,31 @@ const publishSchema = {
   properties: {
     config: { $ref: '#/definitions/config' },
     asset: { $ref: '#/definitions/asset' }
+  },
+  required: ['config', 'asset'],
+  additionalProperties: false
+}
+
+const s3PublishSchema = {
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  definitions: definitions,
+  type: 'object',
+  properties: {
+    config: {
+      type: 'object',
+      properties: {
+        s3: { $ref: '#/definitions/s3' },
+        action: { type: 'string', pattern: 's3-publish' }
+      },
+      required: ['s3', 'action']
+    },
+    asset: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}' }
+      },
+      required: ['id']
+    }
   },
   required: ['config', 'asset'],
   additionalProperties: false
