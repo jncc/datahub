@@ -74,6 +74,7 @@ namespace Datahub.Web
                 }
             }
 
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseMvc();

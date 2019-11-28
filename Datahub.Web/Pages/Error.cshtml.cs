@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,11 +8,20 @@ namespace Datahub.Web.Pages
     public class ErrorModel : PageModel
     {
         public string RequestId { get; set; }
-
+        public int ResponseStatusCode { get; set; }
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-        public void OnGet()
+        public void OnGet(int? statusCode = null)
         {
+            if (statusCode == null)
+            {
+                ResponseStatusCode = HttpContext.Response.StatusCode;
+            }
+            else
+            {
+                ResponseStatusCode = statusCode.Value;
+            }
+
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
         }
     }
