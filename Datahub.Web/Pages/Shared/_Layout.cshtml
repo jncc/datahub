@@ -88,12 +88,114 @@
 				</div>
 			</div>
 			<nav class="top-bar nav @(ViewBag.PageHero == "True" ? "" : "no-page-hero") " id="menu" data-animate="hinge-in-from-top spin-out" aria-label="main-navigation">
-				<div class="container">
-					<ul class="vertical medium-horizontal menu dropdown" style="vertical-align:middle;">
-						<li><a href="@(LayoutViewModel.JNCC_WEBSITE_URL)"><i class="fas fa-chevron-left fa-fw"></i> Main site</a></li>
-						<li class="@(ViewBag.CurrentPage == "Index" ? "active" : "") "><a href="~/"><i class="fas fa-database fa-fw"></i> Resource hub</a></li>
-						<li class="@(ViewBag.CurrentPage == "Search" ? "active" : "") "><a href="~/search">Search</a></li>
-						<li class="@(ViewBag.CurrentPage == "About" ? "active" : "") "><a href="~/about">About</a></li>
+				<div class="container mobileNavContainer">
+					<ul class="vertical medium-horizontal menu dropdown" data-dropdown-menu data-click-open data-alignment="left"
+                     style="vertical-align:middle;">
+                        @* these links now have to be kept up-to-date manually with the JNCC website *@
+                        <li class="is-dropdown-submenu-parent">
+                            <a href="https://jncc.gov.uk/our-role/">Our role</a>
+                            <ul class="vertical menu nested">
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/our-role/the-uk/">The UK</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/our-role/the-offshore-marine-environment/">The offshore marine environment</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/our-role/the-uks-overseas-territories/">The UK&#39;s Overseas Territories</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/our-role/international/">International</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="is-dropdown-submenu-parent">
+                            <a href="https://jncc.gov.uk/monitoring/">Monitoring</a>
+                            <ul class="vertical menu nested">
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/monitoring/cost-effective-approaches/">Cost-effective approaches</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/monitoring/earth-observation/">Earth observation</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/monitoring/marine-monitoring-mapping/">Marine monitoring &amp; mapping</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/monitoring/analyses-trends/">Analyses &amp; trends</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="is-dropdown-submenu-parent">
+                            <a href="https://jncc.gov.uk/evaluating/">Evaluating</a>
+                            <ul class="vertical menu nested">
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/evaluating/sustainable-global-supply-chains/">Sustainable global supply chains</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/evaluating/land-use/">Land use</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/evaluating/climate-change/">Climate change</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="is-dropdown-submenu-parent">
+                            <a href="https://jncc.gov.uk/advice/">Advice</a>
+                            <ul class="vertical menu nested">
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/advice/improving-global-co-ordination-action/">Improving global co-ordination &amp; action</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/advice/offshore-industries/">Offshore Industries</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/advice/marine-protected-areas/">Marine Protected Areas</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/advice/sustainable-development-overseas/">Sustainable development overseas</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="is-dropdown-submenu-parent">
+                            <a href="https://jncc.gov.uk/our-work/">Our work</a>
+                            <ul class="vertical menu nested">
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/our-work/our-work-a-z/">Our work A–Z</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="is-dropdown-submenu-parent @(ViewBag.CurrentPage == "Index" ? "active" : "") ">
+                            <a href="~/">Our resources</a>
+                            <ul class="vertical menu nested">
+        						<li class="">
+                                    <a href="~/search">Search our resources</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="is-dropdown-submenu-parent">
+                            <a href="https://jncc.gov.uk/about-jncc/">About JNCC</a>
+                            <ul class="vertical menu nested">
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/about-jncc/who-we-are/">Who we are</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/about-jncc/how-we-work/">How we work</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/about-jncc/our-performance/">Our performance</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/about-jncc/corporate-information/">Corporate information</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/about-jncc/jncc-blog/">JNCC Blog</a>
+                                </li>
+                                <li class="">
+                                    <a href="https://jncc.gov.uk/about-jncc/careers/">Careers</a>
+                                </li>
+                            </ul>
+                        </li>
 					</ul>
 				</div>
 			</nav>
