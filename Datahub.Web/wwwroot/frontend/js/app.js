@@ -392,9 +392,11 @@ function getDataAttributeValueOrDefault($element, key, defaultValue, invalidator
 
     return dataAttribute;
 }
+
 function eraseCookie(name) {
     createCookie(name, "", -1);
 }
+
 function createCookie(name, value, days) {
 
     if (days) {
