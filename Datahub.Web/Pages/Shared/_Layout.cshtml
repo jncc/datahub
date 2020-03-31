@@ -39,7 +39,6 @@
 
 	<link rel="stylesheet" href="~/frontend/css/app.css">
 	<link rel="stylesheet" href="~/css/site.css">
-	<link rel="stylesheet" href="~/css/cookieconsent2/3.1.0/cookieconsent.min.css" />
 
     @RenderSection("Styles", required: false)
 
@@ -49,9 +48,7 @@
 
     <environment include="Development">
         <script src="~/js/site.js"></script>
-		<script src="~/frontend/js/app.js" defer></script>
-        <!-- Cookie Consent Library, local hosting for a bugfix -->
-        <script src="~/js/cookieconsent2/3.1.0/cookieconsent.js"></script>        
+		<script src="~/frontend/js/app.js" defer></script>       
     </environment>
     <environment exclude="Development">
         <script src="~/js/site.min.js"></script>
@@ -271,37 +268,25 @@
     
     @RenderSection("Scripts", required: false)
     
-    <environment exclude="Development">
-        <!-- Cookie Consent Setup -->
-        <script>
-            window.addEventListener("load", function(){
-            window.cookieconsent.initialise({
-                "cookie": {
-                    "name": "cookiePolicyAcceptance",
-                    "domain": ".jncc.gov.uk"
-                },
-                "content": {
-                    "message":"Our website uses cookies - by continuing to browse our website you are agreeing to our ",
-                    "link": "use of cookies.",
-                    "href": "https://jncc.gov.uk/about-jncc/corporate-information/cookie-policy/"
-                },            
-                "palette": {
-                    "popup": {
-                        "background": "#efefef",
-                        "text": "#404040"
-                    },
-                    "button": {
-                        "background": "#218838",
-                        "text": "#ffffff"
-                    }
-                },
-                "position": "top",
-                "static": true,
-                "dismissOnScroll": 1,
-                "dismissOnWindowClick": true,
-                "dismissOnTimeout": "10"
-            })});  
-        </script>
-    </environment>
+    <!-- Cookie Consent Setup -->
+    <div data-cookie-banner-container class="sticky-cookie"></div>
+    @if (@Context.Request.Cookies["cookiePolicyAcceptance"] == null)
+    {
+    <script type="text/html" class="sticky-cookie" id="cookie-banner-template" data-cookie-name="cookiePolicyAcceptance" data-cookie-duration="20">
+        <div class="row expanded cookie-policy" data-closable>
+            <div class="container row">
+                <div class="cookie-banner-text columns small-12 medium-9 large-9">
+                    We use cookies to track usage of our site. Details of these can be found on our <a href="https://jncc.gov.uk/about-jncc/corporate-information/cookie-policy/" title="Cookie policy">Cookie Policy</a>. You may choose to <button class="buttonLink" onclick="CookieDisagreement()">decline all tracking cookies</button>, but if you do some key features may not work as expected.
+                </div>
+                <div class="columns small-12 medium-3 large-3">
+                    <p class="cookie-button-container">
+                        <button class="cookie-button" onclick="CookieAgreement()" id="Agree">Agree &amp; Close</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </script>
+    }
+
 </body>
 </html>
