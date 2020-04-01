@@ -269,7 +269,7 @@
     @RenderSection("Scripts", required: false)
     
     <!-- Cookie Consent Setup -->
-    <div data-cookie-banner-container class="sticky-cookie"></div>
+    <div id="data-cookie-banner-container" class="sticky-cookie"></div>
     @if (@Context.Request.Cookies["cookiePolicyAcceptance"] == null)
     {
     <script type="text/html" class="sticky-cookie" id="cookie-banner-template" data-cookie-name="cookiePolicyAcceptance" data-cookie-duration="20">
