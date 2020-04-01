@@ -370,7 +370,7 @@ var _arrayUtility = _arrayUtility || (function () {
 // Cookie Policy Banner
 (function ($, invalidators) {
     console.log("Checking for cookie banner");
-    var $cookieBannerContainer = $('[data-cookie-banner-container]');
+    var $cookieBannerContainer = $('#data-cookie-banner-container');
 
     if (invalidators.isUndefinedOrLengthIsZero($cookieBannerContainer)) {
         console.log("Couldn't find data-cookie-banner-container");
