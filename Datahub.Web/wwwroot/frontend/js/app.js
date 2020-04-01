@@ -369,9 +369,11 @@ var _arrayUtility = _arrayUtility || (function () {
 
 // Cookie Policy Banner
 (function ($, invalidators) {
+    console.log("Checking for cookie banner");
     var $cookieBannerContainer = $('[data-cookie-banner-container]');
 
     if (invalidators.isUndefinedOrLengthIsZero($cookieBannerContainer)) {
+        console.log("Couldn't find data-cookie-banner-container");
         return;
     }
 
@@ -380,7 +382,9 @@ var _arrayUtility = _arrayUtility || (function () {
     displayCookieBanner($cookieBannerContainer, $bannerTemplate);
 
     function displayCookieBanner($container, $bannerTemplate) {
+        console.log("Display cookie banner");
         var htmlContent = $bannerTemplate.text();
+        console.log(htmlContent);
         $container.prepend(htmlContent);
     }
 
@@ -398,7 +402,7 @@ function eraseCookie(name) {
 }
 
 function createCookie(name, value, days) {
-
+    console.log("Creating cookie")
     if (days) {
         var date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
