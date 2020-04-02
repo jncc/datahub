@@ -386,7 +386,6 @@ $(function ($) {
 
 })
 
-
 function getDataAttributeValueOrDefault($element, key, defaultValue, invalidator) {
     var dataAttribute = $element.data(key);
 
