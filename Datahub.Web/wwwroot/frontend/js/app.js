@@ -369,11 +369,9 @@ var _arrayUtility = _arrayUtility || (function () {
 
 // Cookie Policy Banner
 $(function ($) {
-    console.log("Checking for cookie banner");
     var $cookieBannerContainer = $('[data-cookie-banner-container]');
 
     if (typeof ($cookieBannerContainer) === "undefined" || $cookieBannerContainer <= 0) {
-        console.log("Couldn't find data-cookie-banner-container");
         return;
     }
 
@@ -382,13 +380,11 @@ $(function ($) {
     displayCookieBanner($cookieBannerContainer, $bannerTemplate);
 
     function displayCookieBanner($container, $bannerTemplate) {
-        console.log("Display cookie banner");
         var htmlContent = $bannerTemplate.text();
         $container.prepend(htmlContent);
     }
 
 })
-
 
 function getDataAttributeValueOrDefault($element, key, defaultValue, invalidator) {
     var dataAttribute = $element.data(key);
@@ -401,7 +397,6 @@ function eraseCookie(name) {
 }
 
 function createCookie(name, value, days) {
-    console.log("Creating cookie")
     if (days) {
         var date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -416,7 +411,6 @@ function createCookie(name, value, days) {
         {
             document.cookie = name + "=" + value + expires + "; domain=." + domain + "; path=/";
         }
-
        
     }
 }
