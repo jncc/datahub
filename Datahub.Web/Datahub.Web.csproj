@@ -9,7 +9,7 @@
     <PackageReference Include="Aws4RequestSigner" Version="0.3.0" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.17.11" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.6" />
-    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
     <PackageReference Include="AWSSDK.S3" Version="3.3.101.3" />
     <PackageReference Include="dotenv.net" Version="1.0.4" />
     <PackageReference Include="Elasticsearch.Net.Aws" Version="6.0.0" />
