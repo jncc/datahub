@@ -1,0 +1,54 @@
+{
+  "config": {
+    "elasticsearch": {
+      "index": "website-search-dev",
+      "site": "datahub"
+    },
+    "hub": {
+      "baseUrl": "https://hub.jncc.gov.uk"
+    },
+    "dynamo": {
+      "table": "datahub-assets-dev"
+    },
+    "sqs": {
+      "queueEndpoint": "http://localhost:4576/queue/datahub-queue-dev",
+      "largeMessageBucket": "datahub-queue-assets-dev"
+    },
+    "action": "publish"
+  },
+  "asset": {
+    "id": "4ca47820-319e-4163-8615-de1b4d5f7ba5",
+    "metadata": {
+      "title": "Test Asset",
+      "topicCategory": "test",
+      "resourceType": "dataset",
+      "keywords": [
+        {
+          "vocab": "testing",
+          "value": "test"
+        }
+      ],
+      "abstract": "Testing",
+      "responsibleOrganisation": {
+        "name": "Test Organisation",
+        "email": "test@organisation.com",
+        "role": "Creator"
+      },
+      "metadataPointOfContact": {
+        "name": "Test Contact",
+        "email": "test.contact@organisation.com",
+        "role": "Contact Point"
+      }
+    },
+    "data": [
+      {
+        "title": "Test Data",
+        "http": {
+          "url": "http://data.jncc.gov.uk/data/16bd76ad-bb74-4724-9e06-5df02b459524/SSSI-Guidelines-17-Birds-2015.pdf",
+          "fileExtension": "pdf",
+          "fileBytes": 293434
+        }
+      }
+    ]
+  }
+}
