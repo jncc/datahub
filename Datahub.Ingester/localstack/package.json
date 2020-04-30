@@ -1,0 +1,39 @@
+{
+  "name": "datahub-ingester-localstack-setup",
+  "version": "0.0.1",
+  "description": "Sets up a localstack environment to develop against with the datahub-ingester project",
+  "main": "setup.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jncc/datahub.git"
+  },
+  "author": "jncc",
+  "license": "OGL-UK-3.0",
+  "bugs": {
+    "url": "https://github.com/jncc/datahub/issues"
+  },
+  "homepage": "https://github.com/jncc/datahub",
+  "scripts": {
+    "up": "docker-compose up",
+    "down": "docker-compose down",
+    "setup": "node setup.js",
+    "create-stack": "node setup.js create-stack",
+    "delete-stack": "node setup.js delete-stack",
+    "reset-stack": "node setup.js reset-stack",
+    "test:dummy": "node setup.js insert-search-index-dummy-data"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "yargs": "^13.3.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.502.0",
+    "dotenv": "^8.0.0",
+    "uuid": "^3.3.2"
+  }
+}
