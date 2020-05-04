@@ -9,13 +9,22 @@ module.exports.createSQSMessages = async function (message) {
   var errors = []
   var messages = []
 
-  for (var id in message.asset.data) {
-    var resource = message.asset.data[id]
-    if (resource.http.fileExtension && resource.http.fileBytes == 0) {
-      var { success, sqsMessage, error } = await  createSQSMessageForWebResource(message, resource)
-    } else {
-      var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, resource)
+  if (message.asset.data && message.asset.data.length > 0){
+    for (var id in message.asset.data) {
+      var resource = message.asset.data[id]
+      if (!resource.http.fileExtension && resource.http.fileBytes == 0) {
+        var { success, sqsMessage, error } = await createSQSMessageForWebResource(message, resource)
+      } else {
+        var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, resource)
+      }
+      if (success) {
+        messages.push(sqsMessage)
+      } else {
+        errors.push(error)
+      }
     }
+  } else {
+    var { success, sqsMessage, error } = await createSQSMessageForAssetWithNoResources(message)
     if (success) {
       messages.push(sqsMessage)
     } else {
@@ -56,18 +65,19 @@ function getHubResourceUrl (baseUrl, id, fileUrl) {
  *
  * @param {message} message The initial message passed to the lambda function, containing config and the asset
  */
-function createSQSMessageForAsset (message) {
+function createSQSMessageForAssetWithNoResources (message) {
   return {
     index: message.config.elasticsearch.index,
     verb: 'upsert',
     document: {
-      id: uuid4(),
+      id: message.asset.id,
       site: message.config.elasticsearch.site,
       title: message.asset.metadata.title,
       keywords: message.asset.metadata.keywords,
       content: message.asset.metadata.abstract,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id)
+      url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
+      asset_id: message.asset.id
     }
   }
 }
@@ -89,7 +99,8 @@ function createSQSMessageForWebResource (message, resource) {
       keywords: message.asset.metadata.keywords,
       content: message.asset.metadata.abstract,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id)
+      url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
+      asset_id: message.asset.id
     }
   }
 }
@@ -113,6 +124,7 @@ async function createSQSMessageForFileResource (message, resource) {
       content: message.asset.metadata.abstract,
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubResourceUrl(message.config.hub.baseUrl, message.asset.id, resource.http.url),
+      asset_id: message.asset.id,
       file_bytes: resource.http.fileBytes,
       file_extension: resource.http.fileExtension
     }
