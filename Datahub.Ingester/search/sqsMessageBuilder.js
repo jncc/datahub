@@ -12,7 +12,7 @@ module.exports.createSQSMessages = async function (message) {
   if (message.asset.data && message.asset.data.length > 0){
     for (var id in message.asset.data) {
       var resource = message.asset.data[id]
-      if (!resource.http.fileExtension && resource.http.fileBytes == 0) {
+      if (!resource.http.fileExtension && !resource.http.fileBytes) {
         var { success, sqsMessage, error } = await createSQSMessageForWebResource(message, resource)
       } else {
         var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, resource)
@@ -78,7 +78,8 @@ function createSQSMessageForAssetWithNoResources (message) {
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
-      asset_id: message.asset.id
+      asset_id: message.asset.id,
+      file_bytes: resource.http.fileBytes
     }
   }
 }
@@ -102,7 +103,8 @@ function createSQSMessageForWebResource (message, resource) {
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
-      asset_id: message.asset.id
+      asset_id: message.asset.id,
+      file_bytes: resource.http.fileBytes
     }
   }
 }
