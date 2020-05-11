@@ -75,6 +75,7 @@ function createSQSMessageForAssetWithNoResources (message) {
       title: message.asset.metadata.title,
       keywords: message.asset.metadata.keywords,
       content: message.asset.metadata.abstract,
+      resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
       asset_id: message.asset.id
@@ -98,6 +99,7 @@ function createSQSMessageForWebResource (message, resource) {
       title: resource.title,
       keywords: message.asset.metadata.keywords,
       content: message.asset.metadata.abstract,
+      resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
       asset_id: message.asset.id
@@ -122,6 +124,7 @@ async function createSQSMessageForFileResource (message, resource) {
       title: resource.title,
       keywords: message.asset.metadata.keywords,
       content: message.asset.metadata.abstract,
+      resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubResourceUrl(message.config.hub.baseUrl, message.asset.id, resource.http.url),
       asset_id: message.asset.id,
