@@ -79,7 +79,7 @@ function createSQSMessageForAssetWithNoResources (message) {
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
       asset_id: message.asset.id,
-      file_bytes: resource.http.fileBytes
+      file_bytes: 0
     }
   }
 }
