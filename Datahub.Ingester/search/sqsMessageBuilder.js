@@ -13,8 +13,10 @@ module.exports.createSQSMessages = async function (message) {
     for (var id in message.asset.data) {
       var resource = message.asset.data[id]
       if (resource.http.fileExtension && resource.http.fileBytes && resource.http.fileBytes > 0) {
+        console.log(`Creating message for file resource '${resource.http.title}'`)
         var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, resource)
       } else {
+        console.log(`Creating message for web resource '${resource.http.title}'`)
         var { success, sqsMessage, error } = await createSQSMessageForWebResource(message, resource)
       }
       if (success) {
@@ -24,6 +26,7 @@ module.exports.createSQSMessages = async function (message) {
       }
     }
   } else {
+    console.log(`Creating message for asset with no resources`)
     var { success, sqsMessage, error } = await createSQSMessageForAssetWithNoResources(message)
     if (success) {
       messages.push(sqsMessage)
