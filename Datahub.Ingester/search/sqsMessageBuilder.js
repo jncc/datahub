@@ -69,7 +69,17 @@ function getHubResourceUrl (baseUrl, id, fileUrl) {
  * @param {message} message The initial message passed to the lambda function, containing config and the asset
  */
 function createSQSMessageForAssetWithNoResources (message) {
-  return {
+  console.log(message.config.elasticsearch.index)
+  console.log(message.asset.id)
+  console.log(message.config.elasticsearch.site)
+  console.log(message.asset.metadata.title)
+  console.log(message.asset.metadata.keywords)
+  console.log(message.asset.metadata.abstract)
+  console.log(message.asset.metadata.resourceType)
+  console.log(message.asset.metadata.datasetReferenceDate)
+  console.log(getHubUrlFromId(message.config.hub.baseUrl, message.asset.id))
+
+  var sqsMessage = {
     index: message.config.elasticsearch.index,
     verb: 'upsert',
     document: {
@@ -84,6 +94,8 @@ function createSQSMessageForAssetWithNoResources (message) {
       asset_id: message.asset.id
     }
   }
+
+  return sqsMessage
 }
 
 /**
