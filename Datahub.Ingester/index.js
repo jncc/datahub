@@ -9,7 +9,7 @@ const esMessageSender = require('./search/esMessageSender')
 
 exports.handler = async function (message, context, callback) {
   console.log('Running Datahub Ingester')
-  console.log(`Received message: ${message}`)
+  console.log(`Received message: ${JSON.stringify(message)}`)
 
   if (message.config.action === 'publish') {
     const { valid, errors } = validator.validatePublishOrRedindexMessage(message)

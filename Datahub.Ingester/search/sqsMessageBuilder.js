@@ -9,7 +9,7 @@ module.exports.createSQSMessages = async function (message) {
   var errors = []
   var messages = []
 
-  if (message.asset.data && message.asset.data.length > 0){
+  if (message.asset.data && message.asset.data.length > 0) {
     for (var id in message.asset.data) {
       var resource = message.asset.data[id]
       if (resource.http.fileExtension && resource.http.fileBytes && resource.http.fileBytes > 0) {
