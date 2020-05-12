@@ -82,7 +82,6 @@ exports.handler = async function (message, context, callback) {
 async function publishToHub (message, callback) {
   // Check the asset and its linked data structures exist, generate messages
   // required to be sent into
-  console.log(`Creating SQS messages for elasticsearch queue`)
   var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
   if (!createSuccess) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))

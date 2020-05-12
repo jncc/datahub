@@ -12,27 +12,22 @@ module.exports.createSQSMessages = async function (message) {
   if (message.asset.data && message.asset.data.length > 0) {
     for (var id in message.asset.data) {
       var resource = message.asset.data[id]
-      if (resource.http.fileExtension && resource.http.fileBytes && resource.http.fileBytes > 0) {
+      if (resource.http.fileExtension && resource.http.fileBytes > 0) {
         console.log(`Creating message for file resource '${resource.http.title}'`)
         var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, resource)
+        if (success) {
+          messages.push(sqsMessage)
+        } else {
+          errors.push(error)
+        }
       } else {
         console.log(`Creating message for web resource '${resource.http.title}'`)
-        var { success, sqsMessage, error } = await createSQSMessageForWebResource(message, resource)
-      }
-      if (success) {
-        messages.push(sqsMessage)
-      } else {
-        errors.push(error)
+        messages.push(createSQSMessageForWebResource(message, resource))
       }
     }
   } else {
     console.log(`Creating message for asset with no resources`)
-    var { success, sqsMessage, error } = await createSQSMessageForAssetWithNoResources(message)
-    if (success) {
-      messages.push(sqsMessage)
-    } else {
-      errors.push(error)
-    }
+    messages.push(createSQSMessageForAssetWithNoResources(message))
   }
 
   if (errors.length === 0) {
@@ -69,17 +64,7 @@ function getHubResourceUrl (baseUrl, id, fileUrl) {
  * @param {message} message The initial message passed to the lambda function, containing config and the asset
  */
 function createSQSMessageForAssetWithNoResources (message) {
-  console.log(message.config.elasticsearch.index)
-  console.log(message.asset.id)
-  console.log(message.config.elasticsearch.site)
-  console.log(message.asset.metadata.title)
-  console.log(message.asset.metadata.keywords)
-  console.log(message.asset.metadata.abstract)
-  console.log(message.asset.metadata.resourceType)
-  console.log(message.asset.metadata.datasetReferenceDate)
-  console.log(getHubUrlFromId(message.config.hub.baseUrl, message.asset.id))
-
-  var sqsMessage = {
+  return {
     index: message.config.elasticsearch.index,
     verb: 'upsert',
     document: {
@@ -91,11 +76,10 @@ function createSQSMessageForAssetWithNoResources (message) {
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
-      asset_id: message.asset.id
+      asset_id: message.asset.id,
+      file_bytes: 0
     }
   }
-
-  return sqsMessage
 }
 
 /**
