@@ -12,10 +12,10 @@ module.exports.createSQSMessages = async function (message) {
   if (message.asset.data && message.asset.data.length > 0){
     for (var id in message.asset.data) {
       var resource = message.asset.data[id]
-      if (!resource.http.fileExtension && !resource.http.fileBytes) {
-        var { success, sqsMessage, error } = await createSQSMessageForWebResource(message, resource)
-      } else {
+      if (resource.http.fileExtension && resource.http.fileBytes && resource.http.fileBytes > 0) {
         var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, resource)
+      } else {
+        var { success, sqsMessage, error } = await createSQSMessageForWebResource(message, resource)
       }
       if (success) {
         messages.push(sqsMessage)
