@@ -6,6 +6,9 @@ const dynamo = require('./dynamo/operations')
 const sqsMessageBuilder = require('./search/sqsMessageBuilder')
 const sqsMessageSender = require('./search/sqsMessageSender')
 const esMessageSender = require('./search/esMessageSender')
+const s3MessageUploader = require('./search/s3MessageUploader')
+
+const maxMessageSize = 256000 //256KB
 
 exports.handler = async function (message, context, callback) {
   console.log('Running Datahub Ingester')
@@ -42,7 +45,7 @@ exports.handler = async function (message, context, callback) {
       callback(JSON.stringify(s3MessageErrors, null, 2))
     }
 
-    console.log(`Publishing record with id ${s3Message.asset.id}`)
+    console.log(`Publishing record with id ${s3Message.asset.id} and title ${s3Message.asset.title}`)
     await publishToHub(s3Message, callback)
     callback(null, s3Message)
   }
@@ -80,11 +83,44 @@ exports.handler = async function (message, context, callback) {
 }
 
 async function publishToHub (message, callback) {
-  // Check the asset and its linked data structures exist, generate messages
-  // required to be sent into
+  // Check the asset and its linked data structures exist, generate SQS messages
   var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
   if (!createSuccess) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
+  }
+
+  // Check if messages need base64 content adding and save large messages to S3
+  var messageBodies = []
+  for (sqsMessage in sqsMessages) {
+    var messageBody = sqsMessage
+
+    if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
+      // Add the base64 encodings to SQS messages
+      var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
+      var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(message, clonedMessage)
+      if (!addBase64Success) {
+        callback(new Error(`Failed to add base64 content with the following errors: [${addBase64Errors.join(', ')}]`))
+      }
+
+      // check if the message is now too large, if it is then save to S3
+      var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
+      if (largeMessage) {
+        var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(messageWithBase64Content)
+        if (!uploadSuccess) {
+          callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
+        }
+
+        // message body now points to S3 location
+        messageBody = JSON.stringify({
+          s3BucketName: config.sqs.largeMessageBucket,
+          s3Key: s3Key
+        })
+      } else {
+        messageBody = messageWithBase64Content
+      }
+    }
+
+    messageBodies.push(messageBody)
   }
 
   // Put new record onto Dynamo handler without base64 encodings
@@ -100,8 +136,9 @@ async function publishToHub (message, callback) {
 
   // Delete any existing data in search index
   await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
+
   // Send new indexing messages
-  var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
+  var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(messageBodies, message.config)
   if (!sendSuccess) {
     callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))
   }
@@ -138,4 +175,22 @@ async function deleteFromElasticsearch (id, index, callback) {
   if (!success) {
     callback(new Error(`Failed to delete old search index records for asset ${id}, DynamoDB record still exists: ${messages.join(', ')}`))
   }
+}
+
+async function addBase64FileContent (message, sqsMessage) {
+  var resource = message.asset.data.find(o => o.title === sqsMessage.document.title)
+  var errors = []
+
+  if (resource.http.fileBase64 === undefined) { // if not already provided then download the file
+    await sqsMessageBuilder.getBase64ForFile(resource.http.url).then((response) => {
+      sqsMessage.document.file_base64 = Buffer.from(response.data, 'binary').toString('base64')
+    }).catch((error) => {
+      errors.push(error)
+      return { success: false, errors: errors, messageWithBase64Content: null }
+    })
+  } else {
+    sqsMessage.document.file_base64 = resource.http.fileBase64
+  }
+
+  return { success: true, errors: errors, messageWithBase64Content: sqsMessage }
 }

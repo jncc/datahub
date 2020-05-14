@@ -133,35 +133,18 @@ async function createSQSMessageForFileResource (message, resource) {
     }
   }
 
-  if (resourceIsIndexable(resource)) {
-    // If the resource is indexable, make sure the base64 filed is populated,
-    // downloading the file at the provided url if necessary
-    if (resource.http.fileBase64 === undefined) {
-      await getBase64ForFile(resource.http.url).then((response) => {
-        sqsMessage.document.file_base64 = Buffer.from(response.data, 'binary').toString('base64')
-      }).catch((error) => {
-        return { success: false, error: error }
-      })
-    } else {
-      sqsMessage.document.file_base64 = resource.http.fileBase64
-    }
-  } else {
-    // Clear base64 if it exists on a non indexable resource
-    delete sqsMessage.document.file_base64
-  }
-
   return { success: true, sqsMessage: sqsMessage }
 }
 
 /**
- * If a resource is http resource and has a pdf file extension, then return true,
- * otherwise return false. This function is a bit of future proofing as we can
- * index non-pdf files we just choose not to at present.
+ * If the file extension is a pdf then return true, otherwise return false.
+ * This function is a bit of future proofing as we can index non-pdf files
+ * we just choose not to at present.
  *
- * @param {resource} resource The resource to check
+ * @param {fileExtension} fileExtension The file extension to check
  */
-function resourceIsIndexable (resource) {
-  if (resource.http.fileExtension === 'pdf') {
+function fileTypeIsIndexable (fileExtension) {
+  if (fileExtension === 'pdf') {
     return true
   }
   return false
