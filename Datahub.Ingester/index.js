@@ -91,7 +91,7 @@ async function publishToHub (message, callback) {
 
   // Check if messages need base64 content adding and save large messages to S3
   var messageBodies = []
-  for (sqsMessage in sqsMessages) {
+  for (var sqsMessage of sqsMessages) {
     var messageBody = sqsMessage
 
     if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
