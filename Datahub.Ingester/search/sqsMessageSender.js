@@ -8,6 +8,7 @@ module.exports.sendMessages = async function (messages, config) {
   var errors = []
   var sqs = new AWS.SQS()
 
+  console.log(`SQS - ${message.length} messages to send`)
   for (var message in messages) {
     var params = {
       MessageBody: JSON.stringify(message),
