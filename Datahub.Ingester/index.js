@@ -89,14 +89,14 @@ async function publishToHub (message, callback) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
 
-  // // Check if messages need base64 content adding and save large messages to S3
-  // var messageBodies = []
-  // for (var sqsMessage of sqsMessages) {
-  //   var messageBody = sqsMessage
+  // Check if messages need base64 content adding and save large messages to S3
+  var messageBodies = []
+  for (var sqsMessage of sqsMessages) {
+    var messageBody = sqsMessage
 
-  //   if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
-  //     console.log(`Adding base64 file content to SQS message`)
-  //     var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
+    if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
+      console.log(`Adding base64 file content to SQS message`)
+      var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
   //     var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(message, clonedMessage)
   //     if (!addBase64Success) {
   //       callback(new Error(`Failed to add base64 content with the following errors: [${addBase64Errors.join(', ')}]`))
@@ -118,10 +118,10 @@ async function publishToHub (message, callback) {
   //     } else {
   //       messageBody = messageWithBase64Content
   //     }
-  //   }
+    }
 
-  //   messageBodies.push(messageBody)
-  // }
+    messageBodies.push(messageBody)
+  }
 
   // // Put new record onto Dynamo handler without base64 encodings
   // var dynamoMessage = JSON.parse(JSON.stringify(message))
