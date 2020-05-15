@@ -130,9 +130,9 @@ async function publishToHub (message, callback) {
       resource.http.fileBase64 = null
     })
   }
-  await dynamo.putAsset(dynamoMessage).catch((error) => {
-    callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
-  })
+  // await dynamo.putAsset(dynamoMessage).catch((error) => {
+  //   callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
+  // })
 
   // // Delete any existing data in search index
   // await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
