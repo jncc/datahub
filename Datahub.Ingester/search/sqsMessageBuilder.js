@@ -143,7 +143,7 @@ async function createSQSMessageForFileResource (message, resource) {
  *
  * @param {fileExtension} fileExtension The file extension to check
  */
-function fileTypeIsIndexable (fileExtension) {
+module.exports.fileTypeIsIndexable = function (fileExtension) {
   if (fileExtension === 'pdf') {
     return true
   }
@@ -156,6 +156,6 @@ function fileTypeIsIndexable (fileExtension) {
  *
  * @param {string} url The url to try and fetch
  */
-function getBase64ForFile (url) {
+module.exports.getBase64ForFile = function (url) {
   return axios.get(url, { responseType: 'arraybuffer' })
 }

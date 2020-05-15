@@ -45,7 +45,7 @@ exports.handler = async function (message, context, callback) {
       callback(JSON.stringify(s3MessageErrors, null, 2))
     }
 
-    console.log(`Publishing record with id ${s3Message.asset.id} and title ${s3Message.asset.title}`)
+    console.log(`Publishing record with id ${s3Message.asset.id}`)
     await publishToHub(s3Message, callback)
     callback(null, s3Message)
   }
