@@ -4,7 +4,7 @@ const env = require('../env')
 
 const AWS = require('aws-sdk')
 
-module.exports.sendMessages = async function (messages) {
+module.exports.sendMessages = async function (messages, config) {
   var errors = []
   var sqs = new AWS.SQS()
 
