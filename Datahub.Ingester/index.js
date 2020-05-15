@@ -105,16 +105,16 @@ async function publishToHub (message, callback) {
       // check if the message is now too large, if it is then save to S3
       var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
       if (largeMessage) {
-  //       var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(messageWithBase64Content, message.config)
-  //       if (!uploadSuccess) {
-  //         callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
-  //       }
+        var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(messageWithBase64Content, message.config)
+        if (!uploadSuccess) {
+          callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
+        }
 
-  //       // message body now points to S3 location
-  //       messageBody = {
-  //         s3BucketName: message.config.sqs.largeMessageBucket,
-  //         s3Key: s3Key
-  //       }
+        // message body now points to S3 location
+        messageBody = {
+          s3BucketName: message.config.sqs.largeMessageBucket,
+          s3Key: s3Key
+        }
       } else {
         messageBody = messageWithBase64Content
       }
