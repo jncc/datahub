@@ -129,7 +129,7 @@ async function publishToHub (message, callback) {
       resource.http.fileBase64 = null
     })
   }
-  await dynamo.putAsset(dynamoMessage).catch((error) => {
+  await dynamo.putAsset(message).catch((error) => {
     callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
   })
 
