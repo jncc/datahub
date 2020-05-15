@@ -14,7 +14,7 @@ module.exports.sendMessages = async function (messages, config) {
       QueueUrl: config.sqs.queueEndpoint
     }
 
-    console.log(`SQS - Sending message for ${message.document.id}`)
+    console.log(`SQS - Sending message ${JSON.stringify(message)} to endpoint ${config.sqs.queueEndpoint}`)
     await sqs.sendMessage(params).promise().catch((error) => {
       console.error(`Message was not sent to the queue successfully: ${error}`)
       errors.push(`Message was not sent to the queue successfully: ${error}`)
