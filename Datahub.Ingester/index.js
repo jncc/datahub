@@ -129,18 +129,18 @@ async function publishToHub (message, callback) {
       resource.http.fileBase64 = null
     })
   }
-  // await dynamo.putAsset(dynamoMessage).catch((error) => {
-  //   callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
-  // })
+  await dynamo.putAsset(dynamoMessage).catch((error) => {
+    callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
+  })
 
-  // // Delete any existing data in search index
-  // await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
+  // Delete any existing data in search index
+  await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
 
-  // // Send new indexing messages
-  // var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(messageBodies, message.config)
-  // if (!sendSuccess) {
-  //   callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))
-  // }
+  // Send new indexing messages
+  var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(messageBodies, message.config)
+  if (!sendSuccess) {
+    callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))
+  }
 }
 
 async function unpublishFromHub (message, callback) {
