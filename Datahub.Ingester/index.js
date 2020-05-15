@@ -97,12 +97,10 @@ async function publishToHub (message, callback) {
     if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
       console.log(`Adding base64 file content to SQS message`)
       var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
-      var resource = message.asset.data.find(o => o.title === sqsMessage.document.title)
-      var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(resource, clonedMessage)
+      var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await transferBase64FileContent(message, clonedMessage)
       if (!addBase64Success) {
         callback(new Error(`Failed to add base64 content with the following errors: [${addBase64Errors.join(', ')}]`))
       }
-      delete resource.http.fileBase64 // no longer need this so free memory
 
       // check if the message is now too large, if it is then save to S3
       var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
@@ -179,7 +177,8 @@ async function deleteFromElasticsearch (id, index, callback) {
   }
 }
 
-async function addBase64FileContent (resource, sqsMessage) {
+async function transferBase64FileContent (message, sqsMessage) {
+  var resource = message.asset.data.find(o => o.title === sqsMessage.document.title)
   var errors = []
 
   if (resource.http.fileBase64 === undefined) { // if not already provided then download the file
@@ -191,6 +190,7 @@ async function addBase64FileContent (resource, sqsMessage) {
     })
   } else {
     sqsMessage.document.file_base64 = resource.http.fileBase64
+    delete resource.http.fileBase64 // no longer need this so free memory
   }
 
   return { success: true, errors: errors, messageWithBase64Content: sqsMessage }
