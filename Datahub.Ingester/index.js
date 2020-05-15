@@ -97,14 +97,14 @@ async function publishToHub (message, callback) {
     if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
       console.log(`Adding base64 file content to SQS message`)
       var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
-  //     var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(message, clonedMessage)
-  //     if (!addBase64Success) {
-  //       callback(new Error(`Failed to add base64 content with the following errors: [${addBase64Errors.join(', ')}]`))
-  //     }
+      var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(message, clonedMessage)
+      if (!addBase64Success) {
+        callback(new Error(`Failed to add base64 content with the following errors: [${addBase64Errors.join(', ')}]`))
+      }
 
-  //     // check if the message is now too large, if it is then save to S3
-  //     var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
-  //     if (largeMessage) {
+      // check if the message is now too large, if it is then save to S3
+      var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
+      if (largeMessage) {
   //       var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(messageWithBase64Content, message.config)
   //       if (!uploadSuccess) {
   //         callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
@@ -115,9 +115,9 @@ async function publishToHub (message, callback) {
   //         s3BucketName: message.config.sqs.largeMessageBucket,
   //         s3Key: s3Key
   //       }
-  //     } else {
-  //       messageBody = messageWithBase64Content
-  //     }
+      } else {
+        messageBody = messageWithBase64Content
+      }
     }
 
     messageBodies.push(messageBody)
