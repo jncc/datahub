@@ -123,16 +123,16 @@ async function publishToHub (message, callback) {
     messageBodies.push(messageBody)
   }
 
-  // // Put new record onto Dynamo handler without base64 encodings
-  // var dynamoMessage = JSON.parse(JSON.stringify(message))
-  // if (dynamoMessage.asset.data) {
-  //   dynamoMessage.asset.data.forEach(resource => {
-  //     resource.http.fileBase64 = null
-  //   })
-  // }
-  // await dynamo.putAsset(dynamoMessage).catch((error) => {
-  //   callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
-  // })
+  // Put new record onto Dynamo handler without base64 encodings
+  var dynamoMessage = JSON.parse(JSON.stringify(message))
+  if (dynamoMessage.asset.data) {
+    dynamoMessage.asset.data.forEach(resource => {
+      resource.http.fileBase64 = null
+    })
+  }
+  await dynamo.putAsset(dynamoMessage).catch((error) => {
+    callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
+  })
 
   // // Delete any existing data in search index
   // await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
