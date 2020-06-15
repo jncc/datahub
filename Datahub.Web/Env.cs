@@ -19,6 +19,7 @@ namespace Datahub.Web
         public string BASE_URL { get; private set; }
         public string FORCE_HTTPS { get; private set; }
         public string JNCC_WEBSITE_URL { get; private set; }
+        public string JNCC_SEARCH_URL { get; private set; }
 
         public Env()
         {
@@ -36,6 +37,7 @@ namespace Datahub.Web
             this.BASE_URL = GetVariable("BASE_URL", Required.No);
             this.FORCE_HTTPS = GetVariable("FORCE_HTTPS", Required.No);
             this.JNCC_WEBSITE_URL = GetVariable("JNCC_WEBSITE_URL", Required.No, "https://jncc.gov.uk");
+            this.JNCC_SEARCH_URL = GetVariable("JNCC_SEARCH_URL", Required.No, "https://search.jncc.gov.uk");
         }
 
         string GetVariable(string name, Required required, string defaultValue = null)
