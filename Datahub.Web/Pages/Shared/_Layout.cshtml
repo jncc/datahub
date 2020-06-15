@@ -62,7 +62,7 @@
 				<strong class="logo">
 					<a href="@(LayoutViewModel.JNCC_WEBSITE_URL)" accesskey="1"><img src="~/frontend/images/logo.png" alt="JNCC"></a>
 				</strong>
-				<form action="@(LayoutViewModel.JNCC_WEBSITE_URL)/search" role="search" class="top-bar search-form input-group" id="search-form" data-animate="hinge-in-from-top spin-out">
+				<form action="@(LayoutViewModel.JNCC_SEARCH_URL)" role="search" class="top-bar search-form input-group" id="search-form" data-animate="hinge-in-from-top spin-out">
 					<label for="search-field" class="show-for-sr" accesskey="4">Search:</label>
 					<input type="search" name="q" placeholder="Search jncc.gov.uk" class="input-group-field" id="search-field">
 					<button class="input-group-button" aria-label="search-button"><i class="icon-search"></i></button>
@@ -154,13 +154,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="is-dropdown-submenu-parent @(ViewBag.CurrentPage == "Index" ? "active" : "") ">
+                        <li class="menuitem @(ViewBag.CurrentPage == "Index" ? "active" : "") ">
                             <a href="~/">Resources</a>
-                            <ul class="vertical menu nested">
-        						<li class="">
-                                    <a href="~/search">Search our resources</a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="is-dropdown-submenu-parent">
                             <a href="https://jncc.gov.uk/about-jncc/">About JNCC</a>
