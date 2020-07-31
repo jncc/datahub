@@ -78,6 +78,7 @@
             <span class="text-small text-muted">@Model.Asset.Metadata.DatasetReferenceDate.Substring(0, 4)</span>
         </h1>
 
+        @* TODO: Add this back in once we have keyword search
         <p>
             @foreach (var k in AssetHelpers.FilterKnownBadKeywords(Model.Asset.Metadata.Keywords))
             {
@@ -86,7 +87,7 @@
                     @await Html.PartialAsync("_Keyword", new Keyword { Vocab = k.Vocab, Value = k.Value })
                 </a>
             }
-        </p>
+        </p> *@
         <div class="module">
             <p id="abstract">
                 <span class="text-label">Abstract</span> @Markdown.ParseHtmlString(Model.Asset.Metadata.Abstract)
