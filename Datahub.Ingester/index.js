@@ -51,7 +51,7 @@ exports.handler = async function (message, context, callback) {
   }
 
   if (message.config.action === 'unpublish') {
-    const { valid, errors } = validator.validateDeleteMessage(message)
+    const { valid, errors } = validator.validateUnpublishMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }

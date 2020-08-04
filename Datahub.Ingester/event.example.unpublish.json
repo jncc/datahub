@@ -10,10 +10,6 @@
     "dynamo": {
       "table": "datahub-assets-dev"
     },
-    "sqs": {
-      "queueEndpoint": "http://localhost:4576/queue/datahub-queue-dev",
-      "largeMessageBucket": "datahub-queue-assets-dev"
-    },
     "action": "unpublish"
   },
   "asset": {
