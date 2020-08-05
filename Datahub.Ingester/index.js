@@ -172,7 +172,7 @@ async function deleteFromElasticsearch (id, index, callback) {
   console.log(`Elasticsearch - Removing records with asset_id '${id}' in index '${index}'`)
   var { success, messages } = await esMessageSender.deleteByAssetId(id, index)
   if (!success) {
-    callback(new Error(`Failed to delete old search index records for asset ${id}, DynamoDB record still exists: ${messages.join(', ')}`))
+    callback(new Error(`Failed to delete old search index records for asset ${id}: ${messages.join(', ')}`))
   }
 }
 

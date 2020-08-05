@@ -4,9 +4,6 @@
       "index": "website-search-dev",
       "site": "datahub"
     },
-    "hub": {
-      "baseUrl": "https://hub.jncc.gov.uk"
-    },
     "dynamo": {
       "table": "datahub-assets-dev"
     },
