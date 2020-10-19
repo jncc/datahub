@@ -27,6 +27,24 @@ namespace Datahub.Web.Pages.Helpers
                 return String.Empty;
         }
 
+        public static string EnsureHttpsLink(string url)
+        {
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
+            {
+                var b = new UriBuilder(uri)
+                {
+                    Scheme = Uri.UriSchemeHttps,
+                    Port = -1 // default port for scheme
+                };
+
+                return b.ToString();
+            }
+            else
+            {
+                return String.Empty;
+            }
+        }
+
         public static string GetFileExtensionForDisplay(string fileExtension)
         {
             if (fileExtension.IsNotBlank())
