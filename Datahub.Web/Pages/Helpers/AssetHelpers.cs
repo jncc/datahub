@@ -27,22 +27,23 @@ namespace Datahub.Web.Pages.Helpers
                 return String.Empty;
         }
 
-        public static string EnsureHttpsLink(string url)
+        public static string EnsureHttpsLinksForDataDotJncc(string url)
         {
             if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
             {
-                var b = new UriBuilder(uri)
+                if (uri.Host == "data.jncc.gov.uk")
                 {
-                    Scheme = Uri.UriSchemeHttps,
-                    Port = -1 // default port for scheme
-                };
+                    var b = new UriBuilder(uri)
+                    {
+                        Scheme = Uri.UriSchemeHttps,
+                        Port = -1 // default port for scheme
+                    };
 
-                return b.ToString();
+                    return b.ToString();
+                }
             }
-            else
-            {
-                return String.Empty;
-            }
+
+            return url;
         }
 
         public static string GetFileExtensionForDisplay(string fileExtension)
