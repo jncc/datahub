@@ -23,11 +23,11 @@
 
     @if (Model.Highlights.Any(x => x.Key == "title"))
     {
-        <a href="@AssetHelpers.EnsureHttpsLinksForDataDotJncc(Model.Source.Url))">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
+        <a href="@AssetHelpers.EnsureHttpsLinksForDataDotJncc(Model.Source.Url)">@Html.Raw(Model.Highlights.First(x => x.Key == "title").Value.Highlights.First())</a>
     }
     else
     {
-        <a href="@AssetHelpers.EnsureHttpsLinksForDataDotJncc((Model.Source.Url))">@(Model.Source.Title)</a>
+        <a href="@AssetHelpers.EnsureHttpsLinksForDataDotJncc(Model.Source.Url)">@(Model.Source.Title)</a>
     }
 
 
