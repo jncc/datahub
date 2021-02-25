@@ -11,15 +11,27 @@ namespace Datahub.Web.Content
             {
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/4073feba-5a2f-4fe9-9682-ea098c84d73f",
-                    Title = "Joint Committee Meeting - September 2016",
-                    Abstract = "The one hundred and eighth meeting of the Joint Nature Conservation Committee."
+                    Url = "https://hub.jncc.gov.uk/assets/daa8e792-a36e-436b-98d7-e2f38e860650",
+                    Title = "The Linking Environment to Trade (LET) Guide",
+                    Abstract = "Published in November 2020, The LET Guide summarises results of an assessment of current thinking and best practice designed to help practitioners and policy makers reduce the embodied environmental impact associated with global trade and consumption."
                 },
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/328bf8f3-f1e9-499c-80a5-0ecc81fd7334",
-                    Title = "The use of harbour porpoise sightings data to inform the development of Special Areas of Conservation in UK waters",
-                    Abstract = "This paper describes how harbour porpoise sightings' data were used by the UK’s country nature conservation bodies (CNCBs) to identify possible Special Areas of Conservation (SACs)."
+                    Url = "https://dfgsdgsdfhsdfh",
+                    Title = "EO4cultivar Colombia Resources",
+                    Abstract = "The resources, including reports, data, and management guides, produced for the Eo4cultivar project’s case study in Colombia, were published in November 2020."
+                },
+                new AssetSnippet
+                {
+                    Url = "https://hub.jncc.gov.uk/assets/048f7e78-a2c6-4982-91c3-e496f063bf2b",
+                    Title = "UK Biodiversity Indicators 2020",
+                    Abstract = "Summary of the 2020 update of the UK Biodiversity Indicators, published on 15 October 2020."
+                },
+                new AssetSnippet
+                {
+                    Url = "https://hub.jncc.gov.uk/assets/ccb9f624-7121-4c32-aefa-e0579d7eaaa1",
+                    Title = "JNCC strategy 2020–2025",
+                    Abstract = "Our strategy to 2025 describes how we will enable decision makers to address the inter-related environmental crises of climate change and biodiversity loss."
                 },
             },
             FeaturedDatasets = new List<AssetSnippet>
