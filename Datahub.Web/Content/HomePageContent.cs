@@ -17,7 +17,7 @@ namespace Datahub.Web.Content
                 },
                 new AssetSnippet
                 {
-                    Url = "https://dfgsdgsdfhsdfh",
+                    Url = "https://hub.jncc.gov.uk/assets/fc25e10e-857b-4c08-a591-30fcd65d96dc",
                     Title = "EO4cultivar Colombia Resources",
                     Abstract = "The resources, including reports, data, and management guides, produced for the Eo4cultivar project’s case study in Colombia, were published in November 2020."
                 },
