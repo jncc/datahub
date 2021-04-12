@@ -75,15 +75,18 @@ Run locally (on port 8000, with your existing development `.env` file):
 
     docker run -p 8000:80 --env-file .env {image-name}
 
-From the **Amazon ECR** web console, copy the `jncc-datahub-web`  repository URI to clipboard (e.g. `123456789.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web`).
+From the **Amazon ECR** web console, copy the `jncc-datahub-web`  repository URI to clipboard (e.g. `<account_id>.dkr.ecr.eu-west-1.amazonaws.com/jncc-datahub-web`).
 
     docker tag {image-name} {aws-ecr-repository-uri}
 
-Using an AWS profile with sufficient permissions, get the Docker login command:
+    aws ecr get-login-password --region eu-west-1 [--profile your-profile-name] \
+    | docker login \
+        --username AWS \
+        --password-stdin <account_id>.dkr.ecr.eu-west-1.amazonaws.com
 
-    aws ecr get-login --no-include-email [--profile your-profile-name]
+(where `<account_id>` is the account ID above). Or, in Powershell, e.g. 
 
-Run the command that you're given. Then run:
+    aws ecr get-login-password --profile jncc-prod-admin --region eu-west-1 | docker login --username AWS --password-stdin 1234567890.dkr.ecr.eu-west-1.amazonaws.com
 
     docker push {aws-ecr-repository-uri}
 
@@ -103,7 +106,7 @@ Done! (Phew.)
 
 Install the elastic beanstalk cli if not already done so
 
-    pip install awsebcli --upgrade --user
+    pip install awsebcli --upgrade --user # but check the latest way to install EB on your OS
 
 This will be installed in ~/.local/bin on liunx - you probably want to add this to your PATH statement.
 

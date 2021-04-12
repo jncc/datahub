@@ -27,6 +27,25 @@ namespace Datahub.Web.Pages.Helpers
                 return String.Empty;
         }
 
+        public static string EnsureHttpsLinksForDataDotJncc(string url)
+        {
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri))
+            {
+                if (uri.Host == "data.jncc.gov.uk")
+                {
+                    var b = new UriBuilder(uri)
+                    {
+                        Scheme = Uri.UriSchemeHttps,
+                        Port = -1 // default port for scheme
+                    };
+
+                    return b.ToString();
+                }
+            }
+
+            return url;
+        }
+
         public static string GetFileExtensionForDisplay(string fileExtension)
         {
             if (fileExtension.IsNotBlank())
