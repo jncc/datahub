@@ -40,7 +40,7 @@ namespace Datahub.Web.Content
                 {
                     Url = "https://hub.jncc.gov.uk/assets/d6381e39-baa4-4f12-93d7-fa16dd3600b8",
                     Title = "JNCC Open Data Policy",
-                    Abstract = "Open data is “data that anyone is free to access, use, modify, and share for any purpose – subject, at most, to measures that preserve provenance and openness” (The Open Definition). Open data is recognised in government policy and by civil society as a system of principles..",
+                    Abstract = "Open data is “data that anyone is free to access, use, modify, and share for any purpose – subject, at most, to measures that preserve provenance and openness” (The Open Definition). JNCC collects and processes a wide range of scientific data, and produces and maintains a large number of datasets. Our open data approach is provided in our Open Data Policy.",
                 },
             },
             FeaturedCategories = new List<CategorySnippet>
