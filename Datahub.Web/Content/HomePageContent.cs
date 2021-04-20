@@ -33,7 +33,7 @@ namespace Datahub.Web.Content
                 new AssetSnippet
                 {
                     Url = "https://hub.jncc.gov.uk/assets/ccb9f624-7121-4c32-aefa-e0579d7eaaa1",
-                    Title = "JNCC strategy 2020–2025",
+                    Title = "JNCC Strategy 2020–2025",
                     Abstract = "Our strategy to 2025 describes how we will enable decision makers to address the inter-related environmental crises of climate change and biodiversity loss."
                 },
                 new AssetSnippet
