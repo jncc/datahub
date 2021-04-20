@@ -7,7 +7,7 @@ namespace Datahub.Web.Content
     {
         public static HomePageContent Content = new HomePageContent
         {
-            FeaturedPublications = new List<AssetSnippet>
+            Column1Resources = new List<AssetSnippet>
             {
                 new AssetSnippet
                 {
@@ -27,20 +27,14 @@ namespace Datahub.Web.Content
                     Title = "UK Biodiversity Indicators 2020",
                     Abstract = "Summary of the 2020 update of the UK Biodiversity Indicators, published on 15 October 2020."
                 },
+            },
+            Column2Resources = new List<AssetSnippet>
+            {
                 new AssetSnippet
                 {
                     Url = "https://hub.jncc.gov.uk/assets/ccb9f624-7121-4c32-aefa-e0579d7eaaa1",
                     Title = "JNCC strategy 2020–2025",
                     Abstract = "Our strategy to 2025 describes how we will enable decision makers to address the inter-related environmental crises of climate change and biodiversity loss."
-                },
-            },
-            FeaturedDatasets = new List<AssetSnippet>
-            {
-                new AssetSnippet
-                {
-                    Url = "https://hub.jncc.gov.uk/assets/e2a46de5-43d4-43f0-b296-c62134397ce4",
-                    Title = "JNCC guidelines for minimising the risk of injury to marine mammals from geophysical surveys",
-                    Abstract = "These guidelines outline measures to minimise potential injury to marine mammals (cetaceans and seals) from geophysical surveys (e.g. seismic air-guns, sub-bottom profiling equipment).",
                 },
                 new AssetSnippet
                 {
@@ -98,8 +92,8 @@ namespace Datahub.Web.Content
 
         // end of editable content
 
-        public List<AssetSnippet>    FeaturedPublications { get; private set; }
-        public List<AssetSnippet>    FeaturedDatasets     { get; private set; }
+        public List<AssetSnippet>    Column1Resources     { get; private set; }
+        public List<AssetSnippet>    Column2Resources     { get; private set; }
         public List<CategorySnippet> FeaturedCategories   { get; private set; }
 
     }
