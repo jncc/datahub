@@ -33,14 +33,13 @@
 
 <div class="exemplar-list-header">
     <h2>
-        Recently published
+        Featured resources
     </h2>
     <div class="grid-x grid-margin-x space-below">
         <div class="cell medium-6 large">
-            @foreach (var a in HomePageContent.Content.FeaturedPublications) {
+            @foreach (var a in HomePageContent.Content.Column1Resources) {
                 <div class="exemplar">
                     <div class="exemplar-title">
-                        <i class="space-after fas @(AssetHelpers.GetIconName("publication"))"></i>
                         @a.Title
                     </div>
                     <div>@a.Abstract</div>
@@ -50,10 +49,9 @@
         </div>
 
         <div class="cell medium-6 large">
-            @foreach (var a in HomePageContent.Content.FeaturedDatasets) {
+            @foreach (var a in HomePageContent.Content.Column2Resources) {
                 <div class="exemplar">
                     <div class="exemplar-title">
-                        <i class="space-after fas @(AssetHelpers.GetIconName("dataset"))"></i>
                         @a.Title
                     </div>
                     <div>@a.Abstract</div>
