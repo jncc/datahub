@@ -2,7 +2,7 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 .text-muted {
-    color: #999;
+    color: #7f7b7b;
 }
 .text-small {
     font-size: 85%;
@@ -39,7 +39,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .square-badge {
     font-size: 70%;
-    background-color: #999;
+    background-color: #7f7b7b;
     color: white;
     font-weight: bold;
     border-radius: 0.3rem;
@@ -47,8 +47,8 @@ for details on configuring this project to bundle and minify static web assets. 
     vertical-align: middle;
 }
 .round-badge {
-    background-color: #48A943;
-    font-size: 70%;
+    background-color: #3b9436;
+    font-size: 90%;
     color: white;
     font-weight: bold;
     border-radius: 0.5rem;
@@ -156,7 +156,7 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-bottom: 2rem;
 }
 .exemplar {
-    background-color: #ddd;
+    background-color: #ececec;
     padding: 1rem 1.5rem;
     margin-bottom: 1rem;
 }

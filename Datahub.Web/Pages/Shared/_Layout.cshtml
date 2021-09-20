@@ -2,7 +2,7 @@
 @using Datahub.Web.Pages.Helpers
 
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     @if (LayoutViewModel.GOOGLE_ANALYTICS) {
         <!-- Google Tag Manager -->
@@ -18,7 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>
         @(ViewData["Title"] == null || ViewData["Title"].ToString() == String.Empty
-            ? "JNCC Resource Hub"
+            ? "Home | JNCC Resource Hub"
             : ViewData["Title"] + " | JNCC Resource Hub")
     </title>
 	@if(ViewData["Description"] != null)
