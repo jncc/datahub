@@ -89,9 +89,9 @@
         </p>
         <div class="module">
             <h2>Abstract</h2>
-            <p id="abstract">
+            <div id="abstract">
                 @Markdown.ParseHtmlString(Model.Asset.Metadata.Abstract)
-            </p>
+            </div>
         </div>
 
     </div>
@@ -112,64 +112,6 @@
 
 <!-- tabs -->
 <div class="grid-x grid-margin-x">
-    <div class="cell large-6 large-order-2">
-        <ul class="tabs" data-tabs id="resource-tabs">
-            <li class="tabs-title is-active">
-                <a href="#resource-list" aria-selected="true">
-                    <i class="fas fa-cloud-download-alt"></i>
-                    <span class="space-after">Resources</span> <span class="round-badge">@(Model.Asset.Data.Count(d => d.Http != null))</span>
-                </a>
-            </li>
-        </ul>
-        <div class="tabs-content space-below" data-tabs-content="resource-tabs">
-            <div class="tabs-panel is-active" id="resource-list">
-                <ul>
-                    @foreach (var d in Model.Asset.Data) {
-                        if (@d.Http != null) {
-                            <li class="pb-2" id="@AssetHelpers.GetFileNameForDisplay(d.Http.Url)">
-                                <div class="grid-x embedded-grid">
-                                    <div class="cell small-11">
-                                        <div class="highlightable">
-                                            <span>
-                                                <a href="@AssetHelpers.EnsureHttpsLinksForDataDotJncc(d.Http.Url)"
-                                                    class="space-after"
-                                                    data-event="@(d.Http.FileExtension.IsNotBlank() ? "download" : "external")"
-                                                    data-size="@(d.Http.FileBytes.IsNotBlank() ? d.Http.FileBytes : "0")"
-                                                    target="_blank">@(d.Title)</a>
-                                                @if (d.Http.FileExtension.IsNotBlank())
-                                                {
-                                                    <span class="square-badge">@d.Http.FileExtension.ToUpper()</span>
-                                                } else {
-                                                    <span class="square-badge" title="External link" data-toggle="tooltip">
-                                                        <span class="fas fa-external-link-alt"></span>
-                                                    </span>
-                                                }
-                                            </span>
-                                            <br />
-                                            <span class="text-small">
-                                                @if(d.Http.FileExtension.IsNotBlank() && d.Http.FileBytes.IsNotBlank())
-                                                {
-                                                    <span style="word-spacing:-0.3em; margin-right:0.6em">
-                                                        @ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)
-                                                    </span>
-                                                    <span style="overflow-wrap: break-word;" class="text-muted">
-                                                        @AssetHelpers.GetFileNameForDisplay(d.Http.Url)
-                                                    </span>
-                                                }
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="cell small-1">
-                                        <div class="highlight-bar"></div>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
-        </div>
-    </div>
     <div class="cell large-6 large-order-1">
         <ul class="tabs" data-tabs id="detail-tabs">
             <li class="tabs-title is-active">
@@ -336,6 +278,64 @@
                         </tr>
                     </table>
                 }
+            </div>
+        </div>
+    </div>
+    <div class="cell large-6 large-order-2">
+        <ul class="tabs" data-tabs id="resource-tabs">
+            <li class="tabs-title is-active">
+                <a href="#resource-list" aria-selected="true">
+                    <i class="fas fa-cloud-download-alt"></i>
+                    <span class="space-after">Resources</span> <span class="round-badge">@(Model.Asset.Data.Count(d => d.Http != null))</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tabs-content space-below" data-tabs-content="resource-tabs">
+            <div class="tabs-panel is-active" id="resource-list">
+                <ul>
+                    @foreach (var d in Model.Asset.Data) {
+                        if (@d.Http != null) {
+                            <li class="pb-2" id="@AssetHelpers.GetFileNameForDisplay(d.Http.Url)">
+                                <div class="grid-x embedded-grid">
+                                    <div class="cell small-11">
+                                        <div class="highlightable">
+                                            <span>
+                                                <a href="@AssetHelpers.EnsureHttpsLinksForDataDotJncc(d.Http.Url)"
+                                                    class="space-after"
+                                                    data-event="@(d.Http.FileExtension.IsNotBlank() ? "download" : "external")"
+                                                    data-size="@(d.Http.FileBytes.IsNotBlank() ? d.Http.FileBytes : "0")"
+                                                    target="_blank">@(d.Title)</a>
+                                                @if (d.Http.FileExtension.IsNotBlank())
+                                                {
+                                                    <span class="square-badge">@d.Http.FileExtension.ToUpper()</span>
+                                                } else {
+                                                    <span class="square-badge" title="External link" data-toggle="tooltip">
+                                                        <span class="fas fa-external-link-alt"></span>
+                                                    </span>
+                                                }
+                                            </span>
+                                            <br />
+                                            <span class="text-small">
+                                                @if(d.Http.FileExtension.IsNotBlank() && d.Http.FileBytes.IsNotBlank())
+                                                {
+                                                    <span style="word-spacing:-0.3em; margin-right:0.6em">
+                                                        @ByteHelpers.FormatBytesForDisplay(d.Http.FileBytes)
+                                                    </span>
+                                                    <span style="overflow-wrap: break-word;" class="text-muted">
+                                                        @AssetHelpers.GetFileNameForDisplay(d.Http.Url)
+                                                    </span>
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="cell small-1">
+                                        <div class="highlight-bar"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
             </div>
         </div>
     </div>
