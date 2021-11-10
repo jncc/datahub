@@ -8,8 +8,8 @@ module.exports.deleteByAssetId = async function (id, index) {
 
   // Assume role from jncc-website-x to do the invoke
   var stsParams = {
-    RoleArn: '',
-    RoleSessionName: ''
+    RoleArn: env.SEARCH_DELETER_ROLE,
+    RoleSessionName: 'SearchDeleterRoleSession'
   }
 
   console.error(`Assuming role for lambda invocation`)
