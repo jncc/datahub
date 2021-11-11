@@ -13,15 +13,13 @@ module.exports.deleteByAssetId = async function (id, index) {
   }
 
   console.log(`Assuming role for lambda invocation`)
-  var assumedRole = await sts.assumeRole(stsParams).catch((error) => {
-    console.error(`Role assumption failed: ${error}`)
-    errors.push(error)
-  })
+  var assumedRole = await sts.assumeRole(stsParams).promise()
   
   var tempCredentials = {
     accessKeyId: assumedRole.Credentials.AccessKeyId,
     secretAccessKey: assumedRole.Credentials.SecretAccessKey,
     sessionToken: assumedRole.Credentials.SessionToken,
+    region: env.SEARCH_DELETER_REGION
   }
 
   var lambda = new AWS.Lambda(tempCredentials)

@@ -6,6 +6,7 @@ module.exports = {
 
   get SEARCH_DELETER_ROLE () { return process.env.SEARCH_DELETER_ROLE },
   get SEARCH_DELETER_LAMBDA () { return process.env.SEARCH_DELETER_LAMBDA },
+  get SEARCH_DELETER_REGION () { return process.env.SEARCH_DELETER_REGION },
 
   get USE_LOCALSTACK () { return process.env.USE_LOCALSTACK.toLowerCase() === 'true' ? true : false }
 }
