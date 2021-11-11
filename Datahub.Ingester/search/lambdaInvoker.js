@@ -12,7 +12,7 @@ module.exports.deleteByAssetId = async function (id, index) {
     RoleSessionName: 'SearchDeleterRoleSession'
   }
 
-  console.error(`Assuming role for lambda invocation`)
+  console.log(`Assuming role for lambda invocation`)
   var assumedRole = sts.assumeRole(stsParams).promise()
   
   var tempCredentials = {
@@ -30,7 +30,7 @@ module.exports.deleteByAssetId = async function (id, index) {
     Payload: `{ "id": "${id}", "index": "${index}" }`
   }
 
-  console.error(`Invoking lambda ${env.SEARCH_DELETER_LAMBDA}`)
+  console.log(`Invoking lambda ${env.SEARCH_DELETER_LAMBDA}`)
   lambda.invoke(lambdaParams, function(err, data) {
     if (err) {
       console.error(`${env.SEARCH_DELETER_LAMBDA} lambda delete by asset ID '${id}' request failed: ${err}`)
