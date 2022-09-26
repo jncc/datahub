@@ -1,28 +1,23 @@
-const sendRequest = require('../aws/awsSendRequest')
+import { sendRequest } from "../aws/awsSendRequest";
 
 module.exports.deleteById = async function (id, index) {
-  var errors = []
+  var errors = [];
 
   // Delete Children
   await sendRequest({
-    method: 'POST',
-    path: `${index}/_delete_by_query`,
-    body: {
-      query: {
-        match: {
-          parent_id: id
-        }
-      }
-    }
+    method: 'DELETE_BY_PARENT_ID',
+    index: index,
+    id: id
   }).catch((error) => {
     console.error(`Elasticsearch - DELETE By Parent ID '${id}' ES request failed: ${error}`)
     errors.push(error)
-  })
+  });
 
   // Delete asset
   await sendRequest({
     method: 'DELETE',
-    path: `${index}/_doc/${id}`,
+    index: index,
+    id: id,
     body: {}
   }).catch((error) => {
     if (error.response.status === 404) {
@@ -31,7 +26,7 @@ module.exports.deleteById = async function (id, index) {
       console.error(`Elasticsearch - DELETE ES request for '${id}' failed: ${error}`)
       errors.push(error)
     }
-  })
+  });
 
-  return { success: errors.length === 0, messages: errors }
+  return { success: errors.length === 0, messages: errors };
 }

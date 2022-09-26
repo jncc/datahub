@@ -1,7 +1,7 @@
 const axios = require('axios')
 const urljoin = require('url-join')
 
-const sendSignedRequest = require('./awsSendSignedRequest')
+const sendSignedRequest = require('./awsSendSignedRequest').default
 const env = require('../env')
 
 /**

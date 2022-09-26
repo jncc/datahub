@@ -1,18 +1,20 @@
+import { S3 } from '@aws-sdk/client-s3'
+import { SQS } from '@aws-sdk/client-sqs'
+
 const maxMessageSize = 256000
 
-const env = require('../env')
-const uuid4 = require('uuid/v4')
-const sizeof = require('object-sizeof')
+import { USE_LOCALSTACK } from '../env'
+import uuid4 from 'uuid/v4'
+import sizeof from 'object-sizeof'
 
-const AWS = require('aws-sdk')
-const s3 = new AWS.S3({
-  endpoint: env.USE_LOCALSTACK ? new AWS.Endpoint('http://localhost:4572') : undefined,
-  s3ForcePathStyle: env.USE_LOCALSTACK
+const s3 = new S3({
+  endpoint: USE_LOCALSTACK ? 'http://localhost:4572' : undefined,
+  s3ForcePathStyle: USE_LOCALSTACK
 })
 
-module.exports.sendMessages = async function (messages, config) {
+export async function sendMessages (messages, config) {
   var errors = []
-  var sqs = new AWS.SQS()
+  var sqs = new SQS()
 
   for (var id in messages) {
     var message = messages[id]

@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk')
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
 const env = require('../env')
 
 var dynamo = null
@@ -6,9 +6,9 @@ var dynamo = null
 function getClient () {
   if (dynamo === null) {
     if (env.USE_LOCALSTACK) {
-      dynamo = new AWS.DynamoDB.DocumentClient({ endpoint: 'http://localhost:4569' })
+      dynamo = new DynamoDBClient.DocumentClient({ endpoint: 'http://localhost:4569' })
     } else {
-      dynamo = new AWS.DynamoDB.DocumentClient()
+      dynamo = new DynamoDBClient.DocumentClient()
     }
   }
   return dynamo
