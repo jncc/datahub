@@ -5,6 +5,11 @@ const urljoin = require('url-join')
 const program = require('yargs')
 const fs = require('fs')
 const uuid4 = require('uuid/v4')
+const opensearch = require('@opensearch-project/opensearch')
+
+const edgePort = 4566
+const region = 'eu-west-2'
+const profile = 'localstack'
 
 const main = async () => {
   program
@@ -98,12 +103,12 @@ const main = async () => {
 
 function createDynamoDB (table) {
   console.log(`CREATE DynamoDB Table - ${table}`)
-  runCommand(`aws dynamodb --endpoint http://localhost:4569 create-table --table-name ${table} --attribute-definitions "AttributeName=id,AttributeType=S" --key-schema "AttributeName=id,KeyType=HASH" --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1`)
+  runCommand(`aws dynamodb --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} create-table --table-name ${table} --attribute-definitions "AttributeName=id,AttributeType=S" --key-schema "AttributeName=id,KeyType=HASH" --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1`)
 }
 
 function deleteDynamoDB (table) {
   console.log(`DELETE DynamoDB Table - ${table}`)
-  runCommand(`aws dynamodb --endpoint http://localhost:4569 delete-table --table-name ${table}`)
+  runCommand(`aws dynamodb --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} delete-table --table-name ${table}`)
 }
 
 function clearDynamoDB (table) {
@@ -113,12 +118,12 @@ function clearDynamoDB (table) {
 
 function createSQSQueue (queue) {
   console.log(`CREATE SQS Queue - ${queue}`)
-  runCommand(`aws sqs --endpoint http://localhost:4576 create-queue --queue-name ${queue}`)
+  runCommand(`aws sqs --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} create-queue --queue-name ${queue}`)
 }
 
 function deleteSQSQueue (queue) {
   console.log(`DELETE SQS Queue - ${queue}`)
-  runCommand(`aws sqs --endpoint http://localhost:4576 delete-queue --queue-url http://localhost:4576/queue/${queue}`)
+  runCommand(`aws sqs --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} delete-queue --queue-url http://localhost:${edgePort}/queue/${queue}`)
 }
 
 function clearSQSQueue (queue) {
@@ -128,25 +133,29 @@ function clearSQSQueue (queue) {
 
 function createS3Bucket (bucket) {
   console.log(`CREATE S3 Bucket - ${bucket}`)
-  runCommand(`aws s3api --endpoint http://localhost:4572 create-bucket --bucket ${bucket}`)
+  runCommand(`aws s3api --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} create-bucket --bucket ${bucket} --create-bucket-configuration LocationConstraint=${region}`)
 }
 
 function deleteS3Bucket (bucket) {
   console.log(`DELETE S3 Bucket Contents - ${bucket}`)
-  runCommand(`aws s3 --endpoint http://localhost:4572 rm s3://${bucket}/ --recursive`)
+  runCommand(`aws s3 --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} rm s3://${bucket}/ --recursive`)
   console.log(`DELETE S3 Bucket - ${bucket}`)
-  runCommand(`aws s3api --endpoint http://localhost:4572 delete-bucket --bucket ${bucket}`)
+  runCommand(`aws s3api --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} delete-bucket --bucket ${bucket}`)
 }
 
 function clearS3Bucket (bucket) {
-  runCommand(`aws s3 --endpoint http://localhost:4572 rm s3://${bucket}/ --recursive`)
+  runCommand(`aws s3 --region ${region} --profile ${profile} --endpoint http://localhost:${edgePort} rm s3://${bucket}/ --recursive`)
 }
 
+const opensearchURI = 'http://my-domain.eu-west-2.opensearch.localhost.localstack.cloud:4566'
+//const opensearchURI = 'http://localhost:4571'
+
 async function createSearchIndex (index) {
+  
   console.log(`CREATE Search Index - ${index}`)
-  await axios.put(urljoin('http://localhost:4571', index))
+  await axios.put(urljoin(opensearchURI, index))
   console.log(`CREATE Search Index Mapping - ${index}`)
-  await axios.put(urljoin('http://localhost:4571', index, '_mapping', '_doc'), {
+  await axios.put(urljoin(opensearchURI, index, '_mapping', '_doc'), {
     properties: {
       site: { type: 'keyword' },
       title: { type: 'text' },
@@ -175,16 +184,16 @@ async function createSearchIndex (index) {
 
 async function deleteSearchIndex (index) {
   console.log(`DELETE Search Index - ${index}`)
-  await axios.delete(urljoin('http://localhost:4571', index))
+  await axios.delete(urljoin(opensearchURI, index))
 }
 
 async function insertSearchIndexDummyData (index) {
   console.log(`INSERT dummy data into index - ${index}`)
   var event = JSON.parse(fs.readFileSync('../event.json'))
-  await axios.put(urljoin('http://localhost:4571', index, '_doc', event.asset.id), {
+  await axios.put(urljoin(opensearchURI, index, '_doc', event.asset.id), {
     site: 'datahub'
   })
-  await axios.put(urljoin('http://localhost:4571', index, '_doc', uuid4()), {
+  await axios.put(urljoin(opensearchURI, index, '_doc', uuid4()), {
     site: 'datahub',
     parent_id: event.asset.id
   })
@@ -196,6 +205,7 @@ async function clearSearchIndex (index) {
 }
 
 async function runCommand (cmd) {
+  console.log(cmd)
   await exec(cmd, (err, stdout, stderr) => {
     if (err) {
       console.error(err)

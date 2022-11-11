@@ -1,17 +1,46 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
+const dynamodbClient = require('@aws-sdk/client-dynamodb');
+const credentialProvider = require('@aws-sdk/credential-provider-node');
+const dynamodbLib = require('@aws-sdk/lib-dynamodb')
 const env = require('../env')
 
 var dynamo = null
 
+const marshallOptions = {
+  // Whether to automatically convert empty strings, blobs, and sets to `null`.
+  convertEmptyValues: false, // false, by default.
+  // Whether to remove undefined values while marshalling.
+  removeUndefinedValues: false, // false, by default.
+  // Whether to convert typeof object to map attribute.
+  convertClassInstanceToMap: false, // false, by default.
+};
+
+const unmarshallOptions = {
+  // Whether to return numbers as a string instead of converting them to native JavaScript numbers.
+  wrapNumbers: false, // false, by default.
+};
+
+const translateConfig = { marshallOptions, unmarshallOptions };
+
 function getClient () {
   if (dynamo === null) {
-    if (env.USE_LOCALSTACK) {
-      dynamo = new DynamoDBClient.DocumentClient({ endpoint: 'http://localhost:4569' })
-    } else {
-      dynamo = new DynamoDBClient.DocumentClient()
+    var dynamoClientConfig = {
+      region: env.AWS_REGION
+    };
+
+    if (env.AWS_PROFILE) {
+      dynamoClientConfig['credentialDefaultProvider'] = credentialProvider.defaultProvider({
+        profile: env.AWS_PROFILE
+      })
     }
+
+    if (env.USE_LOCALSTACK) {
+      dynamoClientConfig['endpoint'] = 'http://localhost:4566';
+    }
+
+    ddbClient = new dynamodbClient.DynamoDBClient(dynamoClientConfig);
+    dynamo = dynamodbLib.DynamoDBDocumentClient.from(ddbClient, translateConfig);    
   }
-  return dynamo
+  return dynamo;
 }
 
 module.exports.putAsset = function (message) {
@@ -29,7 +58,7 @@ module.exports.putAsset = function (message) {
   }
 
   // put the asset into the database
-  return getClient().put(params).promise()
+  return getClient().send(new dynamodbLib.PutCommand(params));
 }
 
 module.exports.deleteAsset = function (id, table) {
@@ -40,8 +69,7 @@ module.exports.deleteAsset = function (id, table) {
     Key: { id: id }
   }
 
-  // delete the asset from the database
-  return getClient().delete(params).promise()
+  return getClient().send(new DeleteCommand(params));
 }
 
 module.exports.getAsset = async function (id, table) {
@@ -51,9 +79,5 @@ module.exports.getAsset = async function (id, table) {
     Key: { id: id }
   }
 
-  return getClient().get(params, (error, data) => {
-    if (error) {
-      console.error(`DynamoDB - Unable to get the item: ${JSON.stringify(error, null, 2)}`)
-    }
-  }).promise()
+  return getClient().send(new GetCommand(params));
 }

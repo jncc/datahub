@@ -1,7 +1,7 @@
 const axios = require('axios')
 const urljoin = require('url-join')
 
-const sendSignedRequest = require('./awsSendSignedRequest').default
+const sendSignedRequest = require('./awsSendSignedRequest')
 const env = require('../env')
 
 /**
@@ -12,7 +12,7 @@ const sendRequest = async ({ method, path, body }) => {
   if (env.USE_LOCALSTACK) {
     return sendUnsignedLocalRequest({ method, path, body })
   } else {
-    return sendSignedRequest({ method, path, body })
+    return sendSignedRequest.sendSignedRequest({ method, path, body })
   }
 }
 

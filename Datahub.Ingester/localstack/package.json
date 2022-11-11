@@ -32,8 +32,8 @@
     "yargs": "^13.3.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.502.0",
     "dotenv": "^8.0.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "@opensearch-project/opensearch": "^2.0.0"
   }
 }

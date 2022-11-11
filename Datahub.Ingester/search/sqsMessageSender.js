@@ -1,20 +1,18 @@
-import { S3 } from '@aws-sdk/client-s3'
-import { SQS } from '@aws-sdk/client-sqs'
-
+const S3 = require('@aws-sdk/client-s3')
+const SQS = require('@aws-sdk/client-sqs')
+const env = require('../env')
+const uuid4 = require('uuid/v4')
+const sizeof = require('object-sizeof')
 const maxMessageSize = 256000
 
-import { USE_LOCALSTACK } from '../env'
-import uuid4 from 'uuid/v4'
-import sizeof from 'object-sizeof'
-
-const s3 = new S3({
-  endpoint: USE_LOCALSTACK ? 'http://localhost:4572' : undefined,
-  s3ForcePathStyle: USE_LOCALSTACK
+const s3 = new S3.S3({
+  endpoint: env.USE_LOCALSTACK ? 'http://localhost:4572' : undefined,
+  s3ForcePathStyle: env.USE_LOCALSTACK
 })
 
-export async function sendMessages (messages, config) {
+async function sendMessages(messages, config) {
   var errors = []
-  var sqs = new SQS()
+  var sqs = new SQS.SQS()
 
   for (var id in messages) {
     var message = messages[id]
@@ -52,7 +50,7 @@ export async function sendMessages (messages, config) {
   return { success: errors.length === 0, messages: errors }
 }
 
-function uploadFileToS3 (message, id, bucket) {
+function uploadFileToS3(message, id, bucket) {
   const params = {
     Bucket: bucket,
     Key: id,

@@ -1,4 +1,4 @@
-import { sendRequest } from "../aws/awsSendRequest";
+const sendRequest = require('../aws/awsSendRequest')
 
 module.exports.deleteById = async function (id, index) {
   var errors = [];

@@ -1,7 +1,8 @@
-import { Client, Connection } from "@opensearch-project/opensearch";
-import { defaultProvider } from "@aws-sdk/credential-provider-node";
-import { sign } from "aws4";
-import { AWS_REGION, ES_ENDPOINT, AWS_PROFILE } from '../env';
+const opensearch = require ('@opensearch-project/opensearch') 
+const awsCredentialProviderNode = require('@aws-sdk/credential-provider-node')
+const aws4 = require ('aws4');
+const env = require('../env');
+//import { AWS_REGION, ES_ENDPOINT, AWS_PROFILE } from '../env';
 
 // // it's unclear from the docs on the best scope or lifecycle for AWS.HttpClient;
 // // it probably doesn't matter here as this code is intended to run in production in an
@@ -9,7 +10,7 @@ import { AWS_REGION, ES_ENDPOINT, AWS_PROFILE } from '../env';
 // const httpClient = new AWS.HttpClient()
 
 const createAWSConnector = (credentials, region) => {
-  class AmazonConnection extends Connection {
+  class AmazonConnection extends opensearch.Connection {
     buildRequestObject(params) {
       const request = super.buildRequestObject(params);
       request.service = 'es';
@@ -17,7 +18,7 @@ const createAWSConnector = (credentials, region) => {
       request.headers = request.headers || {};
       request.headers['host'] = request.hostname;
 
-      return sign(request, credentials)
+      return aws4.sign(request, credentials)
     }
   }
   return {
@@ -26,10 +27,10 @@ const createAWSConnector = (credentials, region) => {
 }
 
 const getClient = async () => {
-  const credentials = await defaultProvider()();
-  return new Client({
-    ...createAWSConnector(credentials, AWS_REGION),
-    node: new URL(ES_ENDPOINT).hostname,
+  const credentials = await awsCredentialProviderNode.defaultProvider()();
+  return new opensearch.Client({
+    ...createAWSConnector(credentials, env.AWS_REGION),
+    node: new URL(env.ES_ENDPOINT).hostname,
   })
 }
 
@@ -119,5 +120,3 @@ const sendSignedRequest = ({ method, index, id }) => {
 //     )
 //   })
 // }
-
-export default sendSignedRequest
