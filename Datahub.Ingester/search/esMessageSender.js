@@ -20,7 +20,7 @@ module.exports.deleteById = async function (id, index) {
     id: id,
     body: {}
   }).catch((error) => {
-    if (error.response.status === 404) {
+    if (error.statusCode === 404) {
       console.log(`Elasticsearch - DELETE request for '${id}' failed: Response was 404, so ignoring error`)
     } else {
       console.error(`Elasticsearch - DELETE ES request for '${id}' failed: ${error}`)
