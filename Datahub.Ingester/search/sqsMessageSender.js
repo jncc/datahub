@@ -6,7 +6,7 @@ const sizeof = require('object-sizeof')
 const maxMessageSize = 256000
 
 const s3 = new S3.S3({
-  endpoint: env.USE_LOCALSTACK ? 'http://localhost:4572' : undefined,
+  endpoint: env.USE_LOCALSTACK ? 'http://localhost:4566' : undefined,
   s3ForcePathStyle: env.USE_LOCALSTACK
 })
 

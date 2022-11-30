@@ -28,7 +28,7 @@ module.exports.createSQSMessages = async function (message) {
 /**
  * Create a link to where the asset will live on the hub.
  *
- * @param {uuid} id The id of the asset
+ * @param {uuid4} id The id of the asset
  * @param {url} baseUrl The base URL of the hub, provided by the config object in the inital message
  */
 function getHubUrlById (id, baseUrl) {

@@ -6,7 +6,7 @@ var s3Client = null
 function getClient () {
   if (s3Client === null) {
     if (env.USE_LOCALSTACK) {
-      s3Client = new S3.S3({ endpoint: 'http://localhost:4572' })
+      s3Client = new S3.S3({ endpoint: 'http://localhost:4566' })
     } else {
       s3Client = new S3.S3()
     }
