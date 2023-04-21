@@ -21,7 +21,7 @@ export const handler = async (event, context) => {
           new ScanCommand({
             TableName: tableName,
             AttributesToGet: [
-              "id", "data", "timestamp_utc"
+              "id", "timestamp_utc"
             ]
           })
         )
@@ -31,7 +31,6 @@ export const handler = async (event, context) => {
           items: scanResults.Items.map(function callback(element, index, array){
             return {
               id: element.id.S,
-              title: element.data.L[0].M.title.S,
               timestamp: element.timestamp_utc.S
             }
           })
