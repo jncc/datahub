@@ -1,7 +1,6 @@
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 import {
-  DynamoDBDocumentClient,
-  ScanCommand
+  DynamoDBDocumentClient
 } from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
@@ -18,7 +17,7 @@ export const handler = async (event, context) => {
   try {
     switch (event.routeKey) {
       case "GET /get-all":
-        scanResults = await dynamo.send(
+        const scanResults = await dynamo.send(
           new ScanCommand({
             TableName: tableName,
             AttributesToGet: [
@@ -29,11 +28,11 @@ export const handler = async (event, context) => {
         
         body = {
           count: scanResults.Count,
-          items: scanResults.items.map(function callback(element, index, array){
+          items: scanResults.Items.map(function callback(element, index, array){
             return {
-              id: element.id,
-              title: element.title,
-              timestamp: element.timestamp_utc
+              id: element.id.S,
+              title: element.data.L[0].M.title.S,
+              timestamp: element.timestamp_utc.S
             }
           })
         }
