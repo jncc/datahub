@@ -11,21 +11,15 @@ namespace Datahub.Web.Content
             {
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/daa8e792-a36e-436b-98d7-e2f38e860650",
-                    Title = "The Linking Environment to Trade (LET) Guide",
-                    Abstract = "Published in November 2020, The LET Guide summarises results of an assessment of current thinking and best practice designed to help practitioners and policy makers reduce the embodied environmental impact associated with global trade and consumption."
+                    Url = "https://hub.jncc.gov.uk/assets/ccb9f624-7121-4c32-aefa-e0579d7eaaa1",
+                    Title = "JNCC Strategy",
+                    Abstract = "Our strategy outlines the areas of work that JNCC will undertake, focusing on our role in terrestrial and marine nature conservation and recovery."
                 },
                 new AssetSnippet
                 {
                     Url = "https://hub.jncc.gov.uk/assets/fc25e10e-857b-4c08-a591-30fcd65d96dc",
                     Title = "EO4cultivar Colombia Resources",
                     Abstract = "The resources, including reports, data, and management guides, produced for the Eo4cultivar project’s case study in Colombia, were published in November 2020."
-                },
-                new AssetSnippet
-                {
-                    Url = "https://hub.jncc.gov.uk/assets/048f7e78-a2c6-4982-91c3-e496f063bf2b",
-                    Title = "UK Biodiversity Indicators 2020",
-                    Abstract = "Summary of the 2020 update of the UK Biodiversity Indicators, published on 15 October 2020."
                 },
             },
             Column2Resources = new List<AssetSnippet>
