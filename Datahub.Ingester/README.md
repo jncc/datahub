@@ -67,8 +67,8 @@ Need to upload to S3 as package is >10M you only need the following files at the
 
 ```
 ./
-    aws/
     dynamo/
+    s3/
     node_modules/
     search/
     validation/
