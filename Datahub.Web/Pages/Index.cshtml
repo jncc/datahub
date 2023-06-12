@@ -25,53 +25,46 @@
 <div class="container">
 
 <div class="homepage-header">
-    <div>The JNCC online resource hub portal allows you to explore, download and reuse our corporate, technical and scientific information. In support of our commitment to open access data we produce a broad range of reports and other types of publication, plus an array of datasets. This is part of our commitment to our customers, who include governments, public and private sector organisations and NGOs.
-</div>
-</div>
-
-<div class="grid-x grid-margin-x space-below">
-
-        <div class="cell medium-6 large">
-            <div class="exemplar-list-header">
-                <h2>
-                    <i class="spot-colour space-after fas @(AssetHelpers.GetIconName("publication"))"></i>
-                    Featured publications
-                </h2>
-            </div>
-            @foreach (var a in HomePageContent.Content.FeaturedPublications) {
-                <div class="exemplar">
-                    <div class="exemplar-title">
-                        <i class="space-after fas @(AssetHelpers.GetIconName("publication"))"></i>
-                        @a.Title
-                    </div>
-                    <div>@a.Abstract</div>
-                    <a class="button" href="@a.Url">Find out more</a>
-                </div>
-            }
-        </div>
-
-        <div class="cell medium-6 large">
-            <div class="exemplar-list-header">
-                <h2>
-                    <i class="spot-colour space-after fas @(AssetHelpers.GetIconName("dataset"))"></i>
-                    Featured datasets
-                </h2>
-            </div>
-            @foreach (var a in HomePageContent.Content.FeaturedDatasets) {
-                <div class="exemplar">
-                    <div class="exemplar-title">
-                        <i class="space-after fas @(AssetHelpers.GetIconName("dataset"))"></i>
-                        @a.Title
-                    </div>
-                    <div>@a.Abstract</div>
-                    <a class="button" href="@a.Url">Find out more</a>
-                </div>
-            }
-        </div>
-
+    <div>
+        <p>JNCC's Resource Hub allows you to explore, download and reuse our corporate, technical and scientific information. In support of our commitment to open access data we produce a broad range of reports and other types of publication, plus a number of datasets.</p>
+        <p>Please note, we are still in the process of adding some of the resources that were available on our old website to our Resource Hub, so if you can’t find what you’re looking for here, please <a href="https://jncc.gov.uk/contact/?ref=resources">contact us</a>. In the meantime, the material will be available via The <a href="https://webarchive.nationalarchives.gov.uk/*/http:/jncc.defra.gov.uk/">National Archives version</a> of our website.</p>
+        <p>Use the search function to look for reports, data and other resources.</p>
+    </div>
 </div>
 
 <div class="exemplar-list-header">
+    <h2>
+        Featured resources
+    </h2>
+    <div class="grid-x grid-margin-x space-below">
+        <div class="cell medium-6 large">
+            @foreach (var a in HomePageContent.Content.Column1Resources) {
+                <div class="exemplar">
+                    <div class="exemplar-title">
+                        @a.Title
+                    </div>
+                    <div>@a.Abstract</div>
+                    <a class="button" href="@a.Url">Find out more</a>
+                </div>
+            }
+        </div>
+
+        <div class="cell medium-6 large">
+            @foreach (var a in HomePageContent.Content.Column2Resources) {
+                <div class="exemplar">
+                    <div class="exemplar-title">
+                        @a.Title
+                    </div>
+                    <div>@a.Abstract</div>
+                    <a class="button" href="@a.Url">Find out more</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- TODO add this back when we have keyword search again -->
+<!-- <div class="exemplar-list-header">
     <h2>
         <i class="spot-colour space-after fas fa-layer-group"></i>
         Content categories
@@ -88,7 +81,7 @@
             </div>
         }
     </div>
-</div>
+</div> -->
 
 
 <environment include="Development">

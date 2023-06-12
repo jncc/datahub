@@ -131,7 +131,7 @@
                                     <div class="cell small-11">
                                         <div class="highlightable">
                                             <span>
-                                                <a href="@(d.Http.Url)"
+                                                <a href="@AssetHelpers.EnsureHttpsLinksForDataDotJncc(d.Http.Url)"
                                                     class="space-after"
                                                     data-event="@(d.Http.FileExtension.IsNotBlank() ? "download" : "external")"
                                                     data-size="@(d.Http.FileBytes.IsNotBlank() ? d.Http.FileBytes : "0")"

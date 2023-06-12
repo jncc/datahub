@@ -7,34 +7,40 @@ namespace Datahub.Web.Content
     {
         public static HomePageContent Content = new HomePageContent
         {
-            FeaturedPublications = new List<AssetSnippet>
+            Column1Resources = new List<AssetSnippet>
             {
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/4073feba-5a2f-4fe9-9682-ea098c84d73f",
-                    Title = "Joint Committee Meeting - September 2016",
-                    Abstract = "The one hundred and eighth meeting of the Joint Nature Conservation Committee."
+                    Url = "https://hub.jncc.gov.uk/assets/daa8e792-a36e-436b-98d7-e2f38e860650",
+                    Title = "The Linking Environment to Trade (LET) Guide",
+                    Abstract = "Published in November 2020, The LET Guide summarises results of an assessment of current thinking and best practice designed to help practitioners and policy makers reduce the embodied environmental impact associated with global trade and consumption."
                 },
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/328bf8f3-f1e9-499c-80a5-0ecc81fd7334",
-                    Title = "The use of harbour porpoise sightings data to inform the development of Special Areas of Conservation in UK waters",
-                    Abstract = "This paper describes how harbour porpoise sightings' data were used by the UK’s country nature conservation bodies (CNCBs) to identify possible Special Areas of Conservation (SACs)."
+                    Url = "https://hub.jncc.gov.uk/assets/fc25e10e-857b-4c08-a591-30fcd65d96dc",
+                    Title = "EO4cultivar Colombia Resources",
+                    Abstract = "The resources, including reports, data, and management guides, produced for the Eo4cultivar project’s case study in Colombia, were published in November 2020."
+                },
+                new AssetSnippet
+                {
+                    Url = "https://hub.jncc.gov.uk/assets/048f7e78-a2c6-4982-91c3-e496f063bf2b",
+                    Title = "UK Biodiversity Indicators 2020",
+                    Abstract = "Summary of the 2020 update of the UK Biodiversity Indicators, published on 15 October 2020."
                 },
             },
-            FeaturedDatasets = new List<AssetSnippet>
+            Column2Resources = new List<AssetSnippet>
             {
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/e2a46de5-43d4-43f0-b296-c62134397ce4",
-                    Title = "JNCC guidelines for minimising the risk of injury to marine mammals from geophysical surveys",
-                    Abstract = "These guidelines outline measures to minimise potential injury to marine mammals (cetaceans and seals) from geophysical surveys (e.g. seismic air-guns, sub-bottom profiling equipment).",
+                    Url = "https://hub.jncc.gov.uk/assets/ccb9f624-7121-4c32-aefa-e0579d7eaaa1",
+                    Title = "JNCC Strategy 2020–2025",
+                    Abstract = "Our strategy to 2025 describes how we will enable decision makers to address the inter-related environmental crises of climate change and biodiversity loss."
                 },
                 new AssetSnippet
                 {
                     Url = "https://hub.jncc.gov.uk/assets/d6381e39-baa4-4f12-93d7-fa16dd3600b8",
                     Title = "JNCC Open Data Policy",
-                    Abstract = "Open data is “data that anyone is free to access, use, modify, and share for any purpose – subject, at most, to measures that preserve provenance and openness” (The Open Definition). Open data is recognised in government policy and by civil society as a system of principles..",
+                    Abstract = "Open data is “data that anyone is free to access, use, modify, and share for any purpose – subject, at most, to measures that preserve provenance and openness” (The Open Definition). JNCC collects and processes a wide range of scientific data, and produces and maintains a large number of datasets. Our open data approach is provided in our Open Data Policy.",
                 },
             },
             FeaturedCategories = new List<CategorySnippet>
@@ -86,8 +92,8 @@ namespace Datahub.Web.Content
 
         // end of editable content
 
-        public List<AssetSnippet>    FeaturedPublications { get; private set; }
-        public List<AssetSnippet>    FeaturedDatasets     { get; private set; }
+        public List<AssetSnippet>    Column1Resources     { get; private set; }
+        public List<AssetSnippet>    Column2Resources     { get; private set; }
         public List<CategorySnippet> FeaturedCategories   { get; private set; }
 
     }

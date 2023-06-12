@@ -71,6 +71,13 @@ namespace Datahub.Web
                 }
             }
 
+            // Add X-Frame-Options header to prevent clickjacking
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+                await next();
+            });
+
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseStaticFiles();
             app.UseCookiePolicy();

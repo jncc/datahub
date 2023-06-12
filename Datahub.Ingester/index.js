@@ -5,7 +5,7 @@ const s3 = require('./s3/operations')
 const dynamo = require('./dynamo/operations')
 const sqsMessageBuilder = require('./search/sqsMessageBuilder')
 const sqsMessageSender = require('./search/sqsMessageSender')
-const esMessageSender = require('./search/esMessageSender')
+const lambdaInvoker = require('./search/lambdaInvoker')
 const s3MessageUploader = require('./search/s3MessageUploader')
 
 const maxMessageSize = 256000 //256KB
@@ -134,7 +134,7 @@ async function publishToHub (message, callback) {
   })
 
   // Delete any existing data in search index
-  await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
+  await deleteFromOpensearch(message.asset.id, message.config.elasticsearch.index, callback)
 
   // Send new indexing messages
   var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(messageBodies, message.config)
@@ -145,7 +145,7 @@ async function publishToHub (message, callback) {
 
 async function unpublishFromHub (message, callback) {
   // Delete any existing data in search index
-  await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
+  await deleteFromOpensearch(message.asset.id, message.config.elasticsearch.index, callback)
   // Remove asset from dynamo
   await dynamo.deleteAsset(message.asset.id, message.config.dynamo.table).catch((err) => {
     callback(err)
@@ -160,7 +160,7 @@ async function reindexFromMessage (message, callback) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
   // Remove existing index
-  await deleteFromElasticsearch(message.asset.id, message.config.elasticsearch.index, callback)
+  await deleteFromOpensearch(message.asset.id, message.config.elasticsearch.index, callback)
 
   var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
   if (!sendSuccess) {
@@ -168,9 +168,9 @@ async function reindexFromMessage (message, callback) {
   }
 }
 
-async function deleteFromElasticsearch (id, index, callback) {
-  console.log(`Elasticsearch - Removing records with asset_id '${id}' in index '${index}'`)
-  var { success, messages } = await esMessageSender.deleteByAssetId(id, index)
+async function deleteFromOpensearch (id, index, callback) {
+  console.log(`Opensearch - Removing records with asset_id '${id}' in index '${index}'`)
+  var { success, messages } = await lambdaInvoker.deleteByAssetId(id, index)
   if (!success) {
     callback(new Error(`Failed to delete old search index records for asset ${id}: ${messages.join(', ')}`))
   }

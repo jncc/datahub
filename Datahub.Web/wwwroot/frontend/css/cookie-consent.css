@@ -1,0 +1,35 @@
+/* // CIVIC COOKIE CONTROL CUSTOMISATIONS
+//
+// make hyperlinks look different to normal text */
+.civic-cookie-control-link {
+    text-decoration: underline;
+}
+
+    .civic-cookie-control-link:visited {
+        text-decoration: underline;
+    }
+
+    .civic-cookie-control-link:hover {
+        text-decoration: underline;
+    }
+
+    .civic-cookie-control-link:active {
+        text-decoration: underline;
+    }
+
+.civic-cookie-banner-title {
+    font-size: 2em;
+    margin: 3em 0;
+}
+
+.ccc-notify-text {
+    margin-top: 7em;
+    margin-bottom: 7em;
+    padding-right: 2em;
+}
+
+.cc-panel {
+    padding: 1em;
+}
+/* //
+// END CIVIC COOKIE CONTROL CUSTOMISATIONS */
