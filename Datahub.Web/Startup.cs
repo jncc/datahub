@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using dotenv.net;
-using Datahub.Web.Search;
 using Datahub.Web.Models;
 using Datahub.Web.Data;
 using Microsoft.AspNetCore.Rewrite;
@@ -41,8 +40,6 @@ namespace Datahub.Web
             var dynamodbServiceType = env.DB_TABLE.IsBlank() ? typeof(LocalDevDynamodbService) : typeof(DynamodbService);
             services.AddTransient(typeof(IDynamodbService), dynamodbServiceType);
 
-            services.AddTransient<IElasticsearchService, ElasticsearchService>();
-            services.AddTransient<ISearchBuilder, SearchBuilder>(); 
             services.AddTransient<IS3Service, S3Service>();
 
             services.AddMarkdown();

@@ -4,7 +4,9 @@ module.exports = {
   get AWS_PROFILE () { return process.env.AWS_PROFILE },
   get AWS_REGION () { return process.env.AWS_REGION },
 
-  get ES_ENDPOINT () { return process.env.ES_ENDPOINT },
+  get SEARCH_DELETER_ROLE () { return process.env.SEARCH_DELETER_ROLE },
+  get SEARCH_DELETER_LAMBDA () { return process.env.SEARCH_DELETER_LAMBDA },
+  get SEARCH_DELETER_REGION () { return process.env.SEARCH_DELETER_REGION },
 
   get USE_LOCALSTACK () { return process.env.USE_LOCALSTACK.toLowerCase() === 'true' ? true : false }
 }
