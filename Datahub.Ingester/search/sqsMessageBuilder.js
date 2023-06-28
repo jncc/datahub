@@ -14,7 +14,7 @@ module.exports.createSQSMessages = async function (message) {
       var resource = message.asset.data[id]
       if (resource.http.fileExtension && resource.http.fileBytes > 0) {
         console.log(`Creating message for file resource '${resource.title}'`)
-        var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, resource)
+        var { success, sqsMessage, error } = await createSQSMessageForFileResource(message, id, resource)
         if (success) {
           messages.push(sqsMessage)
         } else {
@@ -114,12 +114,12 @@ function createSQSMessageForWebResource (message, resource) {
  * @param {message} message The initial message passed to the lambda function, containing config and the asset
  * @param {resource} resource The resource in that asset that we need to create a message for
  */
-async function createSQSMessageForFileResource (message, resource) {
+async function createSQSMessageForFileResource (message, resourceIndex, resource) {
   var sqsMessage = {
     index: message.config.elasticsearch.index,
     verb: 'upsert',
     document: {
-      id: uuid4(),
+      id: (message.asset.id + "+" + resourceIndex + "+" + resource.title.toLowerCase().replace(/[^a-z0-9]/g, "")).slice(0,256),
       site: message.config.elasticsearch.site,
       title: resource.title,
       keywords: message.asset.metadata.keywords,
