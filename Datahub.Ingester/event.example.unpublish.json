@@ -4,15 +4,8 @@
       "index": "website-search-dev",
       "site": "datahub"
     },
-    "hub": {
-      "baseUrl": "https://hub.jncc.gov.uk"
-    },
     "dynamo": {
       "table": "datahub-assets-dev"
-    },
-    "sqs": {
-      "queueEndpoint": "http://localhost:4576/queue/datahub-queue-dev",
-      "largeMessageBucket": "datahub-queue-assets-dev"
     },
     "action": "unpublish"
   },

@@ -51,7 +51,7 @@ exports.handler = async function (message, context, callback) {
   }
 
   if (message.config.action === 'unpublish') {
-    const { valid, errors } = validator.validateDeleteMessage(message)
+    const { valid, errors } = validator.validateUnpublishMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
@@ -172,7 +172,7 @@ async function deleteFromOpensearch (id, index, callback) {
   console.log(`Opensearch - Removing records with asset_id '${id}' in index '${index}'`)
   var { success, messages } = await lambdaInvoker.deleteByAssetId(id, index)
   if (!success) {
-    callback(new Error(`Failed to delete old search index records for asset ${id}, DynamoDB record still exists: ${messages.join(', ')}`))
+    callback(new Error(`Failed to delete old search index records for asset ${id}: ${messages.join(', ')}`))
   }
 }
 

@@ -24,9 +24,9 @@ exports.validateS3PublishMessage = function (message) {
   return { valid: true }
 }
 
-exports.validateDeleteMessage = function (message) {
+exports.validateUnpublishMessage = function (message) {
   var ajv = new Ajv({ allErrors: true })
-  var validate = ajv.compile(deleteSchema)
+  var validate = ajv.compile(unpublishSchema)
   var valid = validate(message)
 
   if (!valid) {
@@ -245,12 +245,21 @@ const s3PublishSchema = {
   additionalProperties: false
 }
 
-const deleteSchema = {
+const unpublishSchema = {
   $schema: 'http://json-schema.org/draft-07/schema#',
   definitions: definitions,
   type: 'object',
   properties: {
-    config: { $ref: '#/definitions/config' },
+    config: {
+      type: 'object',
+      properties: {
+        elasticsearch: { $ref: '#/definitions/elasticsearch' },
+        dynamo: { $ref: '#/definitions/dynamo' },
+        action: { type: 'string', pattern: 'unpublish' }
+      },
+      required: ['elasticsearch', 'dynamo', 'action'],
+      additionalProperties: false
+    },
     asset: {
       type: 'object',
       properties: {
