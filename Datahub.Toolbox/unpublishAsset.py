@@ -5,7 +5,7 @@ import boto3
 
 def main(assetId, esIndex, dynamoTable, functionName):
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(asctime)s: %(message)s')
-    logging.info(f'Invoking lambda {functionName} to delete documents related to asset ID {assetId} from {esIndex} elasticsearch index and {dynamoTable} dynamodb table')
+    logging.info(f'Invoking lambda {functionName} to delete documents related to asset ID {assetId} from {esIndex} Opensearch index and {dynamoTable} dynamodb table')
 
     message = {
         "config": {
