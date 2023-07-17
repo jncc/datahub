@@ -11,36 +11,30 @@ namespace Datahub.Web.Content
             {
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/daa8e792-a36e-436b-98d7-e2f38e860650",
-                    Title = "The Linking Environment to Trade (LET) Guide",
-                    Abstract = "Published in November 2020, The LET Guide summarises results of an assessment of current thinking and best practice designed to help practitioners and policy makers reduce the embodied environmental impact associated with global trade and consumption."
+                    Url = "https://hub.jncc.gov.uk/assets/ccb9f624-7121-4c32-aefa-e0579d7eaaa1",
+                    Title = "JNCC Strategy",
+                    Abstract = "Our strategy outlines the areas of work that JNCC will undertake, focusing on our role in terrestrial and marine nature conservation and recovery."
                 },
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/fc25e10e-857b-4c08-a591-30fcd65d96dc",
-                    Title = "EO4cultivar Colombia Resources",
-                    Abstract = "The resources, including reports, data, and management guides, produced for the Eo4cultivar project’s case study in Colombia, were published in November 2020."
-                },
-                new AssetSnippet
-                {
-                    Url = "https://hub.jncc.gov.uk/assets/048f7e78-a2c6-4982-91c3-e496f063bf2b",
-                    Title = "UK Biodiversity Indicators 2020",
-                    Abstract = "Summary of the 2020 update of the UK Biodiversity Indicators, published on 15 October 2020."
+                    Url = "https://hub.jncc.gov.uk/assets/8fab1c70-e45f-4c41-ad5c-5c23fad46dbb",
+                    Title = "UK Biodiversity Indicators 2022",
+                    Abstract = "A summary of the 2022 update of the UK Biodiversity Indicators, published in December 2022."
                 },
             },
             Column2Resources = new List<AssetSnippet>
             {
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/ccb9f624-7121-4c32-aefa-e0579d7eaaa1",
-                    Title = "JNCC Strategy 2020–2025",
-                    Abstract = "Our strategy to 2025 describes how we will enable decision makers to address the inter-related environmental crises of climate change and biodiversity loss."
+                    Url = "https://hub.jncc.gov.uk/assets/19298f4e-a0b8-4b63-895f-4ac21c887ccd",
+                    Title = "Nature Recovery Joint Statement",
+                    Abstract = "Published in November 2022, Nature Recovery for Our Survival, Prosperity and Wellbeing is a Joint Statement produced by the Statutory Nature Conservation Bodies of the UK."
                 },
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/d6381e39-baa4-4f12-93d7-fa16dd3600b8",
-                    Title = "JNCC Open Data Policy",
-                    Abstract = "Open data is “data that anyone is free to access, use, modify, and share for any purpose – subject, at most, to measures that preserve provenance and openness” (The Open Definition). JNCC collects and processes a wide range of scientific data, and produces and maintains a large number of datasets. Our open data approach is provided in our Open Data Policy.",
+                    Url = "https://hub.jncc.gov.uk/assets/6de7bf27-055e-4407-ad29-4814e1613d90",
+                    Title = "Nature Positive 2030",
+                    Abstract = "Nature Positive 2030 was produced by JNCC, Natural England, Natural Resources Wales, NatureScot and the Northern Ireland Environment Agency in September 2021.",
                 },
             },
             FeaturedCategories = new List<CategorySnippet>

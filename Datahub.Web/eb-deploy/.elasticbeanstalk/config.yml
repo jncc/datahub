@@ -8,8 +8,7 @@ environment-defaults:
 global:
   application_name: datahub
   default_ec2_keyname: null
-  default_platform: arn:aws:elasticbeanstalk:eu-west-1::platform/Docker running on
-    64bit Amazon Linux/2.12.9
+  default_platform: docker-20.10.13-ce
   default_region: eu-west-1
   include_git_submodules: true
   instance_profile: null
