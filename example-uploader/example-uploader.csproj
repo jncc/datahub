@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Aws4RequestSigner" Version="0.4.0" />
     <PackageReference Include="dotenv.net" Version="1.0.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
 </Project>
