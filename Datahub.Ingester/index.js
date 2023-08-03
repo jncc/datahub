@@ -85,15 +85,19 @@ exports.handler = async function (message, context, callback) {
 }
 
 async function publishToHub (message, callback) {
+  console.log('Entering publishToHub')
   // Check the asset and its linked data structures exist, generate SQS messages
   var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
   if (!createSuccess) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
 
+  console.log(sqsMessages)
+
   // Check if messages need base64 content adding and save large messages to S3
   var messageBodies = []
   for (var sqsMessage of sqsMessages) {
+    console.log('Looping through sqsMessages')
     var messageBody = sqsMessage
 
     if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
