@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+const sizeof = require('object-sizeof')
+
 const validator = require('./validation/messageValidator')
 const s3 = require('./s3/operations')
 const dynamo = require('./dynamo/operations')
