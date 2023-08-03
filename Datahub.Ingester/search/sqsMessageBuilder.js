@@ -128,6 +128,7 @@ async function createSQSMessageForFileResource (message, resourceIndex, resource
       published_date: message.asset.metadata.datasetReferenceDate,
       url: getHubResourceUrl(message.config.hub.baseUrl, message.asset.id, resource.http.url),
       asset_id: message.asset.id,
+      file_base64: resource.http.fileBase64,
       file_bytes: resource.http.fileBytes,
       file_extension: resource.http.fileExtension
     }

@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+const sizeof = require('object-sizeof')
+
 const validator = require('./validation/messageValidator')
 const s3 = require('./s3/operations')
 const dynamo = require('./dynamo/operations')
@@ -94,7 +96,7 @@ async function publishToHub (message, callback) {
   for (var sqsMessage of sqsMessages) {
     var messageBody = sqsMessage
 
-    if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
+    if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.document.file_extension)) {
       console.log(`Adding base64 file content to SQS message`)
       var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
       var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(message, clonedMessage)
@@ -104,15 +106,19 @@ async function publishToHub (message, callback) {
 
       // check if the message is now too large, if it is then save to S3
       var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
+
       if (largeMessage) {
+        var bucket = message.config.sqs.largeMessageBucket
         var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(messageWithBase64Content, message.config)
         if (!uploadSuccess) {
           callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
+        } else {
+          console.log(`Successfully saved S3 message to ${s3Key} in bucket ${bucket}`)
         }
 
         // message body now points to S3 location
         messageBody = {
-          s3BucketName: message.config.sqs.largeMessageBucket,
+          s3BucketName: bucket,
           s3Key: s3Key
         }
       } else {
