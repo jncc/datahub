@@ -85,7 +85,6 @@ exports.handler = async function (message, context, callback) {
 }
 
 async function publishToHub (message, callback) {
-  console.log('Entering publishToHub')
   // Check the asset and its linked data structures exist, generate SQS messages
   var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
   if (!createSuccess) {
@@ -97,7 +96,6 @@ async function publishToHub (message, callback) {
   // Check if messages need base64 content adding and save large messages to S3
   var messageBodies = []
   for (var sqsMessage of sqsMessages) {
-    console.log('Looping through sqsMessages')
     var messageBody = sqsMessage
 
     if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.document.file_extension)) {
@@ -108,17 +106,11 @@ async function publishToHub (message, callback) {
         callback(new Error(`Failed to add base64 content with the following errors: [${addBase64Errors.join(', ')}]`))
       }
 
-      console.log('Size of content:')
-      console.log(sizeof(messageWithBase64Content))
-
       // check if the message is now too large, if it is then save to S3
       var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
 
-      console.log('Large message?')
-      console.log(largeMessage)
       if (largeMessage) {
         var bucket = message.config.sqs.largeMessageBucket
-        console.log("I'm a large message :)")
         var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(messageWithBase64Content, message.config)
         if (!uploadSuccess) {
           callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
@@ -132,7 +124,6 @@ async function publishToHub (message, callback) {
           s3Key: s3Key
         }
       } else {
-        console.log("I'm a small message :)")
         messageBody = messageWithBase64Content
       }
     }
