@@ -100,7 +100,7 @@ async function publishToHub (message, callback) {
     console.log('Looping through sqsMessages')
     var messageBody = sqsMessage
 
-    if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.file_extension)) {
+    if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.document.file_extension)) {
       console.log(`Adding base64 file content to SQS message`)
       var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
       var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(message, clonedMessage)
