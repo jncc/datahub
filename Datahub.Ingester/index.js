@@ -91,8 +91,6 @@ async function publishToHub (message, callback) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
 
-  console.log(sqsMessages)
-
   // Check if messages need base64 content adding and save large messages to S3
   var messageBodies = []
   for (var sqsMessage of sqsMessages) {
