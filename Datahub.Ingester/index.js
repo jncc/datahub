@@ -109,7 +109,7 @@ async function publishToHub (message, callback) {
       if (largeMessage) {
         console.log('Large message, saving to S3')
         var bucket = message.config.sqs.largeMessageBucket
-        var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(messageWithBase64Content, message.config)
+        var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(sqsMessage, message.config)
         if (!uploadSuccess) {
           callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
         } else {
