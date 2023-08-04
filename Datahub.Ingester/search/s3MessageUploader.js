@@ -8,6 +8,7 @@ const s3 = new AWS.S3({
 })
 
 module.exports.uploadMessageToS3 = async function (message, config) {
+  console.log('Attempting to upload message to S3')
   var errors = []
   var s3Key = uuid4()
   var bucket = config.sqs.largeMessageBucket
