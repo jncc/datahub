@@ -103,24 +103,19 @@ async function publishToHub (message, callback) {
         callback(new Error(`Base64 content not provided for PDF resource for ${sqsMessage.document.title}`))
       }
 
-      // check if the message is too large, if it is then save to S3
-      var largeMessage = sizeof(sqsMessage) > maxMessageSize
+      console.log('Large message, saving to S3')
+      var bucket = message.config.sqs.largeMessageBucket
+      var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(sqsMessage, message.config)
+      if (!uploadSuccess) {
+        callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
+      } else {
+        console.log(`Successfully saved S3 message to ${s3Key} in bucket ${bucket}`)
+      }
 
-      if (largeMessage) {
-        console.log('Large message, saving to S3')
-        var bucket = message.config.sqs.largeMessageBucket
-        var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(sqsMessage, message.config)
-        if (!uploadSuccess) {
-          callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
-        } else {
-          console.log(`Successfully saved S3 message to ${s3Key} in bucket ${bucket}`)
-        }
-
-        // message body now points to S3 location
-        messageBody = {
-          s3BucketName: bucket,
-          s3Key: s3Key
-        }
+      // message body now points to S3 location
+      messageBody = {
+        s3BucketName: bucket,
+        s3Key: s3Key
       }
     }
 
