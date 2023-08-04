@@ -97,15 +97,12 @@ async function publishToHub (message, callback) {
     var messageBody = sqsMessage
 
     if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.document.file_extension)) {
-      console.log(`Adding base64 file content to SQS message`)
-      var clonedMessage = JSON.parse(JSON.stringify(sqsMessage))
-      var { success: addBase64Success, addBase64Errors, messageWithBase64Content } = await addBase64FileContent(message, clonedMessage)
-      if (!addBase64Success) {
-        callback(new Error(`Failed to add base64 content with the following errors: [${addBase64Errors.join(', ')}]`))
+      if (sqsMessage.document.file_base64 === undefined) {
+        callback(new Error(`Base64 content not provided for PDF resource for ${sqsMessage.document.title}`))
       }
 
-      // check if the message is now too large, if it is then save to S3
-      var largeMessage = sizeof(messageWithBase64Content) > maxMessageSize
+      // check if the message is too large, if it is then save to S3
+      var largeMessage = sizeof(sqsMessage) > maxMessageSize
 
       if (largeMessage) {
         var bucket = message.config.sqs.largeMessageBucket
@@ -121,8 +118,6 @@ async function publishToHub (message, callback) {
           s3BucketName: bucket,
           s3Key: s3Key
         }
-      } else {
-        messageBody = messageWithBase64Content
       }
     }
 
@@ -180,22 +175,4 @@ async function deleteFromOpensearch (id, index, callback) {
   if (!success) {
     callback(new Error(`Failed to delete old search index records for asset ${id}: ${messages.join(', ')}`))
   }
-}
-
-async function addBase64FileContent (message, sqsMessage) {
-  var resource = message.asset.data.find(o => o.title === sqsMessage.document.title)
-  var errors = []
-
-  if (resource.http.fileBase64 === undefined) { // if not already provided then download the file
-    await sqsMessageBuilder.getBase64ForFile(resource.http.url).then((response) => {
-      sqsMessage.document.file_base64 = Buffer.from(response.data, 'binary').toString('base64')
-    }).catch((error) => {
-      errors.push(error)
-      return { success: false, errors: errors, messageWithBase64Content: null }
-    })
-  } else {
-    sqsMessage.document.file_base64 = resource.http.fileBase64
-  }
-
-  return { success: true, errors: errors, messageWithBase64Content: sqsMessage }
 }
