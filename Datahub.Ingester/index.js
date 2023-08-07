@@ -94,16 +94,13 @@ async function publishToHub (message, callback) {
   // Check if messages need base64 content adding and save large messages to S3
   var messageBodies = []
   for (var sqsMessage of sqsMessages) {
-    console.log('Looping through sqsMessages')
     var messageBody = sqsMessage
 
     if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.document.file_extension)) {
-      console.log('File is a PDF')
       if (sqsMessage.document.file_base64 === undefined) {
         callback(new Error(`Base64 content not provided for PDF resource for ${sqsMessage.document.title}`))
       }
 
-      console.log('Large message, saving to S3')
       var bucket = message.config.sqs.largeMessageBucket
       var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(sqsMessage, message.config)
       if (!uploadSuccess) {
