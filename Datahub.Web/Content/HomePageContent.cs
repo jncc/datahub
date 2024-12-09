@@ -17,9 +17,9 @@ namespace Datahub.Web.Content
                 },
                 new AssetSnippet
                 {
-                    Url = "https://hub.jncc.gov.uk/assets/8fab1c70-e45f-4c41-ad5c-5c23fad46dbb",
-                    Title = "UK Biodiversity Indicators 2022",
-                    Abstract = "A summary of the 2022 update of the UK Biodiversity Indicators, published in December 2022."
+                    Url = "https://hub.jncc.gov.uk/assets/a6af9b01-f602-4fdc-8bdb-99eed90bbe5c",
+                    Title = "Impact Review 2023 to 2024",
+                    Abstract = "Our Impact Review 2023 to 2024 is our first Impact Review, bringing you the highlights of year one of implementing our strategy Together for Nature."
                 },
             },
             Column2Resources = new List<AssetSnippet>
