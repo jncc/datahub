@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Ingests a single record from Topcat (with validation?) and pushes it into a DynamoDB table and onto an SQS queue for ingestion into the elasticsearch-lambda-ingester function.",
   "main": "index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/jncc/datahub.git"
