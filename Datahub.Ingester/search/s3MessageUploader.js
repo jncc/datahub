@@ -1,13 +1,13 @@
-const env = require('../env')
-const uuid4 = require('uuid/v4')
+import { USE_LOCALSTACK } from '../env'
+import uuid4 from 'uuid/v4'
+import { S3 } from '@aws-sdk/client-s3'
 
-const AWS = require('aws-sdk')
-const s3 = new AWS.S3({
-  endpoint: env.USE_LOCALSTACK ? new AWS.Endpoint('http://localhost:4572') : undefined,
-  s3ForcePathStyle: env.USE_LOCALSTACK
+const s3 = new S3({
+  endpoint: USE_LOCALSTACK ? new AWS.Endpoint('http://localhost:4572') : undefined,
+  s3ForcePathStyle: USE_LOCALSTACK
 })
 
-module.exports.uploadMessageToS3 = async function (message, config) {
+export async function uploadMessageToS3 (message, config) {
   var errors = []
   var s3Key = uuid4()
   var bucket = config.sqs.largeMessageBucket

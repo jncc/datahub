@@ -1,20 +1,20 @@
-const AWS = require('aws-sdk')
-const env = require('../env')
+import { S3Client } from "@aws-sdk/client-s3";
+import { USE_LOCALSTACK } from '../env';
 
 var s3Client = null
 
 function getClient () {
   if (s3Client === null) {
-    if (env.USE_LOCALSTACK) {
-      s3Client = new AWS.S3({ endpoint: 'http://localhost:4572' })
+    if (USE_LOCALSTACK) {
+      s3Client = new S3Client({ endpoint: 'http://localhost:4572' })
     } else {
-      s3Client = new AWS.S3()
+      s3Client = new S3Client()
     }
   }
   return s3Client
 }
 
-module.exports.getMessage = function (bucketName, objectKey) {
+export function getMessage (bucketName, objectKey) {
   console.log(`S3 - Get ${objectKey} from ${bucketName} bucket`)
   var params = {
     Bucket: bucketName,

@@ -1,12 +1,8 @@
+import { SQS } from "@aws-sdk/client-sqs"
 
-
-const env = require('../env')
-
-const AWS = require('aws-sdk')
-
-module.exports.sendMessages = async function (messages, config) {
+export async function sendMessages (messages, config) {
   var errors = []
-  var sqs = new AWS.SQS()
+  var sqs = new SQS()
 
   console.log(`SQS - ${messages.length} messages to send`)
 

@@ -1,20 +1,21 @@
-const AWS = require('aws-sdk')
-const env = require('../env')
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
+import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb"
+import { USE_LOCALSTACK } from '../env'
 
-var dynamo = null
+let dynamo = null
 
 function getClient () {
   if (dynamo === null) {
-    if (env.USE_LOCALSTACK) {
-      dynamo = new AWS.DynamoDB.DocumentClient({ endpoint: 'http://localhost:4569' })
+    if (USE_LOCALSTACK) {
+      dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({ endpoint: 'http://localhost:4569' }))
     } else {
-      dynamo = new AWS.DynamoDB.DocumentClient()
+      dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({ }))
     }
   }
   return dynamo
 }
 
-module.exports.putAsset = function (message) {
+export function putAsset (message) {
   // log something to cloudwatch
   console.log(`DynamoDB - PUT asset ${message.asset.id} into ${message.config.dynamo.table} table`)
 
@@ -32,7 +33,7 @@ module.exports.putAsset = function (message) {
   return getClient().put(params).promise()
 }
 
-module.exports.deleteAsset = function (id, table) {
+export function deleteAsset (id, table) {
   console.log(`DynamoDB - DELETE asset ${id} from ${table} table`)
 
   var params = {
@@ -44,7 +45,7 @@ module.exports.deleteAsset = function (id, table) {
   return getClient().delete(params).promise()
 }
 
-module.exports.getAsset = async function (id, table) {
+export async function getAsset (id, table) {
   console.log(`DynamoDB - GET asset ${id} from ${table} table`)
   var params = {
     TableName: table,

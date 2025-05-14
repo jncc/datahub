@@ -1,22 +1,22 @@
-const env = require('../env')
-const AWS = require('aws-sdk')
+import { SEARCH_DELETER_LAMBDA } from '../env'
+import { LambdaClient } from "@aws-sdk/client-lambda";
 
-module.exports.deleteByAssetId = async function (id, index) {
+export async function deleteByAssetId (id, index) {
   var errors = []
 
-  var lambda = new AWS.Lambda()
+  var lambda = new LambdaClient()
 
   var lambdaParams = {
-    FunctionName: env.SEARCH_DELETER_LAMBDA,
+    FunctionName: SEARCH_DELETER_LAMBDA,
     InvocationType: 'RequestResponse',
     LogType: 'Tail',
     Payload: `{ "id": "${id}", "index": "${index}" }`
   }
 
-  console.log(`Invoking lambda ${env.SEARCH_DELETER_LAMBDA}`)
+  console.log(`Invoking lambda ${SEARCH_DELETER_LAMBDA}`)
   lambda.invoke(lambdaParams, function(err, data) {
     if (err) {
-      console.error(`${env.SEARCH_DELETER_LAMBDA} lambda delete by asset ID '${id}' request failed: ${err}`)
+      console.error(`${SEARCH_DELETER_LAMBDA} lambda delete by asset ID '${id}' request failed: ${err}`)
       errors.push(err)
     }
   })

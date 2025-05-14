@@ -20,22 +20,24 @@
     "deploy": "./node_modules/.bin/node-lambda deploy"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-standard": "^13.0.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "node-lambda": "^1.2.0",
-    "yargs": "^13.3.0"
+    "eslint": "^9.26.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "standard": "^17.1.2",
+    "yargs": "^17.7.2"
   },
   "dependencies": {
-    "ajv": "^6.12.3",
-    "aws-sdk": "^2.814.0",
-    "axios": "^0.21.2",
-    "dotenv": "^8.0.0",
-    "object-sizeof": "^2.6.3",
-    "url-join": "^4.0.1",
-    "uuid": "^3.3.2"
+    "@aws-sdk/client-dynamodb": "^3.808.0",
+    "@aws-sdk/client-lambda": "^3.808.0",
+    "@aws-sdk/client-s3": "^3.808.0",
+    "@aws-sdk/client-sqs": "^3.808.0",
+    "@aws-sdk/lib-dynamodb": "^3.808.0",
+    "ajv": "^8.17.1",
+    "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "object-sizeof": "^2.6.5",
+    "url-join": "^5.0.0",
+    "uuid": "^11.1.0"
   }
 }

@@ -1,11 +1,11 @@
-const axios = require('axios')
-const urljoin = require('url-join')
-const uuid4 = require('uuid/v4')
+import { HUB_BASE_PATH } from '../env'
+import { get } from 'axios'
+import urljoin from 'url-join'
 
 /**
  * Creates the SQS messages for a provided message object
  */
-module.exports.createSQSMessages = async function (message) {
+export async function createSQSMessages (message) {
   var errors = []
   var messages = []
 
@@ -40,22 +40,24 @@ module.exports.createSQSMessages = async function (message) {
  * Create a link to where the asset will live on the hub.
  *
  * @param {uuid} id The id of the asset
+ * @param {string} basePath The base path of the hub, provided by the config object for this lambda
  * @param {url} baseUrl The base URL of the hub, provided by the config object in the inital message
  */
-function getHubUrlFromId (baseUrl, id) {
-  return urljoin(baseUrl, 'assets', id)
+function getHubUrlFromId (baseUrl, basePath, id) {
+  return urljoin(baseUrl, basePath, id)
 }
 
 /**
  * Create a link to hub asset with an anchor to the file resource.
  *
  * @param {url} baseUrl The base URL of the hub, provided by the config object in the inital message
+ * @param {string} basePath The base path of the hub, provided by the config object for this lambda
  * @param {uuid} id The id of the asset
- * @param {url} fileUrl The url of the file resource 
+ * @param {url} fileUrl The url of the file resource
  */
-function getHubResourceUrl (baseUrl, id, fileUrl) {
-  var filenameAnchor = '#' + fileUrl.split('/').pop()
-  return urljoin(baseUrl, 'assets', id, filenameAnchor)
+function getHubResourceUrl (baseUrl, basePath, id, fileUrl) {
+  const filenameAnchor = '#' + fileUrl.split('/').pop()
+  return urljoin(baseUrl, basePath, id, filenameAnchor)
 }
 
 /**
@@ -75,7 +77,7 @@ function createSQSMessageForAssetWithNoResources (message) {
       content: message.asset.metadata.abstract,
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
+      url: getHubUrlFromId(message.config.hub.baseUrl, HUB_BASE_PATH, message.asset.id),
       asset_id: message.asset.id,
       file_bytes: 0
     }
@@ -93,14 +95,14 @@ function createSQSMessageForWebResource (message, resourceIndex, resource) {
     index: message.config.elasticsearch.index,
     verb: 'upsert',
     document: {
-      id: message.asset.id + "+" + resourceIndex,
+      id: message.asset.id + '+' + resourceIndex,
       site: message.config.elasticsearch.site,
       title: resource.title,
       keywords: message.asset.metadata.keywords,
       content: message.asset.metadata.abstract,
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubUrlFromId(message.config.hub.baseUrl, message.asset.id),
+      url: getHubUrlFromId(message.config.hub.baseUrl, HUB_BASE_PATH, message.asset.id),
       asset_id: message.asset.id,
       file_bytes: 0
     }
@@ -119,14 +121,14 @@ async function createSQSMessageForFileResource (message, resourceIndex, resource
     index: message.config.elasticsearch.index,
     verb: 'upsert',
     document: {
-      id: message.asset.id + "+" + resourceIndex,
+      id: message.asset.id + '+' + resourceIndex,
       site: message.config.elasticsearch.site,
       title: resource.title,
       keywords: message.asset.metadata.keywords,
       content: message.asset.metadata.abstract,
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubResourceUrl(message.config.hub.baseUrl, message.asset.id, resource.http.url),
+      url: getHubResourceUrl(message.config.hub.baseUrl, HUB_BASE_PATH, message.asset.id, resource.http.url),
       asset_id: message.asset.id,
       file_base64: resource.http.fileBase64,
       file_bytes: resource.http.fileBytes,
@@ -144,7 +146,7 @@ async function createSQSMessageForFileResource (message, resourceIndex, resource
  *
  * @param {fileExtension} fileExtension The file extension to check
  */
-module.exports.fileTypeIsIndexable = function (fileExtension) {
+export function fileTypeIsIndexable (fileExtension) {
   if (fileExtension === 'pdf') {
     return true
   }
@@ -157,6 +159,6 @@ module.exports.fileTypeIsIndexable = function (fileExtension) {
  *
  * @param {string} url The url to try and fetch
  */
-module.exports.getBase64ForFile = function (url) {
-  return axios.get(url, { responseType: 'arraybuffer' })
+export function getBase64ForFile (url) {
+  return get(url, { responseType: 'arraybuffer' })
 }
