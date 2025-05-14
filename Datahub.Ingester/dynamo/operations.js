@@ -1,12 +1,12 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb"
-import { USE_LOCALSTACK } from '../env'
+import { default as env } from '../env.js'
 
 let dynamo = null
 
 function getClient () {
   if (dynamo === null) {
-    if (USE_LOCALSTACK) {
+    if (env.USE_LOCALSTACK) {
       dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({ endpoint: 'http://localhost:4569' }))
     } else {
       dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({ }))

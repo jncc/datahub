@@ -1,11 +1,11 @@
 import { S3Client } from "@aws-sdk/client-s3";
-import { USE_LOCALSTACK } from '../env';
+import { default as env } from '../env.js';
 
 var s3Client = null
 
 function getClient () {
   if (s3Client === null) {
-    if (USE_LOCALSTACK) {
+    if (env.USE_LOCALSTACK) {
       s3Client = new S3Client({ endpoint: 'http://localhost:4572' })
     } else {
       s3Client = new S3Client()

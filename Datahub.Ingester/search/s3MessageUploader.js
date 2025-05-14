@@ -1,10 +1,10 @@
-import { USE_LOCALSTACK } from '../env'
-import uuid4 from 'uuid/v4'
+import { default as env } from '../env.js'
+import { v4 as uuid4 } from 'uuid'
 import { S3 } from '@aws-sdk/client-s3'
 
 const s3 = new S3({
-  endpoint: USE_LOCALSTACK ? new AWS.Endpoint('http://localhost:4572') : undefined,
-  s3ForcePathStyle: USE_LOCALSTACK
+  endpoint: env.USE_LOCALSTACK ? new AWS.Endpoint('http://localhost:4572') : undefined,
+  s3ForcePathStyle: env.USE_LOCALSTACK
 })
 
 export async function uploadMessageToS3 (message, config) {

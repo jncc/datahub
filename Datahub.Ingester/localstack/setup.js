@@ -4,7 +4,7 @@ import { default as axios } from 'axios';
 import urljoin from 'url-join'
 import { scriptName } from 'yargs'
 import { readFileSync } from 'fs'
-import uuid4 from 'uuid/v4'
+import { v4 as uuid4 } from 'uuid'
 
 const main = async () => {
   scriptName('JNCC Datahub Ingester localstack setup')

@@ -1,12 +1,12 @@
 
 import 'dotenv/config'
-import { validatePublishOrRedindexMessage, validateS3PublishMessage, validateUnpublishMessage } from './validation/messageValidator'
-import { getMessage } from './s3/operations'
-import { putAsset, deleteAsset } from './dynamo/operations'
-import { createSQSMessages, fileTypeIsIndexable } from './search/sqsMessageBuilder'
-import { sendMessages } from './search/sqsMessageSender'
-import { deleteByAssetId } from './search/lambdaInvoker'
-import { uploadMessageToS3 } from './search/s3MessageUploader'
+import { validatePublishOrRedindexMessage, validateS3PublishMessage, validateUnpublishMessage } from './validation/messageValidator.js'
+import { getMessage } from './s3/operations.js'
+import { putAsset, deleteAsset } from './dynamo/operations.js'
+import { createSQSMessages, fileTypeIsIndexable } from './search/sqsMessageBuilder.js'
+import { sendMessages } from './search/sqsMessageSender.js'
+import { deleteByAssetId } from './search/lambdaInvoker.js'
+import { uploadMessageToS3 } from './search/s3MessageUploader.js'
 
 const maxMessageSize = 256000 //256KB
 

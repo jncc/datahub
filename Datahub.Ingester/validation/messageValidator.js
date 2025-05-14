@@ -1,4 +1,5 @@
 import Ajv from 'ajv'
+import addFormats from "ajv-formats"
 
 export function validatePublishOrRedindexMessage (message) {
   var ajv = new Ajv({ allErrors: true })
@@ -14,6 +15,7 @@ export function validatePublishOrRedindexMessage (message) {
 
 export function validateS3PublishMessage (message) {
   var ajv = new Ajv({ allErrors: true })
+  addFormats(ajv)
   var validate = ajv.compile(s3PublishSchema)
   var valid = validate(message)
 

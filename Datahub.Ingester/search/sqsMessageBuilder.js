@@ -1,5 +1,5 @@
-import { HUB_BASE_PATH } from '../env'
-import { get } from 'axios'
+import { default as env } from '../env.js'
+import { default as axios } from 'axios'
 import urljoin from 'url-join'
 
 /**
@@ -77,7 +77,7 @@ function createSQSMessageForAssetWithNoResources (message) {
       content: message.asset.metadata.abstract,
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubUrlFromId(message.config.hub.baseUrl, HUB_BASE_PATH, message.asset.id),
+      url: getHubUrlFromId(message.config.hub.baseUrl, env.HUB_BASE_PATH, message.asset.id),
       asset_id: message.asset.id,
       file_bytes: 0
     }
@@ -102,7 +102,7 @@ function createSQSMessageForWebResource (message, resourceIndex, resource) {
       content: message.asset.metadata.abstract,
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubUrlFromId(message.config.hub.baseUrl, HUB_BASE_PATH, message.asset.id),
+      url: getHubUrlFromId(message.config.hub.baseUrl, env.HUB_BASE_PATH, message.asset.id),
       asset_id: message.asset.id,
       file_bytes: 0
     }
@@ -128,7 +128,7 @@ async function createSQSMessageForFileResource (message, resourceIndex, resource
       content: message.asset.metadata.abstract,
       resource_type: message.asset.metadata.resourceType,
       published_date: message.asset.metadata.datasetReferenceDate,
-      url: getHubResourceUrl(message.config.hub.baseUrl, HUB_BASE_PATH, message.asset.id, resource.http.url),
+      url: getHubResourceUrl(message.config.hub.baseUrl, env.HUB_BASE_PATH, message.asset.id, resource.http.url),
       asset_id: message.asset.id,
       file_base64: resource.http.fileBase64,
       file_bytes: resource.http.fileBytes,
@@ -160,5 +160,5 @@ export function fileTypeIsIndexable (fileExtension) {
  * @param {string} url The url to try and fetch
  */
 export function getBase64ForFile (url) {
-  return get(url, { responseType: 'arraybuffer' })
+  return axios.get(url, { responseType: 'arraybuffer' })
 }
