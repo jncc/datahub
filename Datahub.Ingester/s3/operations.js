@@ -1,7 +1,7 @@
-import { S3Client } from "@aws-sdk/client-s3";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { default as env } from '../env.js';
 
-var s3Client = null
+let s3Client = null
 
 function getClient () {
   if (s3Client === null) {
@@ -16,10 +16,10 @@ function getClient () {
 
 export function getMessage (bucketName, objectKey) {
   console.log(`S3 - Get ${objectKey} from ${bucketName} bucket`)
-  var params = {
+  const command = new GetObjectCommand({
     Bucket: bucketName,
     Key: objectKey
-  }
+  })
 
-  return getClient().getObject(params).promise()
+  return getClient().send(command)
 }

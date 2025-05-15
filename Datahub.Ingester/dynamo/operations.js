@@ -1,5 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
-import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb"
+import { DynamoDBDocumentClient, GetCommand, DeleteCommand, PutCommand } from "@aws-sdk/lib-dynamodb"
 import { default as env } from '../env.js'
 
 let dynamo = null
@@ -19,42 +19,38 @@ export function putAsset (message) {
   // log something to cloudwatch
   console.log(`DynamoDB - PUT asset ${message.asset.id} into ${message.config.dynamo.table} table`)
 
-  var item = {
+  const item = {
     ...message.asset,
     timestamp_utc: new Date().toISOString()
   }
 
-  var params = {
+  const command = new PutCommand({
     TableName: message.config.dynamo.table,
     Item: item
-  }
+  })
 
   // put the asset into the database
-  return getClient().put(params).promise()
+  return getClient().send(command)
 }
 
 export function deleteAsset (id, table) {
   console.log(`DynamoDB - DELETE asset ${id} from ${table} table`)
 
-  var params = {
+  const command = new DeleteCommand({
     TableName: table,
     Key: { id: id }
-  }
+  })
 
   // delete the asset from the database
-  return getClient().delete(params).promise()
+  return getClient().delete(params)
 }
 
 export async function getAsset (id, table) {
   console.log(`DynamoDB - GET asset ${id} from ${table} table`)
-  var params = {
+  const command = {
     TableName: table,
     Key: { id: id }
   }
 
-  return getClient().get(params, (error, data) => {
-    if (error) {
-      console.error(`DynamoDB - Unable to get the item: ${JSON.stringify(error, null, 2)}`)
-    }
-  }).promise()
+  return getClient().send(command)
 }

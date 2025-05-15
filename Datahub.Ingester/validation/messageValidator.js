@@ -3,6 +3,7 @@ import addFormats from "ajv-formats"
 
 export function validatePublishOrRedindexMessage (message) {
   var ajv = new Ajv({ allErrors: true })
+  addFormats(ajv)
   var validate = ajv.compile(publishSchema)
   var valid = validate(message)
 
@@ -28,6 +29,7 @@ export function validateS3PublishMessage (message) {
 
 export function validateUnpublishMessage (message) {
   var ajv = new Ajv({ allErrors: true })
+  addFormats(ajv)
   var validate = ajv.compile(unpublishSchema)
   var valid = validate(message)
 

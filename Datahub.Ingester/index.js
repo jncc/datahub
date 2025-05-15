@@ -31,13 +31,13 @@ export async function handler (message, context, callback) {
       callback(JSON.stringify(errors, null, 2))
     }
 
-    var s3BucketName = message.config.s3.bucketName
-    var s3ObjectKey = decodeURIComponent(message.config.s3.objectKey.replace(/\+/g, " "));
+    const s3BucketName = message.config.s3.bucketName
+    const s3ObjectKey = decodeURIComponent(message.config.s3.objectKey.replace(/\+/g, " "));
 
-    var response = await getMessage(s3BucketName, s3ObjectKey).catch((error) => {
+    const response = await getMessage(s3BucketName, s3ObjectKey).catch((error) => {
       callback(new Error(`Failed to retrieve S3 message`, error))
     })
-    var s3Message = JSON.parse(response.Body.toString())
+    const s3Message = JSON.parse(await response.Body.transformToString())
     console.log(`Retrieved message for record id ${s3Message.asset.id}`)
 
     const { s3MessageValid, s3MessageErrors } = validatePublishOrRedindexMessage(s3Message)
