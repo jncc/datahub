@@ -42,7 +42,7 @@ export function deleteAsset (id, table) {
   })
 
   // delete the asset from the database
-  return getClient().send(params)
+  return getClient().send(command)
 }
 
 export async function getAsset (id, table) {
