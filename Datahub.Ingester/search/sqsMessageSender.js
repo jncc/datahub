@@ -1,23 +1,19 @@
+import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs"
 
-
-const env = require('../env')
-
-const AWS = require('aws-sdk')
-
-module.exports.sendMessages = async function (messages, config) {
+export async function sendMessages (messages, config) {
   var errors = []
-  var sqs = new AWS.SQS()
+  const sqs = new SQSClient({})
 
   console.log(`SQS - ${messages.length} messages to send`)
 
   for (var message of messages) {
-    var params = {
+    const command = new SendMessageCommand({
       MessageBody: JSON.stringify(message),
       QueueUrl: config.sqs.queueEndpoint
-    }
+    })
 
     console.log(`SQS - Sending message ${JSON.stringify(message)} to endpoint ${config.sqs.queueEndpoint}`)
-    await sqs.sendMessage(params).promise().catch((error) => {
+    await sqs.send(command).catch((error) => {
       console.error(`Message was not sent to the queue successfully: ${error}`)
       errors.push(`Message was not sent to the queue successfully: ${error}`)
     })

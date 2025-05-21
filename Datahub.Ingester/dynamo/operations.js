@@ -1,59 +1,56 @@
-const AWS = require('aws-sdk')
-const env = require('../env')
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb"
+import { DynamoDBDocumentClient, GetCommand, DeleteCommand, PutCommand } from "@aws-sdk/lib-dynamodb"
+import { default as env } from '../env.js'
 
-var dynamo = null
+let dynamo = null
 
 function getClient () {
   if (dynamo === null) {
     if (env.USE_LOCALSTACK) {
-      dynamo = new AWS.DynamoDB.DocumentClient({ endpoint: 'http://localhost:4569' })
+      dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({ endpoint: 'http://localhost:4569' }))
     } else {
-      dynamo = new AWS.DynamoDB.DocumentClient()
+      dynamo = DynamoDBDocumentClient.from(new DynamoDBClient({ }))
     }
   }
   return dynamo
 }
 
-module.exports.putAsset = function (message) {
+export function putAsset (message) {
   // log something to cloudwatch
   console.log(`DynamoDB - PUT asset ${message.asset.id} into ${message.config.dynamo.table} table`)
 
-  var item = {
+  const item = {
     ...message.asset,
     timestamp_utc: new Date().toISOString()
   }
 
-  var params = {
+  const command = new PutCommand({
     TableName: message.config.dynamo.table,
     Item: item
-  }
+  })
 
   // put the asset into the database
-  return getClient().put(params).promise()
+  return getClient().send(command)
 }
 
-module.exports.deleteAsset = function (id, table) {
+export function deleteAsset (id, table) {
   console.log(`DynamoDB - DELETE asset ${id} from ${table} table`)
 
-  var params = {
+  const command = new DeleteCommand({
     TableName: table,
     Key: { id: id }
-  }
+  })
 
   // delete the asset from the database
-  return getClient().delete(params).promise()
+  return getClient().send(command)
 }
 
-module.exports.getAsset = async function (id, table) {
+export async function getAsset (id, table) {
   console.log(`DynamoDB - GET asset ${id} from ${table} table`)
-  var params = {
+  const command = {
     TableName: table,
     Key: { id: id }
   }
 
-  return getClient().get(params, (error, data) => {
-    if (error) {
-      console.error(`DynamoDB - Unable to get the item: ${JSON.stringify(error, null, 2)}`)
-    }
-  }).promise()
+  return getClient().send(command)
 }

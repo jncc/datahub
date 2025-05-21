@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-expressions */
-const { exec } = require('child_process')
-const axios = require('axios')
-const urljoin = require('url-join')
-const program = require('yargs')
-const fs = require('fs')
-const uuid4 = require('uuid/v4')
+import { exec } from 'child_process'
+import { default as axios } from 'axios';
+import urljoin from 'url-join'
+import { scriptName } from 'yargs'
+import { readFileSync } from 'fs'
+import { v4 as uuid4 } from 'uuid'
 
 const main = async () => {
-  program
-    .scriptName('JNCC Datahub Ingester localstack setup')
+  scriptName('JNCC Datahub Ingester localstack setup')
     .usage('$0 <cmd> [args]')
     .option('i', {
       alias: 'index',
@@ -180,7 +179,7 @@ async function deleteSearchIndex (index) {
 
 async function insertSearchIndexDummyData (index) {
   console.log(`INSERT dummy data into index - ${index}`)
-  var event = JSON.parse(fs.readFileSync('../event.json'))
+  var event = JSON.parse(readFileSync('../event.json'))
   await axios.put(urljoin('http://localhost:4571', index, '_doc', event.asset.id), {
     site: 'datahub'
   })

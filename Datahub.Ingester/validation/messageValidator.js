@@ -1,7 +1,9 @@
-const Ajv = require('ajv')
+import Ajv from 'ajv'
+import addFormats from "ajv-formats"
 
-exports.validatePublishOrRedindexMessage = function (message) {
+export function validatePublishOrRedindexMessage (message) {
   var ajv = new Ajv({ allErrors: true })
+  addFormats(ajv)
   var validate = ajv.compile(publishSchema)
   var valid = validate(message)
 
@@ -12,8 +14,9 @@ exports.validatePublishOrRedindexMessage = function (message) {
   return { valid: true }
 }
 
-exports.validateS3PublishMessage = function (message) {
+export function validateS3PublishMessage (message) {
   var ajv = new Ajv({ allErrors: true })
+  addFormats(ajv)
   var validate = ajv.compile(s3PublishSchema)
   var valid = validate(message)
 
@@ -24,8 +27,9 @@ exports.validateS3PublishMessage = function (message) {
   return { valid: true }
 }
 
-exports.validateUnpublishMessage = function (message) {
+export function validateUnpublishMessage (message) {
   var ajv = new Ajv({ allErrors: true })
+  addFormats(ajv)
   var validate = ajv.compile(unpublishSchema)
   var valid = validate(message)
 

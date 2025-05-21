@@ -1,23 +1,21 @@
-require('dotenv').config()
 
-const sizeof = require('object-sizeof')
-
-const validator = require('./validation/messageValidator')
-const s3 = require('./s3/operations')
-const dynamo = require('./dynamo/operations')
-const sqsMessageBuilder = require('./search/sqsMessageBuilder')
-const sqsMessageSender = require('./search/sqsMessageSender')
-const lambdaInvoker = require('./search/lambdaInvoker')
-const s3MessageUploader = require('./search/s3MessageUploader')
+import 'dotenv/config'
+import { validatePublishOrRedindexMessage, validateS3PublishMessage, validateUnpublishMessage } from './validation/messageValidator.js'
+import { getMessage } from './s3/operations.js'
+import { putAsset, deleteAsset } from './dynamo/operations.js'
+import { createSQSMessages, fileTypeIsIndexable } from './search/sqsMessageBuilder.js'
+import { sendMessages } from './search/sqsMessageSender.js'
+import { deleteByAssetId } from './search/lambdaInvoker.js'
+import { uploadMessageToS3 } from './search/s3MessageUploader.js'
 
 const maxMessageSize = 256000 //256KB
 
-exports.handler = async function (message, context, callback) {
+export async function handler (message, context, callback) {
   console.log('Running Datahub Ingester')
   console.log(`Received message: ${JSON.stringify(message)}`)
 
   if (message.config.action === 'publish') {
-    const { valid, errors } = validator.validatePublishOrRedindexMessage(message)
+    const { valid, errors } = validatePublishOrRedindexMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
@@ -27,22 +25,22 @@ exports.handler = async function (message, context, callback) {
   }
 
   if (message.config.action === 's3-publish') {
-    const { valid, errors } = validator.validateS3PublishMessage(message)
+    const { valid, errors } = validateS3PublishMessage(message)
 
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
 
-    var s3BucketName = message.config.s3.bucketName
-    var s3ObjectKey = decodeURIComponent(message.config.s3.objectKey.replace(/\+/g, " "));
+    const s3BucketName = message.config.s3.bucketName
+    const s3ObjectKey = decodeURIComponent(message.config.s3.objectKey.replace(/\+/g, " "));
 
-    var response = await s3.getMessage(s3BucketName, s3ObjectKey).catch((error) => {
+    const response = await getMessage(s3BucketName, s3ObjectKey).catch((error) => {
       callback(new Error(`Failed to retrieve S3 message`, error))
     })
-    var s3Message = JSON.parse(response.Body.toString())
+    const s3Message = JSON.parse(await response.Body.transformToString())
     console.log(`Retrieved message for record id ${s3Message.asset.id}`)
 
-    const { s3MessageValid, s3MessageErrors } = validator.validatePublishOrRedindexMessage(s3Message)
+    const { s3MessageValid, s3MessageErrors } = validatePublishOrRedindexMessage(s3Message)
     if (!s3MessageValid) {
       callback(JSON.stringify(s3MessageErrors, null, 2))
     }
@@ -53,7 +51,7 @@ exports.handler = async function (message, context, callback) {
   }
 
   if (message.config.action === 'unpublish') {
-    const { valid, errors } = validator.validateUnpublishMessage(message)
+    const { valid, errors } = validateUnpublishMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
@@ -63,7 +61,7 @@ exports.handler = async function (message, context, callback) {
   }
 
   if (message.config.action === 'reindex') {
-    const { valid, errors } = validator.validatePublishOrRedindexMessage(message)
+    const { valid, errors } = validatePublishOrRedindexMessage(message)
     if (!valid) {
       callback(JSON.stringify(errors, null, 2))
     }
@@ -86,7 +84,7 @@ exports.handler = async function (message, context, callback) {
 
 async function publishToHub (message, callback) {
   // Check the asset and its linked data structures exist, generate SQS messages
-  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
+  var { success: createSuccess, sqsMessages, errors } = await createSQSMessages(message)
   if (!createSuccess) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
@@ -96,13 +94,13 @@ async function publishToHub (message, callback) {
   for (var sqsMessage of sqsMessages) {
     var messageBody = sqsMessage
 
-    if (sqsMessageBuilder.fileTypeIsIndexable(sqsMessage.document.file_extension)) {
+    if (fileTypeIsIndexable(sqsMessage.document.file_extension)) {
       if (sqsMessage.document.file_base64 === undefined) {
         callback(new Error(`Base64 content not provided for PDF resource for ${sqsMessage.document.title}`))
       }
 
       var bucket = message.config.sqs.largeMessageBucket
-      var { success: uploadSuccess, uploadErrors, s3Key } = await s3MessageUploader.uploadMessageToS3(sqsMessage, message.config)
+      var { success: uploadSuccess, uploadErrors, s3Key } = await uploadMessageToS3(sqsMessage, message.config)
       if (!uploadSuccess) {
         callback(new Error(`Failed to upload S3 message with the following errors: [${uploadErrors.join(', ')}]`))
       } else {
@@ -125,7 +123,7 @@ async function publishToHub (message, callback) {
       resource.http.fileBase64 = null
     })
   }
-  await dynamo.putAsset(message).catch((error) => {
+  await putAsset(message).catch((error) => {
     callback(new Error(`Failed to put asset into DynamoDB Table: ${error}`))
   })
 
@@ -133,7 +131,7 @@ async function publishToHub (message, callback) {
   await deleteFromOpensearch(message.asset.id, message.config.elasticsearch.index, callback)
 
   // Send new indexing messages
-  var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(messageBodies, message.config)
+  var { success: sendSuccess, messages } = await sendMessages(messageBodies, message.config)
   if (!sendSuccess) {
     callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))
   }
@@ -143,7 +141,7 @@ async function unpublishFromHub (message, callback) {
   // Delete any existing data in search index
   await deleteFromOpensearch(message.asset.id, message.config.elasticsearch.index, callback)
   // Remove asset from dynamo
-  await dynamo.deleteAsset(message.asset.id, message.config.dynamo.table).catch((err) => {
+  await deleteAsset(message.asset.id, message.config.dynamo.table).catch((err) => {
     callback(err)
   })
 }
@@ -151,14 +149,14 @@ async function unpublishFromHub (message, callback) {
 async function reindexFromMessage (message, callback) {
   // Check the asset and its linked data structures exist, generate messages
   // required to be sent into
-  var { success: createSuccess, sqsMessages, errors } = await sqsMessageBuilder.createSQSMessages(message)
+  var { success: createSuccess, sqsMessages, errors } = await createSQSMessages(message)
   if (!createSuccess) {
     callback(new Error(`Failed to create SQS messages with the following errors: [${errors.join(', ')}]`))
   }
   // Remove existing index
   await deleteFromOpensearch(message.asset.id, message.config.elasticsearch.index, callback)
 
-  var { success: sendSuccess, messages } = await sqsMessageSender.sendMessages(sqsMessages, message.config)
+  var { success: sendSuccess, messages } = await sendMessages(sqsMessages, message.config)
   if (!sendSuccess) {
     callback(new Error(`Failed to send records to search index SQS queue, but new dynamoDB record was inserted and old search index records were deleted: "${messages.join(', ')}"`))
   }
@@ -166,7 +164,7 @@ async function reindexFromMessage (message, callback) {
 
 async function deleteFromOpensearch (id, index, callback) {
   console.log(`Opensearch - Removing records with asset_id '${id}' in index '${index}'`)
-  var { success, messages } = await lambdaInvoker.deleteByAssetId(id, index)
+  var { success, messages } = await deleteByAssetId(id, index)
   if (!success) {
     callback(new Error(`Failed to delete old search index records for asset ${id}: ${messages.join(', ')}`))
   }
