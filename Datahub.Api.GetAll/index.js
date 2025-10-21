@@ -17,18 +17,24 @@ export const handler = async (event, context) => {
   try {
     switch (event.routeKey) {
       case "GET /get-all":
-        const scanResults = await dynamo.send(
-          new ScanCommand({
-            TableName: tableName,
-            AttributesToGet: [
-              "id", "timestamp_utc"
-            ]
-          })
-        )
+        let scanResults = [];
+        let items;
+        let params = {
+          TableName: tableName,
+          AttributesToGet: [
+            "id", "timestamp_utc"
+          ]
+        };
+        
+        do {
+          items = await dynamo.send(new ScanCommand(params));
+          items.Items.forEach((item) => scanResults.push(item));
+          params.ExclusiveStartKey = items.LastEvaluatedKey;
+        } while (typeof items.LastEvaluatedKey != "undefined");
         
         body = {
-          count: scanResults.Count,
-          items: scanResults.Items.map(function callback(element, index, array){
+          count: scanResults.length,
+          items: scanResults.map(function callback(element, index, array){
             return {
               id: element.id.S,
               timestamp: element.timestamp_utc.S
